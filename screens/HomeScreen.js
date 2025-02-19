@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function GradesScreen() {
   return (
     <View style={styles.container}>
-      <Text>HomeScreen</Text>
+      <Text>fdasfdsajklösadjklö</Text>
       <StatusBar style="auto" />
     </View>
   );

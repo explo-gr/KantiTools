@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 // imports regarding navigation
 import TabNavigator from './navigation/BottomTabNavigator.js';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStaticNavigation, NavigationContainer } from '@react-navigation/native'
+import { createStaticNavigation } from '@react-navigation/native'
 
 // import regarding screens
 import GradesScreen from './screens/GradesScreen.js';
