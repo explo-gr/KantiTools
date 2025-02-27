@@ -1,5 +1,4 @@
 // imports regarding general objects
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
 // imports regarding navigation
@@ -12,6 +11,8 @@ import GradesScreen from './screens/GradesScreen.js';
 import HomeScreen from './screens/HomeScreen.js';
 import ReminderScreen from './screens/ReminderScreen.js';
 import SettingsScreen from './screens/SettingsScreen.js';
+import { LanguageProvider } from './context/LanguageContext.js';
+import { ThemeProvider } from './context/ThemeContext.js';
 
 const BottomTabNavigator = createBottomTabNavigator({
   tabBar: (props) => <TabNavigator {...props} />,
@@ -21,13 +22,20 @@ const BottomTabNavigator = createBottomTabNavigator({
     Reminder: ReminderScreen,
     Settings: SettingsScreen
   },
+  screenOptions: {
+    headerShown: false
+  }
 });
 
 const Navigation = createStaticNavigation(BottomTabNavigator);
 
 export default function App() {
   return (
-      <Navigation/>
+    <ThemeProvider>
+      <LanguageProvider>
+        <Navigation/>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 

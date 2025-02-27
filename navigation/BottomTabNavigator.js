@@ -1,23 +1,32 @@
 // imports regarding general ui components
-import { View } from 'react-native';
-import { useLinkBuilder, useTheme } from '@react-navigation/native';
-import { Text, PlatformPressable } from '@react-navigation/elements';
+import { View, StyleSheet, Pressable, Text, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { useLinkBuilder } from '@react-navigation/native';
+import { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
+import Feather from '@expo/vector-icons/Feather';
+import ScaleOnFocus from '../components/ScaleOnFocus';
+import TranslatedText from '../components/TranslatedText';
+
+const icons = {
+  Home: "home",
+  Grades: "file-text",
+  Reminder: "bell",
+  Settings: "settings",
+};
 
 // based on the example given at https://reactnavigation.org/docs/bottom-tab-navigator/?config=static
-export default function TabNavigator({ state, descriptors, navigation }) {
-  const { colors } = useTheme();
+const TabNavigator = ({ state, descriptors, navigation }) => {
+  const { width } = useWindowDimensions();
+  const isCompact = width < 500;
+
+  const { colors, defaultThemedStyles } = useContext(ThemeContext);
   const { buildHref } = useLinkBuilder();
 
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={[{backgroundColor: colors.blue }, styles.navigationContainer, defaultThemedStyles.boxshadow]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-              ? options.title
-              : route.name;
+        const label = route.name;
 
         const isFocused = state.index === index;
 
@@ -41,22 +50,41 @@ export default function TabNavigator({ state, descriptors, navigation }) {
         };
 
         return (
-          <PlatformPressable
+          <TouchableOpacity
             href={buildHref(route.name, route.params)}
-            accessibilityState={isFocused ? { selected: true } : {}}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarButtonTestID}
             key={index.toString()}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1 }}
+            style={{ flex: 1, margin: 3 }}
           >
-            <Text style={{ color: isFocused ? colors.primary : colors.text }}>
-              {label}
-            </Text>
-          </PlatformPressable>
+            <View style={{height: '100%', justifyContent: 'center', flexDirection: isCompact ? 'column' : 'row', alignItems: 'center'}}>
+              <ScaleOnFocus isFocused={isFocused} from={0.8} to={1.1}>
+                <Feather name={icons[route.name]} size={30} color="white" style={{ margin: 5 }}/>
+              </ScaleOnFocus>
+              <TranslatedText style={[{ color: 'white' }, { textAlign: 'center', fontSize: 11 }]}>
+                {label}
+              </TranslatedText>
+            </View>
+          </TouchableOpacity>
         );
       })}
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  navigationContainer: {
+    zIndex: 1,
+    width: '88%',
+    bottom: 20,
+    height: 75,
+    borderRadius: 25,
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    position: 'absolute'
+  }
+});
+
+export default TabNavigator;

@@ -1,11 +1,15 @@
 // imports regarding general objects
 import { StatusBar } from 'expo-status-bar';
+import { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { ThemeContext } from '../context/ThemeContext';
 
-export default function GradesScreen() {
+export default function ReminderScreen() {
+  const { defaultThemedStyles } = useContext(ThemeContext);
+
   return (
-    <View style={styles.container}>
-      <Text>ReminderScreen</Text>
+    <View style={[styles.container, defaultThemedStyles.view]}>
+      <Text style={defaultThemedStyles.text}>ReminderScreen</Text>
       <StatusBar style="auto" />
     </View>
   );

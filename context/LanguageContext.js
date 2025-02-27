@@ -1,15 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, useEffect, useState } from 'react';
 
-import { getLocale } from '../utils/locale';
+import getSystemLanguage from '../utils/localeHelper';
 
-import de from './de';
-import en from './en';
+import de from '../config/translations/de';
+import en from '../config/translations/en';
 
 const translations = { de, en };
 
 export const LanguageContext = createContext();
-
 export const LanguageProvider = ({ children }) => {
     const [ language, setLang ] = useState('en');
     
@@ -19,8 +18,10 @@ export const LanguageProvider = ({ children }) => {
             try {
                 await AsyncStorage.setItem('language', newLanguage);
             } catch {
-                console.error("Failed to set language!\nUsing Fallback language");
+                console.error("Failed to set language!\nKeeping current language");
             }
+        } else {
+            console.warn(`Language "${newLanguage}" doesn't exist, keeping "${language}"`)
         }
     }
 
@@ -37,7 +38,7 @@ export const LanguageProvider = ({ children }) => {
                     selectedLanguage = storedLanguage;
                 } else if (storedLanguage === null) {
                     // first launch
-                    const deviceLocale = getLocale();
+                    const deviceLocale = getSystemLanguage();
                     if (translations[deviceLocale]) {
                         selectedLanguage = deviceLocale;
                     } else {
@@ -48,8 +49,8 @@ export const LanguageProvider = ({ children }) => {
                 }
 
                 setLang(selectedLanguage);
-            } catch {
-                console.error("Failed to load language!");
+            } catch (e) {
+                console.error(`Failed to load language!\n${e}`);
             }
         }
 
@@ -63,6 +64,8 @@ export const LanguageProvider = ({ children }) => {
     );
 
 }
+
+export const SupportedLanguages = Object.keys(translations);
 
 //https://react-native-async-storage.github.io/async-storage/docs/api
 //https://react.dev/learn/passing-data-deeply-with-context

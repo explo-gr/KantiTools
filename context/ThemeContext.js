@@ -8,16 +8,32 @@ export const ThemeProvider = ({ children }) => {
     const theme = useColorScheme();
     const colors = getColorPalette(theme);
 
-    const defaultThemedStyle = useMemo(() => {
-        const defaultThemedStyles = StyleSheet.create({
-            background: {
-                backgroundColor: colors.generic
-            },
+    const defaultThemedStyles = useMemo(() => {
+        const defaultThemedStyle = StyleSheet.create({
             card: {
-                backgroundColor: colors.generic
+                backgroundColor: colors.generic,
+                borderColor: colors.blue,
+                borderRadius: 10,
+                borderWidth: 4
             },
             text: {
-                color: colors.hardContrast
+                color: colors.hardContrast,
+            },
+            textContrast: {
+                color: colors.generic,
+            },
+            cardHighlight: {
+                backgroundColor: colors.blue,
+                borderColor: colors.blue,
+                borderRadius: 10,
+                borderWidth: 4
+            },
+            boxshadow: {
+                shadowColor: 'black',
+                elevation: 10
+            },
+            view: {
+                backgroundColor: colors.generic
             }
         });
 
@@ -25,7 +41,7 @@ export const ThemeProvider = ({ children }) => {
     }, [theme]);
 
     return (
-        <ThemeContext.Provider value={{ colors, defaultThemedStyle }}>
+        <ThemeContext.Provider value={{ colors, defaultThemedStyles }}>
             { children }
         </ThemeContext.Provider>
     )

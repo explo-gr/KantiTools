@@ -1,4 +1,6 @@
 export default {
     generic: '#000000',
-    hardContrast: '#FFFFFF'
+    hardContrast: '#FFFFFF',
+    gray: '#404040',
+    blue: '#3466AA'
 }
