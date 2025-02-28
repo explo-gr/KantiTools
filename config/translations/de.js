@@ -1,17 +1,25 @@
-//en_US
+//de_CH
 export default {
-    //generic
+    // generic
     greeting: "Hallo!",
     welcome: "Willkommen!",
 
-    //lang
-    en: "Englisch",
-    de: "Deutsch",
-
-    //settings
+    
+    // settings
     st_sld_lang: "Derzeit ausgewählte Sprache: ",
+    st_hd_app: "Anzeige",
+    st_prf_thm: "Bevorzugtes Aussehen: ",
 
-    //Tabbar
+        // lang
+        en: "Englisch",
+        de: "Deutsch",
+
+        // theme
+        dark: 'Dunkel',
+        white: 'Hell',
+        system: 'System',
+
+    // Tabbar
     Home: "Start",
     Grades: "Noten",
     Reminder: "Erinnerungen",

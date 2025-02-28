@@ -15,35 +15,35 @@ import { LanguageProvider } from './context/LanguageContext.js';
 import { ThemeProvider } from './context/ThemeContext.js';
 
 const BottomTabNavigator = createBottomTabNavigator({
-  tabBar: (props) => <TabNavigator {...props} />,
-  screens: {
-    Home: HomeScreen,
-    Grades: GradesScreen,
-    Reminder: ReminderScreen,
-    Settings: SettingsScreen
-  },
-  screenOptions: {
-    headerShown: false
-  }
+    tabBar: (props) => <TabNavigator {...props} />,
+    screens: {
+        Home: HomeScreen,
+        Grades: GradesScreen,
+        Reminder: ReminderScreen,
+        Settings: SettingsScreen
+    },
+    screenOptions: {
+        headerShown: false
+    }
 });
 
 const Navigation = createStaticNavigation(BottomTabNavigator);
 
 export default function App() {
-  return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <Navigation/>
-      </LanguageProvider>
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider>
+            <LanguageProvider>
+                <Navigation/>
+            </LanguageProvider>
+        </ThemeProvider>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

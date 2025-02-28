@@ -55,27 +55,27 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
             >
                 <View style={[{backgroundColor: colors.generic, borderColor: colors.blue}, styles.buttonShell, defaultThemedStyles.boxshadow]}>
                     <Feather name="chevron-down" size={24} color={colors.blue} />
-                    <TranslatedText style={{color: colors.hardContrast}}>
+                    <TranslatedText style={{color: colors.hardContrast, marginRight: 3}}>
                         { selectedItem || '---' }
                     </TranslatedText>
                 </View>
             </TouchableOpacity>
 
-                <Modal
-                    animationType="fade"
-                    transparent={true}
-                    statusBarTranslucent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => setModalVisible(!modalVisible)}
-                >
-                        <View style={[{ maxHeight, width: width * 0.7 }, styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
-                            <FlatList
-                                data={entries}
-                                keyExtractor={item => item}
-                                renderItem={({ item }) => <Item item={item}/> }
-                            />
-                        </View>
-                </Modal>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                statusBarTranslucent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(!modalVisible)}
+            >
+                <View style={[{ maxHeight, width: width * 0.7 }, styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
+                    <FlatList
+                        data={entries}
+                        keyExtractor={item => item}
+                        renderItem={({ item }) => <Item item={item}/> }
+                    />
+                </View>
+            </Modal>
         </View>
     )
 }
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
-        padding: 25,
+        padding: 24,
         position: "absolute",
         left: '50%',
         top: '50%',
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     },
     entryText: {
         fontWeight: 'bolder',
-        fontSize: 30
+        fontSize: 30,
     },
     entryView: {
         alignSelf: 'center',
@@ -107,12 +107,13 @@ const styles = StyleSheet.create({
     },
     buttonShell: {
         height: 50,
-        width: 100,
+        maxWidth: 200,
+        minWidth: 100,
         borderWidth: 3,
         borderRadius: 22.5,
-        padding: 3,
+        padding: 6,
 
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row'
     },

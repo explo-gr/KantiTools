@@ -5,36 +5,59 @@ import { StyleSheet, Text, View } from 'react-native';
 import DropdownSelect from '../components/DropdownSelect';
 import { LanguageContext, SupportedLanguages } from '../context/LanguageContext';
 import { ThemeContext } from '../context/ThemeContext';
+import SettingsItem from '../components/SettingsItem';
+import Divider from '../components/Divider';
+import SettingsCategoryHeader from '../components/SettingsCategoryHeader';
 
+const SettingsScreen = () => {
+    const { defaultThemedStyles } = useContext(ThemeContext);
 
-export default function SettingsScreen() {
-  const { defaultThemedStyles } = useContext(ThemeContext);
-  const { language, setLanguage, t } = useContext(LanguageContext);
-  const [ selectedLanguage, setSelectedLanguage ] = useState(language);
+    // Language Settings
+    const { language, setLanguage, t } = useContext(LanguageContext);
+    const [ selectedLanguage, setSelectedLanguage ] = useState(language);
 
-  return (
-    <View style={[styles.container, defaultThemedStyles.view]}>
-      <Text style={defaultThemedStyles.text}>{t("st_sld_lang") + t(selectedLanguage)}</Text>
-      <DropdownSelect
-        entries={[ ...SupportedLanguages, "dada", "dadada", "fdjaklfds", "12", "421", "wwww"]}
-        selectedItem={selectedLanguage}
-        onSelect={(lang) => {
-          if (lang !== selectedLanguage) {
-            setSelectedLanguage(lang);
-            setLanguage(lang);
-          }
-        }}
-      />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    // Theme Settings
+    const [ themeBehaviour, setThemeBehaviour ] = useState('system');
+    const themeStates = ['dark', 'white', 'system'];
+
+    return (
+        <View style={[styles.container, defaultThemedStyles.view]}>
+            <SettingsCategoryHeader>
+                st_hd_app
+            </SettingsCategoryHeader>
+            <Divider/>
+            <SettingsItem title={t("st_sld_lang")}>
+                <DropdownSelect
+                    entries={[ ...SupportedLanguages ]}
+                    selectedItem={selectedLanguage}
+                    onSelect={(lang) => {
+                        if (lang !== selectedLanguage) {
+                            setSelectedLanguage(lang);
+                            setLanguage(lang);
+                        }
+                    }}
+                />
+            </SettingsItem>
+            <SettingsItem title={t("st_prf_thm")}>
+                <DropdownSelect
+                    entries={[ ...themeStates ]}
+                    selectedItem={themeBehaviour}
+                    onSelect={(theme) => setThemeBehaviour(theme)}
+                />
+            </SettingsItem>
+            <Divider/>
+            <StatusBar style="auto" />
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        paddingTop: 25
+    },
 });
+
+export default SettingsScreen;

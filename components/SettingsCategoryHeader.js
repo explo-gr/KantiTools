@@ -1,0 +1,48 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { LanguageContext } from "../context/LanguageContext";
+import { StyleSheet, View, Text } from "react-native";
+import Feather from '@expo/vector-icons/Feather';
+
+const SettingsCategoryHeader = ({ children, icon }) => {
+    const { colors } = useContext(ThemeContext);
+    const { t } = useContext(LanguageContext);
+
+    if (typeof children !== 'string') {
+        console.warn('Title must be of type string');
+        return null;
+    }
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.textcontainer}>
+                <Feather name={icon || 'edit-2'} size={24} color={colors.blue} />
+                <Text style={[{color: colors.blue}, styles.text]}>
+                    { t(children) }
+                </Text>
+            </View>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'flex-start',
+        margin: 2,
+        width: '90%',
+        alignSelf: 'center',
+        marginTop: 25
+    },
+    textcontainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    text: {
+        fontWeight: 'bold',
+        fontSize: 28,
+        marginLeft: 3
+    }
+});
+
+export default SettingsCategoryHeader;

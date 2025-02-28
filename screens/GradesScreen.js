@@ -5,20 +5,20 @@ import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 
 export default function GradesScreen() {
-  const { defaultThemedStyles } = useContext(ThemeContext);
+    const { defaultThemedStyles } = useContext(ThemeContext);
 
-  return (
-    <View style={[styles.container, defaultThemedStyles.view]}>
-      <Text style={defaultThemedStyles.text}>GradesScreen</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+        <View style={[styles.container, defaultThemedStyles.view]}>
+            <Text style={defaultThemedStyles.text}>GradesScreen</Text>
+            <StatusBar style="auto" />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
 });

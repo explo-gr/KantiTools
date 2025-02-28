@@ -1,4 +1,4 @@
-import { createContext, useMemo } from "react";
+import { createContext, useEffect, useMemo } from "react";
 import getColorPalette from "../utils/getColorPalette";
 import { StyleSheet, useColorScheme } from "react-native";
 
@@ -8,13 +8,19 @@ export const ThemeProvider = ({ children }) => {
     const theme = useColorScheme();
     const colors = getColorPalette(theme);
 
+    useEffect(() => {
+        const loadTheme = async () => {
+            // hm das isch lästiger als was i denkt han
+        }
+    }, [])
+
     const defaultThemedStyles = useMemo(() => {
         const defaultThemedStyle = StyleSheet.create({
             card: {
                 backgroundColor: colors.generic,
                 borderColor: colors.blue,
                 borderRadius: 10,
-                borderWidth: 4
+                borderWidth: 2.5
             },
             text: {
                 color: colors.hardContrast,
