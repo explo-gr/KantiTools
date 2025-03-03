@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ThemeContext } from '../context/ThemeContext';
 
-export default function ReminderScreen() {
+const ReminderScreen = () => {
     const { defaultThemedStyles } = useContext(ThemeContext);
 
     return (
@@ -23,3 +23,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
+export default ReminderScreen;

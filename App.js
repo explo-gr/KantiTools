@@ -1,39 +1,38 @@
-// imports regarding general objects
-import { StyleSheet, Text, View } from 'react-native';
-
-// imports regarding navigation
-import TabNavigator from './navigation/BottomTabNavigator.js';
+// Necessary imports
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStaticNavigation } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native';
 
-// import regarding screens
+// Import screens
 import GradesScreen from './screens/GradesScreen.js';
 import HomeScreen from './screens/HomeScreen.js';
 import ReminderScreen from './screens/ReminderScreen.js';
 import SettingsScreen from './screens/SettingsScreen.js';
+
+// Import context providers
 import { LanguageProvider } from './context/LanguageContext.js';
 import { ThemeProvider } from './context/ThemeContext.js';
 
-const BottomTabNavigator = createBottomTabNavigator({
-    tabBar: (props) => <TabNavigator {...props} />,
-    screens: {
-        Home: HomeScreen,
-        Grades: GradesScreen,
-        Reminder: ReminderScreen,
-        Settings: SettingsScreen
-    },
-    screenOptions: {
-        headerShown: false
-    }
-});
+// Import custom tab bar
+import TabNavigator from './navigation/BottomTabNavigator.js';
 
-const Navigation = createStaticNavigation(BottomTabNavigator);
+const Tab = createBottomTabNavigator();
 
 export default function App() {
     return (
         <ThemeProvider>
             <LanguageProvider>
-                <Navigation/>
+                <NavigationContainer>
+                    <Tab.Navigator 
+                        tabBar={(props) => <TabNavigator {...props} />} 
+                        screenOptions={{ headerShown: false }}
+                    >
+                        <Tab.Screen name="Home" component={HomeScreen} />
+                        <Tab.Screen name="Grades" component={GradesScreen} />
+                        <Tab.Screen name="Reminder" component={ReminderScreen} />
+                        <Tab.Screen name="Settings" component={SettingsScreen} />
+                    </Tab.Navigator>
+                </NavigationContainer>
             </LanguageProvider>
         </ThemeProvider>
     );

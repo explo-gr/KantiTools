@@ -11,8 +11,11 @@ export default {
     st_prf_thm: "Bevorzugtes Aussehen: ",
 
         // lang
-        en: "Englisch",
         de: "Deutsch",
+        en: "Englisch",
+        es: "Spanisch",
+        fr: "Französisch",
+        rm: "Romanisch",
 
         // theme
         dark: 'Dunkel',

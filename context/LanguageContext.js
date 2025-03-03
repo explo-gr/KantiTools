@@ -5,8 +5,11 @@ import getSystemLanguage from '../utils/localeHelper';
 
 import de from '../config/translations/de';
 import en from '../config/translations/en';
+import es from '../config/translations/es';
+import fr from '../config/translations/fr';
+import rm from '../config/translations/rm';
 
-const translations = { de, en };
+const translations = { de, en, es, fr, rm };
 
 export const LanguageContext = createContext();
 export const LanguageProvider = ({ children }) => {
