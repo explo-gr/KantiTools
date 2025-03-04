@@ -21,23 +21,28 @@ const getMondayDate = () => {
 
 const reconstructDates = () => {
     const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
-    let initialDate = getMondayDate();
+    let date = getMondayDate();
 
-    const constructDate = () => `${initialDate.getDate()}. ${months[initialDate.getMonth()]}`;
+    const constructDate = () => `${date.getDate()}. ${months[date.getMonth()]}`;
     const from = constructDate();
-    initialDate.setDate(initialDate.getDate() + 4);
+    date.setDate(date.getDate() + 4);
     const to = constructDate();
 
     return {
         from: from,
-        to: to
+        to: to,
+        year: date.getFullYear(),
     }
 }
 
 const reconstructURL = () => {
-    const { from, to } = reconstructDates();
+    const { from, to, year } = reconstructDates();
     const base = "https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/wvb/Menueplaene/Documents/";
-    return `${base} Menüplan Mense Münzmühle Woche vom ${from} bis ${to}.pdf`;
+
+    return {
+        url: `${base} Menüplan Mensa Münzmühle Woche vom ${from} bis ${to}.pdf`,
+        id: `${year}-${from}-${to}`,
+    }
 }
 
 export default reconstructURL;

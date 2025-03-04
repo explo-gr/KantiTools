@@ -1,30 +1,7 @@
 import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
 import React, { useState } from 'react'
 import * as cheerio from 'cheerio';
-
-let logs = ["--- ANFANG ---"];
-
-const Logger = () => {
-    const [ activeLogs, setActiveLogs ] = useState(logs);
-
-    const printscr = (...text) => {
-        setActiveLogs( l => [...l, ...text]);
-        console.log(...text);
-    }
-
-    const clearscr = () => {
-        setActiveLogs( l => []);
-    }
-
-    const DebugView = () => {
-        return (
-            activeLogs.map((text, index) => <Text style={styles.logtext} key={index}>{text}</Text>)
-        );
-    }
-
-    return { printscr, clearscr, DebugView };
-};
-
+import Logger from './Logger';
 
 const HOST = {
     LOGIN: "https://schulnetz.bks-campus.ch/loginto.php?pageid=2131",
@@ -162,7 +139,7 @@ const SchulnetzNotenTest = () => {
 
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',

@@ -2,7 +2,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { useContext, useState } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
+import { ThemeContext, useThemes } from '../context/ThemeContext';
 import { createStackNavigator } from '@react-navigation/stack';
 import ToggleSwitch from '../components/ToggleSwitch';
 import HomeMenuplan from './subscreens/home/menuplan';
@@ -10,7 +10,7 @@ import HomeDetails from './subscreens/home/details';
 
 // Main Home Screen
 const HomeMain = ({ navigation }) => {
-    const { defaultThemedStyles } = useContext(ThemeContext);
+    const { defaultThemedStyles } = useThemes();
     const [state, setState] = useState(false);
 
     return (

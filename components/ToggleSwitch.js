@@ -1,10 +1,10 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
-import { ThemeContext } from "../context/ThemeContext";
+import { useThemes } from "../context/ThemeContext";
 import Animated, { useSharedValue, withSpring, ReduceMotion } from 'react-native-reanimated';
 
 const ToggleSwitch = ({ state, changeState }) => {
-    const { defaultThemedStyles, colors } = useContext(ThemeContext);
+    const { defaultThemedStyles, colors } = useThemes();
     const width = useSharedValue(state ? 73 : 32);
 
     console.log(state)

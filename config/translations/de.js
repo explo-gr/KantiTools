@@ -16,6 +16,7 @@ export default {
         es: "Spanisch",
         fr: "Französisch",
         rm: "Romanisch",
+        it: "Italienisch",
 
         // theme
         dark: 'Dunkel',

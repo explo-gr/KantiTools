@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import { FlatList, Modal, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
 import TranslatedText from "./TranslatedText";
-import { ThemeContext } from "../context/ThemeContext";
+import { ThemeContext, useThemes } from "../context/ThemeContext";
 import ScaleOnFocus from "./ScaleOnFocus";
 import Feather from '@expo/vector-icons/Feather';
 
 
 const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
     const [ modalVisible, setModalVisible ] = useState(false);
-    const { defaultThemedStyles, colors } = useContext(ThemeContext);
+    const { defaultThemedStyles, colors } = useThemes();
 
     const { height, width } = useWindowDimensions();
     const maxHeight = Math.floor(height * 0.7);

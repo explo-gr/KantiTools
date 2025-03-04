@@ -15,26 +15,29 @@ import { ThemeProvider } from './context/ThemeContext.js';
 
 // Import custom tab bar
 import TabNavigator from './navigation/BottomTabNavigator.js';
+import { SettingsProvider } from './context/SettingsContext.js';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
     return (
-        <ThemeProvider>
-            <LanguageProvider>
-                <NavigationContainer>
-                    <Tab.Navigator 
-                        tabBar={(props) => <TabNavigator {...props} />} 
-                        screenOptions={{ headerShown: false }}
-                    >
-                        <Tab.Screen name="Home" component={HomeScreen} />
-                        <Tab.Screen name="Grades" component={GradesScreen} />
-                        <Tab.Screen name="Reminder" component={ReminderScreen} />
-                        <Tab.Screen name="Settings" component={SettingsScreen} />
-                    </Tab.Navigator>
-                </NavigationContainer>
-            </LanguageProvider>
-        </ThemeProvider>
+        <SettingsProvider>
+            <ThemeProvider>
+                <LanguageProvider>
+                    <NavigationContainer>
+                        <Tab.Navigator 
+                            tabBar={(props) => <TabNavigator {...props} />} 
+                            screenOptions={{ headerShown: false }}
+                        >
+                            <Tab.Screen name="Home" component={HomeScreen} />
+                            <Tab.Screen name="Grades" component={GradesScreen} />
+                            <Tab.Screen name="Reminder" component={ReminderScreen} />
+                            <Tab.Screen name="Settings" component={SettingsScreen} />
+                        </Tab.Navigator>
+                    </NavigationContainer>
+                </LanguageProvider>
+            </ThemeProvider>
+        </SettingsProvider>
     );
 }
 

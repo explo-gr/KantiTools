@@ -8,10 +8,11 @@ import en from '../config/translations/en';
 import es from '../config/translations/es';
 import fr from '../config/translations/fr';
 import rm from '../config/translations/rm';
+import it from '../config/translations/it';
 
-const translations = { de, en, es, fr, rm };
+const translations = { de, en, es, fr, rm, it };
 
-export const LanguageContext = createContext();
+const LanguageContext = createContext();
 export const LanguageProvider = ({ children }) => {
     const [ language, setLang ] = useState('en');
     
@@ -69,6 +70,7 @@ export const LanguageProvider = ({ children }) => {
 }
 
 export const SupportedLanguages = Object.keys(translations);
+export const useTranslations = () => React.useContext(LanguageContext);
 
 //https://react-native-async-storage.github.io/async-storage/docs/api
 //https://react.dev/learn/passing-data-deeply-with-context

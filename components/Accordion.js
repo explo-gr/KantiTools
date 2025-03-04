@@ -1,13 +1,13 @@
 import { useContext, useMemo } from "react";
 import { StyleSheet, TouchableHighlight, TouchableWithoutFeedback, View } from "react-native"
-import { ThemeContext } from "../context/ThemeContext";
+import { useThemes } from "../context/ThemeContext";
 import Animated, { useSharedValue, withSpring, ReduceMotion } from 'react-native-reanimated';
-import { LanguageContext } from "../context/LanguageContext";
+import { useTranslations } from "../context/LanguageContext";
 import Feather from '@expo/vector-icons/Feather';
 
 const Accordion = ({ state, changeState, title, children }) => {
-    const { defaultThemedStyles, colors } = useContext(ThemeContext);
-    const { t } = useContext(LanguageContext);
+    const { defaultThemedStyles, colors } = useThemes();
+    const { t } = useTranslations();
 
     const width = useSharedValue(0);
 

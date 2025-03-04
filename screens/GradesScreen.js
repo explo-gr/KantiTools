@@ -1,13 +1,12 @@
 // imports regarding general objects
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
+import { useThemes } from '../context/ThemeContext';
 import { createStackNavigator } from '@react-navigation/stack';
 import SchulnetzNotenTest from '../components/SchulnetzNotenTest';
 
 const GradesMain = ({ navigation }) => {
-    const { defaultThemedStyles } = useContext(ThemeContext);
+    const { defaultThemedStyles } = useThemes();
 
     return (
         <View style={[styles.container, defaultThemedStyles.view]}>

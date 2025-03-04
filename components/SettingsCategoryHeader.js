@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
-import { LanguageContext } from "../context/LanguageContext";
+import { useThemes } from "../context/ThemeContext";
+import { useTranslations } from "../context/LanguageContext";
 import { StyleSheet, View, Text } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
 
 const SettingsCategoryHeader = ({ children, icon }) => {
-    const { colors } = useContext(ThemeContext);
-    const { t } = useContext(LanguageContext);
+    const { colors } = useThemes();
+    const { t } = useTranslations();
 
     if (typeof children !== 'string') {
         console.warn('Title must be of type string');

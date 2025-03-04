@@ -1,18 +1,17 @@
-import { createContext, useEffect, useMemo } from "react";
+import React, { createContext, useEffect, useMemo } from "react";
 import getColorPalette from "../utils/getColorPalette";
 import { StyleSheet, useColorScheme } from "react-native";
+import { useSettings } from "./SettingsContext";
+import { useTheme } from '../hooks/useTheme';
 
-export const ThemeContext = createContext();
+const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-    const theme = useColorScheme();
+    const { settings } = useSettings();
+    
+    const theme = useTheme();
     const colors = getColorPalette(theme);
-
-    useEffect(() => {
-        const loadTheme = async () => {
-            // hm das isch lästiger als was i denkt han
-        }
-    }, [])
+    
 
     const defaultThemedStyles = useMemo(() => {
         const defaultThemedStyle = StyleSheet.create({
@@ -51,4 +50,6 @@ export const ThemeProvider = ({ children }) => {
             { children }
         </ThemeContext.Provider>
     )
-}
+};
+
+export const useThemes = () => React.useContext(ThemeContext);

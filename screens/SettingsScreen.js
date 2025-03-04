@@ -8,6 +8,10 @@ import { ThemeContext } from '../context/ThemeContext';
 import SettingsItem from '../components/SettingsItem';
 import Divider from '../components/Divider';
 import SettingsCategoryHeader from '../components/SettingsCategoryHeader';
+import { useSettings } from '../context/SettingsContext';
+
+// Account management de 
+// https://docs.expo.dev/versions/latest/sdk/securestore/
 
 const SettingsScreen = () => {
     const { defaultThemedStyles } = useContext(ThemeContext);
@@ -19,6 +23,8 @@ const SettingsScreen = () => {
     // Theme Settings
     const [ themeBehaviour, setThemeBehaviour ] = useState('system');
     const themeStates = ['dark', 'white', 'system'];
+
+    const { settings, changeSetting } = useSettings();
 
     return (
         <View style={[styles.container, defaultThemedStyles.view]}>
@@ -41,8 +47,8 @@ const SettingsScreen = () => {
             <SettingsItem title={t("st_prf_thm")}>
                 <DropdownSelect
                     entries={[ ...themeStates ]}
-                    selectedItem={themeBehaviour}
-                    onSelect={(theme) => setThemeBehaviour(theme)}
+                    selectedItem={settings.theme}
+                    onSelect={(theme) => changeSetting('theme', theme)}
                 />
             </SettingsItem>
             <Divider/>

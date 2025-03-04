@@ -7,6 +7,3 @@ const getColorPalette = (theme) => {
 }
 
 export default getColorPalette;
-//create stylesheet je noch farb
-//use memo für wenn dfarb sich nicht ändert
-//ka hans vfergässa

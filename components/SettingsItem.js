@@ -1,11 +1,10 @@
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
-import { LanguageContext } from "../context/LanguageContext";
+import { useThemes } from "../context/ThemeContext";
+import { useTranslations } from "../context/LanguageContext";
 import { View, Text, StyleSheet } from 'react-native'
 
 const SettingsItem = ({ children, title, ...props }) => {
-    const { defaultThemedStyles } = useContext(ThemeContext);
-    const { t } = useContext(LanguageContext);
+    const { defaultThemedStyles } = useThemes();
+    const { t } = useTranslations();
 
     if (typeof title !== 'string') {
         console.warn('Title must be of type string');
