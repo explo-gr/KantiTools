@@ -4,18 +4,19 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
 // Import screens
-import GradesScreen from './screens/GradesScreen.js';
-import HomeScreen from './screens/HomeScreen.js';
-import ReminderScreen from './screens/ReminderScreen.js';
-import SettingsScreen from './screens/SettingsScreen.js';
+import GradesScreen from './src/screens/Grades/GradesScreen';
+import HomeScreen from './src/screens/Home/HomeScreen';
+import ReminderScreen from './src/screens/Reminder/ReminderScreen';
+import SettingsScreen from './src/screens/Settings/SettingsScreen';
 
 // Import context providers
-import { LanguageProvider } from './context/LanguageContext.js';
-import { ThemeProvider } from './context/ThemeContext.js';
+import { LanguageProvider } from './src/context/LanguageContext.js';
+import { ThemeProvider, useThemes } from './src/context/ThemeContext.js';
 
 // Import custom tab bar
-import TabNavigator from './navigation/BottomTabNavigator.js';
-import { SettingsProvider } from './context/SettingsContext.js';
+import TabNavigator from './src/navigation/navigators/BottomTabNavigator';
+import { SettingsProvider } from './src/context/SettingsContext.js';
+import { StatusBar } from 'expo-status-bar';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,8 +27,8 @@ export default function App() {
                 <LanguageProvider>
                     <NavigationContainer>
                         <Tab.Navigator 
-                            tabBar={(props) => <TabNavigator {...props} />} 
-                            screenOptions={{ headerShown: false }}
+                            tabBar={(props) => <TabNavigator {...props} />}
+                            screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true      }}
                         >
                             <Tab.Screen name="Home" component={HomeScreen} />
                             <Tab.Screen name="Grades" component={GradesScreen} />
@@ -40,12 +41,3 @@ export default function App() {
         </SettingsProvider>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

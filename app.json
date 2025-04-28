@@ -1,32 +1,33 @@
 {
-  "expo": {
-    "name": "KantiTools",
-    "slug": "KantiTools",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "expo-localization",
-      "expo-secure-store"
-    ]
-  }
+    "expo": {
+        "name": "KantiTools",
+        "slug": "KantiTools",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./src/assets/icons/icon.png",
+        "userInterfaceStyle": "automatic",
+        "newArchEnabled": true,
+        "splash": {
+            "image": "./src/assets/splash/splash-icon.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./src/assets/icons/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "softwareKeyboardLayoutMode": "pan"
+        },
+        "web": {
+            "favicon": "./src/assets/icons/favicon.png"
+        },
+        "plugins": [
+            "expo-localization",
+            "expo-secure-store"
+        ]
+    }
 }

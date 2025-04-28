@@ -1,5 +1,0 @@
-Sacha woni macha muas
-[x] Style Bottom Tab Navigator
-[x] Translation support
-[ ] Layout bi da iistelliga nit so behinder macha, luag dass a box drum umma goht so mit margin, sust bürokratie
-[ ] Bottom Tab Nav kann iiklappt wärda

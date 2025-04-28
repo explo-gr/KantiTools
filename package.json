@@ -13,15 +13,15 @@
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/stack": "^7.1.2",
     "cheerio": "^1.0.0-rc.12",
-    "expo": "~52.0.23",
+    "expo": "^52.0.46",
     "expo-blur": "~14.0.3",
     "expo-localization": "~16.0.1",
+    "expo-secure-store": "~14.0.1",
     "expo-status-bar": "~2.0.0",
     "react": "18.3.1",
-    "react-native": "0.76.5",
+    "react-native": "^0.76.9",
     "react-native-gesture-handler": "~2.20.2",
-    "react-native-reanimated": "~3.16.1",
-    "expo-secure-store": "~14.0.1"
+    "react-native-reanimated": "~3.16.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
