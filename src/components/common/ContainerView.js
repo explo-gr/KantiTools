@@ -17,7 +17,7 @@ const ContainerView = ({ children, style }) => {
             justifyContent: 'center',
             alignItems: 'center',
             flex: 1,
-            backgroundColor: 'red'
+            //backgroundColor: 'white'
         }
       ]}>
         <View style={[
@@ -26,7 +26,7 @@ const ContainerView = ({ children, style }) => {
                 width: '94%',
                 height: '95%',
                 flex: 1,
-                backgroundColor: 'yellow'
+                //backgroundColor: 'white'
             }
         ]}>
             { children }

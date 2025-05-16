@@ -31,7 +31,7 @@ const getLoginHash = async (uri) => {
 
 const scrapePageData = async (uri) => {
     const USERNAME = "coray.gian-marco@bks-campus.ch";
-    const PASSWORD = "";
+    const PASSWORD = "APPLESUCKS";
     const LOGINHASH = await getLoginHash(uri);
 
     if (LOGINHASH == null) return null;

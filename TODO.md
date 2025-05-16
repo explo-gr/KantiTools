@@ -17,8 +17,6 @@ Für hüt - Iistelliga
 [x] "container component"
 [~] schönes design
 [x] login screen
-[ ] Putza umfrog 👶👶👶👶👶
-[ ] Büacher ussuacha und so tua also ob iis vergässa hetti
 
 
 Stand for App:
