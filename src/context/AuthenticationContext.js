@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (username, password) => {
-        // TODO: Tests login to see if it works
         await CredentialsStorage.saveCredentials(username, password);
         setUser({ username, password });
     };
