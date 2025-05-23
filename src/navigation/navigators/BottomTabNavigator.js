@@ -16,7 +16,7 @@ const TabNavigator = ({ state, descriptors, navigation }) => {
     const { buildHref } = useLinkBuilder();
 
     return (
-        <View style={[{backgroundColor: colors.blue }, styles.navigationContainer, defaultThemedStyles.boxshadow]}>
+        <View style={[{ backgroundColor: colors.blue }, styles.navigationContainer, defaultThemedStyles.boxshadow]}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
                 const label = route.name;
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
         bottom: 20,
         height: 75,
         borderRadius: 25,
+        gap: 3,
         flexDirection: 'row',
         alignSelf: 'center',
         justifyContent: 'space-between',

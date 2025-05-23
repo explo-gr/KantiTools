@@ -54,7 +54,7 @@ const getSubjectData = (document) => {
         const rawConfirmationHref = prevTr.find('td').find('a').eq(0).attr('href');
         
         if (rawConfirmationHref && rawConfirmationHref.indexOf(',') > -1 && rawConfirmationHref.indexOf(')') > -1) {
-            subjectData.confirmationHref = rawConfirmationHref.substring(rawConfirmationHref.indexOf(',') + 2, rawConfirmationHref.indexOf(')') - 2);
+            subjectData.confirmationHref = rawConfirmationHref.substring(rawConfirmationHref.indexOf(',') + 2, rawConfirmationHref.indexOf(')') - 1);
         }
 
         let examArray = [];

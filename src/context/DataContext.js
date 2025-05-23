@@ -40,6 +40,9 @@ const DataProvider = ({ children }) => {
 
         try {
             let response = null;
+
+            // DataContex und api so anpassen, dass nach dem ersten Login
+            // die gleiche Instanz behalten wird?
             if (!forceNetwork) {
                 response = await api.authenticateAndFetch({
                     url,

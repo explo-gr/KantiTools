@@ -1,10 +1,18 @@
 //it_IT
 export default {
-    // generico
+    // generic
     greeting: "Ciao!",
     welcome: "Benvenuto!",
 
-    // impostazioni
+    // home
+    hm_gr_morning: "Buongiorno",
+    hm_gr_forenoon: "Buongiorno",
+    hm_gr_midday: "Buon pomeriggio",
+    hm_gr_afternoon:"Buon pomeriggio",
+    hm_gr_evening: "Buonasera",
+    hm_gr_night: "Buonanotte",
+
+    // settings
     st_sld_lang: "Lingua selezionata attualmente: ",
     st_hd_app: "Aspetto",
     st_prf_thm: "Tema preferito: ",
@@ -17,7 +25,7 @@ export default {
         it: "italiano",
         rm: "romancio",
 
-        // tema
+        // theme
         dark: 'Scuro',
         white: 'Chiaro',
         system: 'Sistema',

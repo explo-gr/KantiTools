@@ -19,11 +19,11 @@ const SntzAccountManagement = ({ navigation }) => {
     const [ inputEnabled, setInputEnabled ] = useState(false);
 
     const validateLogin = async () => {
-        const response = await api.authenticateAndFetch({
+/*         const response = await api.authenticateAndFetch({
             url: api.HOST.START,
             username: inputtedEmail,
             password: inputtedPassword
-        })
+        }) */
 
         if (response) {
             login(inputtedEmail, inputtedPassword);

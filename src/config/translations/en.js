@@ -3,6 +3,14 @@ export default {
     // generic
     greeting: "Hello!",
     welcome: "Welcome!",
+
+    // home
+    hm_gr_morning: "Good morning",
+    hm_gr_forenoon: "Good morning",
+    hm_gr_midday: "Good afternoon",
+    hm_gr_afternoon:"Good afternoon",
+    hm_gr_evening: "Good evening",
+    hm_gr_night: "Good night",
     
     // settings
     st_sld_lang: "Currently selected language: ",

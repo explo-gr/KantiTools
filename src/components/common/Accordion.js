@@ -5,7 +5,8 @@ import { useTranslations } from "../../context/LanguageContext";
 import Feather from '@expo/vector-icons/Feather';
 import Divider from '../../components/common/Divider'
 
-const Accordion = ({ isOpen, changeIsOpen, title, children }) => {
+// TODO: TINT
+const Accordion = ({ isOpen, changeIsOpen, title, children, tint }) => {
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
 

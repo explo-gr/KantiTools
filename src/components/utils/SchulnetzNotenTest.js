@@ -1,7 +1,7 @@
 import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
 import React, { useState } from 'react'
 import _Logger from './Logger';
-import getSubjectData from '../../lib/sntz/gradeTableParser';
+import getSubjectData from '../../lib/sntz/parsers/gradeTableParser';
 
 const HOST = Object.freeze({
     LOGIN: "https://schulnetz.bks-campus.ch/loginto.php?pageid=2131",
@@ -32,7 +32,7 @@ const getLoginHash = async (uri) => {
 const scrapePageData = async (uri) => {
     const USERNAME = "coray.gian-marco@bks-campus.ch";
     const PASSWORD = "APPLESUCKS";
-    const LOGINHASH = await getLoginHash(uri);
+    const LOGINHASH = await getLoginHash(HOST.LOGIN);
 
     if (LOGINHASH == null) return null;
 
@@ -94,9 +94,15 @@ const SchulnetzNotenTest = () => {
                             console.log(`------------------------------------`);
                         })
 
-                        parsed_subjects.forEach((e) => {
+                        /* parsed_subjects.forEach((e) => {
                             console.log(e.exams.length);
-                        })
+                        }) */
+
+                        // das het funktioniart!!!
+                        // console.log(parsed_subjects[1].confirmationHref)
+                        // fetch("https://schulnetz.bks-campus.ch/" + parsed_subjects[1].confirmationHref);
+
+                        
 
                         Logger.printscr("\nPARSED\n", "ir konsola","\nRAW\n", html_raw);
                     }}

@@ -119,7 +119,7 @@ const findFallbackURL = async () => {
 
         const $ = cheerio.load(html);
         const links = $('a[href]').map((_, el) => $(el).attr('href')).get();
-        const pdfLink = links.find(href => href.includes('Woche') && href.endsWith('.pdf'));
+        const pdfLink = links.findLast(href => href.includes('Woche') && href.endsWith('.pdf'));
 
         return pdfLink ? `https://www.gr.ch${pdfLink}` : null;
     } catch (err) {

@@ -4,7 +4,15 @@ export default {
     greeting: "Allegra!",
     welcome: "Bienvegni!",
 
-    // settings
+    // home
+    hm_gr_morning: "Bien gi",
+    hm_gr_forenoon: "Bien gi",
+    hm_gr_midday: "Buna sera",
+    hm_gr_afternoon:"Buna sera",
+    hm_gr_evening: "Buna sera",
+    hm_gr_night: "Buna notg",
+
+    // Settings
     st_sld_lang: "Lingua actuala: ",
     st_hd_app: "Cumparsa",
     st_prf_thm: "Stil dal design: ",

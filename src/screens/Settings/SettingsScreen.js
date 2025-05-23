@@ -14,4 +14,7 @@ const GradesScreen = () => {
     );
 }
 
+// ma kanns im ganza Context wrappa
+// settingsmain gitt dä eignetlichi komponent zrugg, gwrapped aber im provder
+
 export default GradesScreen;
