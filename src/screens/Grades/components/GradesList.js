@@ -7,7 +7,7 @@ const LoadingIndicator = () => {
     return <ActivityIndicator size="large" />;
 }
 
-const GradesList = () => {
+/* const GradesList = () => {
     const { grades, isReady } = useData();
     const [ gradesReady, setGradesReady ] = useState(false);
 
@@ -35,6 +35,8 @@ const GradesList = () => {
             })}
         </ScrollView>
     );
-}
+} */
+
+const GradesList = () => <></>;
 
 export default GradesList;

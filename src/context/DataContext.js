@@ -1,13 +1,9 @@
 // contexts/DataContext.js
 import React, { createContext, useEffect, useState, useContext, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AuthContext from './AuthContext';
+import AuthContext from './AuthenticationContext';
 import api from '../lib/sntz/api';
-import {
-    gradeTableParser,
-    // attendanceParser,
-    // timetableParser
-} from '../lib/sntz/parsers';
+import gradeTableParser from '../lib/sntz/parsers/gradeTableParser';
 
 const DataContext = createContext(null);
 

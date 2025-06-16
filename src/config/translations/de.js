@@ -11,6 +11,10 @@ export default {
     hm_gr_afternoon:"Guten Nachmittag",
     hm_gr_evening: "Guten Abend",
     hm_gr_night: "Gute Nacht",
+
+    // reminder
+    re_title: "Titel",
+    re_create: "Notiz erstellen",
     
     // settings
     st_sld_lang: "Derzeit ausgewählte Sprache: ",

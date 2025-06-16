@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }) => {
             card: {
                 backgroundColor: colors.generic,
                 borderColor: colors.blue,
-                borderRadius: 10,
+                borderRadius: 15,
                 borderWidth: 2.5
             },
             text: {

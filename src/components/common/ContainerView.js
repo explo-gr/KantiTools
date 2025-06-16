@@ -10,29 +10,29 @@ const ContainerView = ({ children, style }) => {
     const addedPadding = headerHeight === 0 ? 40 : headerHeight;
 
     return (
-      <View style={[
-        defaultThemedStyles.view,
-        {
-            paddingTop: addedPadding,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flex: 1,
-            //backgroundColor: 'white'
-        }
-      ]}>
         <View style={[
-            style,
+            defaultThemedStyles.view,
             {
-                width: '94%',
-                height: '95%',
+                paddingTop: addedPadding,
+                justifyContent: 'center',
+                alignItems: 'center',
                 flex: 1,
                 //backgroundColor: 'white'
             }
         ]}>
-            { children }
-            <StatusBar style={theme === 'dark' ? 'light' : 'dark'}/>
+            <View style={[
+                style,
+                {
+                    width: '94%',
+                    height: '95%',
+                    flex: 1,
+                    //backgroundColor: 'white'
+                }
+            ]}>
+                {children}
+                <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
+            </View>
         </View>
-      </View>
     );
 }
 
