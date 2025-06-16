@@ -44,3 +44,13 @@ Reminder
 
 Settings
 - schualnetz login management fehlt
+
+<Stack.Navigator>
+  <Stack.Screen
+    name="Settings"
+    component={SettingsScreen}
+    options={{
+      header: () => <CustomHeader showBack={true} animated={true} />
+    }}
+  />
+</Stack.Navigator>

@@ -2,23 +2,28 @@
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, StyleSheet } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
+import { DataProvider } from '../../../context/DataContext';
+import GradesList from './GradesList';
 
 const GradesMain = ({ navigation }) => {
     const { defaultThemedStyles } = useThemes();
 
     return (
-        <View style={[styles.container, defaultThemedStyles.view]}>
-            <Text style={defaultThemedStyles.text}>GradesScreen</Text>
-            <Button
-                title="Go to Screen2"
-                onPress={() => navigation.navigate('GradesDebug')}
-            />
+        <DataProvider>
+            <View style={[styles.container, defaultThemedStyles.view]}>
+                <Text style={defaultThemedStyles.text}>GradesScreen</Text>
+                <Button
+                    title="Go to Screen2"
+                    onPress={() => navigation.navigate('GradesDebug')}
+                />
 
-            <Button
-                title="Go to Screen3"
-                onPress={() => navigation.navigate('GradesGradeCalculation')}
-            />
-        </View>
+                <Button
+                    title="Go to Screen3"
+                    onPress={() => navigation.navigate('GradesGradeCalculation')}
+                />
+            </View>
+            <GradesList/>
+        </DataProvider>
     );
 }
 

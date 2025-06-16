@@ -12,80 +12,61 @@ import {
 const DataContext = createContext(null);
 
 const DATA_KEYS = {
-    GRADES: 'cached_grades',
+    grades: 'cached_grades',
     // ATTENDANCE: 'cached_attendance',
     // TIMETABLE: 'cached_timetable'
 };
 
 const DataProvider = ({ children }) => {
-    const { user, loading } = useContext(AuthContext);
-
+    const { user, authIsReady } = useContext(AuthContext);
     const [isReady, setIsReady] = useState(false); // unified readiness flag
-    const [loadingStates, setLoadingStates] = useState({
-        grades: false,
-        // attendance: false,
-        // timetable: false
-    });
-
     const [grades, setGrades] = useState({ data: null, cached: false });
-    // const [attendance, setAttendance] = useState({ data: null, cached: false });
-    // const [timetable, setTimetable] = useState({ data: null, cached: false });
 
-    const fetchAndStore = useCallback(async (key, url, parser, setState, forceNetwork = false, type = null) => {
-        if (!user || loading) return;
+    // key, urls, parser, setState, type = null
+    const fetchAndStore = useCallback(async (queryItems = [{ url: null, key: null, parser: (_) => null, setState: () => null }]) => {
+        if (!user || !isReady) return;
 
-        if (type) {
-            setLoadingStates(prev => ({ ...prev, [type]: true }));
-        }
+        const rawData = await api.fetchSntzPages(
+            queryItems.map({ url, key }),
+            user.username,
+            user.password
+        );
 
-        try {
-            let response = null;
+        for (const { key, setState, parser } of queryItems) {
+            if (rawData[key]) {
+                const parsedData = parser(rawData[key]);
+                setState({ data: parsedData, cached: false });
 
-            // DataContex und api so anpassen, dass nach dem ersten Login
-            // die gleiche Instanz behalten wird?
-            if (!forceNetwork) {
-                response = await api.authenticateAndFetch({
-                    url,
-                    username: user.username,
-                    password: user.password
-                });
-            }
-
-            if (response) {
-                const parsed = parser(response);
-                setState({ data: parsed, cached: false });
-                await AsyncStorage.setItem(key, JSON.stringify(parsed));
+                AsyncStorage.setItem(DATA_KEYS[key], parsedData);
             } else {
-                const cached = await AsyncStorage.getItem(key);
+                const cached = await AsyncStorage.getItem(DATA_KEYS[key]);
                 if (cached) {
-                    setState({ data: JSON.parse(cached), cached: true });
+                    setState({ data: cached, cached: true });
                 } else {
-                    setState({ data: null, cached: false });
+                    setState({ data: null, cached: false })
                 }
             }
-        } catch (error) {
-            console.error(`Error fetching/storing ${type}:`, error);
-        } finally {
-            if (type) {
-                setLoadingStates(prev => ({ ...prev, [type]: false }));
-            }
         }
-    }, [user, loading]);
 
-    const refreshAll = useCallback(async (forceNetwork = false) => {
-        if (loading || !user) return;
+    }, [user, isReady]);
+
+    const refreshAll = useCallback(async () => {
+        if (!isReady || !user) return;
 
         setIsReady(false);
-        await Promise.all([
-            fetchAndStore(DATA_KEYS.GRADES, api.HOST.GRADES, gradeTableParser, setGrades, forceNetwork, 'grades'),
-            //fetchAndStore(DATA_KEYS.ATTENDANCE, api.HOST.ATTENDANCE, attendanceParser, setAttendance, forceNetwork, 'attendance'),
-            //fetchAndStore(DATA_KEYS.TIMETABLE, api.HOST.TIMETABLE, timetableParser, setTimetable, forceNetwork, 'timetable')
+        await fetchAndStore([
+            {
+                url: api.HOST.GRADES, // url wia data_key direkt fum key abhängig macha? 
+                key: 'grades',
+                parser: gradeTableParser,
+                setState: setGrades
+            }
         ]);
         setIsReady(true);
-    }, [fetchAndStore, user, loading]);
+    }, [fetchAndStore, user, authIsReady]);
 
     useEffect(() => {
-        if (loading || !user) return;
+        if (authIsReady || !user) return;
         refreshAll();
     }, [user, loading, refreshAll]);
 
@@ -95,11 +76,10 @@ const DataProvider = ({ children }) => {
             // attendance,
             // timetable,
             refreshAll,
-            refreshGrades: () => fetchAndStore(DATA_KEYS.GRADES, api.HOST.GRADES, gradeTableParser, setGrades, true, 'grades'),
             // refreshAttendance: () => fetchAndStore(DATA_KEYS.ATTENDANCE, api.HOST.ATTENDANCE, attendanceParser, setAttendance, true, 'attendance'),
             // refreshTimetable: () => fetchAndStore(DATA_KEYS.TIMETABLE, api.HOST.TIMETABLE, timetableParser, setTimetable, true, 'timetable'),
             isReady,
-            loadingStates
+            // loadingStates
         }}>
             {children}
         </DataContext.Provider>

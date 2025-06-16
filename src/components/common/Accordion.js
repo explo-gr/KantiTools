@@ -6,6 +6,7 @@ import Feather from '@expo/vector-icons/Feather';
 import Divider from '../../components/common/Divider'
 
 // TODO: TINT
+//       CUSTOM TITLE
 const Accordion = ({ isOpen, changeIsOpen, title, children, tint }) => {
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
