@@ -74,15 +74,20 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(!modalVisible)}
             >
-                <View style={[{
-                        maxHeight,
-                        width: width * 0.7
-                    }, styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
-                    <FlatList
-                        data={entries}
-                        keyExtractor={item => item}
-                        renderItem={({ item }) => <Item item={item}/> }
-                    />
+                <View style={{
+                    flex: 1,
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                }}>
+                    <View style={[{
+                            maxHeight,
+                            width: width * 0.7
+                        }, styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
+                        <FlatList
+                            data={entries}
+                            keyExtractor={item => item}
+                            renderItem={({ item }) => <Item item={item}/> }
+                        />
+                    </View>
                 </View>
             </Modal>
         </View>
@@ -95,12 +100,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     modalContainer: {
-        flex: 1,
         padding: 24,
         position: "absolute",
         left: '50%',
         top: '50%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        backgroundColor: 'rgba(0,0,0,0.4)'
     },
     entryText: {
         fontWeight: 'bolder',

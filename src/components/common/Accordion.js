@@ -26,31 +26,38 @@ const Accordion = ({ isOpen, changeIsOpen, title, children, tint }) => {
     }));
 
     return (
-        <View style={[styles.accordionContainer, defaultThemedStyles.card]}>
-            <TouchableOpacity onPress={() => {
-                changeIsOpen(!isOpen);
-                rotation.value = withTiming(!isOpen ? 180 : 0, {
-                    duration: 200,
-                    easing: Easing.inOut(Easing.linear),
-                    reduceMotion: ReduceMotion.System,
-                });
+        <View style={[styles.accordionContainer, defaultThemedStyles.card, {
+            backgroundColor: tint + '14' // slightly tint the background
+        }]}>
+            <TouchableOpacity            
+                onPress={() => {
+                    changeIsOpen(!isOpen);
+                    rotation.value = withTiming(!isOpen ? 180 : 0, {
+                        duration: 250,
+                        easing: Easing.inOut(Easing.linear),
+                        reduceMotion: ReduceMotion.System,
+                    });
 
-                height.value = withTiming(!isOpen ? maxHeight : minHeight, {
-                    duration: 200,
-                    easing: Easing.inOut(Easing.linear),
-                    reduceMotion: ReduceMotion.System,
+                    height.value = withTiming(!isOpen ? maxHeight : minHeight, {
+                        duration: 250,
+                        easing: Easing.inOut(Easing.ease),
+                        reduceMotion: ReduceMotion.System,
                 });
             }}>
                 <View style={styles.headerContainer}>
+                    <Text style={[styles.titleText, defaultThemedStyles.text]}>{t(title)}</Text>
                     <Animated.View style={[styles.chevronContainer, chevronAnimationStyle]}>
                         <Feather name="chevron-down" size={30} color={colors.hardContrast} />
                     </Animated.View>
-                    <Text style={[styles.titleText, defaultThemedStyles.text]}>{t(title)}</Text>
                 </View>
             </TouchableOpacity>
             <Animated.View style={[styles.contentContainer, openingAnimationStyle]}>
-                <Divider />
-                {children}
+                <Divider/>
+                <View style={{
+                    padding: 12
+                }}>
+                    {children}
+                </View>
             </Animated.View>
         </View>
     );
@@ -66,7 +73,7 @@ const styles = StyleSheet.create({
         height: 60,
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
         paddingVertical: 8,
     },
     chevronContainer: {

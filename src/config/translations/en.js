@@ -3,6 +3,8 @@ export default {
     // generic
     greeting: "Hello!",
     welcome: "Welcome!",
+    ok: "OK",
+    cancel: "Cancel",
 
     // home
     hm_gr_morning: "Good morning",
@@ -11,6 +13,14 @@ export default {
     hm_gr_afternoon:"Good afternoon",
     hm_gr_evening: "Good evening",
     hm_gr_night: "Good night",
+
+    // reminder
+    re_title: "Title",
+    re_phd_title: "Enter title",
+    re_create: "Add Todo",
+    re_phd_description: "Enter Description",
+    re_description: "Description",
+    re_tint: "Tint",
     
     // settings
     st_sld_lang: "Currently selected language: ",

@@ -3,6 +3,8 @@ export default {
     // generic
     greeting: "Hallo!",
     welcome: "Willkommen!",
+    ok: "OK",
+    cancel: "Abbrechen",
 
     // home
     hm_gr_morning: "Guten Morgen",
@@ -14,7 +16,11 @@ export default {
 
     // reminder
     re_title: "Titel",
+    re_phd_title: "Titel eingeben",
     re_create: "Notiz erstellen",
+    re_phd_description: "Beschreibung eingeben",
+    re_description: "Beschreibung",
+    re_tint: "Farbton",
     
     // settings
     st_sld_lang: "Derzeit ausgewählte Sprache: ",

@@ -3,6 +3,8 @@ export default {
     // generic
     greeting: "Hola!",
     welcome: "Bienvenido!",
+    ok: "Aceptar",
+    cancel: "Cancelar",
 
     // home
     hm_gr_morning: "Buenos días",

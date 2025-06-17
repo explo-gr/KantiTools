@@ -2,33 +2,43 @@ import { useState, useEffect, useCallback } from "react";
 import {
     View,
     TextInput,
-    Modal,
+    Text,
     StyleSheet,
     TouchableOpacity,
     FlatList,
-    ScrollView,
-    Text
+    Modal
 } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TranslatedText from "../../../components/translations/TranslatedText";
 import { useThemes } from "../../../context/ThemeContext";
 import Feather from '@expo/vector-icons/Feather';
 import Accordion from "../../../components/common/Accordion";
+import { useTranslations } from "../../../context/LanguageContext";
 
 const TINT_COLORS = ["red", "green", "blue", "yellow"];
 // red, green, blue, yellow
 
-const TodoModal = ({ visible, onOk, onCancel }) => {
+const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
+    const { t } = useTranslations();
+
     const [ title, setTitle ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ tint, setTint ] = useState(TINT_COLORS[0]);
 
     const getColorCode = useCallback((color) => colors[color] || colors.generic, [theme]);
 
+    useEffect(() => {
+        if (todoToEdit) {
+            setTitle(todoToEdit.title);
+            setDescription(todoToEdit.description);
+            setTint(todoToEdit.tint);
+        }
+    }, [todoToEdit]);
+
     const handleOk = () => {
         if (!title.trim()) return;
-        onOk({ title, description, tint });
+        onOk({ title, description, tint }, editIndex);
         setTitle('');
         setDescription('');
         setTint(TINT_COLORS[0]);
@@ -37,8 +47,8 @@ const TodoModal = ({ visible, onOk, onCancel }) => {
     return (
         <Modal
             animationType="fade"
-            transparent={true}
             statusBarTranslucent={true}
+            transparent={true}
             visible={visible}
             onRequestClose={onCancel}
         >
@@ -48,22 +58,22 @@ const TodoModal = ({ visible, onOk, onCancel }) => {
                     <TextInput
                         value={title}
                         onChangeText={setTitle}
-                        placeholder="Enter title"
+                        placeholder={t("re_phd_title")}
                         style={[styles.input, defaultThemedStyles.text]}
                         placeholderTextColor={colors.gray}
                     />
 
-                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>Description</TranslatedText>
+                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_description</TranslatedText>
                     <TextInput
                         value={description}
                         onChangeText={setDescription}
-                        placeholder="Enter description"
+                        placeholder={t("re_phd_description")}
                         style={[styles.input, { height: 80 }, defaultThemedStyles.text]}
                         multiline
                         placeholderTextColor={colors.gray}
                     />
 
-                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>Tint</TranslatedText>
+                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_tint</TranslatedText>
                     <View style={styles.tintRow}>
                         {TINT_COLORS.map((color) => (
                             <TouchableOpacity
@@ -75,12 +85,12 @@ const TodoModal = ({ visible, onOk, onCancel }) => {
                     </View>
 
                     <View style={styles.buttonRow}>
-                        <TouchableOpacity onPress={onCancel} style={[styles.buttonShell, { backgroundColor: colors.yellow }]}> 
-                            <TranslatedText style={defaultThemedStyles.textContrast}>Cancel</TranslatedText>
+                        <TouchableOpacity onPress={onCancel} style={[styles.buttonShell, { backgroundColor: colors.red }]}> 
+                            <TranslatedText style={defaultThemedStyles.textContrast}>cancel</TranslatedText>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={handleOk} style={[styles.buttonShell, { backgroundColor: colors.blue }]}> 
-                            <TranslatedText style={defaultThemedStyles.textContrast}>OK</TranslatedText>
+                            <TranslatedText style={defaultThemedStyles.textContrast}>ok</TranslatedText>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -95,6 +105,9 @@ const TodoList = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [openIndex, setOpenIndex] = useState(null);
 
+    const [editIndex, setEditIndex] = useState(null);
+    const [todoToEdit, setTodoToEdit] = useState(null);
+
     const getColorCode = useCallback((color) => colors[color] || colors.generic, [theme]);
 
     useEffect(() => {
@@ -107,8 +120,18 @@ const TodoList = () => {
         AsyncStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
 
-    const handleAddTodo = (todo) => {
-        setTodos(prev => [...prev, todo]);
+    const handleAddTodo = (todo, index) => {
+        if (index) {
+            const updated = [...todo];
+            updated[index] = todo;
+
+            setTodos(updated);
+        } else {
+            setTodos(prev => [...prev, todo]);
+        }
+
+        setTodoToEdit(null);
+        setEditIndex(null);
         setModalVisible(false);
     };
 
@@ -116,24 +139,45 @@ const TodoList = () => {
         setTodos(prev => prev.filter((_, i) => i !== index));
     };
 
+    const handleEdit = (item, index) => {
+        setEditIndex(index);
+        setTodoToEdit(item);
+
+        setModalVisible(true);
+    }
+
     return (
-        <View style={{ flex: 1 }}>
-            <ScrollView>
-                {todos.map((todo, index) => (
+        <>
+            <FlatList
+                data={todos}
+                keyExtractor={(_, index) => index.toString()}
+                renderItem={({ item, index }) => (
                     <Accordion
-                        key={index}
-                        title={todo.title}
-                        //tint={getColorCode(todo.tint)}
+                        title={item.title}
                         isOpen={openIndex === index}
                         changeIsOpen={() => setOpenIndex(openIndex === index ? null : index)}
+                        tint={getColorCode(item.tint)}
                     >
-                        <TranslatedText>{todo.description}</TranslatedText>
-                        <TouchableOpacity onPress={() => handleDelete(index)}>
-                            <Feather name="trash" size={20} color={colors.yellow} />
-                        </TouchableOpacity>
+                        <Text>{item.description}</Text>
+                        <View style={{
+                            gap: 10,
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center'
+                        }}>
+                            <TouchableOpacity onPress={() => {
+                                handleEdit(item, index);
+                            }}>
+                                <Feather name="edit-2" size={22} color={colors.blue} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => handleDelete(index)}>
+                                <Feather name="trash" size={22} color={colors.red} />
+                            </TouchableOpacity>
+                        </View>
                     </Accordion>
-                ))}
-            </ScrollView>
+                )}
+                contentContainerStyle={{ paddingBottom: 100 }}
+            />
 
             <TouchableOpacity
                 onPress={() => setModalVisible(true)}
@@ -145,26 +189,30 @@ const TodoList = () => {
                 flexDirection: "row",
                 gap: 3,
                 borderColor: colors.blue,
-                borderWidth: 3,
-                borderRadius: 20,
-                padding: 8,
-                margin: 4
+                borderWidth: 2.5,
+                borderRadius: 30,
+                padding: 9,
+                margin: 4,
+                backgroundColor: colors.generic
             }}>
 
                     <Feather name="plus" size={24} color={colors.hardContrast} />
-                    <TranslatedText style={{
-
-                    }}>re_create</TranslatedText>
+                    <TranslatedText>re_create</TranslatedText>
                 </View>
             </TouchableOpacity>
-
 
             <TodoModal
                 visible={modalVisible}
                 onOk={handleAddTodo}
-                onCancel={() => setModalVisible(false)}
+                onCancel={() => {
+                    setModalVisible(false);
+                    setEditIndex(null);
+                    setTodoToEdit(null);
+                }}
+                editIndex={editIndex}
+                todoToEdit={todoToEdit}
             />
-        </View>
+        </>
     );
 };
 
@@ -173,14 +221,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0,0,0,0.4)'
     },
     modalContainer: {
         padding: 24,
         borderRadius: 16,
         width: '85%',
         alignItems: 'stretch',
-        gap: 12
+        gap: 12,
     },
     label: {
         fontSize: 16,
@@ -215,11 +263,10 @@ const styles = StyleSheet.create({
         borderRadius: 12
     },
     fab: {
-        flex: 1,
-        padding: 24,
-        position: "absolute",
-        left: '10%',
-        top: '50%',
+        position: 'absolute',
+        padding: 5,
+        bottom: 100,
+        right: 15
     }
 });
 
