@@ -1,12 +1,14 @@
-// move to config file
 const HOST = Object.freeze({
-    // could be made modular to support different providers but I'm not even gonna bother
     LOGIN: "https://schulnetz.bks-campus.ch/loginto.php?pageid=2131",
     GRADES: "https://schulnetz.bks-campus.ch/index.php?pageid=21311",
     ATTENDANCE: "https://schulnetz.bks-campus.ch/index.php?pageid=21111",
     TIMETABLE: "https://schulnetz.bks-campus.ch/index.php?pageid=22202",
     START: "https://schulnetz.bks-campus.ch/index.php?pageid=1"
 });
+
+// TODO
+// - allow different hosts
+// - make host logic dynamic --> stundenplan
 
 const fetchLoginHash = async (loginUrl) => {
     try {
@@ -26,7 +28,7 @@ const fetchLoginHash = async (loginUrl) => {
 
 const authenticate = async (username, password) => {
     const loginHash = await fetchLoginHash(HOST.LOGIN);
-    if (!loginHash) return null;
+    if (!loginHash) return false;
 
     const payload = new URLSearchParams({
         login: username,
@@ -97,5 +99,6 @@ const fetchSntzPages = async ({ queryItems = [{}], username, password }) => {
 
 export default {
     HOST,
-    fetchSntzPages
+    fetchSntzPages,
+    authenticate
 };

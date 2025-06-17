@@ -1,11 +1,11 @@
-import { Text, View, Button, TextInput } from 'react-native';
+import { Text, View, Button, TextInput, Alert } from 'react-native';
 import ContainerView from '../../../components/common/ContainerView';
 import Feather from '@expo/vector-icons/Feather';
 import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useEffect, useState } from 'react';
 import TranslatedText from '../../../components/translations/TranslatedText';
-import api from '../../../lib/sntz/api'
+import { authenticate } from '../../../lib/sntz/api';
 import { useAuth } from '../../../context/AuthenticationContext';
 
 // TODO: fix imports probably, wrap auth context
@@ -16,29 +16,55 @@ const SntzAccountManagement = ({ navigation }) => {
 
     const [ inputtedPassword, setInputtedPassword ] = useState('');
     const [ inputtedEmail, setInputtedEmail ] = useState('');
+
     const [ inputEnabled, setInputEnabled ] = useState(false);
+    const [ loginBtnEnabled, setLoginBtnEnabled ] = useState(false);
+    const [ logoutBtnEnabled, setLogoutBtnEnabled ] = useState(false);
+
+    const [ validating, setIsValidating ] = useState(false);
+    const [ authReady, setAuthReady ] = useState(false);
+
+    const handleLogout = async () => {
+        await logout();
+        setInputtedEmail('');
+        setInputtedPassword('');
+    }
 
     const validateLogin = async () => {
-/*         const response = await api.authenticateAndFetch({
-            url: api.HOST.START,
-            username: inputtedEmail,
-            password: inputtedPassword
-        }) */
+        setIsValidating(true);
 
-        if (response) {
-            login(inputtedEmail, inputtedPassword);
+        const loggedIn = await authenticate(inputtedEmail, inputtedPassword);
+        let alertMsg;
+
+        if (loggedIn) {
+            await login(inputtedEmail, inputtedPassword);
+            alertMsg = t("st_sntz_login_y");
         } else {
-            // TODO: Login Reject Login
+            alertMsg = t("st_sntz_login_n");
         }
+
+        Alert.alert(alertMsg); // später mit eigener alertbox ersetzen?
+        setIsValidating(false);
     };
 
     useEffect(() => {
-        const finishedLoading = !loading;
-        const formNotEmpty = inputtedEmail.length + inputtedPassword.length !== 0;
-        const loggedOut = user ? false : true;
+        if (user) {
+            setInputtedEmail(user.username);
+            setInputtedPassword(user.password);
+        }
 
-        setInputEnabled(finishedLoading && formNotEmpty && loggedOut);
-    }, [loading, inputtedEmail, inputtedPassword, user]);
+        setAuthReady(true);
+    }, [loading]);
+
+    useEffect(() => {
+        const finishedLoading = !loading;
+        const formsFilled = inputtedEmail.trim().length && inputtedPassword.trim().length;
+        const isLoggedIn = user ? true : false;
+
+        setInputEnabled(finishedLoading && !isLoggedIn);
+        setLoginBtnEnabled(finishedLoading && !isLoggedIn && formsFilled);
+        setLogoutBtnEnabled(finishedLoading && isLoggedIn);
+    }, [authReady, inputtedEmail, inputtedPassword, user, validating]);
 
     return (
         <ContainerView style={{
@@ -67,7 +93,7 @@ const SntzAccountManagement = ({ navigation }) => {
                 autoCorrect={false}
                 secureTextEntry
                 value={inputtedPassword}
-                onChange={setInputtedPassword}
+                onChangeText={setInputtedPassword}
                 readOnly={inputEnabled}
             />
             <View style={{
@@ -76,10 +102,12 @@ const SntzAccountManagement = ({ navigation }) => {
                 <Button
                     title={t("st_sntz_login_cm")}
                     onPress={validateLogin}
+                    disabled={loginBtnEnabled}
                 />
                 <Button
                     title={t("st_sntz_remove_ac")}
                     onPress={logout}
+                    disabled={logoutBtnEnabled}
                 />
             </View>
         </ContainerView>

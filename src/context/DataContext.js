@@ -31,15 +31,20 @@ const DataProvider = ({ children }) => {
         for (const { key, setState, parser } of queryItems) {
             if (rawData[key]) {
                 const parsedData = parser(rawData[key]);
-                setState({ data: parsedData, cached: false });
-
-                AsyncStorage.setItem(DATA_KEYS[key], parsedData);
+                
+                if (parsedData) {
+                    setState({ data: parsedData, cached: false });
+                    AsyncStorage.setItem(DATA_KEYS[key], JSON.stringify(parsedData));
+                } else {
+                    setState({ data: null, cached: false });
+                    console.log(`Parser for key "${key}" has failed`);
+                }
             } else {
                 const cached = await AsyncStorage.getItem(DATA_KEYS[key]);
                 if (cached) {
-                    setState({ data: cached, cached: true });
+                    setState({ data: JSON.parse(cached), cached: true });
                 } else {
-                    setState({ data: null, cached: false })
+                    setState({ data: null, cached: false });
                 }
             }
         }
