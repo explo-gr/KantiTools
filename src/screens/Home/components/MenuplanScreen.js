@@ -1,4 +1,5 @@
 import { Text, View, Button, StyleSheet } from 'react-native';
+import { openMenuplanPDF } from '../../../lib/menuplanHelper';
 
 // https://www.npmjs.com/package/react-native-pdf
 // take a look at this
@@ -9,6 +10,7 @@ const HomeMenuplan = ({ navigation }) => {
         <View style={styles.container}>
             <Text>Details Screen</Text>
             <Button title="Go Back" onPress={() => navigation.goBack()} />
+            <Button title='Menuplan' onPress={openMenuplanPDF} />
         </View>
     );
 };
