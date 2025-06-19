@@ -1,7 +1,7 @@
 // contexts/DataContext.js
-import React, { createContext, useEffect, useState, useContext, useCallback } from 'react';
+import React, { createContext, useEffect, useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AuthContext, { useAuth } from './AuthenticationContext';
+import { useAuth } from './AuthenticationContext';
 import api from '../lib/sntz/api';
 import gradeTableParser from '../lib/sntz/parsers/gradeTableParser';
 
@@ -20,7 +20,7 @@ const DataProvider = ({ children }) => {
 
     // key, urls, parser, setState, type = null
     const fetchAndStore = useCallback(async (queryItems = [{ url: null, key: null, parser: (_) => null, setState: () => null }]) => {
-        if (!user || !loadingAuth) return;
+        if (!user || loadingAuth) return;
 
         const rawData = await api.fetchSntzPages(
             queryItems.map({ url, key }),
@@ -37,7 +37,7 @@ const DataProvider = ({ children }) => {
                     AsyncStorage.setItem(DATA_KEYS[key], JSON.stringify(parsedData));
                 } else {
                     setState({ data: null, cached: false });
-                    console.log(`Parser for key "${key}" has failed`);
+                    console.log(`Parser for key '${key}' has failed`);
                 }
             } else {
                 const cached = await AsyncStorage.getItem(DATA_KEYS[key]);
