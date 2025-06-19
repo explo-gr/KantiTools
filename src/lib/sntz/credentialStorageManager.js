@@ -7,12 +7,15 @@ const CREDENTIAL_ID = {
 };
 
 const getCredentials = async () => {
-    const username = await SecureStore.getItemAsync(CREDENTIAL_ID.username);
-    const password = await SecureStore.getItemAsync(CREDENTIAL_ID.password);
+    try {
+        const username = await SecureStore.getItemAsync(CREDENTIAL_ID.username);
+        const password = await SecureStore.getItemAsync(CREDENTIAL_ID.password);
 
-    if (username && password) return { username, password };
-
-    return null;
+        if (username && password) return { username, password };
+        return null;
+    } catch {
+        return null;
+    }
 };
 
 const clearCredentials = async () => {

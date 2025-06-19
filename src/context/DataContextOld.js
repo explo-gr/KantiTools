@@ -82,7 +82,7 @@ const DataProvider = ({ children }) => {
             //fetchAndStore(DATA_KEYS.TIMETABLE, api.HOST.TIMETABLE, timetableParser, setTimetable, forceNetwork, 'timetable')
         ]);
         setIsReady(true);
-    }, [fetchAndStore, user, loading]);
+    }, [fetchAndStore]);
 
     useEffect(() => {
         if (loading || !user) return;

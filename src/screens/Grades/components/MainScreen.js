@@ -1,5 +1,4 @@
 // imports regarding general objects
-import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, StyleSheet } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
 import { DataProvider } from '../../../context/DataContext';

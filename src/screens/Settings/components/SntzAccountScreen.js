@@ -6,13 +6,13 @@ import { useTranslations } from '../../../context/LanguageContext';
 import { useEffect, useState } from 'react';
 import TranslatedText from '../../../components/translations/TranslatedText';
 import { authenticate } from '../../../lib/sntz/api';
-import { useAuth } from '../../../context/AuthenticationContext';
+import { AuthProvider, useAuth } from '../../../context/AuthenticationContext';
 
-// TODO: fix imports probably, wrap auth context
-const SntzAccountManagement = ({ navigation }) => {
+// TODO: fix imports, wrap auth context
+const Screen = ({ navigation }) => {
     const { colors } = useThemes();
     const { t } = useTranslations();
-    const { user, login, logout, loading } = useAuth();
+    const { user, login, logout, loadingAuth } = useAuth();
 
     const [ inputtedPassword, setInputtedPassword ] = useState('');
     const [ inputtedEmail, setInputtedEmail ] = useState('');
@@ -33,7 +33,7 @@ const SntzAccountManagement = ({ navigation }) => {
     const validateLogin = async () => {
         setIsValidating(true);
 
-        const loggedIn = await authenticate(inputtedEmail, inputtedPassword);
+        const loggedIn = await authenticate(inputtedEmail, inputtedPassword); // -> bool
         let alertMsg;
 
         if (loggedIn) {
@@ -54,10 +54,10 @@ const SntzAccountManagement = ({ navigation }) => {
         }
 
         setAuthReady(true);
-    }, [loading]);
+    }, [loadingAuth]);
 
     useEffect(() => {
-        const finishedLoading = !loading;
+        const finishedLoading = !loadingAuth;
         const formsFilled = inputtedEmail.trim().length && inputtedPassword.trim().length;
         const isLoggedIn = user ? true : false;
 
@@ -106,11 +106,19 @@ const SntzAccountManagement = ({ navigation }) => {
                 />
                 <Button
                     title={t("st_sntz_remove_ac")}
-                    onPress={logout}
+                    onPress={handleLogout}
                     disabled={logoutBtnEnabled}
                 />
             </View>
         </ContainerView>
+    );
+}
+
+const SntzAccountManagement = ({ navigation }) => {
+    return (
+        <AuthProvider>
+            <Screen navigation={navigation}/>
+        </AuthProvider>
     );
 }
 

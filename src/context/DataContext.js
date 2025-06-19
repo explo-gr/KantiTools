@@ -1,7 +1,7 @@
 // contexts/DataContext.js
 import React, { createContext, useEffect, useState, useContext, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AuthContext from './AuthenticationContext';
+import AuthContext, { useAuth } from './AuthenticationContext';
 import api from '../lib/sntz/api';
 import gradeTableParser from '../lib/sntz/parsers/gradeTableParser';
 
@@ -14,13 +14,13 @@ const DATA_KEYS = {
 };
 
 const DataProvider = ({ children }) => {
-    const { user, authIsReady } = useContext(AuthContext);
-    const [isReady, setIsReady] = useState(false); // unified readiness flag
+    const { user, loadingAuth } = useAuth();
+    const [isReady, setIsReady] = useState(false);
     const [grades, setGrades] = useState({ data: null, cached: false });
 
     // key, urls, parser, setState, type = null
     const fetchAndStore = useCallback(async (queryItems = [{ url: null, key: null, parser: (_) => null, setState: () => null }]) => {
-        if (!user || !isReady) return;
+        if (!user || !loadingAuth) return;
 
         const rawData = await api.fetchSntzPages(
             queryItems.map({ url, key }),
@@ -49,7 +49,7 @@ const DataProvider = ({ children }) => {
             }
         }
 
-    }, [user, isReady]);
+    }, [user, loadingAuth]);
 
     const refreshAll = useCallback(async () => {
         if (!isReady || !user) return;
@@ -64,22 +64,23 @@ const DataProvider = ({ children }) => {
             }
         ]);
         setIsReady(true);
-    }, [fetchAndStore, user, authIsReady]);
+
+    }, [fetchAndStore]);
 
     useEffect(() => {
-        if (authIsReady || !user) return;
+        if (!loadingAuth || !user) return;
         refreshAll();
-    }, [user, loading, refreshAll]);
+    }, [refreshAll]); // will fire when refreshAll changes, which changes if fetchAndStore change, which changes when user and loadingAuth change
 
     return (
         <DataContext.Provider value={{
             grades,
+            refreshAll,
+            isReady,
             // attendance,
             // timetable,
-            refreshAll,
             // refreshAttendance: () => fetchAndStore(DATA_KEYS.ATTENDANCE, api.HOST.ATTENDANCE, attendanceParser, setAttendance, true, 'attendance'),
             // refreshTimetable: () => fetchAndStore(DATA_KEYS.TIMETABLE, api.HOST.TIMETABLE, timetableParser, setTimetable, true, 'timetable'),
-            isReady,
             // loadingStates
         }}>
             {children}

@@ -5,7 +5,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [isReady, setIsReady] = useState(false);
+    const [loadingAuth, setLoading] = useState(true);
 
     useEffect(() => {
         const loadCredentials = async () => {
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
             if (credentials) {
                 setUser(credentials);
             }
-            setIsReady(true);
+            setLoading(false);
         };
         loadCredentials();
     }, []);
@@ -28,10 +28,8 @@ export const AuthProvider = ({ children }) => {
         await CredentialsStorage.clearCredentials();
     };
 
-    //const getLoginStatus = () => !isReady && user;
-
     return (
-        <AuthContext.Provider value={{ user, isReady, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout, loadingAuth }}>
             {children}
         </AuthContext.Provider>
     );
