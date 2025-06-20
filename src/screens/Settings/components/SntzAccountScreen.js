@@ -5,10 +5,10 @@ import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useEffect, useState } from 'react';
 import TranslatedText from '../../../components/translations/TranslatedText';
-import { authenticate } from '../../../lib/sntz/api';
+import api from '../../../lib/sntz/api';
 import { AuthProvider, useAuth } from '../../../context/AuthenticationContext';
 
-// TODO: fix imports, wrap auth context
+// Hey, Space Cadet (Beast Monster Thing in Space) by Car Seat Headrest
 const Screen = ({ navigation }) => {
     const { colors } = useThemes();
     const { t } = useTranslations();
@@ -22,7 +22,6 @@ const Screen = ({ navigation }) => {
     const [ logoutBtnEnabled, setLogoutBtnEnabled ] = useState(false);
 
     const [ validating, setIsValidating ] = useState(false);
-    const [ authReady, setAuthReady ] = useState(false);
 
     const handleLogout = async () => {
         await logout();
@@ -33,14 +32,15 @@ const Screen = ({ navigation }) => {
     const validateLogin = async () => {
         setIsValidating(true);
 
-        const loggedIn = await authenticate(inputtedEmail, inputtedPassword); // -> bool
+        const loggedIn = await api.authenticate(inputtedEmail.trim(), inputtedPassword.trim()); // -> bool
+
         let alertMsg;
 
         if (loggedIn) {
             await login(inputtedEmail, inputtedPassword);
-            alertMsg = t("st_sntz_login_y");
+            alertMsg = t('st_sntz_login_y');
         } else {
-            alertMsg = t("st_sntz_login_n");
+            alertMsg = t('st_sntz_login_n');
         }
 
         Alert.alert(alertMsg); // später mit eigener alertbox ersetzen?
@@ -52,8 +52,6 @@ const Screen = ({ navigation }) => {
             setInputtedEmail(user.username);
             setInputtedPassword(user.password);
         }
-
-        setAuthReady(true);
     }, [loadingAuth]);
 
     useEffect(() => {
@@ -61,10 +59,10 @@ const Screen = ({ navigation }) => {
         const formsFilled = inputtedEmail.trim().length && inputtedPassword.trim().length;
         const isLoggedIn = user ? true : false;
 
-        setInputEnabled(finishedLoading && !isLoggedIn);
-        setLoginBtnEnabled(finishedLoading && !isLoggedIn && formsFilled);
-        setLogoutBtnEnabled(finishedLoading && isLoggedIn);
-    }, [authReady, inputtedEmail, inputtedPassword, user, validating]);
+        setInputEnabled(finishedLoading && !isLoggedIn && !validating);
+        setLoginBtnEnabled(finishedLoading && !isLoggedIn && formsFilled && !validating);
+        setLogoutBtnEnabled(finishedLoading && isLoggedIn && !validating);
+    }, [loadingAuth, inputtedEmail, inputtedPassword, user, validating]);
 
     return (
         <ContainerView style={{
@@ -75,18 +73,18 @@ const Screen = ({ navigation }) => {
             <Feather name={'link'} size={80} color={colors.blue} />
             <TranslatedText>st_sntz_info</TranslatedText>
             <TextInput
-                placeholder={t("st_sntz_login")}
-                textContentType="username"
-                autoComplete="email"
-                autoCapitalize="none"
+                placeholder={t('st_sntz_login')}
+                textContentType='username'
+                autoComplete='email'
+                autoCapitalize='none'
                 keyboardType='email-address'
                 autoCorrect={false}
                 value={inputtedEmail}
                 onChangeText={setInputtedEmail}
-                readOnly={inputEnabled}
+                editable={inputEnabled}
             />
             <TextInput
-                placeholder={t("st_sntz_password")}
+                placeholder={t('st_sntz_password')}
                 textContentType='password'
                 autoComplete='password'
                 autoCapitalize='none'
@@ -94,20 +92,18 @@ const Screen = ({ navigation }) => {
                 secureTextEntry
                 value={inputtedPassword}
                 onChangeText={setInputtedPassword}
-                readOnly={inputEnabled}
+                editable={inputEnabled}
             />
-            <View style={{
-                flexDirection: 'row'
-            }}>
+            <View style={{ flexDirection: 'row' }}>
                 <Button
-                    title={t("st_sntz_login_cm")}
+                    title={t('st_sntz_login_cm')}
                     onPress={validateLogin}
-                    disabled={loginBtnEnabled}
+                    disabled={!loginBtnEnabled}
                 />
                 <Button
-                    title={t("st_sntz_remove_ac")}
+                    title={t('st_sntz_remove_ac')}
                     onPress={handleLogout}
-                    disabled={logoutBtnEnabled}
+                    disabled={!logoutBtnEnabled}
                 />
             </View>
         </ContainerView>

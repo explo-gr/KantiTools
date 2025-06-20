@@ -26,15 +26,26 @@ const fetchLoginHash = async (loginUrl) => {
     }
 };
 
+// generated debug logs with mr. gpt
 const authenticate = async (username, password) => {
+    console.log("[AUTH] Starting authentication...");
+    console.log(`[AUTH] Username: ${username}`);
+
     const loginHash = await fetchLoginHash(HOST.LOGIN);
-    if (!loginHash) return false;
+    if (!loginHash) {
+        console.warn("[AUTH] Failed to retrieve login hash.");
+        return false;
+    }
+
+    console.log(`[AUTH] Retrieved login hash: ${loginHash}`);
 
     const payload = new URLSearchParams({
         login: username,
         passwort: password,
         loginhash: loginHash
     });
+
+    console.log("[AUTH] Payload to be sent:", payload.toString());
 
     try {
         const response = await fetch(HOST.LOGIN, {
@@ -48,14 +59,18 @@ const authenticate = async (username, password) => {
             body: payload.toString()
         });
 
+        console.log(`[AUTH] Response status: ${response.status}`);
+
         if (response.status === 302) {
-            console.warn("Login failed: Redirect detected");
+            console.warn("[AUTH] Login failed — received redirect (302).");
             return false;
         }
 
-        return response.ok;
+        const result = response.ok;
+        console.log(`[AUTH] Authentication ${result ? "succeeded" : "failed"}.`);
+        return result;
     } catch (error) {
-        console.error("Error authenticating page data:", error);
+        console.error("[AUTH] Error during authentication:", error);
         return false;
     }
 };
