@@ -80,12 +80,14 @@ const saveID = async (id) => {
 const getCachedMenuplan = async () => {
     const filePath = `${MENUPLAN_DIR}/${FILE_NAME}`;
     const info = await FileSystem.getInfoAsync(filePath);
+    
     return info.exists ? filePath : null;
 };
 
 const downloadPDF = async (url) => {
     const path = `${MENUPLAN_DIR}/${FILE_NAME}`;
     await FileSystem.makeDirectoryAsync(MENUPLAN_DIR, { intermediates: true });
+
     const result = await FileSystem.downloadAsync(url, path);
     return result.status === 200 || result.status === undefined ? result.uri : null;
 };
@@ -107,33 +109,33 @@ const findFallbackURL = async () => {
 };
 
 export const openMenuplanPDF = async () => {
-    console.log('\nAttempting to open menuplan...')
+    // console.log('\nAttempting to open menuplan...')
 
     const { url, id } = reconstructURL();
     const savedID = await getSavedID();
 
-    console.log(`Current url: ${url}`);
-    console.log(`Current id: ${id}`);
-    console.log(`Current savedId: ${savedID}`);
+    // console.log(`Current url: ${url}`);
+    // console.log(`Current id: ${id}`);
+    // console.log(`Current savedId: ${savedID}`);
 
     let fileUri = null;
 
     if (savedID === id) {
-        console.log('Attempting to open the cached menuplan');
+        // console.log('Attempting to open the cached menuplan');
         fileUri = await getCachedMenuplan();
-        console.log('savedId and id match');
+        // console.log('savedId and id match');
     }
 
     if (!fileUri) {
-        console.log('No cached Menuplan was found.\nAttempting to download the PDF');
+        // console.log('No cached Menuplan was found.\nAttempting to download the PDF');
         fileUri = await downloadPDF(url);
 
         if (!fileUri) {
-            console.log('Standard method failed, trying fallback');
+            // console.log('Standard method failed, trying fallback');
 
             const fallbackURL = await findFallbackURL();
             
-            console.log(`Fallback URL found: ${fallbackURL}`)
+            // console.log(`Fallback URL found: ${fallbackURL}`)
 
             if (fallbackURL) fileUri = await downloadPDF(fallbackURL);
         }

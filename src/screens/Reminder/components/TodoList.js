@@ -100,7 +100,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
 };
 
 const TodoList = () => {
-    const { colors, theme } = useThemes();
+    const { colors, theme, defaultThemedStyles } = useThemes();
     const [todos, setTodos] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [openIndex, setOpenIndex] = useState(null);
@@ -121,8 +121,8 @@ const TodoList = () => {
     }, [todos]);
 
     const handleAddTodo = (todo, index) => {
-        if (index) {
-            const updated = [...todo];
+        if (typeof index === 'number') {
+            const updated = [...todos];
             updated[index] = todo;
 
             setTodos(updated);
@@ -152,29 +152,34 @@ const TodoList = () => {
                 data={todos}
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={({ item, index }) => (
-                    <Accordion
-                        title={item.title}
-                        isOpen={openIndex === index}
-                        changeIsOpen={() => setOpenIndex(openIndex === index ? null : index)}
-                        tint={getColorCode(item.tint)}
-                    >
-                        <Text>{item.description}</Text>
-                        <View style={{
-                            gap: 10,
-                            flexDirection: 'row',
-                            justifyContent: 'flex-end',
-                            alignItems: 'center'
-                        }}>
-                            <TouchableOpacity onPress={() => {
-                                handleEdit(item, index);
+                    <View style={{
+                        marginBottom: 5
+                    }}>
+                        <Accordion
+                            title={item.title}
+                            isOpen={openIndex === index}
+                            changeIsOpen={() => setOpenIndex(openIndex === index ? null : index)}
+                            tint={getColorCode(item.tint)}
+                        >
+                            <Text>{item.description}</Text>
+                            <View style={{
+                                gap: 10,
+                                flexDirection: 'row',
+                                justifyContent: 'flex-end',
+                                alignItems: 'center'
                             }}>
-                                <Feather name="edit-2" size={22} color={colors.blue} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => handleDelete(index)}>
-                                <Feather name="trash" size={22} color={colors.red} />
-                            </TouchableOpacity>
-                        </View>
-                    </Accordion>
+                                <TouchableOpacity onPress={() => {
+                                    handleEdit(item, index);
+                                }}>
+                                    <Feather name="edit-2" size={22} color={colors.blue} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => handleDelete(index)}>
+                                    <Feather name="trash" size={22} color={colors.red} />
+                                </TouchableOpacity>
+                            </View>
+                        </Accordion>
+
+                    </View>
                 )}
                 contentContainerStyle={{ paddingBottom: 100 }}
             />
@@ -183,7 +188,7 @@ const TodoList = () => {
                 onPress={() => setModalVisible(true)}
                 style={styles.fab}
             >
-            <View style={{ 
+            <View style={[{ 
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "row",
@@ -194,24 +199,26 @@ const TodoList = () => {
                 padding: 9,
                 margin: 4,
                 backgroundColor: colors.generic
-            }}>
+            }, defaultThemedStyles.boxshadow]}>
 
                     <Feather name="plus" size={24} color={colors.hardContrast} />
                     <TranslatedText>re_create</TranslatedText>
                 </View>
             </TouchableOpacity>
 
-            <TodoModal
-                visible={modalVisible}
-                onOk={handleAddTodo}
-                onCancel={() => {
-                    setModalVisible(false);
-                    setEditIndex(null);
-                    setTodoToEdit(null);
-                }}
-                editIndex={editIndex}
-                todoToEdit={todoToEdit}
-            />
+            <View>
+                <TodoModal
+                    visible={modalVisible}
+                    onOk={handleAddTodo}
+                    onCancel={() => {
+                        setModalVisible(false);
+                        setEditIndex(null);
+                        setTodoToEdit(null);
+                    }}
+                    editIndex={editIndex}
+                    todoToEdit={todoToEdit}
+                />
+            </View>
         </>
     );
 };

@@ -4,6 +4,10 @@ import { openMenuplanPDF } from '../../../lib/menuplanHelper';
 // https://www.npmjs.com/package/react-native-pdf
 // take a look at this
 
+// sött kei bildschrim sii
+// interaktiv -> ma gseht dass öppis grad abbagladda würd oder sust was
+// fehler mäldig
+
 // Menuplan Screen
 const HomeMenuplan = ({ navigation }) => {
     return (
