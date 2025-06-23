@@ -84,35 +84,42 @@ const isEmpty = (obj) => {
     return Object.keys(obj).length === 0;
 }
 
-const fetchSntzPages = async ({ queryItems = [{}], username, password }) => {
-    if (!username || !password || !urls) return null;
+const fetchSntzPages = async ({ queryItems = [], username, password }) => {
+    if (!username || !password ) return null;
 
     const loginSuccesful = await authenticate(username, password);
     if (!loginSuccesful) return null; 
 
-    console.log("Logged in succesfully");
+    console.log("[FETCH] Logged in successfully");
 
     const responses = {};
 
     for (const { url, key } of queryItems) {
+        if (!url || !key) {
+            console.warn("[FETCH] Skipping query item with missing url/key:", { url, key });
+            continue;
+        }
+
         let responseText = null;
 
         try {
             const response = await fetch(url);
+
+            console.log(`[FETCH] Fetching URL for '${key}': ${response.url}`);
+
             if (response.ok) {
-                const text = await response.text();
-                responseText = text;
+                responseText = await response.text();
             } else {
-                console.warn(`Reqeust failure while scraping data: ${key}`);
+                console.warn(`[FETCH] Request failed with status ${response.status} for '${key}'`);
             }
         } catch (error) {
-            console.warn(`Request failure while scraping data: ${key}`);
+            console.warn(`[FETCH] Error fetching '${key}':`, error.message);
         }
 
         responses[key] = responseText;
     }
 
-    if (isEmpty(responses)) console.warn("Response Object is empty");
+    if (isEmpty(responses)) console.warn("[FETCH] Response object is empty");
 
     return responses;
 };

@@ -13,80 +13,104 @@ const DATA_KEYS = {
     // TIMETABLE: 'cached_timetable'
 };
 
-const DataProvider = ({ children }) => {
+export const DataProvider = ({ children }) => {
     const { user, loadingAuth } = useAuth();
     const [isReady, setIsReady] = useState(false);
+    const [isFetching, setIsFetching] = useState(false);
     const [grades, setGrades] = useState({ data: null, cached: false });
 
-    // key, urls, parser, setState, type = null
-    const fetchAndStore = useCallback(async (queryItems = [{ url: null, key: null, parser: (_) => null, setState: () => null }]) => {
-        if (!user || loadingAuth) return;
+    const fetchAndStore = useCallback(async (queryItems = []) => {
+        if (!user || loadingAuth) {
+            console.log("[DATA] Skipping fetch — User missing or authentication still loading.");
+            return;
+        }
 
-        const rawData = await api.fetchSntzPages(
-            queryItems.map({ url, key }),
-            user.username,
-            user.password
-        );
+        console.log("[DATA] Starting fetchAndStore...");
+        const fetchTargets = queryItems.map(({ url, key }) => ({ url, key }));
+
+        let rawData = {};
+        try {
+            rawData = await api.fetchSntzPages(
+                fetchTargets,
+                user.username,
+                user.password
+            );
+
+            console.log("[DATA] Raw data fetched successfully.");
+        } catch (err) {
+            console.error("[DATA] Error while fetching raw data:", err);
+        }
 
         for (const { key, setState, parser } of queryItems) {
             if (rawData[key]) {
-                const parsedData = parser(rawData[key]);
-                
-                if (parsedData) {
-                    setState({ data: parsedData, cached: false });
-                    AsyncStorage.setItem(DATA_KEYS[key], JSON.stringify(parsedData));
-                } else {
+                try {
+                    const parsedData = parser(rawData[key]);
+                    if (parsedData) {
+                        setState({ data: parsedData, cached: false });
+                        await AsyncStorage.setItem(DATA_KEYS[key], JSON.stringify(parsedData));
+                    } else {
+                        setState({ data: null, cached: false });
+                    }
+                } catch (e) {
                     setState({ data: null, cached: false });
-                    console.log(`Parser for key '${key}' has failed`);
                 }
             } else {
-                const cached = await AsyncStorage.getItem(DATA_KEYS[key]);
-                if (cached) {
-                    setState({ data: JSON.parse(cached), cached: true });
-                } else {
+                try {
+                    const cached = await AsyncStorage.getItem(DATA_KEYS[key]);
+                    if (cached) {
+                        setState({ data: JSON.parse(cached), cached: true });
+                    } else {
+                        setState({ data: null, cached: false });
+                    }
+                } catch (e) {
                     setState({ data: null, cached: false });
                 }
             }
         }
 
+        console.log("[DATA] fetchAndStore completed.");
     }, [user, loadingAuth]);
 
     const refreshAll = useCallback(async () => {
-        if (!isReady || !user) return;
+        if (!user || loadingAuth || isFetching) {
+            console.log("[DATA] Skipping refreshAll — unmet preconditions.");
+            return;
+        }
 
+        console.log("[DATA] Starting refreshAll...");
         setIsReady(false);
+        setIsFetching(true);
+
         await fetchAndStore([
             {
-                url: api.HOST.GRADES, // url wia data_key direkt fum key abhängig macha? 
+                url: api.HOST.GRADES,
                 key: 'grades',
                 parser: parseGradeTable,
-                setState: setGrades
+                setState: setGrades,
             }
         ]);
-        setIsReady(true);
 
-    }, [fetchAndStore]);
+        setIsFetching(false);
+        setIsReady(true);
+        console.log("[DATA] Data refreshed. Set isReady to true.");
+    }, [user, loadingAuth, isFetching, fetchAndStore]);
 
     useEffect(() => {
-        if (!loadingAuth || !user) return;
-        refreshAll();
-    }, [refreshAll]); // will fire when refreshAll changes, which changes if fetchAndStore change, which changes when user and loadingAuth change
+        if (!loadingAuth && user) {
+            console.log("[DATA] Auth complete and user exists — triggering refreshAll.");
+            refreshAll();
+        }
+    }, [user, loadingAuth, refreshAll]);
 
     return (
         <DataContext.Provider value={{
             grades,
             refreshAll,
             isReady,
-            // attendance,
-            // timetable,
-            // refreshAttendance: () => fetchAndStore(DATA_KEYS.ATTENDANCE, api.HOST.ATTENDANCE, attendanceParser, setAttendance, true, 'attendance'),
-            // refreshTimetable: () => fetchAndStore(DATA_KEYS.TIMETABLE, api.HOST.TIMETABLE, timetableParser, setTimetable, true, 'timetable'),
-            // loadingStates
         }}>
             {children}
         </DataContext.Provider>
     );
 };
 
-export { DataProvider };
 export const useData = () => React.useContext(DataContext);

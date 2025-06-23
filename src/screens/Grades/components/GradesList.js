@@ -29,7 +29,7 @@ const GradesList = () => {
 
     return (
         <ScrollView>
-            {grades.map((subject, i) => (
+            {grades.data.map((subject, i) => (
                 <Accordion
                     key={i}
                     title={`${subject.subjName}:   ${subject.onlineMean}`}
