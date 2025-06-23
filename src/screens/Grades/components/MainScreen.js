@@ -4,29 +4,36 @@ import { useThemes } from '../../../context/ThemeContext';
 import { DataProvider } from '../../../context/DataContext';
 import GradesList from './GradesList';
 import { AuthProvider } from '../../../context/AuthenticationContext';
+import ContainerView from '../../../components/common/ContainerView';
 
-const GradesMain = ({ navigation }) => {
+const Screen = ({ navigation }) => {
     const { defaultThemedStyles } = useThemes();
 
     return (
+        <ContainerView>
+            <Text style={defaultThemedStyles.text}>GradesScreen</Text>
+            <Button
+                title="Go to Screen2"
+                onPress={() => navigation.navigate('GradesDebug')}
+            />
+
+            <Button
+                title="Go to Screen3"
+                onPress={() => navigation.navigate('GradesGradeCalculation')}
+            />
+            <GradesList/>
+        </ContainerView>
+    );
+}
+
+const GradesMain = () => {
+    return (
         <AuthProvider>
             <DataProvider>
-                <View style={[styles.container, defaultThemedStyles.view]}>
-                    <Text style={defaultThemedStyles.text}>GradesScreen</Text>
-                    <Button
-                        title="Go to Screen2"
-                        onPress={() => navigation.navigate('GradesDebug')}
-                    />
-
-                    <Button
-                        title="Go to Screen3"
-                        onPress={() => navigation.navigate('GradesGradeCalculation')}
-                    />
-                </View>
-                <GradesList/>
+                <Screen/>
             </DataProvider>
         </AuthProvider>
-    );
+    )
 }
 
 const styles = StyleSheet.create({

@@ -20,7 +20,7 @@ const newSubjectDataTemplate = () => ({
 });
 
 // query subjects and retrieve resp. data
-const getSubjectData = (document) => {
+const parseGradeTable = (document) => {
     if (!document) return null;
 
     const $ = cheerio.load(document);
@@ -83,4 +83,4 @@ const getSubjectData = (document) => {
     });
 };
 
-export default getSubjectData;
+export default parseGradeTable

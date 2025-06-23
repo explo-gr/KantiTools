@@ -1,42 +1,50 @@
-import { useEffect, useState } from "react";
-import { useData } from "../../../context/DataContext";
-import { ScrollView } from "react-native";
-import Accordion from "../../../components/common/Accordion";
+import { useEffect, useState } from 'react';
+import { useData } from '../../../context/DataContext';
+import { ScrollView, View } from 'react-native';
+import Accordion from '../../../components/common/Accordion';
+import LoadingIndicator from '../../../components/common/LoadingIndicator';
 
-const LoadingIndicator = () => {
-    return <ActivityIndicator size="large" />;
-}
-
-/* const GradesList = () => {
+const GradesList = () => {
     const { grades, isReady } = useData();
-    const [ gradesReady, setGradesReady ] = useState(false);
+    const [ dataReady, setDataReady ] = useState(false);
+
+    const [ isOpen, setIsOpen ] = useState({});
+
+    const handleOpen = (i) => {
+        setIsOpen(prev => ({
+            ...prev,
+            [i]: !prev[i]
+        }));
+    };
 
     useEffect(() => {
-        if (isReady) {
-            setGradesReady(true);
-        } else {
-            setGradesReady(false);
-        }
+        setDataReady(isReady)
     }, [isReady]);
 
-    if (!gradesReady) {
-        return <LoadingIndicator/>;
+    if (!dataReady) {
+        return (
+            <LoadingIndicator status={'Loading'}/>
+        );
     }
 
     return (
         <ScrollView>
-            { grades.map((subject, i) => {
+            {grades.map((subject, i) => (
                 <Accordion
                     key={i}
-                    title={}
+                    title={`${subject.subjName}:   ${subject.onlineMean}`}
+                    isOpen={!!isOpen[i]}
+                    changeIsOpen={() => handleOpen(i)}
                 >
-
+                    <View>
+                        {subject.exams.map((exam, idx) => (
+                            <Text key={idx}>{`${exam.topic}:    ${exam.grade}`}</Text>
+                        ))}
+                    </View>
                 </Accordion>
-            })}
+            ))}
         </ScrollView>
     );
-} */
-
-const GradesList = () => <></>;
+}
 
 export default GradesList;

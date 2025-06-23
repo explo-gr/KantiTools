@@ -1,7 +1,7 @@
 import { Button, StyleSheet, Text, View, ScrollView } from 'react-native';
 import React, { useState } from 'react'
 import _Logger from './Logger';
-import getSubjectData from '../../lib/sntz/parsers/gradeTableParser';
+import parseGradeTable from '../../lib/sntz/parsers/gradeTableParser';
 
 const HOST = Object.freeze({
     LOGIN: "https://schulnetz.bks-campus.ch/loginto.php?pageid=2131",
@@ -77,8 +77,8 @@ const SchulnetzNotenTest = () => {
                 <Button
                     onPress={async () => {
                         const html_raw = await scrapePageData(HOST.GRADES);
-                        const parsed_subjects = getSubjectData(html_raw);
-/* 
+                        const parsed_subjects = parseGradeTable(html_raw);
+
                         parsed_subjects.forEach((e) => {
                             console.log(`Course Name: ${e.courseName}`);
                             console.log(`Subject Name: ${e.subjName}`);
@@ -95,7 +95,7 @@ const SchulnetzNotenTest = () => {
                             })
                             console.log(`------------------------------------`);
                         })
-  */
+ 
                         /* parsed_subjects.forEach((e) => {
                             console.log(e.exams.length);
                         }) */

@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from './AuthenticationContext';
 import api from '../lib/sntz/api';
-import gradeTableParser from '../lib/sntz/parsers/gradeTableParser';
+import parseGradeTable from '../lib/sntz/parsers/gradeTableParser';
 
 const DataContext = createContext(null);
 
@@ -59,7 +59,7 @@ const DataProvider = ({ children }) => {
             {
                 url: api.HOST.GRADES, // url wia data_key direkt fum key abhängig macha? 
                 key: 'grades',
-                parser: gradeTableParser,
+                parser: parseGradeTable,
                 setState: setGrades
             }
         ]);
