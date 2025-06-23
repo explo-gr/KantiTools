@@ -11,7 +11,7 @@ const Credit = () => {
                 <Text style={styles.creditText}> Created by Gian-Marco Coray</Text>
                 <Text style={styles.creditText}> https://github.com/explo-gr/KantiTools</Text>
                 <Text style={styles.creditText}> KantiTools</Text>
-                <Text style={styles.creditText}> Alpha 1.4</Text>
+                <Text style={styles.creditText}> Alpha 1.5</Text>
             </View>
         </View>
     );
