@@ -3,7 +3,8 @@ const HOST = Object.freeze({
     GRADES: "https://schulnetz.bks-campus.ch/index.php?pageid=21311",
     ATTENDANCE: "https://schulnetz.bks-campus.ch/index.php?pageid=21111",
     TIMETABLE: "https://schulnetz.bks-campus.ch/index.php?pageid=22202",
-    START: "https://schulnetz.bks-campus.ch/index.php?pageid=1"
+    START: "https://schulnetz.bks-campus.ch/index.php?pageid=1",
+    HOST: "https://schulnetz.bks-campus.ch/"
 });
 
 // TODO
@@ -13,7 +14,9 @@ const HOST = Object.freeze({
 const fetchLoginHash = async (loginUrl) => {
     try {
         const response = await fetch(loginUrl, {
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            headers: { 
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         });
         
         const html = await response.text();
@@ -32,6 +35,7 @@ const authenticate = async (username, password) => {
     console.log(`[AUTH] Username: ${username}`);
 
     const loginHash = await fetchLoginHash(HOST.LOGIN);
+
     if (!loginHash) {
         console.warn("[AUTH] Failed to retrieve login hash.");
         return false;
@@ -48,7 +52,7 @@ const authenticate = async (username, password) => {
     console.log("[AUTH] Payload to be sent:", payload.toString());
 
     try {
-        const response = await fetch(HOST.LOGIN, {
+        const response = await fetch(HOST.START, {
             method: 'POST',
             keepalive: true,
             headers: {
@@ -61,8 +65,9 @@ const authenticate = async (username, password) => {
 
         console.log(`[AUTH] Response status: ${response.status}`);
 
-        if (response.status === 302) {
-            console.warn("[AUTH] Login failed — received redirect (302).");
+        if (response.url.indexOf('loginto') !== -1) {
+            console.log(`[AUTH] Response URL: ${response.url}`)
+            console.warn("[AUTH] Login failed — back to login prompt");
             return false;
         }
 

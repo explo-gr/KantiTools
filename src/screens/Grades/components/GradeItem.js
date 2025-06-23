@@ -1,5 +1,5 @@
-import { useThemes } from "../../../context/ThemeContext";
-import { useTranslations } from "../../../context/LanguageContext";
+import { useThemes } from '../../../context/ThemeContext';
+import { useTranslations } from '../../../context/LanguageContext';
 import { View, StyleSheet, TextInput, Button } from 'react-native'
 
 const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onDuplicate }) => {
@@ -12,23 +12,23 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
                 <TextInput
                     value={grade}
                     onChangeText={onGradeChange}
-                    placeholder="grade"
-                    keyboardType="decimal-pad"
+                    placeholder='grade'
+                    keyboardType='number-pad'
                 />
                 <TextInput
                     value={weight}
                     onChangeText={onWeightChange}
-                    placeholder="weight"
-                    keyboardType="decimal-pad"
+                    placeholder='weight'
+                    keyboardType='number-pad'
                 />
             </View>
             <View style={styles.rightview}>
                 <Button
-                    title="Delete"
+                    title='Delete'
                     onPress={onDelete}
                 />
                 <Button
-                    title="Duplicate"
+                    title='Duplicate'
                     onPress={onDuplicate}
                 />
             </View>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     rightview: {
         flex: 2,
         alignContent: 'center',
-        alignItems: "flex-end"
+        alignItems: 'flex-end'
     }
 });
 

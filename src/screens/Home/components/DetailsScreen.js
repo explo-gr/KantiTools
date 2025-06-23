@@ -14,6 +14,7 @@ const HomeDetails = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text>Details Screen</Text>
+            <SchulnetzNotenTest/>
             <Button title="Go Back" onPress={() => navigation.goBack()} />
             <Accordion
                 isOpen={state}

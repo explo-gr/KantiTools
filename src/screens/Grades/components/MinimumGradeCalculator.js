@@ -98,13 +98,13 @@ const MinimumGradeCalculator = () => {
                                 <TextInput
                                     onChangeText={(input) => setDesiredGrade(input.replace(/[^0-9.,]/g, ''))}
                                     value={desiredGrade}
-                                    keyboardType="numeric"
+                                    keyboardType='number-pad'
                                     placeholder="desired"
                                 />
                                 <TextInput
                                     onChangeText={(input) => setDgWeight(input.replace(/[^0-9.,]/g, ''))}
                                     value={dgWeight}
-                                    keyboardType="numeric"
+                                    keyboardType='number-pad'
                                     placeholder="weight"
                                 />
                                 <Button title='Add' onPress={addItem}/>

@@ -53,6 +53,8 @@ const scrapePageData = async (uri) => {
             body: new URLSearchParams(DATA).toString()
         });
 
+        console.log(response.url);
+
         //TODO: uf HTTPS Response Code prüafa
         return response.text();
     }
@@ -76,7 +78,7 @@ const SchulnetzNotenTest = () => {
                     onPress={async () => {
                         const html_raw = await scrapePageData(HOST.GRADES);
                         const parsed_subjects = getSubjectData(html_raw);
-
+/* 
                         parsed_subjects.forEach((e) => {
                             console.log(`Course Name: ${e.courseName}`);
                             console.log(`Subject Name: ${e.subjName}`);
@@ -93,7 +95,7 @@ const SchulnetzNotenTest = () => {
                             })
                             console.log(`------------------------------------`);
                         })
-
+  */
                         /* parsed_subjects.forEach((e) => {
                             console.log(e.exams.length);
                         }) */

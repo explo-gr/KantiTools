@@ -33,15 +33,17 @@ const AchievedGradeCalculator = () => {
         }}>
             <TextInput
                 onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g))}
+                //onChangeText={setAchievedScore}
                 value={achievedScore}
-                keyboardType="decimal-pad"
-                placeholder="achieved"
+                keyboardType='number-pad'
+                placeholder='achieved'
             />
             <TextInput
                 onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g))}
+                //onChangeText={setMaxScore}
                 value={maxScore}
-                keyboardType="decimal-pad"
-                placeholder="max"
+                keyboardType='number-pad'
+                placeholder='max'
             />
             <Text>{ output }</Text>
         </View>

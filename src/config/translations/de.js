@@ -37,7 +37,7 @@ export default {
     st_sntz_remove_ac: "Login entfernen",
     st_sntz_info: "Verbinde deinen Schulnetz Account und verwalte Noten und Stundenplan direkt mit der App!",
     st_sntz_login_y: "Verbindung erfolgreich hergestellt!\nAccount wurde hinzugügt.",
-    st_sntz_login_n: "Authentifizierung fehlgeschlagen!\nÜberprüfe die Anmeldedaten.",
+    st_sntz_login_n: "Authentifizierung fehlgeschlagen!\nÜberprüfe deine Anmeldedaten.",
 
         // lang
         de: "Deutsch",
