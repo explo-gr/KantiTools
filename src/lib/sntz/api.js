@@ -1,10 +1,14 @@
+import isEmpty from '../../lib/isEmpty';
+
+//api.js
 const HOST = Object.freeze({
-    LOGIN: "https://schulnetz.bks-campus.ch/loginto.php?pageid=2131",
-    GRADES: "https://schulnetz.bks-campus.ch/index.php?pageid=21311",
-    ATTENDANCE: "https://schulnetz.bks-campus.ch/index.php?pageid=21111",
-    TIMETABLE: "https://schulnetz.bks-campus.ch/index.php?pageid=22202",
-    START: "https://schulnetz.bks-campus.ch/index.php?pageid=1",
-    HOST: "https://schulnetz.bks-campus.ch/"
+    LOGIN: 'https://schulnetz.bks-campus.ch/loginto.php?pageid=2131',
+    GRADES: 'https://schulnetz.bks-campus.ch/index.php?pageid=21311',
+    ATTENDANCE: 'https://schulnetz.bks-campus.ch/index.php?pageid=21111',
+    TIMETABLE: 'https://schulnetz.bks-campus.ch/index.php?pageid=22202',
+    START: 'https://schulnetz.bks-campus.ch/index.php?pageid=1',
+    HOST: 'https://schulnetz.bks-campus.ch/',
+    LOGIN2: 'https://schulnetz.bks-campus.ch/index.php?'
 });
 
 // TODO
@@ -31,13 +35,13 @@ const fetchLoginHash = async (loginUrl) => {
 
 // generated debug logs with mr. gpt
 const authenticate = async (username, password) => {
-    console.log("[AUTH] Starting authentication...");
+    console.log('[AUTH] Starting authentication...');
     console.log(`[AUTH] Username: ${username}`);
 
     const loginHash = await fetchLoginHash(HOST.LOGIN);
 
     if (!loginHash) {
-        console.warn("[AUTH] Failed to retrieve login hash.");
+        console.warn('[AUTH] Failed to retrieve login hash.');
         return false;
     }
 
@@ -49,7 +53,7 @@ const authenticate = async (username, password) => {
         loginhash: loginHash
     });
 
-    console.log("[AUTH] Payload to be sent:", payload.toString());
+    console.log('[AUTH] Payload to be sent:', payload.toString());
 
     try {
         const response = await fetch(HOST.START, {
@@ -67,36 +71,35 @@ const authenticate = async (username, password) => {
 
         if (response.url.indexOf('loginto') !== -1) {
             console.log(`[AUTH] Response URL: ${response.url}`)
-            console.warn("[AUTH] Login failed — back to login prompt");
+            console.warn('[AUTH] Login failed — back to login prompt');
             return false;
         }
 
         const result = response.ok;
-        console.log(`[AUTH] Authentication ${result ? "succeeded" : "failed"}.`);
+        console.log(`[AUTH] Authentication ${result ? 'succeeded' : 'failed'}.`);
         return result;
     } catch (error) {
-        console.error("[AUTH] Error during authentication:", error);
+        console.error('[AUTH] Error during authentication:', error);
         return false;
     }
 };
 
-const isEmpty = (obj) => {
-    return Object.keys(obj).length === 0;
-}
-
 const fetchSntzPages = async ({ queryItems = [], username, password }) => {
     if (!username || !password ) return null;
+    console.log(`[FETCH] Attempting to log in with the following credentials: ${username}, ${password}`);
 
     const loginSuccesful = await authenticate(username, password);
+    console.log('[FETCH] Login failed');
+
     if (!loginSuccesful) return null; 
 
-    console.log("[FETCH] Logged in successfully");
+    console.log('[FETCH] Logged in successfully');
 
     const responses = {};
 
     for (const { url, key } of queryItems) {
         if (!url || !key) {
-            console.warn("[FETCH] Skipping query item with missing url/key:", { url, key });
+            console.warn('[FETCH] Skipping query item with missing url/key:', { url, key });
             continue;
         }
 
@@ -119,7 +122,7 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
         responses[key] = responseText;
     }
 
-    if (isEmpty(responses)) console.warn("[FETCH] Response object is empty");
+    if (isEmpty(responses)) console.warn('[FETCH] Response object is empty');
 
     return responses;
 };
