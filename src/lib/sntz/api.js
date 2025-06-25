@@ -34,6 +34,8 @@ const fetchLoginHash = async (loginUrl) => {
 
 // generated debug logs with mr. gpt
 const authenticate = async (username, password) => {
+    // TODO: return value with id and transid
+
     console.log('[AUTH] Starting authentication...');
     console.log(`[AUTH] Username: ${username}`);
 
