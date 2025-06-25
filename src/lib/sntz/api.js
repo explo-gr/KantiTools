@@ -2,13 +2,12 @@ import isEmpty from '../../lib/isEmpty';
 
 //api.js
 const HOST = Object.freeze({
-    LOGIN: 'https://schulnetz.bks-campus.ch/loginto.php?pageid=2131',
+    LOGIN: 'https://schulnetz.bks-campus.ch/loginto.php',
     GRADES: 'https://schulnetz.bks-campus.ch/index.php?pageid=21311',
     ATTENDANCE: 'https://schulnetz.bks-campus.ch/index.php?pageid=21111',
     TIMETABLE: 'https://schulnetz.bks-campus.ch/index.php?pageid=22202',
     START: 'https://schulnetz.bks-campus.ch/index.php?pageid=1',
     HOST: 'https://schulnetz.bks-campus.ch/',
-    LOGIN2: 'https://schulnetz.bks-campus.ch/index.php?'
 });
 
 // TODO
@@ -40,9 +39,12 @@ const authenticate = async (username, password) => {
 
     const loginHash = await fetchLoginHash(HOST.LOGIN);
 
+    let sessionId = null;
+    let loginSuccessful = false;
+
     if (!loginHash) {
         console.warn('[AUTH] Failed to retrieve login hash.');
-        return false;
+        return { loginSuccessful, sessionId };
     }
 
     console.log(`[AUTH] Retrieved login hash: ${loginHash}`);
@@ -58,7 +60,6 @@ const authenticate = async (username, password) => {
     try {
         const response = await fetch(HOST.START, {
             method: 'POST',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept': 'text/html'
@@ -68,16 +69,32 @@ const authenticate = async (username, password) => {
         });
 
         console.log(`[AUTH] Response status: ${response.status}`);
+        console.log('[AUTH] Trying to capture session ID...');
 
-        if (response.url.indexOf('loginto') !== -1) {
-            console.log(`[AUTH] Response URL: ${response.url}`)
-            console.warn('[AUTH] Login failed — back to login prompt');
-            return false;
+        const setCookie = response.headers.get('Set-Cookie');
+        if (setCookie) {
+            const match = setCookie.match(/PHPSESSID=([^;]+);/); // I should start using more regex
+        
+            if (match) {
+                sessionId = match[1];
+                console.log(`[AUTH] Captured session ID: ${sessionId}`);
+            } else {
+                console.warn('[AUTH] Could not parse PHPSESSID from cookie.');
+            }
+        } else {
+            console.warn('[AUTH] No Set-Cookie header found. Something is going very wrong...');
         }
 
-        const result = response.ok;
-        console.log(`[AUTH] Authentication ${result ? 'succeeded' : 'failed'}.`);
-        return result;
+        if (response.url.includes('loginto')) {
+            console.log(`[AUTH] Response URL: ${response.url}`)
+            console.warn('[AUTH] Login failed — back to login prompt');
+            return { loginSuccessful, sessionId };
+        }
+
+        const loginSuccessful = response.ok;
+        console.log(`[AUTH] Request ${loginSuccessful ? 'succeeded' : 'failed'}.`);
+
+        return { loginSuccessful, sessionId };
     } catch (error) {
         console.error('[AUTH] Error during authentication:', error);
         return false;
@@ -88,9 +105,9 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
     if (!username || !password ) return null;
     console.log(`[FETCH] Attempting to log in with the following credentials: ${username}, ${password}`);
 
-    const loginSuccesful = await authenticate(username, password);
+    const { loginSuccessful, sessionId } = await authenticate(username, password);
 
-    if (!loginSuccesful) {
+    if (!loginSuccessful) {
         console.log('[FETCH] Login failed');
         return null;
     }; 
@@ -98,6 +115,11 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
     console.log('[FETCH] Logged in successfully');
 
     const responses = {};
+
+    const browserID = {
+        id: null,
+        transid: null
+    }
 
     for (const { url, key } of queryItems) {
         if (!url || !key) {
@@ -109,21 +131,30 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
 
         try {
             // id und transitid innatua
-            const response = await fetch(url, {
+            const fullUrl = `${url}&id=${browserID.id}&transid=${browserID.transid}`;
+            const response = await fetch(fullUrl, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': 'text/html'
+                    'Accept': 'text/html',
+                    'Cookie': `PHPSESSID=${sessionId}`
                 },
-                redirect: 'follow',
-                credentials: 'include'
+                redirect: 'follow'
             });
 
             console.log(`[FETCH] Fetching URL for '${key}': ${url}`);
             console.log(`[FETCH] Following response url for '${key}': ${response.url}`);
 
-            if (response.ok && response.url.indexOf('loginto') !== -1) {
+            if (response.ok && !response.url.includes('loginto')) {
                 responseText = await response.text();
+
+                // dia logik muas äbbafalls bir authenticate funktion iibaut wärda
+                const match = responseText.match(/id=([^&]+)&transid=([^&]+)/);
+
+                if (match) {
+                    if (!browserID.id) browserID.id = match[1]; // remains constant per session
+                    browserID.transid = match[2]; // changes every new request
+                }
             } else {
                 console.warn(`[FETCH] Request failed with status ${response.status} for '${key}'`);
             }

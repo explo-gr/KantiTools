@@ -32,11 +32,11 @@ const Screen = ({ navigation }) => {
     const validateLogin = async () => {
         setIsValidating(true);
 
-        const loggedIn = await api.authenticate(inputtedEmail.trim(), inputtedPassword.trim()); // -> bool
+        const { loginSuccessful } = await api.authenticate(inputtedEmail.trim(), inputtedPassword.trim()); // -> bool
 
         let alertMsg;
 
-        if (loggedIn) {
+        if (loginSuccessful) {
             await login(inputtedEmail, inputtedPassword);
             alertMsg = t('st_sntz_login_y');
         } else {
