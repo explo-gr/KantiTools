@@ -82,7 +82,7 @@ export const DataProvider = ({ children }) => {
 
     const refreshAll = useCallback(async () => {
         if (!user || loadingAuth || isFetching) {
-            console.log('[DATA] Skipping refreshAll — unmet preconditions.');
+            console.log('[DATA] Skipping refreshAll — unmet preconditions.', !!user, !!loadingAuth, !!isFetching);
             return;
         }
 
@@ -105,6 +105,7 @@ export const DataProvider = ({ children }) => {
     }, [user, loadingAuth, isFetching, fetchAndStore]);
 
     useEffect(() => {
+        console.log('[DATA] useEffect fired');
         if (!loadingAuth && user) {
             console.log('[DATA] Auth complete and user exists — triggering refreshAll.');
             refreshAll();

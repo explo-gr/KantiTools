@@ -58,7 +58,7 @@ const authenticate = async (username, password) => {
     try {
         const response = await fetch(HOST.START, {
             method: 'POST',
-            keepalive: true,
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept': 'text/html'
@@ -89,9 +89,11 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
     console.log(`[FETCH] Attempting to log in with the following credentials: ${username}, ${password}`);
 
     const loginSuccesful = await authenticate(username, password);
-    console.log('[FETCH] Login failed');
 
-    if (!loginSuccesful) return null; 
+    if (!loginSuccesful) {
+        console.log('[FETCH] Login failed');
+        return null;
+    }; 
 
     console.log('[FETCH] Logged in successfully');
 
@@ -106,11 +108,21 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
         let responseText = null;
 
         try {
-            const response = await fetch(url);
+            // id und transitid innatua
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'text/html'
+                },
+                redirect: 'follow',
+                credentials: 'include'
+            });
 
-            console.log(`[FETCH] Fetching URL for '${key}': ${response.url}`);
+            console.log(`[FETCH] Fetching URL for '${key}': ${url}`);
+            console.log(`[FETCH] Following response url for '${key}': ${response.url}`);
 
-            if (response.ok) {
+            if (response.ok && response.url.indexOf('loginto') !== -1) {
                 responseText = await response.text();
             } else {
                 console.warn(`[FETCH] Request failed with status ${response.status} for '${key}'`);
