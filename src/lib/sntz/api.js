@@ -44,9 +44,14 @@ const authenticate = async (username, password) => {
     let sessionId = null;
     let loginSuccessful = false;
 
+    const browserID = {
+        transid: null,
+        id: null
+    }
+
     if (!loginHash) {
         console.warn('[AUTH] Failed to retrieve login hash.');
-        return { loginSuccessful, sessionId };
+        return { loginSuccessful, sessionId, browserID };
     }
 
     console.log(`[AUTH] Retrieved login hash: ${loginHash}`);
@@ -74,9 +79,10 @@ const authenticate = async (username, password) => {
         console.log('[AUTH] Trying to capture session ID...');
 
         const setCookie = response.headers.get('Set-Cookie');
+
         if (setCookie) {
-            const match = setCookie.match(/PHPSESSID=([^;]+);/); // I should start using more regex
-        
+            const match = setCookie.match(/PHPSESSID=([^;]+);/); // I should start using regex more
+            
             if (match) {
                 sessionId = match[1];
                 console.log(`[AUTH] Captured session ID: ${sessionId}`);
@@ -90,18 +96,13 @@ const authenticate = async (username, password) => {
         if (response.url.includes('loginto')) {
             console.log(`[AUTH] Response URL: ${response.url}`)
             console.warn('[AUTH] Login failed — back to login prompt');
-            return { loginSuccessful, sessionId };
+            return { loginSuccessful, sessionId, browserID };
         }
 
         const text = await response.text();
 
         const loginSuccessful = response.ok;
         console.log(`[AUTH] Request ${loginSuccessful ? 'succeeded' : 'failed'}.`);
-
-        const browserID = {
-            transid: null,
-            id: null
-        }
 
         const match = text.match(/id=([^&]+)&transid=([^&]+)/);
 
@@ -122,6 +123,7 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
     console.log(`[FETCH] Attempting to log in with the following credentials: ${username}, ${password}`);
 
     const { loginSuccessful, sessionId, browserID } = await authenticate(username, password);
+    console.log(`[FETCH] browserID passed by authenticate: ${browserID.id}, ${browserID.transid}`);
 
     if (!loginSuccessful) {
         console.log('[FETCH] Login failed');

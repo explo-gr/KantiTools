@@ -103,10 +103,18 @@ const TodoList = () => {
     const { colors, theme, defaultThemedStyles } = useThemes();
     const [todos, setTodos] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
-    const [openIndex, setOpenIndex] = useState(null);
 
     const [editIndex, setEditIndex] = useState(null);
     const [todoToEdit, setTodoToEdit] = useState(null);
+
+    const [ isOpen, setIsOpen ] = useState({});
+
+    const handleOpen = (i) => {
+        setIsOpen(prev => ({
+            ...prev,
+            [i]: !prev[i]
+        }));
+    };
 
     const getColorCode = useCallback((color) => colors[color] || colors.generic, [theme]);
 
@@ -157,8 +165,8 @@ const TodoList = () => {
                     }}>
                         <Accordion
                             title={item.title}
-                            isOpen={openIndex === index}
-                            changeIsOpen={() => setOpenIndex(openIndex === index ? null : index)}
+                            isOpen={!!isOpen[index]}
+                            changeIsOpen={() => handleOpen(index)}
                             tint={getColorCode(item.tint)}
                         >
                             <Text>{item.description}</Text>
