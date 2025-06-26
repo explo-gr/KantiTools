@@ -93,10 +93,24 @@ const authenticate = async (username, password) => {
             return { loginSuccessful, sessionId };
         }
 
+        const text = await response.text();
+
         const loginSuccessful = response.ok;
         console.log(`[AUTH] Request ${loginSuccessful ? 'succeeded' : 'failed'}.`);
 
-        return { loginSuccessful, sessionId };
+        const browserID = {
+            transid: null,
+            id: null
+        }
+
+        const match = text.match(/id=([^&]+)&transid=([^&]+)/);
+
+        if (match) {
+            browserID.id = match[1]; // remains constant per session
+            browserID.transid = match[2]; // changes every new request
+        }
+
+        return { loginSuccessful, sessionId, browserID };
     } catch (error) {
         console.error('[AUTH] Error during authentication:', error);
         return false;
@@ -107,7 +121,7 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
     if (!username || !password ) return null;
     console.log(`[FETCH] Attempting to log in with the following credentials: ${username}, ${password}`);
 
-    const { loginSuccessful, sessionId } = await authenticate(username, password);
+    const { loginSuccessful, sessionId, browserID } = await authenticate(username, password);
 
     if (!loginSuccessful) {
         console.log('[FETCH] Login failed');
@@ -118,11 +132,6 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
 
     const responses = {};
 
-    const browserID = {
-        id: null,
-        transid: null
-    }
-
     for (const { url, key } of queryItems) {
         if (!url || !key) {
             console.warn('[FETCH] Skipping query item with missing url/key:', { url, key });
@@ -132,7 +141,6 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
         let responseText = null;
 
         try {
-            // id und transitid innatua
             const fullUrl = `${url}&id=${browserID.id}&transid=${browserID.transid}`;
             const response = await fetch(fullUrl, {
                 method: 'GET',
@@ -150,12 +158,11 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
             if (response.ok && !response.url.includes('loginto')) {
                 responseText = await response.text();
 
-                // dia logik muas äbbafalls bir authenticate funktion iibaut wärda
-                const match = responseText.match(/id=([^&]+)&transid=([^&]+)/);
+                const match = responseText.match(/transid=([^&]+)/);
 
                 if (match) {
-                    if (!browserID.id) browserID.id = match[1]; // remains constant per session
-                    browserID.transid = match[2]; // changes every new request
+                    browserID.transid = match[1];
+                    console.log(`[FETCH] New transid found for next request ${browserID.transid}`);
                 }
             } else {
                 console.warn(`[FETCH] Request failed with status ${response.status} for '${key}'`);
