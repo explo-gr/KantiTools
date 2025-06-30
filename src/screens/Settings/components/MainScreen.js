@@ -1,24 +1,20 @@
 // imports regarding general objects
-import { StatusBar } from 'expo-status-bar';
 import { useContext, useState } from 'react';
 import { Alert, Button, StyleSheet, View, Image, ScrollView, Text } from 'react-native';
 import DropdownSelect from '../../../components/common/DropdownSelect';
 import { SupportedLanguages, useTranslations } from '../../../context/LanguageContext';
 import { ThemeContext } from '../../../context/ThemeContext';
 import SettingsItem from './SettingsItem';
-import Divider from '../../../components/common/Divider';
 import SettingsCategoryHeader from './SettingsCategoryHeader';
 import { useSettings } from '../../../context/SettingsContext';
 import ContainerView from '../../../components/common/ContainerView';
-import TranslatedText from '../../../components/translations/TranslatedText';
 import Credit from './Credit';
+import Header from '../../../components/common/Header';
 
 // Account management de 
 // https://docs.expo.dev/versions/latest/sdk/securestore/
 
 const SettingsMain = ({ navigation }) => {
-    const { defaultThemedStyles, colors } = useContext(ThemeContext);
-
     // Language Settings
     const { language, setLanguage, t, resetLanguage } = useTranslations();
     const [ selectedLanguage, setSelectedLanguage ] = useState(language);
@@ -33,27 +29,64 @@ const SettingsMain = ({ navigation }) => {
 
     return (
         <ContainerView>
+            <Header title={'Settings'}/>
+
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                //stickyHeaderIndices={[0]}
+                contentContainerStyle={{
+                    paddingBottom: 150
+                }}
             >
-                <>
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <TranslatedText style={{
-                            fontWeight: 'bold',
-                            fontSize: 28,
-                            color: colors.blue
-                        }}>
-                            Settings
-                        </TranslatedText>
-                    </View>
-                    <Divider/>
-                </>
-
                 <SettingsCategoryHeader icon="layout">
+                    st_hd_app
+                </SettingsCategoryHeader>
+                <SettingsItem title={t("st_sld_lang")}>
+                    <DropdownSelect
+                        entries={[ ...SupportedLanguages ]}
+                        selectedItem={selectedLanguage}
+                        onSelect={(lang) => {
+                            if (lang !== selectedLanguage) {
+                                setSelectedLanguage(lang);
+                                setLanguage(lang);
+                            }
+                        }}
+                    />
+                </SettingsItem>
+                <SettingsItem title={t("st_prf_thm")}>
+                    <DropdownSelect
+                        entries={[ ...themeStates ]}
+                        selectedItem={selectedThemeBehaviour}
+                        onSelect={(theme) => {
+                            if (selectedThemeBehaviour !== theme) {
+                                setThemeBehaviour(theme);
+                                changeSetting('theme', theme);
+                            }
+                        }}
+                    />
+                </SettingsItem>
+                <SettingsCategoryHeader icon="user">
+                    st_ac_mgt
+                </SettingsCategoryHeader>
+                <SettingsItem title={t("st_op_ln")}>
+                    <Button
+                        title={t("open")}
+                        onPress={() => navigation.navigate('SntzAccountManagement')}
+                    />
+                </SettingsItem>
+                <SettingsCategoryHeader icon="hard-drive">
+                    st_dt_mgt
+                </SettingsCategoryHeader>
+                <SettingsItem title={t("st_rst_sts")}>
+                    <Button
+                        title='reset'
+                        onPress={() => {
+                            resetSettings();
+                            resetLanguage();
+                            Alert.alert('Settings have been reset');
+                        }}
+                    />
+                </SettingsItem>
+                                <SettingsCategoryHeader icon="layout">
                     st_hd_app
                 </SettingsCategoryHeader>
                 <SettingsItem title={t("st_sld_lang")}>

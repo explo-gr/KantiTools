@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useData } from '../../../context/DataContext';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, Button, Alert } from 'react-native';
 import Accordion from '../../../components/common/Accordion';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 
 const GradesList = () => {
-    const { grades, isReady } = useData();
+    const { grades, isReady, refreshAll } = useData();
     const [ dataReady, setDataReady ] = useState(false);
     const [ dataAvailable, setDataAvailable ] = useState(false);
 
@@ -47,6 +47,17 @@ const GradesList = () => {
                                 {subject.exams.map((exam, idx) => (
                                     <Text key={idx}>{`${exam.topic}:    ${exam.grade}`}</Text>
                                 ))}
+{/*                                 <Button
+                                    title='confirm'
+                                    onPress={async () => {
+                                        // das isch uf dia art nit möglich 
+                                        // ttps://schulnetz.bks-campus.ch/index.php?pageid=21311&action=nvw_bestaetigen&id=83c028eb78464324&transid=7fdsa03f37&listindex=3
+                                        // du bruchsch action und listindex näbb cookie und id und transid
+                                        await fetch(subject.confirmationHref);
+                                        await refreshAll();
+                                    }}
+                                    disabled={!subject.confirmationHref}
+                                /> */}
                             </View>
                         </Accordion>
                     ))
