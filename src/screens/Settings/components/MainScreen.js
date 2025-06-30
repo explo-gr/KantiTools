@@ -1,6 +1,7 @@
 // imports regarding general objects
 import { useContext, useState } from 'react';
-import { Alert, Button, StyleSheet, View, Image, ScrollView, Text } from 'react-native';
+import { Alert, StyleSheet, View, Image, ScrollView, Text } from 'react-native';
+import Button from '../../../components/common/Button'
 import DropdownSelect from '../../../components/common/DropdownSelect';
 import { SupportedLanguages, useTranslations } from '../../../context/LanguageContext';
 import { ThemeContext } from '../../../context/ThemeContext';

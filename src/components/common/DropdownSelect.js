@@ -56,7 +56,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                 <View style={[{
                         backgroundColor: colors.generic,
                         borderColor: colors.blue
-                    }, styles.buttonShell, defaultThemedStyles.boxshadow]}>
+                    }, styles.buttonShell ]}>
                     <Feather name="chevron-down" size={24} color={colors.blue} />
                     <TranslatedText style={{
                             color: colors.hardContrast,
@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
         height: 50,
         maxWidth: 200,
         minWidth: 100,
-        borderWidth: 3,
-        borderRadius: 22.5,
+        borderWidth: 2.5,
+        borderRadius: 20,
         padding: 6,
 
         justifyContent: 'space-between',
