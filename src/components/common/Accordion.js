@@ -1,12 +1,11 @@
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native"
+import { StyleSheet, TouchableOpacity, View, Text, } from "react-native"
 import { useThemes } from "../../context/ThemeContext";
 import Animated, { useSharedValue, Easing, withTiming, useAnimatedStyle, ReduceMotion } from 'react-native-reanimated';
 import { useTranslations } from "../../context/LanguageContext";
 import Feather from '@expo/vector-icons/Feather';
-import Divider from '../../components/common/Divider'
+import Divider from '../../components/common/Divider';
+import { useEffect, useRef } from "react";
 
-// TODO: TINT
-//       CUSTOM TITLE
 const Accordion = ({ isOpen, changeIsOpen, title, children, tint }) => {
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
@@ -25,6 +24,31 @@ const Accordion = ({ isOpen, changeIsOpen, title, children, tint }) => {
         maxHeight: height.value,
     }));
 
+    const hasMounted = useRef(false);
+
+    useEffect(() => {
+        if (!hasMounted.current) {
+            // set values directly on first render
+            height.value = isOpen ? maxHeight : minHeight;
+            rotation.value = isOpen ? 180 : 0;
+            hasMounted.current = true;
+            return;
+        }
+
+        // animate on subsequent changes
+        height.value = withTiming(isOpen ? maxHeight : minHeight, {
+            duration: 250,
+            easing: Easing.inOut(Easing.ease),
+            reduceMotion: ReduceMotion.System,
+        });
+
+        rotation.value = withTiming(isOpen ? 180 : 0, {
+            duration: 250,
+            easing: Easing.inOut(Easing.linear),
+            reduceMotion: ReduceMotion.System,
+        });
+    }, [isOpen]);
+
     return (
         <View style={[styles.accordionContainer, defaultThemedStyles.card, {
             backgroundColor: tint + '14' // slightly tint the background
@@ -32,17 +56,6 @@ const Accordion = ({ isOpen, changeIsOpen, title, children, tint }) => {
             <TouchableOpacity            
                 onPress={() => {
                     changeIsOpen(!isOpen);
-                    rotation.value = withTiming(!isOpen ? 180 : 0, {
-                        duration: 250,
-                        easing: Easing.inOut(Easing.linear),
-                        reduceMotion: ReduceMotion.System,
-                    });
-
-                    height.value = withTiming(!isOpen ? maxHeight : minHeight, {
-                        duration: 250,
-                        easing: Easing.inOut(Easing.ease),
-                        reduceMotion: ReduceMotion.System,
-                });
             }}>
                 <View style={styles.headerContainer}>
                     <Text style={[styles.titleText, defaultThemedStyles.text]}>{t(title)}</Text>

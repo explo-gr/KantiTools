@@ -186,7 +186,6 @@ const TodoList = () => {
                                 </TouchableOpacity>
                             </View>
                         </Accordion>
-
                     </View>
                 )}
                 contentContainerStyle={{ paddingBottom: 100 }}

@@ -2,9 +2,11 @@ import { View } from 'react-native';
 import Divider from '../../components/common/Divider';
 import TranslatedText from '../../components/translations/TranslatedText';
 import { useThemes } from '../../context/ThemeContext';
+import { useTranslations } from '../../context/LanguageContext';
 
 const Header = ({ title }) => {
     const { colors } = useThemes();
+    const { t } = useTranslations()
 
     return (
             <View>
@@ -19,7 +21,7 @@ const Header = ({ title }) => {
                         fontSize: 28,
                         color: colors.blue
                     }}>
-                        {title}
+                        {t(title)}
                     </TranslatedText>
                 </View>
                 <Divider/>
