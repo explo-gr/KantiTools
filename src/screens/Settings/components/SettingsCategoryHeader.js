@@ -1,7 +1,7 @@
-import { useContext } from "react";
-import { useThemes } from "../../../context/ThemeContext";
-import { useTranslations } from "../../../context/LanguageContext";
-import { StyleSheet, View, Text } from "react-native";
+import { useContext } from 'react';
+import { useThemes } from '../../../context/ThemeContext';
+import { useTranslations } from '../../../context/LanguageContext';
+import { StyleSheet, View, Text } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 
 const SettingsCategoryHeader = ({ children, icon }) => {
@@ -19,7 +19,8 @@ const SettingsCategoryHeader = ({ children, icon }) => {
                 <Feather name={icon || 'edit-2'} size={24} color={colors.blue} />
                 <Text style={[{
                         color: colors.blue
-                    }, styles.text]}>
+                    }, styles.text]}
+                >
                     { t(children) }
                 </Text>
             </View>
