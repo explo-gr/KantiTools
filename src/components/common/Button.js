@@ -12,14 +12,14 @@ const CustomButton = ({ onPress, title }) => {
         >
             <View style={[
                 {
-                    backgroundColor: colors.generic,
-                    borderColor: colors.blue,
+                    backgroundColor: colors.blue
                 },
                 styles.buttonShell
             ]}>
                 <TranslatedText style={{
-                    color: colors.hardContrast,
-                    marginHorizontal: 3
+                    color: colors.generic,
+                    marginHorizontal: 3,
+                    fontSize: 15
                 }}>
                     {title || 'ok'}
                 </TranslatedText>
@@ -30,10 +30,9 @@ const CustomButton = ({ onPress, title }) => {
 
 const styles = StyleSheet.create({
     buttonShell: {
-        height: 50,
+        height: 45,
         maxWidth: 200,
         minWidth: 100,
-        borderWidth: 2.5,
         borderRadius: 20,
         padding: 6,
         justifyContent: 'center',

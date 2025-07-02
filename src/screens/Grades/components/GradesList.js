@@ -51,7 +51,7 @@ const GradesList = () => {
                             >
                                 <View>
                                     {subject.exams.map((exam, idx) => (
-                                        <Text key={idx}>{`${exam.topic}:    ${exam.grade}`}</Text>
+                                        <Text key={`text-${idx}`}>{`${exam.topic}:    ${exam.grade}`}</Text>
                                     ))}
     {/*                                 <Button
                                         title='confirm'

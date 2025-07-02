@@ -14,7 +14,7 @@ const Header = ({ title }) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     margin: 5,
-                    paddingTop: 7.5
+                    paddingTop: 7.5,
                 }}>
                     <TranslatedText style={{
                         fontWeight: 'bold',

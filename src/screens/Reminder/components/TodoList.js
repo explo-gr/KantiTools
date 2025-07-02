@@ -169,7 +169,7 @@ const TodoList = () => {
                             changeIsOpen={() => handleOpen(index)}
                             tint={getColorCode(item.tint)}
                         >
-                            <Text>{item.description}</Text>
+                            <Text style={{ color: colors.hardContrast }}>{item.description}</Text>
                             <View style={{
                                 gap: 10,
                                 flexDirection: 'row',

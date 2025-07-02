@@ -1,12 +1,19 @@
 // Imports
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Button, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import ToggleSwitch from '../../../components/common/ToggleSwitch';
 import Accordion from '../../../components/common/Accordion';
 import ContainerView from '../../../components/common/ContainerView';
 import Header from '../../../components/common/Header';
+import Button from '../../../components/common/Button';
+
+const ActionBox = ({ children }) => {
+    return (
+        <></>
+    );
+};
 
 // Main Home Screen
 const HomeMain = ({ navigation }) => {
