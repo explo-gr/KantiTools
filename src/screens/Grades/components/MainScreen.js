@@ -9,11 +9,12 @@ import Header from '../../../components/common/Header';
 import ActionBox from '../../../components/common/ActionBox';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
 import Divider from '../../../components/common/Divider';
+import calcPluspunkte from './calcPluspunkte';
 
 const Screen = ({ navigation }) => {
     const { defaultThemedStyles } = useThemes();
     const { refreshAll } = useData();
-    const { grades } = useData();
+    const { grades, isReady } = useData();
 
     return (
         // das züg zurna flatlist macha und de mit denna sections dAlertBoxContainer so dingsla halt
@@ -43,7 +44,9 @@ const Screen = ({ navigation }) => {
                         label={'gr_pluspoints'}
                         icon={'activity'}
                         onPress={() => {
-                            Alert.alert('hallo')
+                            if (!isReady) return;
+                            const res = calcPluspunkte(grades.data.map(({ onlineMean }) => onlineMean));
+                            Alert.alert(`Aktuelle Pluspunkte: ${res}`);
                         }}
                     />
                 </ActionBoxContainer>

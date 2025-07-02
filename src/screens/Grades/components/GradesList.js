@@ -33,7 +33,7 @@ const GradesList = () => {
     }
 
     return (
-        <>
+        <View>
             {
                 dataAvailable
                     ? grades.data.map((subject, i) => (
@@ -70,7 +70,7 @@ const GradesList = () => {
                     ))
                     : <Text>No data to display</Text>
             }
-        </>
+        </View>
     );
 }
 
