@@ -17,7 +17,6 @@ const Screen = ({ navigation }) => {
     const { grades, isReady } = useData();
 
     return (
-        // das züg zurna flatlist macha und de mit denna sections dAlertBoxContainer so dingsla halt
         <ContainerView>
             <Header title={'Grades'}/>
             <ScrollView

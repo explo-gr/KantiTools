@@ -145,7 +145,7 @@ export const openMenuplanPDF = async () => {
 
     if (!fileUri) {
         console.error('Failed to load PDF.');
-        return;
+        return false;
     }
 
     if (Platform.OS === 'android') {
@@ -159,8 +159,11 @@ export const openMenuplanPDF = async () => {
             });
         } catch (err) {
             console.error('Failed to open PDF with intent:', err);
+            return false;
         }
     } else {
         Linking.openURL(fileUri);
     }
+
+    return true;
 };
