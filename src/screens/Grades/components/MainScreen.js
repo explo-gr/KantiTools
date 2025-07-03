@@ -24,7 +24,7 @@ const Screen = ({ navigation }) => {
                 contentContainerStyle={{ paddingBottom: 120 }}
             >
                 <ActionBoxContainer
-                    height={90}
+                    height={100}
                 >
                     <ActionBox
                         label={'gr_calcgrade'}
@@ -42,7 +42,7 @@ const Screen = ({ navigation }) => {
                     />
                     <ActionBox
                         label={'gr_pluspoints'}
-                        icon={'activity'}
+                        icon={'plus'}
                         onPress={() => {
                             if (!isReady) return;
                             const res = calcPluspunkte(grades.data.map(({ onlineMean }) => onlineMean));

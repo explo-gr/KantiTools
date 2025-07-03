@@ -10,7 +10,8 @@ const ActionBoxContainer = ({ children, height, width }) => {
 
     return (
         <View style={[{
-            height: height
+            height: height,
+            marginVertical: 2
         }, styles.container]}>
             {children}
         </View>
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        gap: 5,
+        gap: 10,
         width: '100%'
     }
 });

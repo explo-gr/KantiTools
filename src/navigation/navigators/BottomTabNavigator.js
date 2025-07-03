@@ -57,9 +57,9 @@ const TabNavigator = ({ state, descriptors, navigation }) => {
                             alignItems: 'center'
                         }}>
                             <ScaleOnFocus isFocused={isFocused} from={0.8} to={1.1}>
-                                <Feather name={icons[route.name]} size={30} color="white" style={{ margin: 5 }}/>
+                                <Feather name={icons[route.name]} size={30} color={colors.generic} style={{ margin: 5 }}/>
                             </ScaleOnFocus>
-                            <TranslatedText style={[{ color: 'white' }, { textAlign: 'center', fontSize: 11 }]}>
+                            <TranslatedText style={[{color: colors.generic}, { textAlign: 'center', fontSize: 11 }]}>
                                 {label}
                             </TranslatedText>
                         </View>

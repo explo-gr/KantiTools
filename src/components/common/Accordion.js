@@ -4,9 +4,11 @@ import Animated, { useSharedValue, Easing, withTiming, useAnimatedStyle, ReduceM
 import { useTranslations } from "../../context/LanguageContext";
 import Feather from '@expo/vector-icons/Feather';
 import Divider from '../../components/common/Divider';
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
-const Accordion = ({ isOpen, changeIsOpen, title, children, tint }) => {
+const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tint }) => {
+    const enabled = React.Children.count(children);
+
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
 
@@ -15,6 +17,8 @@ const Accordion = ({ isOpen, changeIsOpen, title, children, tint }) => {
 
     const height = useSharedValue(isOpen ? maxHeight : minHeight);
     const rotation = useSharedValue(isOpen ? 180 : 0);
+
+    const titleTextSize = title.length >= 25 ? 15 : 17.5;
 
     const chevronAnimationStyle = useAnimatedStyle(() => ({
         transform: [{ rotate: `${rotation.value}deg` }],
@@ -55,13 +59,22 @@ const Accordion = ({ isOpen, changeIsOpen, title, children, tint }) => {
         }]}>
             <TouchableOpacity            
                 onPress={() => {
-                    changeIsOpen(!isOpen);
-            }}>
+                    if (enabled) changeIsOpen(!isOpen);
+                }}
+            >
                 <View style={styles.headerContainer}>
-                    <Text style={[styles.titleText, defaultThemedStyles.text]}>{t(title)}</Text>
-                    <Animated.View style={[styles.chevronContainer, chevronAnimationStyle]}>
-                        <Feather name="chevron-down" size={30} color={colors.hardContrast} />
-                    </Animated.View>
+                    <Text style={[{fontSize: titleTextSize}, styles.titleText, defaultThemedStyles.text]}>{t(title)}</Text>
+                    <View style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
+                        gap: 12,
+                        alignItems: 'center'
+                    }}>
+                        {rightItem}
+                        <Animated.View style={[styles.chevronContainer, chevronAnimationStyle]}>
+                            <Feather name="chevron-down" size={30} color={colors.hardContrast} />
+                        </Animated.View>
+                    </View>
                 </View>
             </TouchableOpacity>
             <Animated.View style={[styles.contentContainer, openingAnimationStyle]}>
@@ -94,7 +107,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     titleText: {
-        fontSize: 18,
         overflow: 'hidden'
     },
     contentContainer: {

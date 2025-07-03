@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 5,
         flexDirection: 'column',
-        borderRadius: 20,
+        borderRadius: 25,
         padding: 20,
     }
 });
