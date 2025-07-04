@@ -29,14 +29,14 @@ const Screen = ({ navigation }) => {
                         label={'gr_calcgrade'}
                         icon={'divide-square'}
                         onPress={() => {
-                            Alert.alert('hallo')
+                           navigation.navigate("GradesGradeCalc");
                         }}
                     />
                     <ActionBox
                         label={'gr_calcmin'}
                         icon={'bar-chart-2'}
                         onPress={() => {
-                            Alert.alert('hallo')
+                            navigation.navigate("GradesMinCalc");
                         }}
                     />
                     <ActionBox

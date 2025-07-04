@@ -41,8 +41,9 @@ const GradesList = () => {
                     ? grades.data.map((subject, i) => (
                         <View
                             id={`view-${i}`}
+                            key={`view-${i}`}
                             style={{
-                                marginBottom: 5
+                                marginBottom: 6
                             }}
                         >
                             <Accordion

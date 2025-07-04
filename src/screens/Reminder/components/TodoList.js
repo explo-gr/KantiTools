@@ -209,7 +209,7 @@ const TodoList = () => {
             }, defaultThemedStyles.boxshadow]}>
 
                     <Feather name="plus" size={24} color={colors.hardContrast} />
-                    <TranslatedText>re_create</TranslatedText>
+                    <TranslatedText style={{ color: colors.hardContrast }}>re_create</TranslatedText>
                 </View>
             </TouchableOpacity>
 

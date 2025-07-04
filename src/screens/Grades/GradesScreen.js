@@ -5,16 +5,19 @@ import GradesMain from './components/MainScreen';
 import GradesDebug from './components/DebugScreen';
 import GradesCalculator from './components/GradeCalculationScreen';
 import GradesGradeCalculation from './components/GradeCalculationScreen';
+import GradesGradeCalc from './components/GradeCalcScreen';
+import GradesMinCalc from './components/MinCalcScreen';
 
 const Stack = createStackNavigator();
 
 const GradesScreen = () => {
     return (
-    <Stack.Navigator>
-        <Stack.Screen name="GradesMain" component={GradesMain} options={{ headerShown: false }} />
-        <Stack.Screen name="GradesDebug" component={GradesDebug} />
-        <Stack.Screen name="GradesGradeCalculation" component={GradesGradeCalculation}/>
-    </Stack.Navigator>
+        <Stack.Navigator>
+            <Stack.Screen name="GradesMain" component={GradesMain} options={{ headerShown: false }} />
+            <Stack.Screen name="GradesDebug" component={GradesDebug} />
+            <Stack.Screen name="GradesMinCalc" component={GradesMinCalc}/>
+            <Stack.Screen name="GradesGradeCalc" component={GradesGradeCalc}/>
+        </Stack.Navigator>
     );
 }
 

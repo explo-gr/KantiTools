@@ -23,6 +23,7 @@ const ContainerView = ({ children, style }) => {
             <View style={[
                 style,
                 {
+                    // mit padding schaffa anstatt width und height?
                     width: '94%',
                     height: '95%',
                     flex: 1,
