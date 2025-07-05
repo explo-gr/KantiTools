@@ -1,5 +1,26 @@
 import { View, Image, Text, StyleSheet } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
+import { setStatusBarBackgroundColor, setStatusBarTranslucent } from 'expo-status-bar';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+
+const statusBarWheel = () => {
+    const colors = ['white', 'tomato', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'blue', 'purple', 'pink'];
+    const colorIterations = colors.length - 1;
+    
+    let colorIteration = 0;
+
+    const iterate = (iteration) => {
+        if (colorIteration <= colorIterations) {
+            setStatusBarBackgroundColor(colors[colorIteration], true);
+            colorIteration++;
+            setTimeout(() => iterate(), 800);
+        } else {
+            setStatusBarBackgroundColor('#00000000');
+        }
+    }
+
+    iterate(colorIteration);
+}
 
 const CreditText = ({ children }) => {
     const { defaultThemedStyles } = useThemes();
@@ -15,18 +36,20 @@ const Credit = () => {
     const { defaultThemedStyles } = useThemes();
 
     return (
-        <View style={styles.creditContainer}>
-            <Image
-                style={[styles.creditImage, defaultThemedStyles.boxshadow]}
-                source={require('../../../assets/icons/icon.png')}
-            />
-            <View style={styles.creditTextContainer}>
-                <CreditText>Created by Gian-Marco Coray</CreditText>
-                <CreditText>github.com/explo-gr/KantiTools</CreditText>
-                <CreditText>KantiTools</CreditText>
-                <CreditText>Alpha 1.5</CreditText>
+        <TouchableWithoutFeedback onLongPress={statusBarWheel}>
+            <View style={styles.creditContainer}>
+                <Image
+                    style={[styles.creditImage, defaultThemedStyles.boxshadow]}
+                    source={require('../../../assets/icons/icon.png')}
+                />
+                <View style={styles.creditTextContainer}>
+                    <CreditText>Created by Gian-Marco Coray</CreditText>
+                    <CreditText>github.com/explo-gr/KantiTools</CreditText>
+                    <CreditText>KantiTools</CreditText>
+                    <CreditText>Alpha 1.5</CreditText>
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
 
