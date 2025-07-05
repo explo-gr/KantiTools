@@ -177,8 +177,6 @@ const TodoList = () => {
         setModalVisible(true);
     }
 
-    console.log(todos.length)
-
     return (
         <>
             {

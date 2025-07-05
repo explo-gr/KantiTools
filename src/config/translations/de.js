@@ -28,7 +28,7 @@ export default {
     re_empty: "keine Einträge",
     re_del: "Todo löschen?",
     re_del_msg: "Diese Aktion kann nicht rückgängig gemacht werden.",
-    re_no_descr: "keine Beschreibung",
+    re_no_descr: "keine Beschreibung vorhanden",
 
     // grades
     gr_calcgrade: "Notenrechner",
