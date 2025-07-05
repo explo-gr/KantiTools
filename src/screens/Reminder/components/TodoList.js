@@ -6,7 +6,8 @@ import {
     StyleSheet,
     TouchableOpacity,
     FlatList,
-    Modal
+    Modal,
+    Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TranslatedText from '../../../components/translations/TranslatedText';
@@ -121,6 +122,8 @@ const EmptyListMsg = () => {
 
 const TodoList = () => {
     const { colors, theme, defaultThemedStyles } = useThemes();
+    const { t } = useTranslations();
+
     const [ todos, setTodos ] = useState([]);
     const [ modalVisible, setModalVisible ] = useState(false);
 
@@ -193,9 +196,13 @@ const TodoList = () => {
                                         changeIsOpen={() => handleOpen(index)}
                                         tint={getColorCode(item.tint)}
                                     >
-                                        <Text style={{ color: colors.hardContrast }}>{item.description}</Text>
+                                        {
+                                            item.description
+                                                ?   <Text style={{ color: colors.hardContrast }}>{item.description}</Text>
+                                                :   <TranslatedText style={{ color: colors.gray, fontStyle: 'italic' }}>re_no_descr</TranslatedText>
+                                        }
                                         <View style={{
-                                            gap: 10,
+                                            gap: 12,
                                             flexDirection: 'row',
                                             justifyContent: 'flex-end',
                                             alignItems: 'center'
@@ -205,8 +212,27 @@ const TodoList = () => {
                                             }}>
                                                 <Feather name='edit-2' size={22} color={colors.blue} />
                                             </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => handleDelete(index)}>
-                                                <Feather name='trash' size={22} color={colors.red} />
+                                            <TouchableOpacity
+                                            onPress={() => {
+                                                Alert.alert(
+                                                    t('re_del'),
+                                                    t('re_del_msg'),
+                                                    [
+                                                        {
+                                                            text: t('cancel'),
+                                                            style: 'cancel'
+                                                        },
+                                                        {
+                                                            text: t('delete'),
+                                                            onPress: () => handleDelete(index),
+                                                            style: 'destructive'
+                                                        },
+                                                    ],
+                                                    { cancelable: true }
+                                                );
+                                            }}
+                                            >
+                                            <Feather name='trash' size={22} color={colors.red} />
                                             </TouchableOpacity>
                                         </View>
                                     </Accordion>
@@ -222,21 +248,21 @@ const TodoList = () => {
                 onPress={() => setModalVisible(true)}
                 style={styles.fab}
             >
-            <View style={[{ 
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'row',
-                gap: 3,
-                borderColor: colors.blue,
-                borderWidth: 2.5,
-                borderRadius: 30,
-                padding: 9,
-                margin: 4,
-                backgroundColor: colors.generic
-            }, defaultThemedStyles.boxshadow]}>
+                <View style={[{ 
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    gap: 3,
+                    borderColor: colors.blue,
+                    borderWidth: 2.5,
+                    borderRadius: 30,
+                    padding: 9,
+                    margin: 4,
+                    backgroundColor: colors.generic
+                }, defaultThemedStyles.boxshadow]}>
 
-                    <Feather name='plus' size={24} color={colors.hardContrast} />
-                    <TranslatedText style={{ color: colors.hardContrast }}>re_create</TranslatedText>
+                        <Feather name='plus' size={24} color={colors.hardContrast} />
+                        <TranslatedText style={{ color: colors.hardContrast }}>re_create</TranslatedText>
                 </View>
             </TouchableOpacity>
 
@@ -306,8 +332,8 @@ const styles = StyleSheet.create({
     fab: {
         position: 'absolute',
         padding: 5,
-        bottom: 100,
-        right: 15
+        bottom: 105,
+        left: '55%'
     }
 });
 

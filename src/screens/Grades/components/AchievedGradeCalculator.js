@@ -3,7 +3,9 @@ import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { useEffect, useState, useRef } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import TranslatedText from '../../../components/translations/TranslatedText';
+import Feather from '@expo/vector-icons/Feather';
 
+// Color Transition
 const getGradeTint = (grade) => {
     if (grade < 1 || grade > 6) {
         return '#000000'
@@ -58,7 +60,7 @@ const AchievedGradeCalculator = () => {
         <View style={{
             alignItems: 'center',
             flexDirection: 'column',
-            gap: 60
+            gap: 80
         }}>
             <View style={{
                 flexDirection: 'row',
@@ -102,9 +104,27 @@ const AchievedGradeCalculator = () => {
                     />
                 </View>
             </View>
+            <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 10
+            }}>
+                <View style={{
+                    flexDirection: 'row',
+                    gap: 10,
+                    alignItems: 'center'
+                }}>
+                    <Feather name="bar-chart" size={30} color={colors.hardContrast} />
+                    <TranslatedText style={[{
+                        fontSize: 25,
+                    }, defaultThemedStyles.text]}>
+                        gr_grcalc_end
+                    </TranslatedText>
+                </View>
                 <Text style={[{
                     color: gradeColor.current
                 }, styles.outputText]}>{ Number(output).toFixed(2) }</Text>
+            </View>
         </View>
     );
 };

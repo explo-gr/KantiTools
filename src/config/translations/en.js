@@ -4,6 +4,7 @@ export default {
     greeting: "Hello!",
     welcome: "Welcome!",
     ok: "OK",
+    delete: "Delete",
     cancel: "Cancel",
 
     // home
@@ -24,6 +25,9 @@ export default {
     re_description: "Description",
     re_tint: "Tint",
     re_empty: "no added Todos",
+    re_del: "Delete Todo?",
+    re_del_msg: "That action cannot be undone.",
+    re_no_descr: "No description",
     
     // grades
     gr_calcgrade: "Grade calc",
@@ -32,6 +36,7 @@ export default {
 
     gr_grcalc_ach: "Achieved Score",
     gr_grcalc_max: "Maximum score",
+    gr_grcalc_end: "Final Grade:",
     
     // settings
     st_sld_lang: "Currently selected language: ",

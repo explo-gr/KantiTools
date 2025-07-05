@@ -5,6 +5,7 @@ export default {
     welcome: "Willkommen!",
     ok: "OK",
     cancel: "Abbrechen",
+    delete: "Löschen",
     retry: 'Erneut versuchen',
 
     // home
@@ -25,6 +26,9 @@ export default {
     re_description: "Beschreibung",
     re_tint: "Farbton",
     re_empty: "keine Einträge",
+    re_del: "Todo löschen?",
+    re_del_msg: "Diese Aktion kann nicht rückgängig gemacht werden.",
+    re_no_descr: "keine Beschreibung",
 
     // grades
     gr_calcgrade: "Notenrechner",
@@ -33,6 +37,7 @@ export default {
 
     gr_grcalc_ach: "erreichte Punktzahl",
     gr_grcalc_max: "Maximalpunktzahl",
+    gr_grcalc_end: "Endnote",
     
     // settings
     st_sld_lang: "Derzeit ausgewählte Sprache: ",
