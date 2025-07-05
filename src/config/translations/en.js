@@ -13,6 +13,8 @@ export default {
     hm_gr_afternoon:"Good afternoon",
     hm_gr_evening: "Good evening",
     hm_gr_night: "Good night",
+    hm_men_err: "Failed to retrieve PDF",
+    hm_men_err_msg: "Check your network connection!",
 
     // reminder
     re_title: "Title",
@@ -21,6 +23,15 @@ export default {
     re_phd_description: "Enter Description",
     re_description: "Description",
     re_tint: "Tint",
+    re_empty: "no added Todos",
+    
+    // grades
+    gr_calcgrade: "Grade calc",
+    gr_calcmin: "Min. grade",
+    gr_pluspoints: "Plus points",
+
+    gr_grcalc_ach: "Achieved Score",
+    gr_grcalc_max: "Maximum score",
     
     // settings
     st_sld_lang: "Currently selected language: ",

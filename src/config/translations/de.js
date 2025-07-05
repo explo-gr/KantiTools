@@ -14,6 +14,8 @@ export default {
     hm_gr_afternoon:"Guten Nachmittag",
     hm_gr_evening: "Guten Abend",
     hm_gr_night: "Gute Nacht",
+    hm_men_err: "PDF nicht gefunden",
+    hm_men_err_msg: "Überprüfe deine Netzwerkverbindung!",
 
     // reminder
     re_title: "Titel",
@@ -23,6 +25,14 @@ export default {
     re_description: "Beschreibung",
     re_tint: "Farbton",
     re_empty: "keine Einträge",
+
+    // grades
+    gr_calcgrade: "Notenrechner",
+    gr_calcmin: "Mindestnote",
+    gr_pluspoints: "Pluspunkte",
+
+    gr_grcalc_ach: "erreichte Punktzahl",
+    gr_grcalc_max: "Maximalpunktzahl",
     
     // settings
     st_sld_lang: "Derzeit ausgewählte Sprache: ",

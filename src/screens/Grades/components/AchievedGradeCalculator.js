@@ -68,8 +68,8 @@ const AchievedGradeCalculator = () => {
                 }, styles.inputContainer]}>
                     <TranslatedText style={{
                         color: colors.generic,
-                        fontSize: 15
-                    }}>re_gr_calc_ach</TranslatedText>
+                        fontSize: 14
+                    }}>gr_grcalc_ach</TranslatedText>
                     <TextInput
                         onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g))}
                         value={achievedScore}
@@ -87,8 +87,8 @@ const AchievedGradeCalculator = () => {
                 }, styles.inputContainer]}>
                     <TranslatedText style={{
                         color: colors.generic,
-                        fontSize: 15
-                    }}>re_gr_calc_max</TranslatedText>
+                        fontSize: 14
+                    }}>gr_grcalc_max</TranslatedText>
                     <TextInput
                         onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g))}
                         value={maxScore}
@@ -116,9 +116,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     inputContainer: {
-        borderRadius: 16,
-        marginHorizontal: 16,
-        width: '40%',
+        borderRadius: 26,
+        marginHorizontal: 10,
+        width: '42%',
         padding: 10,
         textAlign: 'center',
         justifyContent: 'center',

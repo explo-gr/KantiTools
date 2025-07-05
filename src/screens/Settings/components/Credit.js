@@ -4,18 +4,18 @@ import { setStatusBarBackgroundColor, setStatusBarTranslucent } from 'expo-statu
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const statusBarWheel = () => {
-    const colors = ['white', 'tomato', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'blue', 'purple', 'pink'];
+    const colors = ['tomato', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'blue', 'purple', 'pink'];
     const colorIterations = colors.length - 1;
-    
+
     let colorIteration = 0;
 
     const iterate = (iteration) => {
         if (colorIteration <= colorIterations) {
             setStatusBarBackgroundColor(colors[colorIteration], true);
             colorIteration++;
-            setTimeout(() => iterate(), 800);
+            setTimeout(() => iterate(), 500);
         } else {
-            setStatusBarBackgroundColor('#00000000');
+            setStatusBarBackgroundColor('#00000000', true);
         }
     }
 
