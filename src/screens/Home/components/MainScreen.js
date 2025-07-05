@@ -1,6 +1,6 @@
 // Imports
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Alert } from 'react-native';
 import { useState } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import ToggleSwitch from '../../../components/common/ToggleSwitch';
@@ -15,19 +15,38 @@ import { useTranslations } from '../../../context/LanguageContext';
 const HomeMain = ({ navigation }) => {
     const { t } = useTranslations();
     const { defaultThemedStyles } = useThemes();
-    const [state, setState] = useState(false);
+    const [ state, setState ] = useState(false);
+    const [ menDisabled, setMenDisabled ] = useState(false);
 
     const handleMenuplan = async () => {
+        setMenDisabled(true);
         const opened = await openMenuplanPDF();
-        if (!opened) Alert.alert(t('hm_men_err'));
-    }
+        if (!opened) {
+            Alert.alert(
+                t('hm_men_err'),
+                t('hm_men_err_msg'),
+                [
+                    {
+                        text: t('retry'),
+                        onPress: handleMenuplan,
+                    },
+                    {
+                        text: t('ok'),
+                        style: 'cancel',
+                    },
+                ]
+            );
+        }
+        setMenDisabled(false);
+    };
+
 
     return (
         <ContainerView>
             <Header title={'Home'}/>
             <ToggleSwitch changeState={setState} state={state} />
             <Button title="Go to Details" onPress={() => navigation.navigate('HomeDetails')} />
-            <Button title="Go to Menuplan" onPress={handleMenuplan} />
+            <Button title="Go to Menuplan" onPress={handleMenuplan} disabled={menDisabled} />
         </ContainerView>
     );
 };

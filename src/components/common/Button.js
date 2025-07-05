@@ -3,12 +3,16 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { useThemes } from '../../context/ThemeContext';
 import TranslatedText from '../translations/TranslatedText';
 
-const CustomButton = ({ onPress, title }) => {
+const CustomButton = ({ onPress, title, disabled=false }) => {
     const { defaultThemedStyles, colors } = useThemes();
 
     return (
         <TouchableOpacity
             onPress={onPress}
+            disabled={disabled}
+            style={{
+                opacity: disabled ? 0.2 : 1.0
+            }}
         >
             <View style={[
                 {

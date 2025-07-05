@@ -99,13 +99,33 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
     );
 };
 
+const EmptyListMsg = () => {
+    const { colors } = useThemes();
+
+    return (
+        <View style={{
+            flex: 1,
+            alignItems: 'center',
+            marginTop: 20,
+        }}>
+            <TranslatedText style={{
+                fontSize: 20,
+                fontStyle: 'italic',
+                color: colors.gray
+            }}>
+                re_empty
+            </TranslatedText>
+        </View>
+    );
+}
+
 const TodoList = () => {
     const { colors, theme, defaultThemedStyles } = useThemes();
-    const [todos, setTodos] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [ todos, setTodos ] = useState([]);
+    const [ modalVisible, setModalVisible ] = useState(false);
 
-    const [editIndex, setEditIndex] = useState(null);
-    const [todoToEdit, setTodoToEdit] = useState(null);
+    const [ editIndex, setEditIndex ] = useState(null);
+    const [ todoToEdit, setTodoToEdit ] = useState(null);
 
     const [ isOpen, setIsOpen ] = useState({});
 
@@ -154,42 +174,49 @@ const TodoList = () => {
         setModalVisible(true);
     }
 
+    console.log(todos.length)
+
     return (
         <>
-            <FlatList
-                data={todos}
-                keyExtractor={(_, index) => index.toString()}
-                renderItem={({ item, index }) => (
-                    <View style={{
-                        marginBottom: 5
-                    }}>
-                        <Accordion
-                            title={item.title}
-                            isOpen={!!isOpen[index]}
-                            changeIsOpen={() => handleOpen(index)}
-                            tint={getColorCode(item.tint)}
-                        >
-                            <Text style={{ color: colors.hardContrast }}>{item.description}</Text>
-                            <View style={{
-                                gap: 10,
-                                flexDirection: 'row',
-                                justifyContent: 'flex-end',
-                                alignItems: 'center'
-                            }}>
-                                <TouchableOpacity onPress={() => {
-                                    handleEdit(item, index);
+            {
+                todos.length > 0
+                    ?   <FlatList
+                            data={todos}
+                            keyExtractor={(_, index) => index.toString()}
+                            renderItem={({ item, index }) => (
+                                <View style={{
+                                    marginBottom: 5
                                 }}>
-                                    <Feather name='edit-2' size={22} color={colors.blue} />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => handleDelete(index)}>
-                                    <Feather name='trash' size={22} color={colors.red} />
-                                </TouchableOpacity>
-                            </View>
-                        </Accordion>
-                    </View>
-                )}
-                contentContainerStyle={{ paddingBottom: 100 }}
-            />
+                                    <Accordion
+                                        title={item.title}
+                                        isOpen={!!isOpen[index]}
+                                        changeIsOpen={() => handleOpen(index)}
+                                        tint={getColorCode(item.tint)}
+                                    >
+                                        <Text style={{ color: colors.hardContrast }}>{item.description}</Text>
+                                        <View style={{
+                                            gap: 10,
+                                            flexDirection: 'row',
+                                            justifyContent: 'flex-end',
+                                            alignItems: 'center'
+                                        }}>
+                                            <TouchableOpacity onPress={() => {
+                                                handleEdit(item, index);
+                                            }}>
+                                                <Feather name='edit-2' size={22} color={colors.blue} />
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => handleDelete(index)}>
+                                                <Feather name='trash' size={22} color={colors.red} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </Accordion>
+                                </View>
+                            )}
+                            contentContainerStyle={{ paddingBottom: 100 }}
+                        />
+
+                    :   <EmptyListMsg/>
+            }
 
             <TouchableOpacity
                 onPress={() => setModalVisible(true)}

@@ -5,6 +5,7 @@ export default {
     welcome: "Willkommen!",
     ok: "OK",
     cancel: "Abbrechen",
+    retry: 'Erneut versuchen',
 
     // home
     hm_gr_morning: "Guten Morgen",
@@ -21,6 +22,7 @@ export default {
     re_phd_description: "Beschreibung eingeben",
     re_description: "Beschreibung",
     re_tint: "Farbton",
+    re_empty: "keine Einträge",
     
     // settings
     st_sld_lang: "Derzeit ausgewählte Sprache: ",

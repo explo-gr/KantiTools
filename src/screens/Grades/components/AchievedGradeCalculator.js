@@ -104,7 +104,7 @@ const AchievedGradeCalculator = () => {
             </View>
                 <Text style={[{
                     color: gradeColor.current
-                }, styles.outputText]}>{ output }</Text>
+                }, styles.outputText]}>{ Number(output).toFixed(2) }</Text>
         </View>
     );
 };
