@@ -1,51 +1,110 @@
 // Imports
 import { Text, View, StyleSheet, TextInput } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
+import TranslatedText from '../../../components/translations/TranslatedText';
+
+const getGradeTint = (grade) => {
+    if (grade < 1 || grade > 6) {
+        return '#000000'
+    }
+
+    const red = [255, 0, 0];
+    const green = [0, 200, 0];
+
+    const t = (grade - 1) / 5;
+
+    const r = Math.round(red[0] + (green[0] - red[0]) * t);
+    const g = Math.round(red[1] + (green[1] - red[1]) * t);
+    const b = Math.round(red[2] + (green[2] - red[2]) * t);
+
+    const toHex = (value) => value.toString(16).padStart(2, '0');
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
 
 // Grade Calculation
 const AchievedGradeCalculator = () => {
-    const { defaultThemedStyles } = useThemes();
+    const { defaultThemedStyles, colors } = useThemes();
 
     const [ achievedScore, setAchievedScore ] = useState('');
     const [ maxScore, setMaxScore ] = useState('');
     const [ output, setOutput ] = useState('');
 
+    const gradeColor = useRef('#000000');
+
     const calculateOutput = () => {
         const _achievedScore = Number(achievedScore);
         const _maxScore = Number(maxScore);
 
-        if (_maxScore) {
+        if (_maxScore && _achievedScore) {
             const gradeRaw = (_achievedScore / _maxScore) * 5 + 1;
             return Math.round(gradeRaw * 100) / 100;
         }
 
-        return ' ';
+        return 1;
     };
 
     useEffect(() => {
-        setOutput(calculateOutput());
+        setOutput(_ => {
+            const grade = calculateOutput();
+            gradeColor.current = getGradeTint(grade);
+            return grade;
+        });
+
     }, [achievedScore, maxScore])
 
     return (
         <View style={{
-            flexDirection: 'row'
+            alignItems: 'center',
+            flexDirection: 'column',
+            gap: 60
         }}>
-            <TextInput
-                onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g))}
-                //onChangeText={setAchievedScore}
-                value={achievedScore}
-                keyboardType='number-pad'
-                placeholder='achieved'
-            />
-            <TextInput
-                onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g))}
-                //onChangeText={setMaxScore}
-                value={maxScore}
-                keyboardType='number-pad'
-                placeholder='max'
-            />
-            <Text>{ output }</Text>
+            <View style={{
+                flexDirection: 'row',
+            }}>
+                <View style={[{
+                    backgroundColor: colors.blue
+                }, styles.inputContainer]}>
+                    <TranslatedText style={{
+                        color: colors.generic,
+                        fontSize: 15
+                    }}>re_gr_calc_ach</TranslatedText>
+                    <TextInput
+                        onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g))}
+                        value={achievedScore}
+                        keyboardType='number-pad'
+                        placeholder='---'
+                        placeholderTextColor={colors.gray}
+                        maxLength={5}
+                        style={[{
+                            color: colors.generic
+                        }, styles.input]}
+                    />
+                </View>
+                <View style={[{
+                    backgroundColor: colors.blue
+                }, styles.inputContainer]}>
+                    <TranslatedText style={{
+                        color: colors.generic,
+                        fontSize: 15
+                    }}>re_gr_calc_max</TranslatedText>
+                    <TextInput
+                        onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g))}
+                        value={maxScore}
+                        keyboardType='number-pad'
+                        placeholder='---'
+                        placeholderTextColor={colors.gray}
+                        maxLength={5}
+                        style={[{
+                            color: colors.generic
+                        }, styles.input]}
+                    />
+                </View>
+            </View>
+                <Text style={[{
+                    color: gradeColor.current
+                }, styles.outputText]}>{ output }</Text>
         </View>
     );
 };
@@ -56,8 +115,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    inputContainer: {
+        borderRadius: 16,
+        marginHorizontal: 16,
+        width: '40%',
+        padding: 10,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     input: {
-
+        fontSize: 35,
+        fontFamily: 'monospace'
+    },
+    outputText: {
+        fontSize: 82,
+        fontFamily: 'monospace',
+        fontWeight: 'bold',
+        //textDecorationLine: 'underline',
+    },
+    outputContainer: {
+        borderWidth: 3,
+        borderRadius: 16,
+        padding: 10,
     }
 });
 

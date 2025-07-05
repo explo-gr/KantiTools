@@ -7,7 +7,7 @@ const ContainerView = ({ children, style }) => {
     const headerHeight = useHeaderHeight();
     const { defaultThemedStyles, theme } = useThemes();
 
-    const addedPadding = headerHeight === 0 ? 40 : headerHeight;
+    const addedPadding = headerHeight === 0 ? 40 : 20;
 
     return (
         <View style={[

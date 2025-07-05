@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 import {
     View,
     TextInput,
@@ -7,15 +7,15 @@ import {
     TouchableOpacity,
     FlatList,
     Modal
-} from "react-native";
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import TranslatedText from "../../../components/translations/TranslatedText";
-import { useThemes } from "../../../context/ThemeContext";
+import TranslatedText from '../../../components/translations/TranslatedText';
+import { useThemes } from '../../../context/ThemeContext';
 import Feather from '@expo/vector-icons/Feather';
-import Accordion from "../../../components/common/Accordion";
-import { useTranslations } from "../../../context/LanguageContext";
+import Accordion from '../../../components/common/Accordion';
+import { useTranslations } from '../../../context/LanguageContext';
 
-const TINT_COLORS = ["red", "green", "blue", "yellow"];
+const TINT_COLORS = ['red', 'green', 'blue', 'yellow'];
 // red, green, blue, yellow
 
 const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
@@ -46,7 +46,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
 
     return (
         <Modal
-            animationType="fade"
+            animationType='fade'
             statusBarTranslucent={true}
             transparent={true}
             visible={visible}
@@ -58,7 +58,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                     <TextInput
                         value={title}
                         onChangeText={setTitle}
-                        placeholder={t("re_phd_title")}
+                        placeholder={t('re_phd_title')}
                         style={[styles.input, defaultThemedStyles.text]}
                         placeholderTextColor={colors.gray}
                     />
@@ -67,7 +67,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                     <TextInput
                         value={description}
                         onChangeText={setDescription}
-                        placeholder={t("re_phd_description")}
+                        placeholder={t('re_phd_description')}
                         style={[styles.input, { height: 80 }, defaultThemedStyles.text]}
                         multiline
                         placeholderTextColor={colors.gray}
@@ -179,10 +179,10 @@ const TodoList = () => {
                                 <TouchableOpacity onPress={() => {
                                     handleEdit(item, index);
                                 }}>
-                                    <Feather name="edit-2" size={22} color={colors.blue} />
+                                    <Feather name='edit-2' size={22} color={colors.blue} />
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => handleDelete(index)}>
-                                    <Feather name="trash" size={22} color={colors.red} />
+                                    <Feather name='trash' size={22} color={colors.red} />
                                 </TouchableOpacity>
                             </View>
                         </Accordion>
@@ -196,9 +196,9 @@ const TodoList = () => {
                 style={styles.fab}
             >
             <View style={[{ 
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "row",
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
                 gap: 3,
                 borderColor: colors.blue,
                 borderWidth: 2.5,
@@ -208,7 +208,7 @@ const TodoList = () => {
                 backgroundColor: colors.generic
             }, defaultThemedStyles.boxshadow]}>
 
-                    <Feather name="plus" size={24} color={colors.hardContrast} />
+                    <Feather name='plus' size={24} color={colors.hardContrast} />
                     <TranslatedText style={{ color: colors.hardContrast }}>re_create</TranslatedText>
                 </View>
             </TouchableOpacity>
