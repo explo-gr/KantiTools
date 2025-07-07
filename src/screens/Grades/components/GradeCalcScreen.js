@@ -13,13 +13,11 @@ const GradesGradeCalc = ({ route }) => {
     const { defaultThemedStyles } = useThemes();
 
     return (
-        <ContainerView>
-            <View style={{
-                gap: 20
-            }}>
-                <Divider/>
-                <AchievedGradeCalculator/>
-            </View>
+        <ContainerView style={{
+            gap: 20
+        }}>
+            <Divider/>
+            <AchievedGradeCalculator/>
         </ContainerView>
     );
 };

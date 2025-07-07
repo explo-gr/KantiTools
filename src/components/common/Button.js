@@ -11,7 +11,9 @@ const CustomButton = ({ onPress, title, disabled=false }) => {
             onPress={onPress}
             disabled={disabled}
             style={{
-                opacity: disabled ? 0.2 : 1.0
+                opacity: disabled ? 0.2 : 1.0,
+                justifyContent: 'center',
+                alignItems: 'center'
             }}
         >
             <View style={[
@@ -23,7 +25,8 @@ const CustomButton = ({ onPress, title, disabled=false }) => {
                 <TranslatedText style={{
                     color: colors.generic,
                     marginHorizontal: 3,
-                    fontSize: 15
+                    fontSize: 15,
+                    textAlign: 'center'
                 }}>
                     {title || 'ok'}
                 </TranslatedText>
@@ -38,10 +41,10 @@ const styles = StyleSheet.create({
         maxWidth: 200,
         minWidth: 100,
         borderRadius: 20,
-        padding: 6,
+        padding: 8,
+        flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row'
+        alignItems: 'center'
     },
 });
 

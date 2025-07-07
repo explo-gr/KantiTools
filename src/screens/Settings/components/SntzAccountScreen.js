@@ -1,12 +1,16 @@
-import { Text, View, Button, TextInput, Alert } from 'react-native';
+import { View, TextInput, Alert, StyleSheet, Pressable } from 'react-native';
 import ContainerView from '../../../components/common/ContainerView';
 import Feather from '@expo/vector-icons/Feather';
 import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import TranslatedText from '../../../components/translations/TranslatedText';
 import api from '../../../lib/sntz/api';
 import { AuthProvider, useAuth } from '../../../context/AuthenticationContext';
+import Button from '../../../components/common/Button';
+import Divider from '../../../components/common/Divider';
+import * as Haptics from 'expo-haptics';
+import { setStatusBarBackgroundColor } from 'expo-status-bar';
 
 // Hey, Space Cadet (Beast Monster Thing in Space) by Car Seat Headrest
 const Screen = ({ navigation }) => {
@@ -22,6 +26,18 @@ const Screen = ({ navigation }) => {
     const [ logoutBtnEnabled, setLogoutBtnEnabled ] = useState(false);
 
     const [ validating, setIsValidating ] = useState(false);
+
+    const [ iconName, setIconName ] = useState('link');
+    const [ showEye, setShowEye ] = useState(false);
+
+    const secretCounter = useRef(0);
+
+    const handleSecretPress = () => {
+        secretCounter.current += 1;
+        if (secretCounter.current > 4) {
+            setShowEye(true);
+        }
+    }
 
     const handleLogout = async () => {
         await logout();
@@ -64,14 +80,44 @@ const Screen = ({ navigation }) => {
         setLogoutBtnEnabled(finishedLoading && isLoggedIn && !validating);
     }, [loadingAuth, inputtedEmail, inputtedPassword, user, validating]);
 
+    useEffect(() => {
+        if (secretCounter.current > 4) {
+            setIconName('eye');
+        }
+    }, [secretCounter]);
+
+    useEffect(() => {
+        if (showEye) setIconName('eye');
+    }, [showEye]);
+
+    useEffect(() => {
+        if (iconName === 'eye') {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+
+            Alert.alert('The 👁️ is watching', 'Li4gLS4uLiAuLiAtLiAuLi4gLS4tLiAuLi4uIC4tLSAuLi0gLi0uLg==', [{ text: 'I WILL ACCEPT', onPress: () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success) }]);
+
+            setStatusBarBackgroundColor('red', true);
+            setTimeout(() => setStatusBarBackgroundColor('#00000000', true), 1000);
+        }
+    }, [iconName]);
+
     return (
         <ContainerView style={{
-            flex: 1,
             alignItems: 'center',
-            flexDirection: 'column'
+            gap: 20
         }}>
-            <Feather name={'link'} size={80} color={colors.blue} />
-            <TranslatedText>st_sntz_info</TranslatedText>
+            <Divider/>
+            <Pressable onPress={handleSecretPress} style={[{
+                backgroundColor: colors.blue
+            }, styles.circle]}>
+                <Feather name={iconName} size={75} color={colors.generic}/>
+            </Pressable>
+            <View style={styles.textContainer}>
+                <TranslatedText style={{
+                    textAlign: 'left',
+                    fontSize: 14.5
+                }}>st_sntz_info</TranslatedText>
+            </View>
             <TextInput
                 placeholder={t('st_sntz_login')}
                 textContentType='username'
@@ -82,6 +128,7 @@ const Screen = ({ navigation }) => {
                 value={inputtedEmail}
                 onChangeText={setInputtedEmail}
                 editable={inputEnabled}
+                style={styles.input}
             />
             <TextInput
                 placeholder={t('st_sntz_password')}
@@ -93,8 +140,9 @@ const Screen = ({ navigation }) => {
                 value={inputtedPassword}
                 onChangeText={setInputtedPassword}
                 editable={inputEnabled}
+                style={styles.input}
             />
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.buttonContainer}>
                 <Button
                     title={t('st_sntz_login_cm')}
                     onPress={validateLogin}
@@ -117,5 +165,39 @@ const SntzAccountManagement = ({ navigation }) => {
         </AuthProvider>
     );
 }
+
+const styles = StyleSheet.create({
+    circle: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    input: {
+        borderWidth: 1,
+        borderRadius: 20,
+        padding: 12,
+        width: '80%'
+    },
+    textContainer: {
+        width: '90%',
+        paddingLeft: 10,
+        paddingVertical: 5,
+        marginVertical: 12,
+        borderLeftWidth: 1.6,
+        borderRadius: 1.25,
+
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        gap: 20,
+        marginVertical: 15,
+        width: '80%',
+        justifyContent: 'space-between'
+    }
+});
 
 export default SntzAccountManagement;

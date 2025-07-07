@@ -2,6 +2,7 @@ import { View, Image, Text, StyleSheet } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
 import { setStatusBarBackgroundColor, setStatusBarTranslucent } from 'expo-status-bar';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import * as Haptics from 'expo-haptics';
 
 const statusBarWheel = () => {
     const colors = ['tomato', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'blue', 'purple', 'pink'];
@@ -19,6 +20,7 @@ const statusBarWheel = () => {
         }
     }
 
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     iterate(colorIteration);
 }
 
