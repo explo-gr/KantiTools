@@ -14,7 +14,6 @@ const GradesMinCalc = ({ route }) => {
             <View style={{ marginTop: 50, flex: 1 }}>
                 <Text style={defaultThemedStyles.text}>Grade Calculator</Text>
                 <MinimumGradeCalculator/>
-                <StatusBar style="auto" />
             </View>
         </View>
     );
