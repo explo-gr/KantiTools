@@ -140,7 +140,7 @@ const AchievedGradeCalculator = () => {
                     borderRadius: 28,
                     maxWidth: 230,
                     maxHeight: 145,
-                    backgroundColor: `${colors.blue}33`
+                    backgroundColor: `${colors.blue}26`
                 }}>
                     <Text style={[{
                         color: gradeColor.current,
