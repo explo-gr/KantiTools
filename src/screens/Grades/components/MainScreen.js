@@ -1,5 +1,5 @@
 // imports regarding general objects
-import { Text, View, Button, StyleSheet, Alert, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, Alert, ScrollView } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
 import { DataProvider, useData } from '../../../context/DataContext';
 import GradesList from './GradesList';
@@ -10,11 +10,13 @@ import ActionBox from '../../../components/common/ActionBox';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
 import Divider from '../../../components/common/Divider';
 import calcPluspunkte from './calcPluspunkte';
+import Button from '../../../components/common/Button';
+import { useTranslations } from '../../../context/LanguageContext';
 
 const Screen = ({ navigation }) => {
     const { defaultThemedStyles } = useThemes();
-    const { refreshAll } = useData();
-    const { grades, isReady } = useData();
+    const { grades, isReady, refreshAll } = useData();
+    const { t } = useTranslations();
 
     return (
         <ContainerView>
@@ -51,6 +53,18 @@ const Screen = ({ navigation }) => {
                 </ActionBoxContainer>
                 <Divider/>
                 <GradesList/>
+                {isReady && (
+                    <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 4
+                    }}>
+                        <Button
+                            title={t('refresh')}
+                            onPress={refreshAll}
+                        />
+                    </View>
+                )}
             </ScrollView>
         </ContainerView>
     );

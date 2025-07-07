@@ -3,8 +3,6 @@ import { StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import GradesMain from './components/MainScreen';
 import GradesDebug from './components/DebugScreen';
-import GradesCalculator from './components/GradeCalculationScreen';
-import GradesGradeCalculation from './components/GradeCalculationScreen';
 import GradesGradeCalc from './components/GradeCalcScreen';
 import GradesMinCalc from './components/MinCalcScreen';
 

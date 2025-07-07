@@ -106,6 +106,7 @@ export const DataProvider = ({ children }) => {
 
     useEffect(() => {
         console.log('[DATA] useEffect fired');
+        console.log(`[DATA] Current username: ${user?.username || 'unavailable...'} `);
         if (!loadingAuth && user) {
             console.log('[DATA] Auth complete and user exists — triggering refreshAll.');
             refreshAll();

@@ -85,7 +85,7 @@ const AchievedGradeCalculator = () => {
                         onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g, ''))}
                         value={achievedScore}
                         keyboardType='number-pad'
-                        placeholder='---'
+                        placeholder='-'
                         placeholderTextColor={colors.gray}
                         maxLength={5}
                         ref={achievedInputRef}
@@ -105,7 +105,7 @@ const AchievedGradeCalculator = () => {
                         onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g, ''))}
                         value={maxScore}
                         keyboardType='number-pad'
-                        placeholder='---'
+                        placeholder='-'
                         placeholderTextColor={colors.gray}
                         maxLength={5}
                         ref={maxInputRef}
