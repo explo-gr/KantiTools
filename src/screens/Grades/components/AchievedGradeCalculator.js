@@ -1,5 +1,5 @@
 // Imports
-import { Text, View, StyleSheet, TextInput } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Pressable } from 'react-native';
 import { useEffect, useState, useRef } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import TranslatedText from '../../../components/translations/TranslatedText';
@@ -33,18 +33,27 @@ const AchievedGradeCalculator = () => {
     const [ maxScore, setMaxScore ] = useState('');
     const [ output, setOutput ] = useState('');
 
+    const achievedInputRef = useRef(null);
+    const maxInputRef = useRef(null);
+
     const gradeColor = useRef('#000000');
 
     const calculateOutput = () => {
         const _achievedScore = Number(achievedScore);
         const _maxScore = Number(maxScore);
 
+        let output = 1;
+
         if (_maxScore && _achievedScore) {
             const gradeRaw = (_achievedScore / _maxScore) * 5 + 1;
-            return Math.round(gradeRaw * 100) / 100;
+            output = Math.round(gradeRaw * 100) / 100;
+        }
+        
+        if (output > 6) {
+            return 6;
         }
 
-        return 1;
+        return output;
     };
 
     useEffect(() => {
@@ -65,7 +74,7 @@ const AchievedGradeCalculator = () => {
             <View style={{
                 flexDirection: 'row',
             }}>
-                <View style={[{
+                <Pressable onPress={() => achievedInputRef.current?.focus()} style={[{
                     backgroundColor: colors.blue
                 }, styles.inputContainer]}>
                     <TranslatedText style={{
@@ -73,18 +82,19 @@ const AchievedGradeCalculator = () => {
                         fontSize: 14
                     }}>gr_grcalc_ach</TranslatedText>
                     <TextInput
-                        onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g))}
+                        onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g, ''))}
                         value={achievedScore}
                         keyboardType='number-pad'
                         placeholder='---'
                         placeholderTextColor={colors.gray}
                         maxLength={5}
+                        ref={achievedInputRef}
                         style={[{
                             color: colors.generic
                         }, styles.input]}
                     />
-                </View>
-                <View style={[{
+                </Pressable>
+                <Pressable onPress={() => maxInputRef.current?.focus()}  style={[{
                     backgroundColor: colors.blue
                 }, styles.inputContainer]}>
                     <TranslatedText style={{
@@ -92,38 +102,52 @@ const AchievedGradeCalculator = () => {
                         fontSize: 14
                     }}>gr_grcalc_max</TranslatedText>
                     <TextInput
-                        onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g))}
+                        onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g, ''))}
                         value={maxScore}
                         keyboardType='number-pad'
                         placeholder='---'
                         placeholderTextColor={colors.gray}
                         maxLength={5}
+                        ref={maxInputRef}
                         style={[{
                             color: colors.generic
                         }, styles.input]}
                     />
-                </View>
+                </Pressable>
             </View>
             <View style={{
                 justifyContent: 'center',
                 alignItems: 'center',
-                gap: 10
+                gap: 10,
             }}>
                 <View style={{
                     flexDirection: 'row',
                     gap: 10,
-                    alignItems: 'center'
+                    alignItems: 'center',
                 }}>
-                    <Feather name="bar-chart" size={30} color={colors.hardContrast} />
+                    <Feather name="bar-chart" size={30} color={colors.blue} />
                     <TranslatedText style={[{
                         fontSize: 25,
-                    }, defaultThemedStyles.text]}>
+                        color: colors.blue
+                    }]}>
                         gr_grcalc_end
                     </TranslatedText>
                 </View>
-                <Text style={[{
-                    color: gradeColor.current
-                }, styles.outputText]}>{ Number(output).toFixed(2) }</Text>
+                <View style={{
+                    borderColor: colors.blue,
+                    borderWidth: 3.5,
+                    padding: 12,
+                    borderRadius: 28,
+                    maxWidth: 230,
+                    maxHeight: 145,
+                    backgroundColor: `${colors.blue}33`
+                }}>
+                    <Text style={[{
+                        color: gradeColor.current,
+                    }, styles.outputText]}>
+                        { Number(output).toFixed(2) }
+                    </Text>
+                </View>
             </View>
         </View>
     );

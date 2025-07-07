@@ -34,8 +34,8 @@ const HomeMain = ({ navigation }) => {
                         text: t('ok'),
                         style: 'cancel',
                     },
-                    { cancelable: true }
-                ]
+                ],
+                { cancelable: true }
             );
         }
         setMenDisabled(false);
