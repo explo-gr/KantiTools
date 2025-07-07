@@ -151,6 +151,7 @@ const Screen = ({ navigation }) => {
                 <Button
                     title={t('st_sntz_remove_ac')}
                     onPress={handleLogout}
+                    color={colors.red}
                     disabled={!logoutBtnEnabled}
                 />
             </View>

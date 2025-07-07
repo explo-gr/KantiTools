@@ -3,8 +3,9 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { useThemes } from '../../context/ThemeContext';
 import TranslatedText from '../translations/TranslatedText';
 
-const CustomButton = ({ onPress, title, disabled=false }) => {
+const CustomButton = ({ onPress, title, color, disabled=false }) => {
     const { defaultThemedStyles, colors } = useThemes();
+    if (!color) color = colors.blue;
 
     return (
         <TouchableOpacity
@@ -16,12 +17,9 @@ const CustomButton = ({ onPress, title, disabled=false }) => {
                 alignItems: 'center'
             }}
         >
-            <View style={[
-                {
-                    backgroundColor: colors.blue
-                },
-                styles.buttonShell
-            ]}>
+            <View style={[{
+                backgroundColor: color
+            }, styles.buttonShell]}>
                 <TranslatedText style={{
                     color: colors.generic,
                     marginHorizontal: 3,

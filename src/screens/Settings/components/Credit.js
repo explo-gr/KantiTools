@@ -10,7 +10,7 @@ const statusBarWheel = () => {
 
     let colorIteration = 0;
 
-    const iterate = (iteration) => {
+    const iterate = () => {
         if (colorIteration <= colorIterations) {
             setStatusBarBackgroundColor(colors[colorIteration], true);
             colorIteration++;
@@ -21,7 +21,7 @@ const statusBarWheel = () => {
     }
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-    iterate(colorIteration);
+    iterate();
 }
 
 const CreditText = ({ children }) => {
