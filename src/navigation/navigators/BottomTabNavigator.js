@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'space-between',
         alignItems: 'center',
-        position: 'absolute'
+        position: 'absolute',
     }
 });
 

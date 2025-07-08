@@ -14,7 +14,7 @@ import { setStatusBarBackgroundColor } from 'expo-status-bar';
 
 // Hey, Space Cadet (Beast Monster Thing in Space) by Car Seat Headrest
 const Screen = ({ navigation }) => {
-    const { colors } = useThemes();
+    const { colors, defaultThemedStyles } = useThemes();
     const { t } = useTranslations();
     const { user, login, logout, loadingAuth } = useAuth();
 
@@ -94,7 +94,7 @@ const Screen = ({ navigation }) => {
         if (iconName === 'eye') {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
 
-            Alert.alert('The 👁️ is watching', 'Li4gLS4uLiAuLiAtLiAuLi4gLS4tLiAuLi4uIC4tLSAuLi0gLi0uLg==', [{ text: 'I WILL ACCEPT', onPress: () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success) }]);
+            Alert.alert('The 👁️ is watching', 'Li4gLS4uLiAuLiAtLiAuLi4gLS4tLiAuLi4uIC4tLSAuLi0gLi0uLg==', [{ text: 'I ACCEPT', onPress: () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success) }]);
 
             setStatusBarBackgroundColor('red', true);
             setTimeout(() => setStatusBarBackgroundColor('#00000000', true), 1000);
@@ -110,13 +110,15 @@ const Screen = ({ navigation }) => {
             <Pressable onPress={handleSecretPress} style={[{
                 backgroundColor: colors.blue
             }, styles.circle]}>
-                <Feather name={iconName} size={75} color={colors.generic}/>
+                <Feather name={iconName} size={75} color={colors.white}/>
             </Pressable>
-            <View style={styles.textContainer}>
-                <TranslatedText style={{
+            <View style={[{
+                borderColor: colors.hardContrast
+            }, styles.textContainer]}>
+                <TranslatedText style={[{
                     textAlign: 'left',
                     fontSize: 14.5
-                }}>st_sntz_info</TranslatedText>
+                }, defaultThemedStyles.text]}>st_sntz_info</TranslatedText>
             </View>
             <TextInput
                 placeholder={t('st_sntz_login')}
@@ -128,7 +130,10 @@ const Screen = ({ navigation }) => {
                 value={inputtedEmail}
                 onChangeText={setInputtedEmail}
                 editable={inputEnabled}
-                style={styles.input}
+                style={[{
+                    color: colors.hardContrast,
+                    borderColor: colors.hardContrast
+                }, styles.input]}
             />
             <TextInput
                 placeholder={t('st_sntz_password')}
@@ -140,7 +145,10 @@ const Screen = ({ navigation }) => {
                 value={inputtedPassword}
                 onChangeText={setInputtedPassword}
                 editable={inputEnabled}
-                style={styles.input}
+                style={[{
+                    color: colors.hardContrast,
+                    borderColor: colors.hardContrast
+                }, styles.input]}
             />
             <View style={styles.buttonContainer}>
                 <Button
