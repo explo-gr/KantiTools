@@ -17,21 +17,21 @@ const HomeScreen = () => {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name="HomeMain" component={HomeMain} options={{ headerShown: false, ...screenOptions }} />
+            <Stack.Screen name='HomeMain' component={HomeMain} options={{ headerShown: false, ...screenOptions }} />
             <Stack.Screen 
-                name="HomeDetails" 
+                name='HomeDetails' 
                 component={HomeDetails} 
                 options={{
-                    title: "Details",
+                    title: 'Details',
                     animationEnabled: true,
                     ...headerOptions
                 }}
             />
             <Stack.Screen 
-                name="HomeMenuplan" 
+                name='HomeMenuplan' 
                 component={HomeMenuplan} 
                 options={{
-                    title: "Menüplan",
+                    title: 'Menüplan',
                     animationEnabled: true,
                     ...headerOptions
                 }}

@@ -1,7 +1,7 @@
 // Imports
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, StyleSheet, Alert } from 'react-native';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import ToggleSwitch from '../../../components/common/ToggleSwitch';
 import Accordion from '../../../components/common/Accordion';

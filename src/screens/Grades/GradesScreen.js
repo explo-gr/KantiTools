@@ -9,10 +9,13 @@ import useHeaderOptions from '../../hooks/useHeaderOptions';
 import { useThemes } from '../../context/ThemeContext';
 import useScreenOptions from '../../hooks/useScreenOptions';
 import { useMemo } from 'react';
+import { useTranslations } from '../../context/LanguageContext';
 
 const Stack = createStackNavigator();
 
 const GradesScreen = () => {
+    const { t } = useTranslations();
+
     const headerOptions = useHeaderOptions();
     const screenOptions = useScreenOptions();
     
@@ -20,10 +23,15 @@ const GradesScreen = () => {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name="GradesMain" component={GradesMain} options={{ headerShown: false, ...screenOptions }} />
-            <Stack.Screen name="GradesDebug" component={GradesDebug} options={headerOptions}/>
-            <Stack.Screen name="GradesMinCalc" component={GradesMinCalc} options={headerOptions}/>
-            <Stack.Screen name="GradesGradeCalc" component={GradesGradeCalc} options={headerOptions}/>
+            <Stack.Screen name='GradesMain' component={GradesMain} options={{ headerShown: false, ...screenOptions }} />
+            <Stack.Screen name='GradesMinCalc' component={GradesMinCalc} options={{
+                title: t('gr_calcmin_f'),
+                ...headerOptions
+            }}/>
+            <Stack.Screen name='GradesGradeCalc' component={GradesGradeCalc} options={{
+                title: t('gr_calcgrade_f'),
+                ...headerOptions
+            }}/>
         </Stack.Navigator>
     );
 }

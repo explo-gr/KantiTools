@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         padding: 5,
         bottom: 105,
-        left: '55%'
+        right: '0%'
     }
 });
 

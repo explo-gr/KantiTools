@@ -1,20 +1,16 @@
-// imports regarding general objects
-import { StatusBar } from 'expo-status-bar';
-import { useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { ThemeContext, useThemes } from '../../context/ThemeContext';
-import TodoList from './components/TodoList';
-import ContainerView from '../../components/common/ContainerView';
-import Header from '../../components/common/Header';
+import { createStackNavigator } from '@react-navigation/stack';
+import ReminderMain from './components/MainScreen';
+import useScreenOptions from '../../hooks/useScreenOptions';
+
+const Stack = createStackNavigator();
 
 const ReminderScreen = () => {
-    //const { defaultThemedStyles } = useThemes();
+    const screenOptions = useScreenOptions();
 
     return (
-        <ContainerView>
-            <Header title={'Reminder'}/>
-            <TodoList/>
-        </ContainerView>
+        <Stack.Navigator>
+            <Stack.Screen name="SettingsMain" component={ReminderMain} options={{ headerShown: false, ...screenOptions }} />
+        </Stack.Navigator>
     );
 }
 

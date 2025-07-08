@@ -86,7 +86,8 @@ const AchievedGradeCalculator = () => {
                         value={achievedScore}
                         keyboardType='number-pad'
                         placeholder='---'
-                        placeholderTextColor={colors.gray}
+                        placeholderTextColor={`${colors.generic}b3`}
+                        cursorColor={colors.generic}
                         maxLength={5}
                         ref={achievedInputRef}
                         style={[{
@@ -106,7 +107,8 @@ const AchievedGradeCalculator = () => {
                         value={maxScore}
                         keyboardType='number-pad'
                         placeholder='---'
-                        placeholderTextColor={colors.gray}
+                        placeholderTextColor={`${colors.generic}b3`}
+                        cursorColor={colors.generic}
                         maxLength={5}
                         ref={maxInputRef}
                         style={[{

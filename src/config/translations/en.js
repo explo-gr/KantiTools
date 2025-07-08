@@ -31,8 +31,11 @@ export default {
     
     // grades
     gr_calcgrade: "Grade calc",
+    gr_calcgrade_f: "Grade Calculator",
     gr_calcmin: "Min. grade",
+    gr_calcmin_f: "Min. Grade Calculator",
     gr_pluspoints: "Plus points",
+    gr_curr_pluspoints: "Current amount of plus points",
 
     gr_grcalc_ach: "Achieved Score",
     gr_grcalc_max: "Maximum score",

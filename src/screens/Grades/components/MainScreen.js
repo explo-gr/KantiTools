@@ -14,7 +14,6 @@ import Button from '../../../components/common/Button';
 import { useTranslations } from '../../../context/LanguageContext';
 
 const Screen = ({ navigation }) => {
-    const { defaultThemedStyles } = useThemes();
     const { grades, isReady, refreshAll } = useData();
     const { t } = useTranslations();
 
@@ -31,14 +30,14 @@ const Screen = ({ navigation }) => {
                         label={'gr_calcgrade'}
                         icon={'divide-square'}
                         onPress={() => {
-                           navigation.navigate("GradesGradeCalc");
+                           navigation.navigate('GradesGradeCalc');
                         }}
                     />
                     <ActionBox
                         label={'gr_calcmin'}
                         icon={'bar-chart-2'}
                         onPress={() => {
-                            navigation.navigate("GradesMinCalc");
+                            navigation.navigate('GradesMinCalc');
                         }}
                     />
                     <ActionBox
@@ -47,7 +46,7 @@ const Screen = ({ navigation }) => {
                         onPress={() => {
                             if (!isReady) return;
                             const res = calcPluspunkte(grades.data.map(({ onlineMean }) => onlineMean));
-                            Alert.alert(`Aktuelle Pluspunkte: ${res}`);
+                            Alert.alert(`${t('gr_curr_pluspoints')}: ${res}`);
                         }}
                     />
                 </ActionBoxContainer>

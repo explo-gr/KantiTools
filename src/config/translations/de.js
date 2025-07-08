@@ -32,8 +32,11 @@ export default {
 
     // grades
     gr_calcgrade: "Notenrechner",
+    gr_calcgrade_f: "Notenrechner",
     gr_calcmin: "Mindestnote",
+    gr_calcmin_f: "Mindestnote",
     gr_pluspoints: "Pluspunkte",
+    gr_curr_pluspoints: "Aktuelle Pluspunkte",
 
     gr_grcalc_ach: "erreichte Punktzahl",
     gr_grcalc_max: "Maximalpunktzahl",

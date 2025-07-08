@@ -122,7 +122,7 @@ const Screen = ({ navigation }) => {
             </View>
             <TextInput
                 placeholder={t('st_sntz_login')}
-                placeholderTextColor={colors.hardContrast}
+                placeholderTextColor={`${colors.hardContrast}b3`}
                 textContentType='username'
                 autoComplete='email'
                 autoCapitalize='none'
@@ -131,14 +131,19 @@ const Screen = ({ navigation }) => {
                 value={inputtedEmail}
                 onChangeText={setInputtedEmail}
                 editable={inputEnabled}
+                
                 style={[{
-                    color: colors.hardContrast,
+                    color: `${colors.hardContrast}${
+                        inputEnabled
+                            ? ''
+                            : 'b3'
+                    }`,
                     borderColor: colors.hardContrast
                 }, styles.input]}
             />
             <TextInput
                 placeholder={t('st_sntz_password')}
-                placeholderTextColor={colors.hardContrast}
+                placeholderTextColor={`${colors.hardContrast}b3`}
                 textContentType='password'
                 autoComplete='password'
                 autoCapitalize='none'
@@ -147,8 +152,13 @@ const Screen = ({ navigation }) => {
                 value={inputtedPassword}
                 onChangeText={setInputtedPassword}
                 editable={inputEnabled}
+
                 style={[{
-                    color: colors.hardContrast,
+                    color: `${colors.hardContrast}${
+                        inputEnabled
+                            ? ''
+                            : 'b3'
+                    }`,
                     borderColor: colors.hardContrast
                 }, styles.input]}
             />
