@@ -22,7 +22,8 @@ const CustomButton = ({ onPress, title, color, disabled=false }) => {
                 backgroundColor: color ? color : colors.blue
             },
             text: {
-                color: isDark ? colors.hardContrast : colors.generic,
+                //color: isDark ? colors.hardContrast : colors.generic,
+                color: colors.generic,
                 marginHorizontal: 3,
                 fontSize: 15,
                 textAlign: 'center'

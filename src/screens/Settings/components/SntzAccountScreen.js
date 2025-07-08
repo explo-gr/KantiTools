@@ -122,6 +122,7 @@ const Screen = ({ navigation }) => {
             </View>
             <TextInput
                 placeholder={t('st_sntz_login')}
+                placeholderTextColor={colors.hardContrast}
                 textContentType='username'
                 autoComplete='email'
                 autoCapitalize='none'
@@ -137,6 +138,7 @@ const Screen = ({ navigation }) => {
             />
             <TextInput
                 placeholder={t('st_sntz_password')}
+                placeholderTextColor={colors.hardContrast}
                 textContentType='password'
                 autoComplete='password'
                 autoCapitalize='none'
