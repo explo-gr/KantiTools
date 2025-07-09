@@ -125,7 +125,7 @@ const Screen = ({ navigation }) => {
                 placeholder={t('st_sntz_login')}
                 placeholderTextColor={`${colors.hardContrast}b3`}
                 textContentType='username'
-                autoComplete='email'
+                autoComplete='username'
                 autoCapitalize='none'
                 keyboardType='email-address'
                 autoCorrect={false}
