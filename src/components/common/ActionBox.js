@@ -4,9 +4,8 @@ import TranslatedText from '../translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
 import { useThemes } from '../../context/ThemeContext';
 
-
 const ActionBox = ({ onPress = () => null, icon = 'alert-circle' , label }) => {
-    const { colors, defaultThemedStyles } = useThemes();
+    const { colors } = useThemes();
 
     return (
         <TouchableOpacity

@@ -1,10 +1,8 @@
 import { useThemes } from '../../../context/ThemeContext';
-import { useTranslations } from '../../../context/LanguageContext';
-import { View, StyleSheet, TextInput, Button } from 'react-native'
+import { View, StyleSheet, TextInput, Button } from 'react-native';
 
 const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onDuplicate }) => {
     const { defaultThemedStyles } = useThemes();
-    const { t } = useTranslations();
 
     return (
         <View style={[styles.container, defaultThemedStyles.card]}>

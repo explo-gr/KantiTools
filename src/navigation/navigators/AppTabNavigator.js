@@ -39,10 +39,10 @@ const AppTabNavigator = () => {
                     animation: 'fade'
                 }}
             >
-                <Tab.Screen name="Home" component={HomeScreen}/>
-                <Tab.Screen name="Grades" component={GradesScreen} />
-                <Tab.Screen name="Reminder" component={ReminderScreen} />
-                <Tab.Screen name="Settings" component={SettingsScreen} />
+                <Tab.Screen name='Home' component={HomeScreen}/>
+                <Tab.Screen name='Grades' component={GradesScreen} />
+                <Tab.Screen name='Reminder' component={ReminderScreen} />
+                <Tab.Screen name='Settings' component={SettingsScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     );

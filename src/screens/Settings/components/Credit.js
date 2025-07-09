@@ -1,6 +1,6 @@
 import { View, Image, Text, StyleSheet } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
-import { setStatusBarBackgroundColor, setStatusBarTranslucent } from 'expo-status-bar';
+import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import * as Haptics from 'expo-haptics';
 

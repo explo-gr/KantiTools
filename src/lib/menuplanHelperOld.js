@@ -28,8 +28,8 @@ const getMondayDate = () => {
 
 const reconstructDates = () => {
     const months = [
-        "Januar", "Februar", "März", "April", "Mai", "Juni",
-        "Juli", "August", "September", "Oktober", "November", "Dezember"
+        'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+        'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
     ];
 
     const start = getMondayDate();
@@ -48,7 +48,7 @@ const reconstructDates = () => {
 
 const reconstructURL = () => {
     const { from, to, year } = reconstructDates();
-    const base = "https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/wvb/Menueplaene/Documents/";
+    const base = 'https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/wvb/Menueplaene/Documents/';
 
     return {
         url: `${base} Menüplan Mensa Münzmühle Woche vom ${from} bis ${to}.pdf`,
@@ -111,7 +111,7 @@ const downloadPDF = async (url) => {
 };
 
 const findFallbackURL = async () => {
-    const indexUrl = "https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/wvb/Menueplaene/Seiten/default.aspx";
+    const indexUrl = 'https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/wvb/Menueplaene/Seiten/default.aspx';
     
     try {
         const response = await fetch(indexUrl);

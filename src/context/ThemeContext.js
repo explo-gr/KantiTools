@@ -1,7 +1,7 @@
-import React, { createContext, useMemo } from "react";
-import getColorPalette from "../lib/getColorPalette";
-import { StyleSheet, useColorScheme } from "react-native";
-import { useSettings } from "./SettingsContext";
+import React, { createContext, useMemo } from 'react';
+import getColorPalette from '../lib/getColorPalette';
+import { StyleSheet, useColorScheme } from 'react-native';
+import { useSettings } from './SettingsContext';
 
 export const ThemeContext = createContext();
 

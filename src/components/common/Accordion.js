@@ -55,7 +55,7 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
 
     return (
         <View style={[styles.accordionContainer, defaultThemedStyles.card, {
-            backgroundColor: tint + '14' // slightly tint the background
+            backgroundColor: `${tint}29` // slightly tint the background
         }]}>
             <TouchableOpacity            
                 onPress={() => {

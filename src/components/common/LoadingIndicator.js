@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { useThemes } from '../../context/ThemeContext';
 
 const LoadingIndicator = ({ status='' }) => {
-    const { defaultThemedStyles } = useThemes();
+    const { colors, defaultThemedStyles } = useThemes();
 
     return (
         <View style={{
@@ -11,7 +11,7 @@ const LoadingIndicator = ({ status='' }) => {
             alignItems: 'center',
             margin: 5
         }}>
-            <ActivityIndicator size='large' />
+            <ActivityIndicator size='large' color={colors.blue}/>
             {status && (<Text style={defaultThemedStyles.text}>{status}</Text>)}
         </View>
     );

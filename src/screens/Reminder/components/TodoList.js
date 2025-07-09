@@ -19,6 +19,9 @@ import { useTranslations } from '../../../context/LanguageContext';
 const TINT_COLORS = ['red', 'green', 'blue', 'yellow'];
 // red, green, blue, yellow
 
+// NEUES PROBLEM
+// WENN ÖPERT ES MIT DER DESCRIPTION LÄNGI ÜBERTRIIBT ÜBERTRIFFTS MAXHEIGHT FUM ACCORDION, D.H. DEDIT UND DR ENTFERN BUTTON SIND NÜMMA VISIBLE
+
 const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
     const { t } = useTranslations();
@@ -63,7 +66,6 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                         style={[styles.input, defaultThemedStyles.text]}
                         placeholderTextColor={colors.gray}
                     />
-
                     <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_description</TranslatedText>
                     <TextInput
                         value={description}
@@ -71,6 +73,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                         placeholder={t('re_phd_description')}
                         style={[styles.input, { height: 80 }, defaultThemedStyles.text]}
                         multiline
+                        numberOfLines={5}
                         placeholderTextColor={colors.gray}
                     />
 
@@ -222,7 +225,9 @@ const TodoList = () => {
                                                         },
                                                         {
                                                             text: t('delete'),
-                                                            onPress: () => handleDelete(index),
+                                                            onPress: () => {
+                                                                handleDelete(index);
+                                                            },
                                                             style: 'destructive'
                                                         },
                                                     ],
@@ -236,7 +241,7 @@ const TodoList = () => {
                                     </Accordion>
                                 </View>
                             )}
-                            contentContainerStyle={{ paddingBottom: 100 }}
+                            contentContainerStyle={{ paddingBottom: 200 }}
                         />
 
                     :   <EmptyListMsg/>

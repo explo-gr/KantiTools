@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useData } from '../../../context/DataContext';
-import { ScrollView, View, Text, Button, Alert } from 'react-native';
+import { View, Text } from 'react-native';
 import Accordion from '../../../components/common/Accordion';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import { useThemes } from '../../../context/ThemeContext';

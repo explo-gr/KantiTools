@@ -1,9 +1,7 @@
 // imports regarding general objects
-import { Text, View, StyleSheet, Alert, ScrollView } from 'react-native';
-import { useThemes } from '../../../context/ThemeContext';
+import { View, StyleSheet, Alert, ScrollView } from 'react-native';
 import { DataProvider, useData } from '../../../context/DataContext';
 import GradesList from './GradesList';
-import { AuthProvider } from '../../../context/AuthenticationContext';
 import ContainerView from '../../../components/common/ContainerView';
 import Header from '../../../components/common/Header';
 import ActionBox from '../../../components/common/ActionBox';

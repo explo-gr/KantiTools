@@ -2,13 +2,11 @@
 import { StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import GradesMain from './components/MainScreen';
-import GradesDebug from './components/DebugScreen';
 import GradesGradeCalc from './components/GradeCalcScreen';
 import GradesMinCalc from './components/MinCalcScreen';
 import useHeaderOptions from '../../hooks/useHeaderOptions';
 import { useThemes } from '../../context/ThemeContext';
 import useScreenOptions from '../../hooks/useScreenOptions';
-import { useMemo } from 'react';
 import { useTranslations } from '../../context/LanguageContext';
 
 const Stack = createStackNavigator();
@@ -18,8 +16,6 @@ const GradesScreen = () => {
 
     const headerOptions = useHeaderOptions();
     const screenOptions = useScreenOptions();
-    
-    const { colors, theme } = useThemes();
 
     return (
         <Stack.Navigator>

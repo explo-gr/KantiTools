@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         gap: 20,
-        marginVertical: 15,
+        marginVertical: 25,
         width: '80%',
         justifyContent: 'space-between'
     }

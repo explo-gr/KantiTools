@@ -86,7 +86,7 @@ const MinimumGradeCalculator = () => {
                         data={dataTable}
                         extraData={dataTable}
                         keyExtractor={item => item.id}
-                        keyboardShouldPersistTaps="handled"
+                        keyboardShouldPersistTaps='handled'
                         scrollEnabled
                         contentContainerStyle={{ paddingBottom: 300 }}
                         ListHeaderComponent={
@@ -99,13 +99,13 @@ const MinimumGradeCalculator = () => {
                                     onChangeText={(input) => setDesiredGrade(input.replace(/[^0-9.,]/g, ''))}
                                     value={desiredGrade}
                                     keyboardType='number-pad'
-                                    placeholder="desired"
+                                    placeholder='desired'
                                 />
                                 <TextInput
                                     onChangeText={(input) => setDgWeight(input.replace(/[^0-9.,]/g, ''))}
                                     value={dgWeight}
                                     keyboardType='number-pad'
-                                    placeholder="weight"
+                                    placeholder='weight'
                                 />
                                 <Button title='Add' onPress={addItem}/>
                                 <Text>{ output }</Text>

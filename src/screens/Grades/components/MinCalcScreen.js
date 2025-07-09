@@ -1,5 +1,4 @@
 // Imports
-import { StatusBar } from 'expo-status-bar';
 import { Text, View, StyleSheet } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
 import MinimumGradeCalculator from './MinimumGradeCalculator';

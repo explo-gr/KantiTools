@@ -11,7 +11,7 @@ import rm from '../config/translations/rm';
 import it from '../config/translations/it';
 
 const translations = Object.freeze({ de, en, es, fr, rm, it });
-const translationsFullySupported = Object.freeze({de, en})
+const translationsFullySupported = Object.freeze({ de, en })
 
 const LanguageContext = createContext();
 export const LanguageProvider = ({ children }) => {

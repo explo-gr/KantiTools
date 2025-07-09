@@ -25,7 +25,8 @@ const Header = ({ title, showIcon = true }) => {
                     <TranslatedText style={{
                         fontWeight: 'bold',
                         fontSize: 28,
-                        color: colors.blue
+                        color: colors.blue,
+                        textAlignVertical: 'center'
                     }}>
                         {t(title)}
                     </TranslatedText>

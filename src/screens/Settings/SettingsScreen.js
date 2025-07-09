@@ -2,7 +2,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import SettingsMain from './components/MainScreen';
 import SntzAccountManagement from './components/SntzAccountScreen';
-import { useThemes } from '../../context/ThemeContext';
 import useHeaderOptions from '../../hooks/useHeaderOptions';
 import useScreenOptions from '../../hooks/useScreenOptions';
 
@@ -14,8 +13,8 @@ const GradesScreen = () => {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name="SettingsMain" component={SettingsMain} options={{ headerShown: false, ...screenOptions }} />
-            <Stack.Screen name="SntzAccountManagement" component={SntzAccountManagement} options={headerOptions} />
+            <Stack.Screen name='SettingsMain' component={SettingsMain} options={{ headerShown: false, ...screenOptions }} />
+            <Stack.Screen name='SntzAccountManagement' component={SntzAccountManagement} options={headerOptions} />
         </Stack.Navigator>
     );
 }
