@@ -6,7 +6,8 @@ export default {
     ok: "OK",
     cancel: "Abbrechen",
     delete: "Löschen",
-    retry: 'Erneut versuchen',
+    retry: "Erneut versuchen",
+    open: "öffnen",
 
     // home
     hm_gr_morning: "Guten Morgen",

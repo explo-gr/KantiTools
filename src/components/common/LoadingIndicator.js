@@ -12,7 +12,7 @@ const LoadingIndicator = ({ status='' }) => {
             margin: 5
         }}>
             <ActivityIndicator size='large' />
-            <Text style={defaultThemedStyles.text}>{status}</Text>
+            {status && (<Text style={defaultThemedStyles.text}>{status}</Text>)}
         </View>
     );
 }

@@ -109,7 +109,7 @@ const Screen = ({ navigation }) => {
             <Divider/>
             <Pressable onPress={handleSecretPress} style={[{
                 backgroundColor: colors.blue
-            }, styles.circle]}>
+            }, styles.circle, defaultThemedStyles.boxshadow]}>
                 <Feather name={iconName} size={75} color={colors.white}/>
             </Pressable>
             <View style={[{
@@ -117,6 +117,7 @@ const Screen = ({ navigation }) => {
             }, styles.textContainer]}>
                 <TranslatedText style={[{
                     textAlign: 'left',
+                    textAlignVertical: 'center',
                     fontSize: 14.5
                 }, defaultThemedStyles.text]}>st_sntz_info</TranslatedText>
             </View>
@@ -179,11 +180,10 @@ const Screen = ({ navigation }) => {
     );
 }
 
+// das vlt no wäg
 const SntzAccountManagement = ({ navigation }) => {
     return (
-        <AuthProvider>
             <Screen navigation={navigation}/>
-        </AuthProvider>
     );
 }
 

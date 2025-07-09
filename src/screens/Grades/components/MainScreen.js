@@ -69,15 +69,14 @@ const Screen = ({ navigation }) => {
     );
 }
 
+// das vlt no wäg
 const GradesMain = ({ navigation }) => {
     return (
-        <AuthProvider>
-            <DataProvider>
-                <Screen
-                    navigation={navigation}
-                />
-            </DataProvider>
-        </AuthProvider>
+        <DataProvider>
+            <Screen
+                navigation={navigation}
+            />
+        </DataProvider>
     )
 }
 

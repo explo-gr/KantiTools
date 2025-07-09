@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, Modal, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { FlatList, Modal, Pressable, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
 import TranslatedText from "../translations/TranslatedText";
 import { useThemes } from "../../context/ThemeContext";
 import ScaleOnFocus from "../utils/ScaleOnFocus";
@@ -28,7 +28,8 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
 
         return (
             <TouchableOpacity
-                onPress={() => {
+                onPress={(e) => {
+                    e.stopPropagation();
                     onSelect(item);
                     setModalVisible(false);
                 }}
@@ -74,10 +75,15 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(!modalVisible)}
             >
-                <View style={{
-                    flex: 1,
-                    backgroundColor: 'rgba(0,0,0,0.4)',
-                }}>
+                <Pressable
+                    style={{
+                        flex: 1,
+                        backgroundColor: 'rgba(0,0,0,0.4)',
+                    }}
+                    onPress={(e) => {
+                        setModalVisible(!modalVisible);
+                    }}
+                >
                     <View style={[{
                             maxHeight,
                             width: width * 0.7
@@ -88,7 +94,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                             renderItem={({ item }) => <Item item={item}/> }
                         />
                     </View>
-                </View>
+                </Pressable>
             </Modal>
         </View>
     )

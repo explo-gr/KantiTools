@@ -8,7 +8,6 @@ const CustomButton = ({ onPress, title, color, disabled=false }) => {
     if (!color) color = colors.blue;
 
     const themedStyles = useMemo(() => {
-        const isDark = theme === 'dark';
         const styles = StyleSheet.create({
             buttonShell: {
                 height: 45,

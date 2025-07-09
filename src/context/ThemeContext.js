@@ -23,6 +23,7 @@ export const ThemeProvider = ({ children }) => {
             },
             text: {
                 color: colors.hardContrast,
+                textAlignVertical: 'center'
             },
             textContrast: {
                 color: colors.generic,

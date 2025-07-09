@@ -47,6 +47,9 @@ export default {
     st_prf_thm: "Preferred Theme:",
     st_ac_mgt: "Account",
     st_op_ln: "Add or remove login:",
+    st_st_ln: "Current login status:",
+    st_ln_y: "Logged in",
+    st_ln_n: "Logged out",
     st_dt_mgt: "Storage",
     st_rst_sts: "Factory reset:",
 
