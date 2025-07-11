@@ -113,7 +113,7 @@ const EmptyListMsg = () => {
             marginTop: 20,
         }}>
             <TranslatedText style={{
-                fontSize: 20,
+                fontSize: 16,
                 fontStyle: 'italic',
                 color: colors.gray
             }}>

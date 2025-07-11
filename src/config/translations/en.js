@@ -57,6 +57,7 @@ export default {
     st_sntz_password: "Password",
     st_sntz_login_cm: "Add Login",
     st_sntz_remove_ac: "Remove Login",
+    st_sntz_acc_f: "Login management",
     st_sntz_info: "Connect your Schulnetz Account to acces and manage your grade and timetable right from the app!",
     st_sntz_login_y: "Connection successfully established!\nAccount has been added.",
     st_sntz_login_n: "Authentification failed!\nVerify your credentials.",
