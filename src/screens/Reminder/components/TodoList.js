@@ -63,7 +63,9 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                         value={title}
                         onChangeText={setTitle}
                         placeholder={t('re_phd_title')}
-                        style={[styles.input, defaultThemedStyles.text]}
+                        style={[{
+                            borderColor: colors.blue
+                        }, styles.input, defaultThemedStyles.text]}
                         placeholderTextColor={colors.gray}
                     />
                     <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_description</TranslatedText>
@@ -71,7 +73,9 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                         value={description}
                         onChangeText={setDescription}
                         placeholder={t('re_phd_description')}
-                        style={[styles.input, { height: 80 }, defaultThemedStyles.text]}
+                        style={[{
+                            borderColor: colors.blue
+                        }, styles.input, defaultThemedStyles.text]}
                         multiline
                         numberOfLines={5}
                         placeholderTextColor={colors.gray}
@@ -258,8 +262,8 @@ const TodoList = () => {
                     gap: 3,
                     borderColor: colors.blue,
                     borderWidth: 2.5,
-                    borderRadius: 30,
-                    padding: 9,
+                    borderRadius: 25,
+                    padding: 10,
                     margin: 4,
                     backgroundColor: colors.generic
                 }, defaultThemedStyles.boxshadow]}>
@@ -307,7 +311,7 @@ const styles = StyleSheet.create({
         borderWidth: 1.2,
         borderRadius: 14,
         padding: 12,
-        marginBottom: 5
+        marginBottom: 6
     },
     tintRow: {
         flexDirection: 'row',

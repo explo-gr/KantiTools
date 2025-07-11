@@ -32,7 +32,9 @@ const Greeting = () => {
         ];
 
         for (const { condition, icon, key, color } of greetingRanges) {
+            console.log(`[GREETING] Checking condition for ${key}`);
             if (condition(hour)) {
+                console.log(`[GREETING] Condition passed for hour: ${hour}`)
                 return getJSX(icon, t(key), color);
             }
         }
