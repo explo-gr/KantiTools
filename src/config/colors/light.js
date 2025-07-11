@@ -3,9 +3,11 @@ export default {
     hardContrast: '#000000',
     white: '#FFFFFF',
     gray: '#989898',
-    blue: '#2B303B', // used as accent color throughout the app, pain in the ass to change
-    yellow: '#DAA520',
-    orange: '#CC5500',
     red: '#B22222',
-    green: '#228B22'
+    orange: '#CC5500',
+    yellow: '#DAA520',
+    green: '#228B22',
+    blue: '#2B303B', // used as accent color throughout the app, pain in the ass to change
+    lightblue: '#22818b',
+    purple: '#74228b'
 }

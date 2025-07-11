@@ -16,7 +16,7 @@ import Feather from '@expo/vector-icons/Feather';
 import Accordion from '../../../components/common/Accordion';
 import { useTranslations } from '../../../context/LanguageContext';
 
-const TINT_COLORS = ['red', 'green', 'blue', 'yellow'];
+const TINT_COLORS = ['red', 'yellow', 'green', 'lightblue', 'purple'];
 // red, green, blue, yellow
 
 // NEUES PROBLEM
@@ -295,7 +295,6 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         padding: 24,
-        borderRadius: 16,
         width: '85%',
         alignItems: 'stretch',
         gap: 12,
@@ -305,9 +304,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     input: {
-        borderWidth: 1,
-        borderRadius: 8,
-        padding: 10
+        borderWidth: 1.2,
+        borderRadius: 14,
+        padding: 12,
+        marginBottom: 5
     },
     tintRow: {
         flexDirection: 'row',
@@ -315,9 +315,9 @@ const styles = StyleSheet.create({
         marginVertical: 8
     },
     tintCircle: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
+        width: 32,
+        height: 32,
+        borderRadius: 16,
         borderColor: '#333'
     },
     buttonRow: {
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 12
+        borderRadius: 18
     },
     fab: {
         position: 'absolute',

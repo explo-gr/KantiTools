@@ -167,6 +167,7 @@ const Screen = ({ navigation }) => {
                 <Button
                     title={t('st_sntz_login_cm')}
                     onPress={validateLogin}
+                    color={colors.lightblue}
                     disabled={!loginBtnEnabled}
                 />
                 <Button
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
         gap: 20,
         marginVertical: 25,
         width: '80%',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     }
 });
 

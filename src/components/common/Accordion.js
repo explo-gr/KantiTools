@@ -6,6 +6,7 @@ import Feather from '@expo/vector-icons/Feather';
 import Divider from '../../components/common/Divider';
 import React, { useEffect, useRef } from "react";
 
+// useDimensions und nocher danimation speed fur grössi abhängig macha
 const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tint }) => {
     const enabled = React.Children.count(children);
 

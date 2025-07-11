@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }) => {
             card: {
                 backgroundColor: colors.generic,
                 borderColor: colors.blue,
-                borderRadius: 15,
+                borderRadius: 20,
                 borderWidth: 2.5
             },
             text: {
@@ -30,9 +30,7 @@ export const ThemeProvider = ({ children }) => {
             },
             cardHighlight: {
                 backgroundColor: colors.blue,
-                borderColor: colors.blue,
-                borderRadius: 10,
-                borderWidth: 4
+                borderRadius: 16,
             },
             boxshadow: {
                 shadowColor: 'black',
