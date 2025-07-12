@@ -7,7 +7,7 @@ export default {
     orange: '#FFA96B',
     yellow: '#FFF44F',
     green: '#98FB98',
-    blue: '#5f8aba', // used as accent color throughout the app, pain in the ass to change
+    blue: '#79a3d2', // used as accent color throughout the app
     lightblue: '#98e4fb',
     purple: '#d04fff'
 }

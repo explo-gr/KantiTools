@@ -86,7 +86,11 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                         {TINT_COLORS.map((color) => (
                             <TouchableOpacity
                                 key={color}
-                                style={[styles.tintCircle, { backgroundColor: getColorCode(color), borderWidth: tint === color ? 3 : 1 }]}
+                                style={[{
+                                    borderColor: colors.blue,
+                                    backgroundColor: getColorCode(color),
+                                    borderWidth: tint === color ? 3 : 1.5
+                                }, styles.tintCircle]}
                                 onPress={() => setTint(color)}
                             />
                         ))}
@@ -322,7 +326,6 @@ const styles = StyleSheet.create({
         width: 32,
         height: 32,
         borderRadius: 16,
-        borderColor: '#333'
     },
     buttonRow: {
         flexDirection: 'row',

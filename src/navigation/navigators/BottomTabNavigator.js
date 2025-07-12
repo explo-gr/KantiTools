@@ -8,6 +8,7 @@ import TranslatedText from '../../components/translations/TranslatedText';
 import icons from '../../config/navicons/icons';
 
 // based on the example given at https://reactnavigation.org/docs/bottom-tab-navigator/?config=static
+// https://docs.swmansion.com/react-native-reanimated/docs/advanced/measure/
 const TabNavigator = ({ state, descriptors, navigation }) => {
     const { width } = useWindowDimensions();
     const isCompact = width < 500;
