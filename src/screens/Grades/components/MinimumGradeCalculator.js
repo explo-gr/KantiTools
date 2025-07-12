@@ -1,9 +1,10 @@
 // Imports
-import { Text, View, Button, StyleSheet, TextInput, FlatList, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, StyleSheet, TextInput, FlatList, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import GradeItem from './GradeItem';
 import { useHeaderHeight } from '@react-navigation/elements'
+import Button from '../../../components/common/Button';
 
 const createNewEntry = (id) => ({
     id,
@@ -20,8 +21,6 @@ const duplicateEntry = (arr, id, newId) => {
     const duplicated = { ...arr[index], id: newId };
     return [...arr.toSpliced(index, 0, duplicated)];
 };
-
-const allowedCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ','];
 
 // Grade Calculation
 const MinimumGradeCalculator = () => {
@@ -73,27 +72,31 @@ const MinimumGradeCalculator = () => {
         <View
             style={{
                 flexDirection: 'column',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                flex: 1,
+                padding: 5
             }}
         >
-            <KeyboardAvoidingView
+{/*             <KeyboardAvoidingView
                 behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
                 style={{ flex: 1 }}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 150 : 50}
-            >
+            > */}
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList
                         data={dataTable}
                         extraData={dataTable}
                         keyExtractor={item => item.id}
-                        keyboardShouldPersistTaps='handled'
+                        keyboardShouldPersistTaps={'handled'}
                         scrollEnabled
                         contentContainerStyle={{ paddingBottom: 300 }}
                         ListHeaderComponent={
                             <View style={{
                                 flexDirection: 'row',
-                                alignContent: 'center',
-                                justifyContent: 'space-evenly'
+                                alignItems: 'center',
+                                justifyContent: 'space-evenly',
+                                marginBottom: 8,
+                                padding: 4
                             }}>
                                 <TextInput
                                     onChangeText={(input) => setDesiredGrade(input.replace(/[^0-9.,]/g, ''))}
@@ -147,7 +150,7 @@ const MinimumGradeCalculator = () => {
                         }}
                     />
                 </TouchableWithoutFeedback>
-            </KeyboardAvoidingView>
+{/*             </KeyboardAvoidingView> */}
         </View>
     );
 };

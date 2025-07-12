@@ -3,7 +3,7 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { useThemes } from '../../context/ThemeContext';
 import TranslatedText from '../translations/TranslatedText';
 
-const CustomButton = ({ onPress, title, color, disabled=false }) => {
+const Button = ({ onPress, title, color, disabled=false }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
     if (!color) color = colors.blue;
 
@@ -13,7 +13,7 @@ const CustomButton = ({ onPress, title, color, disabled=false }) => {
                 height: 45,
                 maxWidth: 200,
                 minWidth: 100,
-                borderRadius: 20,
+                borderRadius: 18,
                 padding: 8,
                 flexDirection: 'row',
                 justifyContent: 'center',
@@ -51,4 +51,4 @@ const CustomButton = ({ onPress, title, color, disabled=false }) => {
     );
 };
 
-export default CustomButton;
+export default Button;
