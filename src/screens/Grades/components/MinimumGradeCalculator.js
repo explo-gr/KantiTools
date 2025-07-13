@@ -24,8 +24,7 @@ const duplicateEntry = (arr, id, newId) => {
 
 // Grade Calculation
 const MinimumGradeCalculator = () => {
-    const { defaultThemedStyles } = useThemes();
-    const height = useHeaderHeight();
+    const { colors } = useThemes();
 
     const entryId = useRef(0);
 
@@ -43,7 +42,7 @@ const MinimumGradeCalculator = () => {
 
     useEffect(() => {
         let weightSum = 0;
-        let minGrade = 0;
+        let minGrade = 0;Platform
 
         dataTable.forEach(({ weight, grade }) => {
             const parsedWeight = Number(weight);
@@ -61,27 +60,27 @@ const MinimumGradeCalculator = () => {
         if (convertedDesiredGrade && convertedDesiredWeight) {
             minGrade += convertedDesiredGrade * (weightSum + convertedDesiredWeight);
             const result = Math.round((minGrade /= convertedDesiredWeight) * 100) / 100;
-            setOutput(result.toString());
+            setOutput(result.toFixed(2));
         } else {
-            setOutput('invalid input');
+            setOutput('1.00');
         }
 
     }, [desiredGrade, dgWeight, dataTable])
 
     return (
-        <View
-            style={{
-                flexDirection: 'column',
-                justifyContent: 'center',
-                flex: 1,
-                padding: 5
-            }}
-        >
-{/*             <KeyboardAvoidingView
+        <View style={styles.rootContainer}>
+            <View style={styles.outputContainer}>
+                <Text style={[{
+                    color: colors.blue
+                },styles.outputText]}>{ output }</Text>
+            </View>
+{/*
+            <KeyboardAvoidingView
                 behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
                 style={{ flex: 1 }}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 150 : 50}
-            > */}
+            >
+*/}
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList
                         data={dataTable}
@@ -91,13 +90,7 @@ const MinimumGradeCalculator = () => {
                         scrollEnabled
                         contentContainerStyle={{ paddingBottom: 300 }}
                         ListHeaderComponent={
-                            <View style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'space-evenly',
-                                marginBottom: 8,
-                                padding: 4
-                            }}>
+                            <View style={styles.headerContainer}>
                                 <TextInput
                                     onChangeText={(input) => setDesiredGrade(input.replace(/[^0-9.,]/g, ''))}
                                     value={desiredGrade}
@@ -111,7 +104,6 @@ const MinimumGradeCalculator = () => {
                                     placeholder='weight'
                                 />
                                 <Button title='Add' onPress={addItem}/>
-                                <Text>{ output }</Text>
                             </View>
                         }
                         renderItem={({ item }) => {
@@ -150,9 +142,36 @@ const MinimumGradeCalculator = () => {
                         }}
                     />
                 </TouchableWithoutFeedback>
-{/*             </KeyboardAvoidingView> */}
+{/*
+            </KeyboardAvoidingView>
+*/}
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    outputText: {
+        fontFamily: 'monospace',
+        fontWeight: 'bold',
+        fontSize: 82
+    },
+    outputContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    rootContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        flex: 1,
+        padding: 5
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        marginBottom: 8,
+        padding: 4
+    }
+});
 
 export default MinimumGradeCalculator;

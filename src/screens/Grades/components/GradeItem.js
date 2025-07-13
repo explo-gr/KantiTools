@@ -3,26 +3,32 @@ import { View, StyleSheet, TextInput } from 'react-native';
 import Button from '../../../components/common/Button';
 
 const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onDuplicate }) => {
-    const { defaultThemedStyles } = useThemes();
+    const { defaultThemedStyles, colors } = useThemes();
 
     return (
-        <View style={styles.rootcontainer}>
+        <View style={styles.rootContainer}>
             <View style={[styles.container, defaultThemedStyles.card]}>
-                <View style={styles.leftview}>
+                <View style={styles.leftView}>
                     <TextInput
                         value={grade}
                         onChangeText={onGradeChange}
                         placeholder='grade'
                         keyboardType='number-pad'
+                        style={[{
+                            borderColor: colors.blue
+                        }, styles.input]}
                     />
                     <TextInput
                         value={weight}
                         onChangeText={onWeightChange}
                         placeholder='weight'
                         keyboardType='number-pad'
+                        style={[{
+                            borderColor: colors.blue
+                        }, styles.input]}
                     />
                 </View>
-                <View style={styles.rightview}>
+                <View style={styles.rightView}>
                     <Button
                         title='Delete'
                         onPress={onDelete}
@@ -39,32 +45,37 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
-        margin: 5,
+        padding: 12,
+        margin: 6,
         width: '100%'
     },
-    rootcontainer: {
+    rootContainer: {
         alignItems: 'center',
         justifyContent: 'center'
     },
     text: {
         fontSize: 16
     },
-    leftview: {
+    leftView: {
         flex: 4,
         alignContent: 'center',
         justifyContent: 'flex-start',
-        gap: 3
+        gap: 10
     },
-    rightview: {
+    rightView: {
         flex: 2,
         alignContent: 'center',
         alignItems: 'flex-end',
-        gap: 3
-    }
+        gap: 10
+    },
+    input: {
+        borderWidth: 2,
+        borderRadius: 14,
+        padding: 12,
+    },
 });
 
 export default GradeItem;

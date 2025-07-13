@@ -11,7 +11,7 @@ const LoadingIndicator = ({ status='' }) => {
             alignItems: 'center',
             margin: 5
         }}>
-            <ActivityIndicator size='large' color={colors.blue}/>
+            <ActivityIndicator size='large' color={colors.lightblue}/>
             {status && (<Text style={defaultThemedStyles.text}>{status}</Text>)}
         </View>
     );
