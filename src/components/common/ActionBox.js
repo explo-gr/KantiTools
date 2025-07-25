@@ -4,17 +4,17 @@ import TranslatedText from '../translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
 import { useThemes } from '../../context/ThemeContext';
 
-const ActionBox = ({ onPress = () => null, icon = 'alert-circle' , label }) => {
+const ActionBox = ({ onPress = () => null, icon = 'alert-circle' , label = 'no title', inverted }) => {
     const { colors } = useThemes();
 
     return (
         <TouchableOpacity
             onPress={onPress}
             style={[{
-                backgroundColor: colors.blue
+                backgroundColor: inverted ? colors.generic : colors.blue
             }, styles.container]}
         >
-            <Feather name={icon} size={32} color={colors.generic}/>
+            <Feather name={icon} size={32} color={inverted ? colors.blue : colors.generic}/>
             <TranslatedText style={{
                 color: colors.generic,
                 fontSize: 12
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         gap: 5,
         flexDirection: 'column',
         borderRadius: 25,
-        padding: 20,
+        padding: 20
     }
 });
 

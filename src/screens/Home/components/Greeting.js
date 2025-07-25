@@ -10,10 +10,10 @@ const Greeting = () => {
     const getJSX = (icon, greeting, color='#426d9e') => {
         return (
             <View style={styles.container}>
+                <Feather name={icon} size={28} color={color} />
                 <Text style={[{
                     color: colors.blue
                 }, styles.text]}>{greeting}</Text>
-                <Feather name={icon} size={28} color={color} />
             </View>
         );
     };
@@ -50,12 +50,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 8
+        gap: 8,
+        margin: 5
     },
     text: {
-        fontWeight: 'bold',
+        fontWeight: 'bolder',
         fontSize: 26,
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
     }
 });
 

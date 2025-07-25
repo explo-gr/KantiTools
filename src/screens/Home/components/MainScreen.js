@@ -9,13 +9,18 @@ import Button from '../../../components/common/Button';
 import { openMenuplanPDF } from '../../../lib/menuplanHelper';
 import { useTranslations } from '../../../context/LanguageContext';
 import Greeting from './Greeting';
+import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
+import ActionBox from '../../../components/common/ActionBox';
+import Weekdays from './Weekdays';
 
 // Main Home Screen
 const HomeMain = ({ navigation }) => {
     const { t } = useTranslations();
-    const { defaultThemedStyles } = useThemes();
+    const { defaultThemedStyles, colors } = useThemes();
     const [ state, setState ] = useState(false);
     const [ menDisabled, setMenDisabled ] = useState(false);
+
+    const boxHeight = '25%';
 
     const handleMenuplan = async () => {
         setMenDisabled(true);
@@ -44,8 +49,29 @@ const HomeMain = ({ navigation }) => {
     return (
         <ContainerView>
             <Header title={'Home'}/>
+            <View style={styles.greetSeperator}/>
             <Greeting/>
-            <ToggleSwitch changeState={setState} state={state} />
+
+            <View style={{
+                padding: 10,
+                margin: 10,
+                height: 250,
+                borderWidth: 3,
+                borderColor: colors.blue,
+                borderRadius: 25,
+            }}>
+                <ActionBoxContainer>
+                    <ActionBox />
+                    <ActionBox/>
+                </ActionBoxContainer>
+                <ActionBoxContainer>
+                    <ActionBox/>
+                    <ActionBox/>
+                    <ActionBox/>
+                </ActionBoxContainer>
+            </View>
+            {/* <ToggleSwitch changeState={setState} state={state} /> */}
+            <Weekdays/>
             <Button title='Go to Menuplan' onPress={handleMenuplan} disabled={menDisabled} />
         </ContainerView>
     );
@@ -57,6 +83,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    greetSeperator: {
+        marginTop: '15%'
+    },
+    rootContainer: {
+
+    }
 });
 
 export default HomeMain;

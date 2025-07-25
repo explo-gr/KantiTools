@@ -3,6 +3,7 @@ import { useThemes } from '../../context/ThemeContext';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { StatusBar } from 'expo-status-bar';
 
+// add scroll option
 const ContainerView = ({ children, style }) => {
     const headerHeight = useHeaderHeight();
     const { defaultThemedStyles, theme } = useThemes();

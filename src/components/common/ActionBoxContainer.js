@@ -1,13 +1,6 @@
-import { TouchableOpacity } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import TranslatedText from '../translations/TranslatedText';
-import Feather from '@expo/vector-icons/Feather';
-import { useThemes } from '../../context/ThemeContext';
 
-
-const ActionBoxContainer = ({ children, height, width }) => {
-    const { colors, defaultThemedStyles } = useThemes();
-
+const ActionBoxContainer = ({ children, height }) => {
     return (
         <View style={[{
             height: height,
@@ -23,8 +16,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        gap: 10,
-        width: '100%'
+        gap: 8,
+        width: '100%',
+        flex: 1
     }
 });
 
