@@ -12,6 +12,7 @@ import Greeting from './Greeting';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
 import ActionBox from '../../../components/common/ActionBox';
 import Weekdays from './Weekdays';
+import Divider from '../../../components/common/Divider';
 
 // Main Home Screen
 const HomeMain = ({ navigation }) => {
@@ -51,19 +52,22 @@ const HomeMain = ({ navigation }) => {
             <Header title={'Home'}/>
             <View style={styles.greetSeperator}/>
             <Greeting/>
-
-            <View style={{
-                padding: 10,
-                margin: 10,
-                height: 250,
-                borderWidth: 3,
+            <View style={[{
                 borderColor: colors.blue,
-                borderRadius: 25,
-            }}>
+            }, styles.abxRootContainer]}>
                 <ActionBoxContainer>
-                    <ActionBox />
-                    <ActionBox/>
+                    <ActionBox
+                        icon='calendar'
+                        label={t('hm_ttbl')}
+                    />
+                    <ActionBox
+                        icon='shopping-cart'
+                        label={t('hm_men')}
+                        disabled={menDisabled}
+                        onPress={handleMenuplan}
+                    />
                 </ActionBoxContainer>
+                <Divider/>
                 <ActionBoxContainer>
                     <ActionBox/>
                     <ActionBox/>
@@ -71,8 +75,9 @@ const HomeMain = ({ navigation }) => {
                 </ActionBoxContainer>
             </View>
             {/* <ToggleSwitch changeState={setState} state={state} /> */}
+            <View style={styles.greetSeperator}/>
+            <View style={styles.greetSeperator}/>
             <Weekdays/>
-            <Button title='Go to Menuplan' onPress={handleMenuplan} disabled={menDisabled} />
         </ContainerView>
     );
 };
@@ -86,8 +91,12 @@ const styles = StyleSheet.create({
     greetSeperator: {
         marginTop: '15%'
     },
-    rootContainer: {
-
+    abxRootContainer: {
+        padding: 10,
+        margin: 10,
+        height: 250,
+        borderWidth: 3,
+        borderRadius: 25
     }
 });
 

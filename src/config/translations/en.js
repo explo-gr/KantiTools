@@ -16,6 +16,8 @@ export default {
     hm_gr_night: "Good night",
     hm_men_err: "Failed to retrieve PDF",
     hm_men_err_msg: "Check your network connection!",
+    hm_men: "Meal plan",
+    hm_ttbl: "Timetable",
 
     // reminder
     re_title: "Title",

@@ -18,6 +18,8 @@ export default {
     hm_gr_night: "Gute Nacht",
     hm_men_err: "PDF nicht gefunden",
     hm_men_err_msg: "Überprüfe deine Netzwerkverbindung!",
+    hm_men: "Menüplan",
+    hm_ttbl: "Stundenplan",
 
     // reminder
     re_title: "Titel",
