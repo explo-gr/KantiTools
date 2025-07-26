@@ -4,12 +4,13 @@ import TranslatedText from '../translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
 import { useThemes } from '../../context/ThemeContext';
 
-const ActionBox = ({ onPress = () => null, icon = 'alert-circle' , label = 'no title', inverted, disabled }) => {
+const ActionBox = ({ onPress = () => null, onLongPress = () => null, icon = 'alert-circle' , label = 'no title', inverted, disabled }) => {
     const { colors } = useThemes();
 
     return (
         <TouchableOpacity
             onPress={onPress}
+            onLongPress={onLongPress}
             style={[{
                 backgroundColor: inverted ? colors.generic : colors.blue,
                 opacity: disabled ? 0.2 : 1.0,

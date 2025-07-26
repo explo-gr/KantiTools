@@ -25,7 +25,8 @@
     "react-native": "^0.76.9",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-reanimated": "~3.16.1",
-    "expo-haptics": "~14.0.1"
+    "expo-haptics": "~14.0.1",
+    "expo-document-picker": "~13.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

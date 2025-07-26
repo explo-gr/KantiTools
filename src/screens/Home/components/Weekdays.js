@@ -17,11 +17,11 @@ const Box = ({ title, highlighted, current, onPress = () => null }) => {
 
     return (
         <TouchableOpacity style={[{
-            transform: [{ scale: current ? 1.15 : 1.0 }]
+            transform: [{ scale: current ? 1.2 : 1.0 }]
         }, containerStyle, styles.box]} onPress={onPress}>
             <Text style={{
                 textAlignVertical: 'center',
-                fontSize: 16,
+                fontSize: 14,
                 color: highlighted ? colors.generic : colors.blue
             }}>{title}</Text>
         </TouchableOpacity>
@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        margin: 2
     },
     box: {
         justifyContent: 'center',
@@ -90,8 +91,8 @@ const styles = StyleSheet.create({
         margin: 1,
         borderRadius: 15,
 
-        width: 43,
-        height: 43
+        width: 40,
+        height: 40
     }
 });
 
