@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { useThemes } from '../../context/ThemeContext';
 import TranslatedText from '../translations/TranslatedText';
+import Feather from '@expo/vector-icons/Feather';
 
-const Button = ({ onPress, title, color, disabled=false }) => {
+const Button = ({ onPress, title, color, disabled=false, icon }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
     if (!color) color = colors.blue;
 
@@ -15,6 +16,7 @@ const Button = ({ onPress, title, color, disabled=false }) => {
                 minWidth: 100,
                 borderRadius: 18,
                 padding: 8,
+                gap: 3,
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -43,6 +45,9 @@ const Button = ({ onPress, title, color, disabled=false }) => {
             }}
         >
             <View style={themedStyles.buttonShell}>
+                {icon && (
+                    <Feather name={icon} size={20} color={colors.generic}/>
+                )}
                 <TranslatedText style={themedStyles.text}>
                     {title || 'ok'}
                 </TranslatedText>

@@ -10,7 +10,7 @@ const Greeting = () => {
     const getJSX = (icon, greeting, color='#426d9e') => {
         return (
             <View style={styles.container}>
-                <Feather name={icon} size={28} color={color} />
+                <Feather name={icon} size={32} color={color} />
                 <Text style={[{
                     color: colors.blue
                 }, styles.text]}>{greeting}</Text>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         margin: 5
     },
     text: {
-        fontWeight: 'bolder',
+        fontWeight: 'bold',
         fontSize: 26,
         textAlignVertical: 'center',
     }

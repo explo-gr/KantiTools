@@ -59,6 +59,7 @@ const Screen = ({ navigation }) => {
                         <Button
                             title={t('refresh')}
                             onPress={refreshAll}
+                            icon={'refresh-cw'}
                         />
                     </View>
                 )}

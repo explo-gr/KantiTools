@@ -2,7 +2,10 @@ import { View, Image, Text, StyleSheet } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { openBrowserAsync } from 'expo-web-browser';
 import * as Haptics from 'expo-haptics';
+
+const REPO_URL = 'https://github.com/explo-gr/KantiTools';
 
 const statusBarWheel = () => {
     const colors = ['tomato', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'blue', 'purple', 'pink'];
@@ -17,6 +20,7 @@ const statusBarWheel = () => {
             setTimeout(() => iterate(), 500);
         } else {
             setStatusBarBackgroundColor('#00000000', true);
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         }
     }
 
@@ -38,7 +42,10 @@ const Credit = () => {
     const { defaultThemedStyles } = useThemes();
 
     return (
-        <TouchableWithoutFeedback onLongPress={statusBarWheel}>
+        <TouchableWithoutFeedback
+            onLongPress={statusBarWheel}
+            onPress={async () => await openBrowserAsync(REPO_URL)}
+        >
             <View style={styles.creditContainer}>
                 <Image
                     style={[styles.creditImage, defaultThemedStyles.boxshadow]}
@@ -48,7 +55,7 @@ const Credit = () => {
                     <CreditText>Created by Gian-Marco Coray</CreditText>
                     <CreditText>github.com/explo-gr/KantiTools</CreditText>
                     <CreditText>KantiTools</CreditText>
-                    <CreditText>Alpha 1.7</CreditText>
+                    <CreditText>Alpha 1.8</CreditText>
                 </View>
             </View>
         </TouchableWithoutFeedback>

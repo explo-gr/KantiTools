@@ -49,7 +49,11 @@ const Weekdays = () => {
         if (updated.length === code.length) {
             if (updated.every((e, i) => e === code[i])) {
                 Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-                Alert.alert('hi');
+                Alert.alert(
+                    'hi',
+                    '',
+                    [{ text: 'hi', style: 'cancel' }]
+                );
             } else {
                 Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             }

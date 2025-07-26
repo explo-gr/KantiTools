@@ -108,6 +108,7 @@ const MinimumGradeCalculator = () => {
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 150 : 50}
             >
 */}
+            {!!dataTable.length && (
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList
                         data={dataTable}
@@ -131,20 +132,20 @@ const MinimumGradeCalculator = () => {
                                     }}
                                     onGradeChange={(input) =>
                                         updateDataTable(prev =>
-                                          prev.map((entry) =>
+                                            prev.map((entry) =>
                                             entry.id === item.id
-                                              ? { ...entry, grade: input.replace(/[^0-9.,]/g, '') }
-                                              : entry
-                                          )
+                                                ? { ...entry, grade: input.replace(/[^0-9.,]/g, '') }
+                                                : entry
+                                            )
                                         )
                                     }
                                     onWeightChange={(input) =>
                                         updateDataTable(prev =>
-                                          prev.map((entry) =>
+                                            prev.map((entry) =>
                                             entry.id === item.id
-                                              ? { ...entry, weight: input.replace(/[^0-9.,]/g, '') }
-                                              : entry
-                                          )
+                                                ? { ...entry, weight: input.replace(/[^0-9.,]/g, '') }
+                                                : entry
+                                            )
                                         )
                                     }
                                 />
@@ -152,6 +153,7 @@ const MinimumGradeCalculator = () => {
                         }}
                     />
                 </TouchableWithoutFeedback>
+            )}
 {/*
             </KeyboardAvoidingView>
 */}
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
     },
     rootContainer: {
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         flex: 1,
         padding: 5
     },

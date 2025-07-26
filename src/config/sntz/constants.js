@@ -1,7 +1,5 @@
 const DATA_KEYS = {
-    grades: 'cached_grades',
-    // ATTENDANCE: 'cached_attendance',
-    // TIMETABLE: 'cached_timetable'
+    grades: "cached_grades",
 };
 
 const HOST = {
@@ -9,10 +7,8 @@ const HOST = {
     // else if multiple providers were to be supported
 
     login: "https://schulnetz.bks-campus.ch/loginto.php?pageid=2131",
-
     grades: "https://schulnetz.bks-campus.ch/index.php?pageid=21311",
     attendance: "https://schulnetz.bks-campus.ch/index.php?pageid=21111",
-    // timetable: "https://schulnetz.bks-campus.ch/index.php?pageid=22202", --> impossible to fetch
     start: "https://schulnetz.bks-campus.ch/index.php?pageid=1"
 };
 

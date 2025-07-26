@@ -8,6 +8,6 @@ export default {
     yellow: '#DAA520',
     green: '#228B22',
     blue: '#2B303B', // used as accent color throughout the app
-    lightblue: '#4260f4', // not quite happy with this color
+    lightblue: '#2227b2', // not quite happy with this color
     purple: '#74228b'
 }

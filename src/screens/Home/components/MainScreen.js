@@ -17,10 +17,15 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
 import * as Haptics from 'expo-haptics';
+import { openBrowserAsync } from 'expo-web-browser';
 
 const TIMETABLE_DIR = `${FileSystem.documentDirectory}timetable`;
 const FILE_NAME = 'current-timetable.pdf';
 const TIMETABLE_URI = `${TIMETABLE_DIR}/${FILE_NAME}`;
+
+const MAIL_URL = 'https://outlook.office.com';
+const BKS_HOMEPAGE_URL = 'https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/bks/uberuns/Seiten/default.aspx';
+const SHAREPOINT_URL = 'https://bkscampusch-my.sharepoint.com/';
 
 // Main Home Screen
 const HomeMain = ({ navigation }) => {
@@ -29,15 +34,6 @@ const HomeMain = ({ navigation }) => {
 
     const [ menDisabled, setMenDisabled ] = useState(false);
     const [ ttblAvailable, setTtblAvailable ] = useState(false);
-    
-    useEffect(() => {
-        const checkTimetableExists = async () => {
-            const fileInfo = await FileSystem.getInfoAsync(TIMETABLE_URI);
-            setTtblAvailable(fileInfo.exists);
-        };
-
-        checkTimetableExists();
-    }, []);
 
     const handleMenuplan = async () => {
         setMenDisabled(true);
@@ -55,6 +51,15 @@ const HomeMain = ({ navigation }) => {
         }
         setMenDisabled(false);
     };
+    
+    useEffect(() => {
+        const checkTimetableExists = async () => {
+            const fileInfo = await FileSystem.getInfoAsync(TIMETABLE_URI);
+            setTtblAvailable(fileInfo.exists);
+        };
+
+        checkTimetableExists();
+    }, []);
 
     const handleTimetable = async () => {
 
@@ -152,9 +157,21 @@ const HomeMain = ({ navigation }) => {
                 </ActionBoxContainer>
                 <Divider/>
                 <ActionBoxContainer>
-                    <ActionBox/>
-                    <ActionBox/>
-                    <ActionBox/>
+                    <ActionBox
+                        icon='mail'
+                        label={t('hm_mail')}
+                        onPress={async () => await openBrowserAsync(MAIL_URL)}
+                    />
+                    <ActionBox
+                        icon='folder'
+                        label={t('hm_files')}
+                        onPress={async () => await openBrowserAsync(SHAREPOINT_URL)}
+                    />
+                    <ActionBox
+                        icon='globe'
+                        label={t('hm_hpg')}
+                        onPress={async () => await openBrowserAsync(BKS_HOMEPAGE_URL)}
+                    />
                 </ActionBoxContainer>
             </View>
             <View style={styles.greetSeperator}/>
