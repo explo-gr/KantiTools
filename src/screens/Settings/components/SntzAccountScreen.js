@@ -39,10 +39,26 @@ const Screen = ({ navigation }) => {
         }
     }
 
-    const handleLogout = async () => {
-        await logout();
-        setInputtedEmail('');
-        setInputtedPassword('');
+    const handleLogout = () => {
+        Alert.alert(
+            'Logout',
+            'Are you sure you want to log out?',
+            [
+                { text: t('cancel'), style: 'cancel' },
+                {
+                    text: t('yes'),
+                    onPress: async () => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+                        await logout();
+                        setInputtedEmail('');
+                        setInputtedPassword('');
+                    },
+                    style: 'destructive'
+                },
+            ],
+            { cancelable: true }
+        );
     }
 
     const validateLogin = async () => {
@@ -54,8 +70,10 @@ const Screen = ({ navigation }) => {
 
         if (loginSuccessful) {
             await login(inputtedEmail, inputtedPassword);
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             alertMsg = t('st_sntz_login_y');
         } else {
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             alertMsg = t('st_sntz_login_n');
         }
 

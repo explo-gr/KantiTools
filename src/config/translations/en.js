@@ -4,8 +4,11 @@ export default {
     greeting: "Hello!",
     welcome: "Welcome!",
     ok: "OK",
-    delete: "Delete",
+    yes: "Yes",
     cancel: "Cancel",
+    delete: "Delete",
+    retry: "Retry",
+    open: "Open",
 
     // home
     hm_gr_morning: "Good morning",

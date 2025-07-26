@@ -4,6 +4,7 @@ export default {
     greeting: "Hallo!",
     welcome: "Willkommen!",
     ok: "OK",
+    yes: "Ja",
     cancel: "Abbrechen",
     delete: "Löschen",
     retry: "Erneut versuchen",
