@@ -5,6 +5,7 @@ import { useThemes } from '../../../context/ThemeContext';
 import GradeItem from './GradeItem';
 import { useHeaderHeight } from '@react-navigation/elements'
 import Button from '../../../components/common/Button';
+import Divider from '../../../components/common/Divider';
 
 const createNewEntry = (id) => ({
     id,
@@ -74,6 +75,32 @@ const MinimumGradeCalculator = () => {
                     color: colors.blue
                 },styles.outputText]}>{ output }</Text>
             </View>
+
+            <View style={{ paddingBottom: 5 }}>
+                <View style={styles.headerContainer}>
+                    <TextInput
+                        onChangeText={(input) => setDesiredGrade(input.replace(/[^0-9.,]/g, ''))}
+                        value={desiredGrade}
+                        keyboardType='number-pad'
+                        placeholder='desired'
+                        placeholderTextColor={colors.hardContrast}
+                        style={[{
+                            borderColor: colors.blue
+                        }, styles.input]}
+                    />
+                    <TextInput
+                        onChangeText={(input) => setDgWeight(input.replace(/[^0-9.,]/g, ''))}
+                        value={dgWeight}
+                        keyboardType='number-pad'
+                        placeholder='weight'
+                        placeholderTextColor={colors.hardContrast}
+                        style={[{
+                            borderColor: colors.blue
+                        }, styles.input]}
+                    />
+                    <Button title='Add' onPress={addItem}/>
+                </View>
+            </View>
 {/*
             <KeyboardAvoidingView
                 behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
@@ -89,23 +116,6 @@ const MinimumGradeCalculator = () => {
                         keyboardShouldPersistTaps={'handled'}
                         scrollEnabled
                         contentContainerStyle={{ paddingBottom: 300 }}
-                        ListHeaderComponent={
-                            <View style={styles.headerContainer}>
-                                <TextInput
-                                    onChangeText={(input) => setDesiredGrade(input.replace(/[^0-9.,]/g, ''))}
-                                    value={desiredGrade}
-                                    keyboardType='number-pad'
-                                    placeholder='desired'
-                                />
-                                <TextInput
-                                    onChangeText={(input) => setDgWeight(input.replace(/[^0-9.,]/g, ''))}
-                                    value={dgWeight}
-                                    keyboardType='number-pad'
-                                    placeholder='weight'
-                                />
-                                <Button title='Add' onPress={addItem}/>
-                            </View>
-                        }
                         renderItem={({ item }) => {
                             return (
                                 <GradeItem
@@ -153,7 +163,9 @@ const styles = StyleSheet.create({
     outputText: {
         fontFamily: 'monospace',
         fontWeight: 'bold',
-        fontSize: 82
+        fontSize: 82,
+        marginBottom: 25,
+        marginTop: 10
     },
     outputContainer: {
         justifyContent: 'center',
@@ -170,7 +182,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-evenly',
         marginBottom: 8,
-        padding: 4
+        padding: 4,
+        gap: 10
+    },
+    input: {
+        borderWidth: 2,
+        borderRadius: 14,
+        paddingHorizontal: 10,
+        flex: 1
     }
 });
 

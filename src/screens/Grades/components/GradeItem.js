@@ -13,6 +13,7 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
                         value={grade}
                         onChangeText={onGradeChange}
                         placeholder='grade'
+                        placeholderTextColor={colors.hardContrast}
                         keyboardType='number-pad'
                         style={[{
                             borderColor: colors.blue
@@ -22,6 +23,7 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
                         value={weight}
                         onChangeText={onWeightChange}
                         placeholder='weight'
+                        placeholderTextColor={colors.hardContrast}
                         keyboardType='number-pad'
                         style={[{
                             borderColor: colors.blue

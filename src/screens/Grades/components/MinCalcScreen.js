@@ -12,7 +12,6 @@ const GradesMinCalc = ({ route }) => {
 
     return (
         <ContainerView>
-            <Text style={defaultThemedStyles.text}>Grade Calculator</Text>
             <Divider/>
             <MinimumGradeCalculator/>
         </ContainerView>
