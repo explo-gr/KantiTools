@@ -32,7 +32,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                     e.stopPropagation();
                     onSelect(item);
                     setModalVisible(false);
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
                 }}
             >
                 <ScaleOnFocus

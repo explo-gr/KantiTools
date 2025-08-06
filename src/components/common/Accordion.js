@@ -62,7 +62,7 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
                 }}
             >
                 <View style={styles.headerContainer}>
-                    <Text style={[{fontSize: titleTextSize}, styles.titleText, defaultThemedStyles.text]}>{t(title)}</Text>
+                    <Text style={[{ fontSize: titleTextSize }, styles.titleText, defaultThemedStyles.text]}>{t(title)}</Text>
                     <View style={{
                         flexDirection: 'row',
                         justifyContent: 'flex-end',
@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     titleText: {
-        overflow: 'hidden'
+        overflow: 'hidden',
+        fontWeight: 'bolder'
     },
     contentContainer: {
         overflow: 'hidden',

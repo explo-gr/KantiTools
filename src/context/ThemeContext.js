@@ -11,7 +11,7 @@ export const ThemeProvider = ({ children }) => {
 
     const theme = settings.theme === 'system' ? systemTheme : settings.theme;
 
-    const colors = getColorPalette(theme);
+    const colors = useMemo(() => getColorPalette(theme), [theme]);
 
     const defaultThemedStyles = useMemo(() => {
         const defaultThemedStyle = StyleSheet.create({
@@ -45,8 +45,14 @@ export const ThemeProvider = ({ children }) => {
         return defaultThemedStyle;
     }, [theme]);
 
+    const contextValue = useMemo(() => ({
+        colors,
+        defaultThemedStyles,
+        theme,
+    }), [colors, defaultThemedStyles, theme]);
+
     return (
-        <ThemeContext.Provider value={{ colors, defaultThemedStyles, theme }}>
+        <ThemeContext.Provider value={contextValue}>
             { children }
         </ThemeContext.Provider>
     )
