@@ -245,7 +245,7 @@ const TodoList = () => {
                                                 );
                                             }}
                                             >
-                                            <Feather name='trash' size={22} color={colors.red} />
+                                            <Feather name='trash-2' size={22} color={colors.red} />
                                             </TouchableOpacity>
                                         </View>
                                     </Accordion>

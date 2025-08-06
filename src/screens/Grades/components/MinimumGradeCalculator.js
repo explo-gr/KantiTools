@@ -1,5 +1,5 @@
 // Imports
-import { Text, View, StyleSheet, TextInput, FlatList, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, StyleSheet, TextInput, FlatList, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import GradeItem from './GradeItem';
@@ -24,12 +24,11 @@ const duplicateEntry = (arr, id, newId) => {
 };
 
 // Grade Calculation
-const MinimumGradeCalculator = () => {
+const MinimumGradeCalculator = ({ gradeData = [] }) => {
     const { colors } = useThemes();
-
     const entryId = useRef(0);
 
-    const [ dataTable, updateDataTable ] = useState([]);
+    const [ dataTable, updateDataTable ] = useState(gradeData);
     const [ desiredGrade, setDesiredGrade ] = useState('');
     const [ dgWeight, setDgWeight ] = useState('');
     const [ output, setOutput ] = useState('');
@@ -46,19 +45,19 @@ const MinimumGradeCalculator = () => {
         let minGrade = 0;Platform
 
         dataTable.forEach(({ weight, grade }) => {
-            const parsedWeight = Number(weight);
+            const parsedWeight = Number(weight) || 1;
             const parsedGrade = Number(grade);
 
-            if (parsedGrade && parsedWeight) {
+            if (parsedGrade) {
                 weightSum += parsedWeight;
                 minGrade -= parsedWeight * parsedGrade;
             }
         });
 
         const convertedDesiredGrade = Number(desiredGrade);
-        const convertedDesiredWeight = Number(dgWeight);
+        const convertedDesiredWeight = Number(dgWeight) || 1;
 
-        if (convertedDesiredGrade && convertedDesiredWeight) {
+        if (convertedDesiredGrade) {
             minGrade += convertedDesiredGrade * (weightSum + convertedDesiredWeight);
             const result = Math.round((minGrade /= convertedDesiredWeight) * 100) / 100;
             setOutput(result.toFixed(2));
@@ -83,9 +82,11 @@ const MinimumGradeCalculator = () => {
                         value={desiredGrade}
                         keyboardType='number-pad'
                         placeholder='desired'
-                        placeholderTextColor={colors.hardContrast}
+                        placeholderTextColor={colors.gray}
+                        maxLength={4}
                         style={[{
-                            borderColor: colors.blue
+                            borderColor: colors.blue,
+                            color: colors.hardContrast
                         }, styles.input]}
                     />
                     <TextInput
@@ -93,12 +94,14 @@ const MinimumGradeCalculator = () => {
                         value={dgWeight}
                         keyboardType='number-pad'
                         placeholder='weight'
-                        placeholderTextColor={colors.hardContrast}
+                        placeholderTextColor={colors.gray}
+                        maxLength={4}
                         style={[{
-                            borderColor: colors.blue
+                            borderColor: colors.blue,
+                            color: colors.hardContrast
                         }, styles.input]}
                     />
-                    <Button title='Add' onPress={addItem}/>
+                    <Button title='Add' onPress={addItem} icon={'plus'}/>
                 </View>
             </View>
 {/*
@@ -166,8 +169,8 @@ const styles = StyleSheet.create({
         fontFamily: 'monospace',
         fontWeight: 'bold',
         fontSize: 82,
-        marginBottom: 25,
-        marginTop: 10
+        marginBottom: 20,
+        marginTop: 5
     },
     outputContainer: {
         justifyContent: 'center',

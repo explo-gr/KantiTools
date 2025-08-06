@@ -10,10 +10,17 @@ import Divider from '../../../components/common/Divider';
 import calcPluspunkte from './calcPluspunkte';
 import Button from '../../../components/common/Button';
 import { useTranslations } from '../../../context/LanguageContext';
+import { useCallback } from 'react';
 
 const Screen = ({ navigation }) => {
     const { grades, isReady, refreshAll } = useData();
     const { t } = useTranslations();
+
+    const forwardGradeData = useCallback((data) => {
+        navigation.navigate('GradesMinCalc', {
+            gradeData: [...data]
+        });
+    }, [navigation]);
 
     return (
         <ContainerView>
@@ -47,7 +54,7 @@ const Screen = ({ navigation }) => {
             <ScrollView
                 contentContainerStyle={{ paddingBottom: 120 }}
             >
-                <GradesList/>
+                <GradesList forwardGradeData={forwardGradeData}/>
                 {isReady && (
                     <View style={{
                         justifyContent: 'center',

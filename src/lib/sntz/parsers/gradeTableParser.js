@@ -72,7 +72,7 @@ const parseGradeTable = (document) => {
                 examData.score = rawScore.substring(8, rawScore.length);
             }
 
-            examData.weight = $(e).find('td').eq(3).contents().first().text().trim();
+            examData.weight = Number($(e).find('td').eq(3).contents().first().text().trim());
 
             examArray.push(examData);
         });

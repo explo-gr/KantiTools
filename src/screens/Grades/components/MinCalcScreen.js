@@ -7,13 +7,13 @@ import Divider from '../../../components/common/Divider';
 
 // Grade Calculation
 const GradesMinCalc = ({ route }) => {
-    //const { gradeData } = route.params;
+    const gradeData = route.params?.gradeData;
     const { defaultThemedStyles } = useThemes();
 
     return (
         <ContainerView>
             <Divider/>
-            <MinimumGradeCalculator/>
+            <MinimumGradeCalculator gradeData={gradeData} />
         </ContainerView>
     )
 };

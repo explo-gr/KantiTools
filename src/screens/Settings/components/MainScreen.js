@@ -106,7 +106,7 @@ const Screen = ({ navigation }) => {
                     <Button
                         title={t('open')}
                         onPress={() => navigation.navigate('SntzAccountManagement')}
-                        icon={'chevron-right'}
+                        icon={'arrow-right'}
                     />
                 </SettingsItem>
                 <SettingsCategoryHeader icon='hard-drive'>

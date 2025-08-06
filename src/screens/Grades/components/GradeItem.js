@@ -5,41 +5,33 @@ import Button from '../../../components/common/Button';
 const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onDuplicate }) => {
     const { defaultThemedStyles, colors } = useThemes();
 
+    const renderPair = (value, onChange, placeholder, action, actionTitle, icon) => (
+        <View style={styles.pairContainer}>
+            <TextInput
+                value={value}
+                onChangeText={onChange}
+                placeholder={placeholder}
+                placeholderTextColor={colors.gray}
+                keyboardType='number-pad'
+                maxLength={4}
+                style={[{
+                    borderColor: colors.blue,
+                    color: colors.hardContrast
+                }, styles.input]}
+            />
+            <Button
+                title={actionTitle}
+                onPress={action}
+                icon={icon}
+            />
+        </View>
+    );
+
     return (
         <View style={styles.rootContainer}>
             <View style={[styles.container, defaultThemedStyles.card]}>
-                <View style={styles.leftView}>
-                    <TextInput
-                        value={grade}
-                        onChangeText={onGradeChange}
-                        placeholder='grade'
-                        placeholderTextColor={colors.hardContrast}
-                        keyboardType='number-pad'
-                        style={[{
-                            borderColor: colors.blue
-                        }, styles.input]}
-                    />
-                    <TextInput
-                        value={weight}
-                        onChangeText={onWeightChange}
-                        placeholder='weight'
-                        placeholderTextColor={colors.hardContrast}
-                        keyboardType='number-pad'
-                        style={[{
-                            borderColor: colors.blue
-                        }, styles.input]}
-                    />
-                </View>
-                <View style={styles.rightView}>
-                    <Button
-                        title='Delete'
-                        onPress={onDelete}
-                    />
-                    <Button
-                        title='Duplicate'
-                        onPress={onDuplicate}
-                    />
-                </View>
+                { renderPair(grade, onGradeChange, 'grade', onDelete, 'Delete', 'trash-2') }
+                { renderPair(weight, onWeightChange, 'weight', onDuplicate, 'Duplicate', 'copy') }
             </View>
         </View>
     )
@@ -47,33 +39,23 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-around',
-        flexDirection: 'row',
-        alignItems: 'center',
         padding: 12,
         margin: 6,
-        width: '100%'
+        width: '100%',
+        gap: 12,
     },
     rootContainer: {
         alignItems: 'center',
         justifyContent: 'center'
     },
-    text: {
-        fontSize: 16
-    },
-    leftView: {
-        flex: 4,
-        alignContent: 'center',
-        justifyContent: 'flex-start',
-        gap: 10
-    },
-    rightView: {
-        flex: 2,
-        alignContent: 'center',
-        alignItems: 'flex-end',
-        gap: 10
+    pairContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 10,
     },
     input: {
+        flex: 1,
         borderWidth: 2,
         borderRadius: 14,
         padding: 12,

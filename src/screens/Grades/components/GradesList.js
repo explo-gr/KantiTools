@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { useData } from '../../../context/DataContext';
 import { View, Text, StyleSheet } from 'react-native';
 import Accordion from '../../../components/common/Accordion';
+import Button from '../../../components/common/Button';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import { useThemes } from '../../../context/ThemeContext';
 
-const GradesList = () => {
+const GradesList = ({ forwardGradeData = () => null }) => {
     const { grades, isReady, refreshAll } = useData();
     const { colors, defaultThemedStyles } = useThemes();
     const [ dataReady, setDataReady ] = useState(false);
@@ -79,7 +80,7 @@ const GradesList = () => {
                                                     key={`${i}-exam-${idx}`}
                                                 >
                                                     <Text style={[{
-                                                        fontSize: 16
+                                                        fontSize: 15.5
                                                     }, defaultThemedStyles.text]} key={`${i}-text-${idx}-topic`}>{exam.topic}</Text>
                                                     <Text style={[{
                                                         fontSize: 16,
@@ -88,6 +89,20 @@ const GradesList = () => {
                                                 </View>
                                             ))
                                         }
+                                        <Button
+                                            icon={'external-link'}
+                                            onPress={() => {
+                                                /*
+                                                    forward data to min grade calc and parse the values
+                                                    into an appropriate format
+                                                */
+                                                forwardGradeData(subject.exams.map((exam, idx) => ({
+                                                    id: -(1 + idx),
+                                                    grade: exam.grade.toString().replace(/[^0-9.,]/g, ''),
+                                                    weight: exam.weight.toString().replace(/[^0-9.,]/g, '')
+                                                })));
+                                            }}
+                                        />
                                     </View>
                                 )}
                             </Accordion>

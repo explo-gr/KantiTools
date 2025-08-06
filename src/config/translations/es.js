@@ -57,8 +57,8 @@ export default {
 
     st_sntz_login: "Correo electrónico",
     st_sntz_password: "Contraseña",
-    st_sntz_login_cm: "Agregar inicio de sesión",
-    st_sntz_remove_ac: "Eliminar inicio de sesión",
+    st_sntz_login_cm: "Agregar sesión",
+    st_sntz_remove_ac: "Eliminar sesión",
     st_sntz_acc_f: "Gestión de cuenta",
     st_sntz_info: "¡Conecta tu cuenta Schulnetz y gestiona tus notas y horario directamente desde la app!",
     st_sntz_login_y: "¡Conexión establecida con éxito!\nCuenta añadida.",

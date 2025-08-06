@@ -187,12 +187,14 @@ const Screen = ({ navigation }) => {
                     onPress={validateLogin}
                     color={colors.lightblue}
                     disabled={!loginBtnEnabled}
+                    icon={'user-plus'}
                 />
                 <Button
                     title={t('st_sntz_remove_ac')}
                     onPress={handleLogout}
                     color={colors.red}
                     disabled={!logoutBtnEnabled}
+                    icon={'log-out'}
                 />
             </View>
         </ContainerView>
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 20,
         marginVertical: 25,
-        width: '80%',
+        width: '90%',
         justifyContent: 'space-between',
     }
 });

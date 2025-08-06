@@ -4,7 +4,7 @@ import { useThemes } from '../../context/ThemeContext';
 import TranslatedText from '../translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
 
-const Button = ({ onPress, title, color, disabled=false, icon }) => {
+const Button = ({ onPress, title, color, disabled=false, icon, style = {} }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
     if (!color) color = colors.blue;
 
@@ -27,7 +27,8 @@ const Button = ({ onPress, title, color, disabled=false, icon }) => {
                 color: colors.generic,
                 marginHorizontal: 3,
                 fontSize: 15,
-                textAlign: 'center'
+                textAlign: 'center',
+                fontWeight: 'bolder'
             }
         });
 
@@ -38,11 +39,11 @@ const Button = ({ onPress, title, color, disabled=false, icon }) => {
         <TouchableOpacity
             onPress={onPress}
             disabled={disabled}
-            style={{
+            style={[{
                 opacity: disabled ? 0.2 : 1.0,
                 justifyContent: 'center',
                 alignItems: 'center'
-            }}
+            }, style]}
         >
             <View style={themedStyles.buttonShell}>
                 {icon && (
