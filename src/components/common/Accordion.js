@@ -7,9 +7,7 @@ import Divider from '../../components/common/Divider';
 import React, { useEffect, useRef } from "react";
 
 // useDimensions und nocher danimation speed fur grössi abhängig macha
-const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tint }) => {
-    const enabled = React.Children.count(children);
-
+const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tint, disabled = false}) => {
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
 
@@ -60,7 +58,7 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
         }]}>
             <TouchableOpacity            
                 onPress={() => {
-                    if (enabled) changeIsOpen(!isOpen);
+                    if (!disabled) changeIsOpen(!isOpen);
                 }}
             >
                 <View style={styles.headerContainer}>

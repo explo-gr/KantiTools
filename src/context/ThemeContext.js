@@ -27,6 +27,7 @@ export const ThemeProvider = ({ children }) => {
             },
             textContrast: {
                 color: colors.generic,
+                textAlignVertical: 'center'
             },
             cardHighlight: {
                 backgroundColor: colors.blue,

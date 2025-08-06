@@ -8,7 +8,8 @@ export default {
     cancel: "Abbrechen",
     delete: "Löschen",
     retry: "Erneut versuchen",
-    open: "öffnen",
+    open: "Öffnen",
+    save: "Speichern",
 
     // home
     hm_gr_morning: "Guten Morgen",

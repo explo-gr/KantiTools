@@ -30,7 +30,11 @@ const GradesList = () => {
 
     if (!dataReady) {
         return (
-            <LoadingIndicator status={'Loading'}/>
+            <View style={{
+                margin: 10
+            }}>
+                <LoadingIndicator status={'Loading'}/>
+            </View>
         );
     }
 
@@ -51,6 +55,7 @@ const GradesList = () => {
                                 title={`${subject.subjName}:`}
                                 isOpen={!!isOpen[i]}
                                 changeIsOpen={() => handleOpen(i)}
+                                disabled={!subject.exams.length}
                                 rightItem={
                                     <Text style={{
                                         fontFamily: 'monospace',
@@ -62,29 +67,15 @@ const GradesList = () => {
                                     </Text>
                                 }
                             >
-                                {
-                                    subject.exams.length > 0
-                                        ? <View key={`detail-container-view-${i}`}>
-                                            {
-                                                subject.exams.map((exam, idx) => (
-                                                    <Text key={`text-${idx}`}>{`${exam.topic}:    ${exam.grade}`}</Text>
-                                                ))
-                                            }
-        {/*                                 <Button
-                                            title='confirm'
-                                            onPress={async () => {
-                                                // das isch uf dia art nit möglich 
-                                                // ttps://schulnetz.bks-campus.ch/index.php?pageid=21311&action=nvw_bestaetigen&id=83c028eb78464324&transid=7fdsa03f37&listindex=3
-                                                // du bruchsch action und listindex näbb cookie und id und transid
-                                                await fetch(subject.confirmationHref);
-                                                await refreshAll();
-                                            }}
-                                            disabled={!subject.confirmationHref}
-                                        /> */}
-                                        </View>
-
-                                        : null
-                                }
+                            {!!subject.exams.length && (
+                                <View key={`detail-container-view-${i}`}>
+                                        {
+                                            subject.exams.map((exam, idx) => (
+                                                <Text key={`text-${idx}`}>{`${exam.topic}:    ${exam.grade}`}</Text>
+                                            ))
+                                        }
+                                    </View>
+                            )}
                             </Accordion>
                         </View>
                     ))

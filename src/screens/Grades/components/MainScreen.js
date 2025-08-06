@@ -18,37 +18,35 @@ const Screen = ({ navigation }) => {
     return (
         <ContainerView>
             <Header title={'Grades'}/>
+            <ActionBoxContainer>
+                <ActionBox
+                    label={'gr_calcgrade'}
+                    icon={'divide-square'}
+                    onPress={() => {
+                        navigation.navigate('GradesGradeCalc');
+                    }}
+                />
+                <ActionBox
+                    label={'gr_calcmin'}
+                    icon={'bar-chart-2'}
+                    onPress={() => {
+                        navigation.navigate('GradesMinCalc');
+                    }}
+                />
+                <ActionBox
+                    label={'gr_pluspoints'}
+                    icon={'plus'}
+                    onPress={() => {
+                        if (!isReady) return;
+                        const res = calcPluspunkte(grades.data.map(({ onlineMean }) => onlineMean));
+                        Alert.alert(`${t('gr_curr_pluspoints')}: ${res}`);
+                    }}
+                />
+            </ActionBoxContainer>
+            <Divider/>
             <ScrollView
                 contentContainerStyle={{ paddingBottom: 120 }}
             >
-                <ActionBoxContainer
-                    height={100}
-                >
-                    <ActionBox
-                        label={'gr_calcgrade'}
-                        icon={'divide-square'}
-                        onPress={() => {
-                           navigation.navigate('GradesGradeCalc');
-                        }}
-                    />
-                    <ActionBox
-                        label={'gr_calcmin'}
-                        icon={'bar-chart-2'}
-                        onPress={() => {
-                            navigation.navigate('GradesMinCalc');
-                        }}
-                    />
-                    <ActionBox
-                        label={'gr_pluspoints'}
-                        icon={'plus'}
-                        onPress={() => {
-                            if (!isReady) return;
-                            const res = calcPluspunkte(grades.data.map(({ onlineMean }) => onlineMean));
-                            Alert.alert(`${t('gr_curr_pluspoints')}: ${res}`);
-                        }}
-                    />
-                </ActionBoxContainer>
-                <Divider/>
                 <GradesList/>
                 {isReady && (
                     <View style={{

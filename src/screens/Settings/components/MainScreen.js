@@ -106,6 +106,7 @@ const Screen = ({ navigation }) => {
                     <Button
                         title={t('open')}
                         onPress={() => navigation.navigate('SntzAccountManagement')}
+                        icon={'chevron-right'}
                     />
                 </SettingsItem>
                 <SettingsCategoryHeader icon='hard-drive'>
@@ -114,6 +115,7 @@ const Screen = ({ navigation }) => {
                 <SettingsItem title={t('st_rst_sts')}>
                     <Button
                         title='reset'
+                        icon={'x-circle'}
                         onPress={() => {
                             resetSettings();
                             resetLanguage();

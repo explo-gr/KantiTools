@@ -13,12 +13,11 @@ const ActionBoxContainer = ({ children, height }) => {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'center',
         flexDirection: 'row',
         gap: 8,
         width: '100%',
-        flex: 1
     }
 });
 

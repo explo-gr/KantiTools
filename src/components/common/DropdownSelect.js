@@ -4,7 +4,7 @@ import TranslatedText from "../translations/TranslatedText";
 import { useThemes } from "../../context/ThemeContext";
 import ScaleOnFocus from "../utils/ScaleOnFocus";
 import Feather from '@expo/vector-icons/Feather';
-
+import * as Haptics from 'expo-haptics';
 
 const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
     const [ modalVisible, setModalVisible ] = useState(false);
@@ -32,6 +32,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                     e.stopPropagation();
                     onSelect(item);
                     setModalVisible(false);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
                 }}
             >
                 <ScaleOnFocus

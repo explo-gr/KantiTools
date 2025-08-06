@@ -175,7 +175,6 @@ const HomeMain = ({ navigation }) => {
                 </ActionBoxContainer>
             </View>
             <View style={styles.greetSeperator}/>
-            <View style={styles.greetSeperator}/>
             <Weekdays/>
         </ContainerView>
     );
@@ -188,14 +187,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     greetSeperator: {
-        marginTop: '15%'
+        marginTop: '12%'
     },
     abxRootContainer: {
         padding: 10,
         margin: 10,
         height: 250,
         borderWidth: 3,
-        borderRadius: 25
+        borderRadius: 25,
+        justifyContent: 'center',
     }
 });
 

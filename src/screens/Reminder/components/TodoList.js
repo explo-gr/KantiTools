@@ -98,11 +98,13 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
 
                     <View style={styles.buttonRow}>
                         <TouchableOpacity onPress={onCancel} style={[styles.buttonShell, { backgroundColor: colors.red }]}> 
+                            <Feather name='x' size={22} color={colors.generic} />
                             <TranslatedText style={defaultThemedStyles.textContrast}>cancel</TranslatedText>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={handleOk} style={[styles.buttonShell, { backgroundColor: colors.blue }]}> 
-                            <TranslatedText style={defaultThemedStyles.textContrast}>ok</TranslatedText>
+                        <TouchableOpacity onPress={handleOk} style={[styles.buttonShell, { backgroundColor: colors.blue }]}>
+                            <Feather name='save' size={22} color={colors.generic} />
+                            <TranslatedText style={defaultThemedStyles.textContrast}>save</TranslatedText>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -197,7 +199,7 @@ const TodoList = () => {
                             keyExtractor={(_, index) => index.toString()}
                             renderItem={({ item, index }) => (
                                 <View style={{
-                                    marginBottom: 5
+                                    marginBottom: 8
                                 }}>
                                     <Accordion
                                         title={item.title}
@@ -337,7 +339,9 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 18
+        borderRadius: 18,
+        flexDirection: 'row',
+        gap: 3
     },
     fab: {
         position: 'absolute',
