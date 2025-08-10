@@ -25,42 +25,42 @@ const Screen = ({ navigation }) => {
     return (
         <ContainerView>
             <Header title={'Grades'}/>
-            <ActionBoxContainer>
-                <ActionBox
-                    label={'gr_calcgrade'}
-                    icon={'divide-square'}
-                    onPress={() => {
-                        navigation.navigate('GradesGradeCalc');
-                    }}
-                />
-                <ActionBox
-                    label={'gr_calcmin'}
-                    icon={'bar-chart-2'}
-                    onPress={() => {
-                        navigation.navigate('GradesMinCalc');
-                    }}
-                />
-                <ActionBox
-                    label={'gr_pluspoints'}
-                    icon={'plus'}
-                    onPress={() => {
-                        if (!isReady) return;
-                        const res = calcPluspunkte(grades.data.map(({ onlineMean }) => onlineMean));
-                        Alert.alert(`${t('gr_curr_pluspoints')}: ${res}`);
-                    }}
-                />
-            </ActionBoxContainer>
+            <View style={{
+                height: '12%'
+            }}>
+                <ActionBoxContainer>
+                    <ActionBox
+                        label={'gr_calcgrade'}
+                        icon={'divide-square'}
+                        onPress={() => {
+                            navigation.navigate('GradesGradeCalc');
+                        }}
+                    />
+                    <ActionBox
+                        label={'gr_calcmin'}
+                        icon={'bar-chart-2'}
+                        onPress={() => {
+                            navigation.navigate('GradesMinCalc');
+                        }}
+                    />
+                    <ActionBox
+                        label={'gr_pluspoints'}
+                        icon={'plus'}
+                        onPress={() => {
+                            if (!isReady) return;
+                            const res = calcPluspunkte(grades.data.map(({ onlineMean }) => onlineMean));
+                            Alert.alert(`${t('gr_curr_pluspoints')}: ${res}`);
+                        }}
+                    />
+                </ActionBoxContainer>
+            </View>
             <Divider/>
             <ScrollView
                 contentContainerStyle={{ paddingBottom: 120 }}
             >
                 <GradesList forwardGradeData={forwardGradeData}/>
                 {isReady && (
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginTop: 4
-                    }}>
+                    <View style={styles.refreshBtnContainer}>
                         <Button
                             title={t('refresh')}
                             onPress={refreshAll}
@@ -85,11 +85,11 @@ const GradesMain = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    refreshBtnContainer: {
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
-    },
+        marginTop: 4
+    }
 });
 
 export default GradesMain;

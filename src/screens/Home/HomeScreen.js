@@ -9,7 +9,6 @@ const Stack = createStackNavigator();
 
 // Home Screen
 const HomeScreen = () => {
-    const headerOptions = useHeaderOptions();
     const screenOptions = useScreenOptions();
 
     return (

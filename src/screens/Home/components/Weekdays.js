@@ -1,11 +1,13 @@
-import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Alert, useWindowDimensions } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext'
 import { useTranslations } from '../../../context/LanguageContext';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import * as Haptics from 'expo-haptics';
 
 const Box = ({ title, highlighted, current, onPress = () => null }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
+    const { width } = useWindowDimensions();
+
     const containerStyle = highlighted
         ?   {
                 backgroundColor: colors.blue
@@ -15,10 +17,17 @@ const Box = ({ title, highlighted, current, onPress = () => null }) => {
                 borderColor: colors.blue 
             }
 
+
+    const boxDimensions = useMemo(() => ({
+        width: width / 10,
+        height: width / 10,
+        borderRadius: width / 30
+    }), [width]);
+
     return (
         <TouchableOpacity style={[{
             transform: [{ scale: current ? 1.2 : 1.0 }]
-        }, containerStyle, styles.box]} onPress={onPress}>
+        }, containerStyle, boxDimensions, styles.box]} onPress={onPress}>
             <Text style={{
                 textAlignVertical: 'center',
                 fontSize: 14,
@@ -92,11 +101,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 1,
-        margin: 1,
-        borderRadius: 15,
-
-        width: 40,
-        height: 40
+        margin: 1
     }
 });
 

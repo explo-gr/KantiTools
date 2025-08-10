@@ -1,11 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 
-const ActionBoxContainer = ({ children, height }) => {
+const ActionBoxContainer = ({ children }) => {
     return (
-        <View style={[{
-            height: height,
-            marginVertical: 2
-        }, styles.container]}>
+        <View style={styles.container}>
             {children}
         </View>
     );
@@ -14,10 +11,12 @@ const ActionBoxContainer = ({ children, height }) => {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'stretch',
+        flex: 1,
         justifyContent: 'center',
         flexDirection: 'row',
         gap: 8,
         width: '100%',
+        marginVertical: 2
     }
 });
 

@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     abxRootContainer: {
         padding: 10,
         margin: 10,
-        height: 250,
+        height: '33%',
         borderWidth: 3,
         borderRadius: 25,
         justifyContent: 'center',

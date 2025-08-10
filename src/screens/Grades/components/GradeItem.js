@@ -5,7 +5,7 @@ import Button from '../../../components/common/Button';
 const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onDuplicate }) => {
     const { defaultThemedStyles, colors } = useThemes();
 
-    const renderPair = (value, onChange, placeholder, action, actionTitle, icon) => (
+    const renderPair = (value, onChange, placeholder, action, actionTitle, icon, btnColor) => (
         <View style={styles.pairContainer}>
             <TextInput
                 value={value}
@@ -23,6 +23,7 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
                 title={actionTitle}
                 onPress={action}
                 icon={icon}
+                color={btnColor}
             />
         </View>
     );
@@ -30,8 +31,8 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
     return (
         <View style={styles.rootContainer}>
             <View style={[styles.container, defaultThemedStyles.card]}>
-                { renderPair(grade, onGradeChange, 'grade', onDelete, 'Delete', 'trash-2') }
-                { renderPair(weight, onWeightChange, 'weight', onDuplicate, 'Duplicate', 'copy') }
+                { renderPair(grade, onGradeChange, 'grade', onDelete, 'Delete', 'trash-2', colors.red) }
+                { renderPair(weight, onWeightChange, 'weight', onDuplicate, 'Duplicate', 'copy', colors.blue) }
             </View>
         </View>
     )
