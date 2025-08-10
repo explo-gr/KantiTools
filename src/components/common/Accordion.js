@@ -88,7 +88,6 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
                         (immutable && !contentHeight) ||
                         (!immutable && measuredHeight && Math.abs(measuredHeight - contentHeight) > deltaTolerance)
                     ) {
-                        console.log('calc')
                         setContentHeight(measuredHeight);
                     }
                 }}

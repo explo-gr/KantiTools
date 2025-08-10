@@ -194,7 +194,9 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 14,
         paddingHorizontal: 10,
-        flex: 1
+        flex: 1,
+        padding: 8,
+        height: 45
     }
 });
 
