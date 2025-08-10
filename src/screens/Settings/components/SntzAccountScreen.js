@@ -142,7 +142,7 @@ const Screen = ({ navigation }) => {
             <TextInput
                 placeholder={t('st_sntz_login')}
                 placeholderTextColor={`${colors.hardContrast}b3`}
-                textContentType='username'
+                //textContentType='username'
                 autoComplete='username'
                 autoCapitalize='none'
                 keyboardType='email-address'
@@ -163,14 +163,14 @@ const Screen = ({ navigation }) => {
             <TextInput
                 placeholder={t('st_sntz_password')}
                 placeholderTextColor={`${colors.hardContrast}b3`}
-                textContentType='password'
+                //textContentType='password'
                 autoComplete='password'
                 autoCapitalize='none'
                 autoCorrect={false}
-                secureTextEntry
                 value={inputtedPassword}
                 onChangeText={setInputtedPassword}
                 editable={inputEnabled}
+                secureTextEntry
 
                 style={[{
                     color: `${colors.hardContrast}${
