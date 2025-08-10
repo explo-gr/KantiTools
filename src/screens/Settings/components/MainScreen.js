@@ -48,7 +48,7 @@ const AccountStatusIndicator = () => {
     );
 }
 
-const Screen = ({ navigation }) => {
+const SettingsMain = ({ navigation }) => {
     // Language Settings
     const { language, setLanguage, t, resetLanguage } = useTranslations();
     const [ selectedLanguage, setSelectedLanguage ] = useState();
@@ -66,6 +66,27 @@ const Screen = ({ navigation }) => {
 
     // Data
     const { clearDataCache } = useData();
+    const handleReset = () => {
+        Alert.alert(
+            t('reset'),
+            t('st_rst_msg'),
+            [
+                { text: t('cancel'), style: 'cancel' },
+                {
+                    text: t('yes'),
+                    onPress: async () => {
+                        resetSettings();
+                        await resetLanguage();
+                        await clearDataCache();
+                        await clearMenuplanData();
+                        Alert.alert(t('reset'), t('st_rst_succ_msg'));
+                    },
+                    style: 'destructive'
+                },
+            ],
+            { cancelable: true }
+        );
+    }
 
     // Settings
     const { changeSetting, resetSettings } = useSettings();
@@ -125,84 +146,16 @@ const Screen = ({ navigation }) => {
                 </SettingsCategoryHeader>
                 <SettingsItem title={t('st_rst_sts')}>
                     <Button
-                        title='reset'
+                        title={t('reset')}
                         icon={'x-circle'}
-                        onPress={async () => {
-                            resetSettings();
-                            await resetLanguage();
-                            await clearDataCache();
-                            await clearMenuplanData();
-                            Alert.alert('Settings have been reset');
-                        }}
+                        onPress={handleReset}
                     />
                 </SettingsItem>
-
-
-{/* 
-                <SettingsCategoryHeader icon='layout'>
-                    st_hd_app
-                </SettingsCategoryHeader>
-                <SettingsItem title={t('st_sld_lang')}>
-                    <DropdownSelect
-                        entries={[ ...SupportedLanguages ]}
-                        selectedItem={selectedLanguage}
-                        onSelect={(lang) => {
-                            if (lang !== selectedLanguage) {
-                                setSelectedLanguage(lang);
-                                setLanguage(lang);
-                            }
-                        }}
-                    />
-                </SettingsItem>
-                <SettingsItem title={t('st_prf_thm')}>
-                    <DropdownSelect
-                        entries={[ ...themeStates ]}
-                        selectedItem={selectedThemeBehaviour}
-                        onSelect={(theme) => {
-                            if (selectedThemeBehaviour !== theme) {
-                                setThemeBehaviour(theme);
-                                changeSetting('theme', theme);
-                            }
-                        }}
-                    />
-                </SettingsItem>
-                <SettingsCategoryHeader icon='user'>
-                    st_ac_mgt
-                </SettingsCategoryHeader>
-                <SettingsItem title={t('st_op_ln')}>
-                    <Button
-                        title={t('open')}
-                        onPress={() => navigation.navigate('SntzAccountManagement')}
-                    />
-                </SettingsItem>
-                <SettingsCategoryHeader icon='hard-drive'>
-                    st_dt_mgt
-                </SettingsCategoryHeader>
-                <SettingsItem title={t('st_rst_sts')}>
-                    <Button
-                        title='reset'
-                        onPress={() => {
-                            resetSettings();
-                            resetLanguage();
-                            Alert.alert('Settings have been reset');
-                        }}
-                    />
-                </SettingsItem>
- */}
                 <Credit/>
             </ScrollView>
         </ContainerView>
     );
 };
-
-// das vlt no wäg
-const SettingsMain = ({ navigation }) => {
-    return (
-            <Screen
-                navigation={navigation}
-            />
-    );
-}
 
 const styles = StyleSheet.create({
     container: {

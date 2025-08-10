@@ -10,6 +10,7 @@ export default {
     retry: "Erneut versuchen",
     open: "Öffnen",
     save: "Speichern",
+    reset: "Löschen",
 
     // home
     hm_gr_morning: "Guten Morgen",
@@ -54,6 +55,10 @@ export default {
     gr_calcmin_f: "Mindestnote berechnen",
     gr_pluspoints: "Pluspunkte",
     gr_curr_pluspoints: "Aktuelle Pluspunkte",
+
+    gr_dt_date: "Datum",
+    gr_dt_weight: "Gewichtung",
+    gr_dt_score: "Punktzahl",
 
     gr_grcalc_ach: "erreichte Punktzahl",
     gr_grcalc_max: "Maximalpunktzahl",

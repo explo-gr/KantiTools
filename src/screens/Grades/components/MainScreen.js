@@ -56,7 +56,9 @@ const GradesMain = ({ navigation }) => {
             </View>
             <Divider/>
             <ScrollView
-                contentContainerStyle={{ paddingBottom: 120 }}
+                contentContainerStyle={{
+                    paddingBottom: 120
+                }}
             >
                 <GradesList forwardGradeData={forwardGradeData}/>
                 {isReady && (

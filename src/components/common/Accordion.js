@@ -11,6 +11,7 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
     const { t } = useTranslations();
 
     const deltaTolerance = 0.1;
+    const animationDuration = 300;
 
     const height = useSharedValue(0);
     const rotation = useSharedValue(isOpen ? 180 : 0);
@@ -37,13 +38,13 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
         }
 
         height.value = withTiming(isOpen ? contentHeight : 0, {
-            duration: 250,
+            duration: animationDuration,
             easing: Easing.inOut(Easing.ease),
             reduceMotion: ReduceMotion.System,
         });
 
         rotation.value = withTiming(isOpen ? 180 : 0, {
-            duration: 250,
+            duration: animationDuration,
             easing: Easing.inOut(Easing.linear),
             reduceMotion: ReduceMotion.System,
         });

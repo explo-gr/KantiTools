@@ -19,7 +19,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
     const handleExamDetails = (exam) => {
         Alert.alert(
             exam.topic,
-            `${t('gr_dt_date')}: ${exam.date}\n${t('gr_dt_date')}: ${exam.weight}\n${t('gr_dt_date')}: ${exam.score || '-'}\n`
+            `${t('gr_dt_date')}: ${exam.date}\n${t('gr_dt_weight')}: ${exam.weight}\n${t('gr_dt_score')}: ${exam.score || '-'}\n`
         )
     }
 
