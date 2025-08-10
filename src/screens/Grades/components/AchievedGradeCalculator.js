@@ -172,7 +172,9 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: 35,
-        fontFamily: 'monospace'
+        fontFamily: 'monospace',
+        padding: 8,
+        height: 45
     },
     outputText: {
         fontSize: 82,

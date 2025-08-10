@@ -7,7 +7,10 @@ import {
     TouchableOpacity,
     FlatList,
     Modal,
-    Alert
+    Alert,
+    Pressable,
+    Keyboard,
+    
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TranslatedText from '../../../components/translations/TranslatedText';
@@ -60,7 +63,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
             visible={visible}
             onRequestClose={onCancel}
         >
-            <View style={styles.centeredView}>
+            <Pressable style={styles.centeredView} onPress={() => Keyboard.dismiss()}>
                 <View style={[styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
                     <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_title</TranslatedText>
                     <TextInput
@@ -112,7 +115,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </Pressable>
         </Modal>
     );
 };
@@ -311,7 +314,7 @@ const styles = StyleSheet.create({
         padding: 24,
         width: '85%',
         alignItems: 'stretch',
-        gap: 12,
+        gap: 12
     },
     label: {
         fontSize: 16,
