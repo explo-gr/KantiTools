@@ -3,9 +3,9 @@ import { LanguageProvider } from './src/context/LanguageContext';
 import { ThemeProvider } from './src/context/ThemeContext';
 import { SettingsProvider } from './src/context/SettingsContext';
 import { AuthProvider } from './src/context/AuthenticationContext';
+import { DataProvider } from './src/context/DataContext';
 
 // Components
-import TabNavigator from './src/navigation/navigators/BottomTabNavigator';
 import AppTabNavigator from './src/navigation/navigators/AppTabNavigator';
 
 export default function App() {
@@ -14,7 +14,9 @@ export default function App() {
             <SettingsProvider>
                 <ThemeProvider>
                     <LanguageProvider>
-                        <AppTabNavigator />
+                        <DataProvider>
+                            <AppTabNavigator />
+                        </DataProvider>
                     </LanguageProvider>
                 </ThemeProvider>
             </SettingsProvider>

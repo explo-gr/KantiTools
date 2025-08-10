@@ -12,7 +12,7 @@ import Button from '../../../components/common/Button';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useCallback } from 'react';
 
-const Screen = ({ navigation }) => {
+const GradesMain = ({ navigation }) => {
     const { grades, isReady, refreshAll } = useData();
     const { t } = useTranslations();
 
@@ -71,17 +71,6 @@ const Screen = ({ navigation }) => {
             </ScrollView>
         </ContainerView>
     );
-}
-
-// das vlt no wäg
-const GradesMain = ({ navigation }) => {
-    return (
-        <DataProvider>
-            <Screen
-                navigation={navigation}
-            />
-        </DataProvider>
-    )
 }
 
 const styles = StyleSheet.create({

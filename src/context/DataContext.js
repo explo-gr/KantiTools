@@ -21,6 +21,18 @@ export const DataProvider = ({ children }) => {
 
     const [grades, setGrades] = useState({ data: null, cached: false });
 
+    const clearDataCache = async () => {
+        console.log('[DATA] Clearing cached data...');
+        for (const key in DATA_KEYS) {
+            try {
+                await AsyncStorage.removeItem(DATA_KEYS[key]);
+                console.log(`[DATA] Cleared: ${key}`);
+            } catch (err) {
+                console.log(`[DATA] Failed to clear: ${key}`, err);
+            }
+        }
+    };
+
     const fetchAndStore = useCallback(async (queryItems = []) => {
         if (!user || loadingAuth) {
             console.log('[DATA] Skipping fetch — User missing or authentication still loading.');
@@ -118,6 +130,7 @@ export const DataProvider = ({ children }) => {
             grades,
             refreshAll,
             isReady,
+            clearDataCache
         }}>
             {children}
         </DataContext.Provider>

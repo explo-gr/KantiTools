@@ -57,6 +57,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                 isOpen={!!isOpen[i]}
                                 changeIsOpen={() => handleOpen(i)}
                                 disabled={!subject.exams.length}
+                                immutable
                                 rightItem={
                                     <Text style={{
                                         fontFamily: 'monospace',
@@ -91,6 +92,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                         }
                                         <Button
                                             icon={'external-link'}
+                                            title={'gr_calcmin_f'}
                                             onPress={() => {
                                                 /*
                                                     forward data to min grade calc and parse the values
@@ -117,7 +119,6 @@ const GradesList = ({ forwardGradeData = () => null }) => {
 const styles = StyleSheet.create({
     detailsContainer: {
         paddingHorizontal: 3,
-        paddingBottom: 20,
         gap: 15,
         marginHorizontal: 5
     },

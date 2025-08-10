@@ -22,6 +22,15 @@ export default {
     hm_men: "Meal plan",
     hm_ttbl: "Timetable",
 
+    // weekdays
+    monday: "MO",
+    tuesday: "TU",
+    wednesday: "WE",
+    thursday: "TH",
+    friday: "FR",
+    saturday: "SA",
+    sunday: "SU",
+
     // reminder
     re_title: "Title",
     re_phd_title: "Enter title",

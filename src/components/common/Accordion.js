@@ -1,21 +1,22 @@
-import { StyleSheet, TouchableOpacity, View, Text, } from "react-native"
-import { useThemes } from "../../context/ThemeContext";
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { useThemes } from '../../context/ThemeContext';
 import Animated, { useSharedValue, Easing, withTiming, useAnimatedStyle, ReduceMotion } from 'react-native-reanimated';
-import { useTranslations } from "../../context/LanguageContext";
+import { useTranslations } from '../../context/LanguageContext';
 import Feather from '@expo/vector-icons/Feather';
 import Divider from '../../components/common/Divider';
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
-// useDimensions und nocher danimation speed fur grössi abhängig macha
-const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tint, disabled = false}) => {
+const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tint, disabled = false, immutable = false }) => {
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
 
-    const maxHeight = 220;
-    const minHeight = 0;
+    const deltaTolerance = 0.1;
 
-    const height = useSharedValue(isOpen ? maxHeight : minHeight);
+    const height = useSharedValue(0);
     const rotation = useSharedValue(isOpen ? 180 : 0);
+
+    const [contentHeight, setContentHeight] = useState(0);
+    const hasMounted = useRef(false);
 
     const titleTextSize = title.length >= 25 ? 15 : 17.5;
 
@@ -24,22 +25,18 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
     }));
 
     const openingAnimationStyle = useAnimatedStyle(() => ({
-        maxHeight: height.value,
+        height: height.value, // use height instead of maxHeight for precise animation
     }));
-
-    const hasMounted = useRef(false);
 
     useEffect(() => {
         if (!hasMounted.current) {
-            // set values directly on first render
-            height.value = isOpen ? maxHeight : minHeight;
+            height.value = isOpen ? contentHeight : 0;
             rotation.value = isOpen ? 180 : 0;
             hasMounted.current = true;
             return;
         }
 
-        // animate on subsequent changes
-        height.value = withTiming(isOpen ? maxHeight : minHeight, {
+        height.value = withTiming(isOpen ? contentHeight : 0, {
             duration: 250,
             easing: Easing.inOut(Easing.ease),
             reduceMotion: ReduceMotion.System,
@@ -50,43 +47,59 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
             easing: Easing.inOut(Easing.linear),
             reduceMotion: ReduceMotion.System,
         });
-    }, [isOpen]);
+    }, [isOpen, contentHeight]);
 
     return (
         <View style={[styles.accordionContainer, defaultThemedStyles.card, {
-            backgroundColor: `${tint}29` // slightly tint the background
+            backgroundColor: `${tint}29`
         }]}>
-            <TouchableOpacity            
-                onPress={() => {
-                    if (!disabled) changeIsOpen(!isOpen);
-                }}
-            >
+            <TouchableOpacity onPress={() => !disabled && changeIsOpen(!isOpen)}>
                 <View style={styles.headerContainer}>
-                    <Text style={[{ fontSize: titleTextSize }, styles.titleText, defaultThemedStyles.text]}>{t(title)}</Text>
-                    <View style={{
-                        flexDirection: 'row',
-                        justifyContent: 'flex-end',
-                        gap: 12,
-                        alignItems: 'center'
-                    }}>
+                    <Text style={[{ fontSize: titleTextSize }, styles.titleText, defaultThemedStyles.text]}>
+                        {t(title)}
+                    </Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: 12, alignItems: 'center' }}>
                         {rightItem}
                         <Animated.View style={[styles.chevronContainer, chevronAnimationStyle]}>
-                            <Feather name="chevron-down" size={30} color={colors.hardContrast} />
+                            <Feather name='chevron-down' size={30} color={colors.hardContrast} />
                         </Animated.View>
                     </View>
                 </View>
             </TouchableOpacity>
+
+            {/* Animated collapsible content */}
             <Animated.View style={[styles.contentContainer, openingAnimationStyle]}>
                 <Divider/>
-                <View style={{
-                    padding: 12
-                }}>
+                <View style={{ padding: 12 }}>
                     {children}
                 </View>
             </Animated.View>
+
+            {/*
+                Hidden measurement view (renders content but off-screen)
+                Very weird and hacky approach but this allows dynamic heights
+            */}
+            <View
+                style={styles.hiddenMeasureContainer}
+                onLayout={(e) => {
+                    const measuredHeight = e.nativeEvent.layout.height;
+                    if (
+                        (immutable && !contentHeight) ||
+                        (!immutable && measuredHeight && Math.abs(measuredHeight - contentHeight) > deltaTolerance)
+                    ) {
+                        console.log('calc')
+                        setContentHeight(measuredHeight);
+                    }
+                }}
+            >
+                <Divider/>
+                <View style={{ padding: 12 }}>
+                    {children}
+                </View>
+            </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     accordionContainer: {
@@ -107,10 +120,16 @@ const styles = StyleSheet.create({
     },
     titleText: {
         overflow: 'hidden',
-        fontWeight: 'bolder'
+        fontWeight: 'bold',
     },
     contentContainer: {
         overflow: 'hidden',
+    },
+    hiddenMeasureContainer: {
+        position: 'absolute',
+        opacity: 0,
+        zIndex: -1,
+        pointerEvents: 'none',
     },
 });
 

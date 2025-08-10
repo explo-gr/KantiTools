@@ -15,6 +15,8 @@ import { AuthProvider, useAuth } from '../../../context/AuthenticationContext';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import TranslatedText from '../../../components/translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
+import { useData } from '../../../context/DataContext';
+import { clearMenuplanData } from '../../../lib/menuplanHelper';
 
 // Account management de 
 // https://docs.expo.dev/versions/latest/sdk/securestore/
@@ -49,15 +51,24 @@ const AccountStatusIndicator = () => {
 const Screen = ({ navigation }) => {
     // Language Settings
     const { language, setLanguage, t, resetLanguage } = useTranslations();
-    const [ selectedLanguage, setSelectedLanguage ] = useState(language);
+    const [ selectedLanguage, setSelectedLanguage ] = useState();
+
+    useEffect(() => {
+        // force selectedLanguage to update when resetting
+        if (selectedLanguage !== language) {
+            setSelectedLanguage(language);
+        }
+    }, [language])
 
     // Theme Settings
     const [ selectedThemeBehaviour, setThemeBehaviour ] = useState('system');
     const themeStates = ['dark', 'white', 'system'];
 
-    const { changeSetting, resetSettings } = useSettings();
+    // Data
+    const { clearDataCache } = useData();
 
-    // eigenes header objekt?
+    // Settings
+    const { changeSetting, resetSettings } = useSettings();
 
     return (
         <ContainerView>
@@ -116,9 +127,11 @@ const Screen = ({ navigation }) => {
                     <Button
                         title='reset'
                         icon={'x-circle'}
-                        onPress={() => {
+                        onPress={async () => {
                             resetSettings();
-                            resetLanguage();
+                            await resetLanguage();
+                            await clearDataCache();
+                            await clearMenuplanData();
                             Alert.alert('Settings have been reset');
                         }}
                     />

@@ -22,6 +22,18 @@ export default {
     hm_men_err_msg: "Überprüfe deine Netzwerkverbindung!",
     hm_men: "Menüplan",
     hm_ttbl: "Stundenplan",
+    hm_mail: "Mail",
+    hm_files: "Dateien",
+    hm_hpg: "BKS",
+
+    // weekdays
+    monday: "MO",
+    tuesday: "DI",
+    wednesday: "MI",
+    thursday: "DO",
+    friday: "FR",
+    saturday: "SA",
+    sunday: "SO",
 
     // reminder
     re_title: "Titel",

@@ -52,6 +52,7 @@ const HomeMain = ({ navigation }) => {
         setMenDisabled(false);
     };
     
+    // Timetable logic
     useEffect(() => {
         const checkTimetableExists = async () => {
             const fileInfo = await FileSystem.getInfoAsync(TIMETABLE_URI);

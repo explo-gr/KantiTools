@@ -38,13 +38,12 @@ const Box = ({ title, highlighted, current, onPress = () => null }) => {
 }
 
 const Weekdays = () => {
-    const { defaultThemedStyles, colors, theme } = useThemes();
-    const { t } = useTranslations();
+    const { t, language } = useTranslations();
 
     const weekday_raw = new Date().getDay();
     const weekday = !weekday_raw ? 6 : weekday_raw - 1; // i hate trump
     
-    const weekdays = [ 'MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU' ];
+    const weekdays = useMemo(() => ([ t('monday'), t('tuesday'), t('wednesday'), t('thursday'), t('friday'), t('saturday'), t('sunday') ]), [language]);
     
     const [ pressedIndices, setPressedIndices ] = useState([]);
     const code = [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 0];

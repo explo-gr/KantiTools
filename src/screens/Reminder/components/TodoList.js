@@ -42,7 +42,11 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
 
     const handleOk = () => {
         if (!title.trim()) return;
-        onOk({ title, description, tint }, editIndex);
+        onOk({
+            title: title.trim(),
+            description: description.trim(),
+            tint
+        }, editIndex);
         setTitle('');
         setDescription('');
         setTint(TINT_COLORS[0]);
@@ -224,26 +228,26 @@ const TodoList = () => {
                                                 <Feather name='edit-2' size={22} color={colors.blue} />
                                             </TouchableOpacity>
                                             <TouchableOpacity
-                                            onPress={() => {
-                                                Alert.alert(
-                                                    t('re_del'),
-                                                    t('re_del_msg'),
-                                                    [
-                                                        {
-                                                            text: t('cancel'),
-                                                            style: 'cancel'
-                                                        },
-                                                        {
-                                                            text: t('delete'),
-                                                            onPress: () => {
-                                                                handleDelete(index);
+                                                onPress={() => {
+                                                    Alert.alert(
+                                                        t('re_del'),
+                                                        t('re_del_msg'),
+                                                        [
+                                                            {
+                                                                text: t('cancel'),
+                                                                style: 'cancel'
                                                             },
-                                                            style: 'destructive'
-                                                        },
-                                                    ],
-                                                    { cancelable: true }
-                                                );
-                                            }}
+                                                            {
+                                                                text: t('delete'),
+                                                                onPress: () => {
+                                                                    handleDelete(index);
+                                                                },
+                                                                style: 'destructive'
+                                                            },
+                                                        ],
+                                                        { cancelable: true }
+                                                    );
+                                                }}
                                             >
                                             <Feather name='trash-2' size={22} color={colors.red} />
                                             </TouchableOpacity>

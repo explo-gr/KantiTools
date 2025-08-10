@@ -167,3 +167,21 @@ export const openMenuplanPDF = async () => {
 
     return true;
 };
+
+export const clearMenuplanData = async () => {
+    try {
+        await AsyncStorage.removeItem(ID_STORAGE_KEY);
+
+        const filePath = `${MENUPLAN_DIR}/${FILE_NAME}`;
+        const fileInfo = await FileSystem.getInfoAsync(filePath);
+        if (fileInfo.exists) {
+            await FileSystem.deleteAsync(filePath, { idempotent: true });
+        }
+
+        console.log('[MENUPLAN] Cleared cached menuplan and saved ID.');
+        return true;
+    } catch (err) {
+        console.error('[MENUPLAN] Failed to clear cached menuplan data:', err);
+        return false;
+    }
+};
