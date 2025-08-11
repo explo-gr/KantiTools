@@ -66,6 +66,8 @@ const SettingsMain = ({ navigation }) => {
 
     // Data
     const { clearDataCache } = useData();
+    const { logout } = useAuth();
+
     const handleReset = () => {
         Alert.alert(
             t('reset'),
@@ -75,10 +77,12 @@ const SettingsMain = ({ navigation }) => {
                 {
                     text: t('yes'),
                     onPress: async () => {
+                        // revert settings
                         resetSettings();
                         await resetLanguage();
                         await clearDataCache();
                         await clearMenuplanData();
+                        await logout();
                         Alert.alert(t('reset'), t('st_rst_succ_msg'));
                     },
                     style: 'destructive'

@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
     inputContainer: {
         borderRadius: 26,
         marginHorizontal: 10,
+        height: 120,
         width: '42%',
         padding: 10,
         textAlign: 'center',
@@ -173,8 +174,7 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 35,
         fontFamily: 'monospace',
-        padding: 8,
-        height: 45
+        padding: 8
     },
     outputText: {
         fontSize: 82,

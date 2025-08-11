@@ -61,7 +61,7 @@ const GradesMain = ({ navigation }) => {
                 }}
             >
                 <GradesList forwardGradeData={forwardGradeData}/>
-                {isReady && (
+                {isReady && !grades.cached && grades.data && (
                     <View style={styles.refreshBtnContainer}>
                         <Button
                             title={t('refresh')}

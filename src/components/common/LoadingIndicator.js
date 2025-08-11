@@ -9,7 +9,8 @@ const LoadingIndicator = ({ status='' }) => {
         <View style={{
             justifyContent: 'center',
             alignItems: 'center',
-            margin: 5
+            margin: 5,
+            gap: 5
         }}>
             <ActivityIndicator size='large' color={theme === 'dark' ? colors.blue : colors.lightblue}/>
             {status && (<Text style={defaultThemedStyles.text}>{status}</Text>)}

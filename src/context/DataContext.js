@@ -57,7 +57,6 @@ export const DataProvider = ({ children }) => {
 
         if (isEmpty(rawData)) {
             console.log('[DATA] No data retrieved');
-            return;
         }
 
         for (const { key, setState, parser } of queryItems) {
@@ -70,7 +69,7 @@ export const DataProvider = ({ children }) => {
                         await AsyncStorage.setItem(DATA_KEYS[key], JSON.stringify(parsedData));
                     } else {
                         setState({ data: null, cached: false });
-                        console.log('[DATA] Parser failed..');
+                        console.log('[DATA] Parser failed');
                     }
                 } catch (e) {
                     setState({ data: null, cached: false });
@@ -79,8 +78,10 @@ export const DataProvider = ({ children }) => {
                 try {
                     const cached = await AsyncStorage.getItem(DATA_KEYS[key]);
                     if (cached) {
+                        console.log(`[FETCH] Using Cache as fallback for key: ${key}`);
                         setState({ data: JSON.parse(cached), cached: true });
                     } else {
+                        console.log(`[FETCH] Fatal, no cached data found for key: ${key}`)
                         setState({ data: null, cached: false });
                     }
                 } catch (e) {
@@ -122,6 +123,8 @@ export const DataProvider = ({ children }) => {
         if (!loadingAuth && user) {
             console.log('[DATA] Auth complete and user exists — triggering refreshAll.');
             refreshAll();
+        } else if (!user) {
+            setIsReady(false);
         }
     }, [user, loadingAuth]);
 

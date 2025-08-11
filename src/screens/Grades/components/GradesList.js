@@ -1,11 +1,51 @@
 import { useEffect, useState } from 'react';
 import { useData } from '../../../context/DataContext';
-import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Alert, TouchableOpacity } from 'react-native';
 import Accordion from '../../../components/common/Accordion';
 import Button from '../../../components/common/Button';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
+import Feather from '@expo/vector-icons/Feather';
+import TranslatedText from '../../../components/translations/TranslatedText';
+
+const CacheIndicator = ({ title }) => {
+    const { colors, defaultThemedStyles } = useThemes();
+
+    return (
+        <View style={{
+            flexDirection: 'row',
+            gap: 4,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            marginBottom: 8,
+            marginLeft: 2
+        }}>
+            <Feather name={'info'} size={24} color={colors.gray} />
+            <TranslatedText style={[defaultThemedStyles.text, {
+                color: colors.gray
+            }]}>
+                gr_cache_indic
+            </TranslatedText>
+        </View>
+    )
+}
+
+const NoDataAvail = ({ }) => {
+    const { colors, defaultThemedStyles } = useThemes();
+
+    return (
+        <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 8
+        }}>
+            <TranslatedText style={[defaultThemedStyles.text, {
+                color: colors.red
+            }]}>gr_data_err</TranslatedText>
+        </View>
+    )
+}
 
 const GradesList = ({ forwardGradeData = () => null }) => {
     const { grades, isReady } = useData();
@@ -41,15 +81,16 @@ const GradesList = ({ forwardGradeData = () => null }) => {
     if (!dataReady) {
         return (
             <View style={{
-                margin: 10
+                margin: 15
             }}>
-                <LoadingIndicator status={'Loading'}/>
+                <LoadingIndicator status={t('loading')}/>
             </View>
         );
     }
 
     return (
         <View key={'grade-view'}>
+            { grades.cached && (<CacheIndicator/>) }
             {
                 dataAvailable
                     ? grades.data.map((subject, i) => (
@@ -85,7 +126,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                     >
                                         {
                                             subject.exams.map((exam, idx) => (
-                                                <Pressable
+                                                <TouchableOpacity
                                                     style={styles.examContainer}
                                                     key={`${i}-exam-${idx}`}
                                                     onPress={() => {
@@ -99,7 +140,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                                         fontSize: 16,
                                                         fontFamily: 'monospace'
                                                     }, defaultThemedStyles.text]} key={`${i}-text-${idx}-grade`}>{exam.grade || '-'}</Text>
-                                                </Pressable>
+                                                </TouchableOpacity>
                                             ))
                                         }
                                         <Button
@@ -122,7 +163,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                             </Accordion>
                         </View>
                     ))
-                    : <Text>No data to display</Text>
+                    : <NoDataAvail/>
             }
         </View>
     );

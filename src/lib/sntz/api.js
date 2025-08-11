@@ -127,7 +127,7 @@ const fetchSntzPages = async ({ queryItems = [], username, password }) => {
 
     if (!loginSuccessful) {
         console.log('[FETCH] Login failed');
-        return null;
+        return {};
     }; 
 
     console.log('[FETCH] Logged in successfully');

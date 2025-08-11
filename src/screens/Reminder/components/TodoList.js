@@ -9,8 +9,7 @@ import {
     Modal,
     Alert,
     Pressable,
-    Keyboard,
-    
+    Keyboard
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TranslatedText from '../../../components/translations/TranslatedText';
@@ -323,7 +322,9 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1.2,
         borderRadius: 14,
-        padding: 12,
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        minHeight: 50,
         marginBottom: 6
     },
     tintRow: {

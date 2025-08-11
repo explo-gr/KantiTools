@@ -63,6 +63,8 @@ export default {
     gr_grcalc_ach: "erreichte Punktzahl",
     gr_grcalc_max: "Maximalpunktzahl",
     gr_grcalc_end: "Endnote",
+
+    gr_cache_indic: "Daten aus Zwischenspeicher geladen",
     
     // settings
     st_sld_lang: "Derzeit ausgewählte Sprache: ",
@@ -82,8 +84,10 @@ export default {
     st_sntz_remove_ac: "Login entfernen",
     st_sntz_acc_f: "Loginverwaltung",
     st_sntz_info: "Verbinde deinen Schulnetz Account und verwalte Noten und Stundenplan direkt mit der App!",
-    st_sntz_login_y: "Verbindung erfolgreich hergestellt!\nAccount wurde hinzugügt.",
-    st_sntz_login_n: "Authentifizierung fehlgeschlagen!\nÜberprüfe deine Anmeldedaten.",
+    st_sntz_login_y: "Verbindung erfolgreich hergestellt!",
+    st_sntz_login_y_msg: "Account wurde hinzugügt.",
+    st_sntz_login_n: "Authentifizierung fehlgeschlagen!",
+    st_sntz_login_n_msg: "Überprüfe deine Anmeldedaten.",
 
         // lang
         de: "Deutsch",

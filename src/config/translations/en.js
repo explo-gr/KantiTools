@@ -73,8 +73,10 @@ export default {
     st_sntz_remove_ac: "Remove Login",
     st_sntz_acc_f: "Login management",
     st_sntz_info: "Connect your Schulnetz Account to acces and manage your grade and timetable right from the app!",
-    st_sntz_login_y: "Connection successfully established!\nAccount has been added.",
-    st_sntz_login_n: "Authentification failed!\nVerify your credentials.",
+    st_sntz_login_y: "Connection successfully established!",
+    st_sntz_login_y_msg: "Account has been added.",
+    st_sntz_login_n: "Authentification failed!",
+    st_sntz_login_n_msg: "Verify your credentials.",
 
         // lang
         de: "German",

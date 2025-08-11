@@ -54,3 +54,15 @@ Settings
     }}
   />
 </Stack.Navigator>
+
+
+
+- info i näbb dnota GMACHT
+- mindestnote berechnen: übersetziga fehlend 
+- gradesmain würd bi subscreens aazeigt
+- timetable dialog
+- todos bliibend offa noch löscha
+- ladescreen
+- package.json für müll prüafa GMACHT
+- übersetziga
+- zcached würd nia glada datacontextq GMACHT
