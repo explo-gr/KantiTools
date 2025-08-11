@@ -73,7 +73,7 @@ const HomeMain = ({ navigation }) => {
                 
                 if (document.canceled || document.assets.length !== 1) {
                     // error
-                    Alert.alert('Please specify a file');
+                    Alert.alert(t('hm_ttbl_file_req'));
                     return;
                 }
             
@@ -86,7 +86,7 @@ const HomeMain = ({ navigation }) => {
                 setTtblAvailable(true);
             } catch {
                 // error
-                Alert.alert('Failed to process PDF');
+                Alert.alert(t('hm_ttbl_file_f'));
                 return;
             }
         }
@@ -106,17 +106,17 @@ const HomeMain = ({ navigation }) => {
             }
         } catch {
             // error
-            Alert.alert('File could not be opened');
+            Alert.alert(t('hm_ttbl_file_o_f'));
         }
     };
 
     const handleResetTimetable = () => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         Alert.alert(
-            'Reset Timetable?',
-            'This will remove the saved timetable. You will be prompted to select a new one.',
+            t('hm_ttbl_rst'),
+            t('hm_ttbl_rst_msg'),
             [
-                { text: 'Cancel', style: 'cancel' },
+                { text: t('cancel'), style: 'cancel' },
                 {
                     text: 'Reset',
                     style: 'destructive',
@@ -124,9 +124,9 @@ const HomeMain = ({ navigation }) => {
                         try {
                             await FileSystem.deleteAsync(TIMETABLE_URI, { idempotent: true });
                             setTtblAvailable(false);
-                            console.log('Timetable reset successfully.');
-                        } catch (error) {
-                            Alert.alert('Error', 'Could not reset the timetable.');
+                            console.log('[TIMETABLE] Reset successful.');
+                        } catch {
+                            Alert.alert(t('error'), t('hm_ttbl_rst_f_msg'));
                         }
                     },
                 },

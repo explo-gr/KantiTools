@@ -1,11 +1,12 @@
 // Imports
-import { Text, View, StyleSheet, TextInput, FlatList, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { Text, View, StyleSheet, TextInput, FlatList, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import GradeItem from './GradeItem';
 import { useHeaderHeight } from '@react-navigation/elements'
 import Button from '../../../components/common/Button';
 import Divider from '../../../components/common/Divider';
+import { useTranslations } from '../../../context/LanguageContext';
 
 const createNewEntry = (id) => ({
     id,
@@ -26,6 +27,8 @@ const duplicateEntry = (arr, id, newId) => {
 // Grade Calculation
 const MinimumGradeCalculator = ({ gradeData = [] }) => {
     const { colors } = useThemes();
+    const { t } = useTranslations();
+
     const entryId = useRef(0);
 
     const [ dataTable, updateDataTable ] = useState(gradeData);
@@ -81,7 +84,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         onChangeText={(input) => setDesiredGrade(input.replace(/[^0-9.,]/g, ''))}
                         value={desiredGrade}
                         keyboardType='number-pad'
-                        placeholder='desired'
+                        placeholder={t('gr_calcmin_dd')}
                         placeholderTextColor={colors.gray}
                         maxLength={4}
                         style={[{
@@ -93,7 +96,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         onChangeText={(input) => setDgWeight(input.replace(/[^0-9.,]/g, ''))}
                         value={dgWeight}
                         keyboardType='number-pad'
-                        placeholder='weight'
+                        placeholder={t('gr_calcmin_wt')}
                         placeholderTextColor={colors.gray}
                         maxLength={4}
                         style={[{
@@ -101,7 +104,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                             color: colors.hardContrast
                         }, styles.input]}
                     />
-                    <Button title='Add' onPress={addItem} icon={'plus'}/>
+                    <Button title={t('add')} onPress={addItem} icon={'plus'}/>
                 </View>
             </View>
 {/*
@@ -112,7 +115,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
             >
 */}
             {!!dataTable.length && (
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <Pressable onPress={Keyboard.dismiss}>
                     <FlatList
                         data={dataTable}
                         extraData={dataTable}
@@ -155,7 +158,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                             );
                         }}
                     />
-                </TouchableWithoutFeedback>
+                </Pressable>
             )}
 {/*
             </KeyboardAvoidingView>

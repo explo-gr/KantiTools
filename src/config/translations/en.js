@@ -9,6 +9,10 @@ export default {
     delete: "Delete",
     retry: "Retry",
     open: "Open",
+    error: "Error",
+    duplicate: "Duplicate",
+    add: "Add",
+    loading: "Loading",
 
     // home
     hm_gr_morning: "Good morning",
@@ -21,6 +25,12 @@ export default {
     hm_men_err_msg: "Check your network connection!",
     hm_men: "Meal plan",
     hm_ttbl: "Timetable",
+    hm_ttbl_rst: "Reset Timetable?",
+    hm_ttbl_rst_msg: "This will remove the saved timetable. You will be prompted to select a new one.",
+    hm_ttbl_rst_f_msg: "Could not reset the timetable.",
+    hm_ttbl_file_req: "Please specify a file",
+    hm_ttbl_file_f: "Failed to process PDF",
+    hm_ttbl_file_o_f: "File could not be opened",
 
     // weekdays
     monday: "MO",
@@ -48,6 +58,10 @@ export default {
     gr_calcgrade_f: "Grade Calculator",
     gr_calcmin: "Min. grade",
     gr_calcmin_f: "Min. Grade Calculator",
+    gr_calcmin_dd: "Desired",
+    gr_calcmin_wt: "Weight",
+    gr_calcmin_gr: "Grade",
+
     gr_pluspoints: "Plus points",
     gr_curr_pluspoints: "Current amount of plus points",
 

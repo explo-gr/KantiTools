@@ -1,5 +1,5 @@
-import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
-import { useThemes } from "../../context/ThemeContext";
+import { Pressable, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
+import { useThemes } from '../../context/ThemeContext';
 import Animated, { useSharedValue, withSpring, ReduceMotion } from 'react-native-reanimated';
 
 //as isch nit pixel-perfect warum au immer
@@ -21,7 +21,7 @@ const ToggleSwitch = ({ state, changeState }) => {
     }
 
     return (
-        <TouchableWithoutFeedback
+        <Pressable
             onPress={handlePress}
         >
             <View style={[{
@@ -33,7 +33,7 @@ const ToggleSwitch = ({ state, changeState }) => {
                     backgroundColor: colors.blue,
                 }, styles.innerCircle]} />
             </View>
-        </TouchableWithoutFeedback>
+        </Pressable>
     )
 }
 

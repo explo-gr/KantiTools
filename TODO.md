@@ -66,3 +66,5 @@ Settings
 - package.json für müll prüafa GMACHT
 - übersetziga
 - zcached würd nia glada datacontextq GMACHT
+- maxwidth containerview
+- da ganza bildschirma an nama gä

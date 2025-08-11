@@ -1,7 +1,7 @@
 import { View, Image, Text, StyleSheet } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Pressable } from 'react-native-gesture-handler';
 import { openBrowserAsync } from 'expo-web-browser';
 import * as Haptics from 'expo-haptics';
 
@@ -42,7 +42,7 @@ const Credit = () => {
     const { defaultThemedStyles } = useThemes();
 
     return (
-        <TouchableWithoutFeedback
+        <Pressable
             onLongPress={statusBarWheel}
             onPress={async () => await openBrowserAsync(REPO_URL)}
         >
@@ -55,10 +55,10 @@ const Credit = () => {
                     <CreditText>Created by Gian-Marco Coray</CreditText>
                     <CreditText>github.com/explo-gr/KantiTools</CreditText>
                     <CreditText>KantiTools</CreditText>
-                    <CreditText>Alpha 1.8</CreditText>
+                    <CreditText>Alpha 1.9</CreditText>
                 </View>
             </View>
-        </TouchableWithoutFeedback>
+        </Pressable>
     );
 }
 

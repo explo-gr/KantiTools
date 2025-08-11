@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useData } from '../../../context/DataContext';
-import { View, Text, StyleSheet, Pressable, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import Accordion from '../../../components/common/Accordion';
 import Button from '../../../components/common/Button';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
@@ -9,18 +9,11 @@ import { useTranslations } from '../../../context/LanguageContext';
 import Feather from '@expo/vector-icons/Feather';
 import TranslatedText from '../../../components/translations/TranslatedText';
 
-const CacheIndicator = ({ title }) => {
+const CacheIndicator = () => {
     const { colors, defaultThemedStyles } = useThemes();
 
     return (
-        <View style={{
-            flexDirection: 'row',
-            gap: 4,
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            marginBottom: 8,
-            marginLeft: 2
-        }}>
+        <View style={styles.cacheIndContainer}>
             <Feather name={'info'} size={24} color={colors.gray} />
             <TranslatedText style={[defaultThemedStyles.text, {
                 color: colors.gray
@@ -31,15 +24,11 @@ const CacheIndicator = ({ title }) => {
     )
 }
 
-const NoDataAvail = ({ }) => {
+const NoDataIndicator = () => {
     const { colors, defaultThemedStyles } = useThemes();
 
     return (
-        <View style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 8
-        }}>
+        <View style={styles.noDataIndContainer}>
             <TranslatedText style={[defaultThemedStyles.text, {
                 color: colors.red
             }]}>gr_data_err</TranslatedText>
@@ -69,20 +58,18 @@ const GradesList = ({ forwardGradeData = () => null }) => {
             [i]: !prev[i]
         }));
     };
+    
+    useEffect(() => {
+        setDataAvailable(!!grades.data);
+    }), [grades.data];
 
     useEffect(() => {
         setDataReady(isReady)
     }, [isReady]);
 
-    useEffect(() => {
-        setDataAvailable(!!grades.data);
-    }), [grades.data];
-
     if (!dataReady) {
         return (
-            <View style={{
-                margin: 15
-            }}>
+            <View style={styles.loadingIndContainer}>
                 <LoadingIndicator status={t('loading')}/>
             </View>
         );
@@ -97,9 +84,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                         <View
                             id={`view-${i}`}
                             key={`view-${i}`}
-                            style={{
-                                marginBottom: 8
-                            }}
+                            style={styles.accordionContainer}
                         >
                             <Accordion
                                 key={`acc-${i}`}
@@ -109,12 +94,9 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                 disabled={!subject.exams.length}
                                 immutable
                                 rightItem={
-                                    <Text style={{
-                                        fontFamily: 'monospace',
-                                        fontSize: 19,
-                                        fontWeight: 'bold',
+                                    <Text style={[{
                                         color: colors.hardContrast
-                                    }}>
+                                    }, styles.avgGradeText]}>
                                         {subject.onlineMean || '---'}
                                     </Text>
                                 }
@@ -133,13 +115,12 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                                         handleExamDetails(exam);
                                                     }}
                                                 >
-                                                    <Text style={[{
-                                                        fontSize: 15.5
-                                                    }, defaultThemedStyles.text]} key={`${i}-text-${idx}-topic`}>{exam.topic}</Text>
-                                                    <Text style={[{
-                                                        fontSize: 16,
-                                                        fontFamily: 'monospace'
-                                                    }, defaultThemedStyles.text]} key={`${i}-text-${idx}-grade`}>{exam.grade || '-'}</Text>
+                                                    <Text style={[styles.examTopicText, defaultThemedStyles.text]} key={`${i}-text-${idx}-topic`}>
+                                                        {exam.topic}
+                                                    </Text>
+                                                    <Text style={[styles.examGradeText, defaultThemedStyles.text]} key={`${i}-text-${idx}-grade`}>
+                                                        {exam.grade || '-'}
+                                                    </Text>
                                                 </TouchableOpacity>
                                             ))
                                         }
@@ -152,7 +133,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                                     into an appropriate format
                                                 */
                                                 forwardGradeData(subject.exams.map((exam, idx) => ({
-                                                    id: -(1 + idx),
+                                                    id: -(1 + idx), // avoid duplicate keys
                                                     grade: exam.grade.toString().replace(/[^0-9.,]/g, ''),
                                                     weight: exam.weight.toString().replace(/[^0-9.,]/g, '')
                                                 })));
@@ -163,7 +144,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                             </Accordion>
                         </View>
                     ))
-                    : <NoDataAvail/>
+                    : <NoDataIndicator/>
             }
         </View>
     );
@@ -180,6 +161,37 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         width: '100%'
+    },
+    cacheIndContainer: {
+        flexDirection: 'row',
+        gap: 4,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginBottom: 8,
+        marginLeft: 2
+    },
+    noDataIndContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 8
+    },
+    loadingIndContainer: {
+        margin: 15
+    },
+    accordionContainer: {
+        marginBottom: 8
+    },
+    avgGradeText: {
+        fontFamily: 'monospace',
+        fontSize: 19,
+        fontWeight: 'bold'
+    },
+    examTopicText: {
+        fontSize: 15.5
+    },
+    examGradeText: {
+        fontSize: 16,
+        fontFamily: 'monospace'
     }
 });
 

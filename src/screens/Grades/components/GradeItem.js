@@ -1,9 +1,11 @@
 import { useThemes } from '../../../context/ThemeContext';
 import { View, StyleSheet, TextInput } from 'react-native';
 import Button from '../../../components/common/Button';
+import { useTranslations } from '../../../context/LanguageContext';
 
 const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onDuplicate }) => {
     const { defaultThemedStyles, colors } = useThemes();
+    const { t } = useTranslations();
 
     const renderPair = (value, onChange, placeholder, action, actionTitle, icon, btnColor) => (
         <View style={styles.pairContainer}>
@@ -31,8 +33,8 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
     return (
         <View style={styles.rootContainer}>
             <View style={[styles.container, defaultThemedStyles.card]}>
-                { renderPair(grade, onGradeChange, 'grade', onDelete, 'Delete', 'trash-2', colors.red) }
-                { renderPair(weight, onWeightChange, 'weight', onDuplicate, 'Duplicate', 'copy', colors.blue) }
+                { renderPair(grade, onGradeChange, t('gr_calcmin_gr'), onDelete, t('delete'), 'trash-2', colors.red) }
+                { renderPair(weight, onWeightChange, t('gr_calcmin_wt'), onDuplicate, t('duplicate'), 'copy', colors.blue) }
             </View>
         </View>
     )

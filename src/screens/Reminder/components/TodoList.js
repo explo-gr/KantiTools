@@ -62,7 +62,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
             visible={visible}
             onRequestClose={onCancel}
         >
-            <Pressable style={styles.centeredView} onPress={() => Keyboard.dismiss()}>
+            <Pressable style={styles.centeredView} onPress={Keyboard.dismiss}>
                 <View style={[styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
                     <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_title</TranslatedText>
                     <TextInput
