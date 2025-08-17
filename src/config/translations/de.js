@@ -9,6 +9,10 @@ export default {
     delete: "Löschen",
     retry: "Erneut versuchen",
     open: "Öffnen",
+    error: "Fehler",
+    duplicate: "Duplizieren",
+    add: "Hinzufügen",
+    loading: "Wird geladen",
     save: "Speichern",
     reset: "Löschen",
 
@@ -23,6 +27,12 @@ export default {
     hm_men_err_msg: "Überprüfe deine Netzwerkverbindung!",
     hm_men: "Menüplan",
     hm_ttbl: "Stundenplan",
+    hm_ttbl_rst: "Stundenplan zurücksetzen?",
+    hm_ttbl_rst_msg: "Diese Aktion löscht der gespeicherte Stundenplan. Sie werden aufgefordert, einen neuen auszuwählen.",
+    hm_ttbl_rst_f_msg: "Stundenplan konnte nicht zurückgesetzt werden",
+    hm_ttbl_file_req: "Bitte wählen Sie eine Datei aus",
+    hm_ttbl_file_f: "PDF konnte nicht verarbeitet werden",
+    hm_ttbl_file_o_f: "Datei konnte nicht geöffnet werden",
     hm_mail: "Mail",
     hm_files: "Dateien",
     hm_hpg: "BKS",
@@ -53,6 +63,10 @@ export default {
     gr_calcgrade_f: "Notenrechner",
     gr_calcmin: "Mindestnote",
     gr_calcmin_f: "Mindestnote berechnen",
+    gr_calcmin_dd: "Gewünscht",
+    gr_calcmin_wt: "Gewichtung",
+    gr_calcmin_gr: "Note",
+
     gr_pluspoints: "Pluspunkte",
     gr_curr_pluspoints: "Aktuelle Pluspunkte",
 
@@ -64,7 +78,8 @@ export default {
     gr_grcalc_max: "Maximalpunktzahl",
     gr_grcalc_end: "Endnote",
 
-    gr_cache_indic: "Daten aus Zwischenspeicher geladen",
+    gr_cache_indic: "Daten aus dem Zwischenspeicher geladen",
+    gr_data_err: "Keine Daten verfügbar",
     
     // settings
     st_sld_lang: "Derzeit ausgewählte Sprache: ",

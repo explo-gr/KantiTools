@@ -14,7 +14,7 @@ const CacheIndicator = () => {
 
     return (
         <View style={styles.cacheIndContainer}>
-            <Feather name={'info'} size={24} color={colors.gray} />
+            <Feather name={'wifi-off'} size={22} color={colors.gray} />
             <TranslatedText style={[defaultThemedStyles.text, {
                 color: colors.gray
             }]}>
@@ -164,10 +164,11 @@ const styles = StyleSheet.create({
     },
     cacheIndContainer: {
         flexDirection: 'row',
-        gap: 4,
+        gap: 5,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        marginBottom: 8,
+        marginBottom: 12,
+        marginTop: 4,
         marginLeft: 2
     },
     noDataIndContainer: {

@@ -1,10 +1,49 @@
-import { useState } from "react";
-import { FlatList, Modal, Pressable, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
-import TranslatedText from "../translations/TranslatedText";
-import { useThemes } from "../../context/ThemeContext";
-import ScaleOnFocus from "../utils/ScaleOnFocus";
+import { useState } from 'react';
+import { FlatList, Modal, Pressable, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import TranslatedText from '../translations/TranslatedText';
+import { useThemes } from '../../context/ThemeContext';
+import ScaleOnFocus from '../utils/ScaleOnFocus';
 import Feather from '@expo/vector-icons/Feather';
 import * as Haptics from 'expo-haptics';
+
+const Item = ({ item, selectedItem, onSelect }) => {
+    const { defaultThemedStyles } = useThemes();
+
+    const isSelected = item === selectedItem;
+    const itemStlye =
+        isSelected
+            ? {
+                text: defaultThemedStyles.textContrast,
+                view: defaultThemedStyles.cardHighlight
+            }
+            : {
+                text: defaultThemedStyles.text,
+                view: defaultThemedStyles.card
+            };
+
+    return (
+        <TouchableOpacity
+            onPress={(e) => {
+                e.stopPropagation();
+                onSelect(item);
+                setModalVisible(false);
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+            }}
+        >
+            <ScaleOnFocus
+                isFocused={isSelected}
+                from={0.95}
+                to={1.0}
+            >
+                <View style={[styles.entryView, itemStlye.view]}>
+                    <TranslatedText style={[styles.entryText, itemStlye.text]}>
+                        { item }
+                    </TranslatedText>
+                </View>
+            </ScaleOnFocus>
+        </TouchableOpacity>
+    )
+}
 
 const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
     const [ modalVisible, setModalVisible ] = useState(false);
@@ -12,43 +51,6 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
 
     const { height, width } = useWindowDimensions();
     const maxHeight = Math.floor(height * 0.7);
-    
-    const Item = ({ item }) => {
-        const isSelected = item === selectedItem;
-        const itemStlye =
-            isSelected
-                ? {
-                    text: defaultThemedStyles.textContrast,
-                    view: defaultThemedStyles.cardHighlight
-                }
-                : {
-                    text: defaultThemedStyles.text,
-                    view: defaultThemedStyles.card
-                };
-
-        return (
-            <TouchableOpacity
-                onPress={(e) => {
-                    e.stopPropagation();
-                    onSelect(item);
-                    setModalVisible(false);
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-                }}
-            >
-                <ScaleOnFocus
-                    isFocused={isSelected}
-                    from={0.95}
-                    to={1.0}
-                >
-                    <View style={[styles.entryView, itemStlye.view]}>
-                        <TranslatedText style={[styles.entryText, itemStlye.text]}>
-                            { item }
-                        </TranslatedText>
-                    </View>
-                </ScaleOnFocus>
-            </TouchableOpacity>
-        )
-    }
 
     return (
         <View>
@@ -59,7 +61,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                         backgroundColor: colors.generic,
                         borderColor: colors.blue
                     }, styles.buttonShell ]}>
-                    <Feather name="chevron-down" size={24} color={colors.blue} />
+                    <Feather name='chevron-down' size={24} color={colors.blue} />
                     <TranslatedText style={{
                             color: colors.hardContrast,
                             marginRight: 3
@@ -70,7 +72,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
             </TouchableOpacity>
 
             <Modal
-                animationType="fade"
+                animationType='fade'
                 transparent={true}
                 statusBarTranslucent={true}
                 visible={modalVisible}
@@ -81,7 +83,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                         flex: 1,
                         backgroundColor: 'rgba(0,0,0,0.4)',
                     }}
-                    onPress={(e) => {
+                    onPress={() => {
                         setModalVisible(!modalVisible);
                     }}
                 >
@@ -92,7 +94,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                         <FlatList
                             data={entries}
                             keyExtractor={item => item}
-                            renderItem={({ item }) => <Item item={item}/> }
+                            renderItem={({ item }) => <Item item={item} onSelect={onSelect} selectedItem={selectedItem}/> }
                         />
                     </View>
                 </Pressable>
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         padding: 24,
-        position: "absolute",
+        position: 'absolute',
         left: '50%',
         top: '50%',
         transform: 'translate(-50%, -50%)',

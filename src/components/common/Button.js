@@ -12,7 +12,7 @@ const Button = ({ onPress, title, color, disabled=false, icon, style = {} }) => 
         const styles = StyleSheet.create({
             buttonShell: {
                 height: 45,
-                maxWidth: 300,
+                maxWidth: 400,
                 minWidth: 100,
                 borderRadius: 18,
                 padding: 8,

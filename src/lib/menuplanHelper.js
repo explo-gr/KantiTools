@@ -73,7 +73,7 @@ const saveID = async (id) => {
     try {
         await AsyncStorage.setItem(ID_STORAGE_KEY, id);
     } catch (err) {
-        console.error('Failed to save ID to AsyncStorage:', err);
+        console.error('[MENUPLAN] Failed to save ID to AsyncStorage:', err);
     }
 };
 
@@ -103,7 +103,7 @@ const findFallbackURL = async () => {
 
         return pdfLink ? `${pdfLink}` : null;
     } catch (err) {
-        console.error('Error finding fallback PDF URL:', err);
+        console.error('[MENUPLAN] Error finding fallback PDF URL:', err);
         return null;
     }
 };
@@ -144,7 +144,7 @@ export const openMenuplanPDF = async () => {
     }
 
     if (!fileUri) {
-        console.error('Failed to load PDF.');
+        console.error('[MENUPLAN] Failed to load PDF.');
         return false;
     }
 
@@ -158,7 +158,7 @@ export const openMenuplanPDF = async () => {
                 flags: 1, // FLAG_GRANT_READ_URI_PERMISSION
             });
         } catch (err) {
-            console.error('Failed to open PDF with intent:', err);
+            console.error('[MENUPLAN] Failed to open PDF with intent:', err);
             return false;
         }
     } else {

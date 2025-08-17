@@ -13,6 +13,8 @@ export default {
     duplicate: "Duplicate",
     add: "Add",
     loading: "Loading",
+    save: "Save",
+    reset: "Reset",
 
     // home
     hm_gr_morning: "Good morning",
@@ -31,6 +33,9 @@ export default {
     hm_ttbl_file_req: "Please specify a file",
     hm_ttbl_file_f: "Failed to process PDF",
     hm_ttbl_file_o_f: "File could not be opened",
+    hm_mail: "Mail",
+    hm_files: "Files",
+    hm_hpg: "BKS",
 
     // weekdays
     monday: "MO",
@@ -65,9 +70,16 @@ export default {
     gr_pluspoints: "Plus points",
     gr_curr_pluspoints: "Current amount of plus points",
 
+    gr_dt_date: "Date",
+    gr_dt_weight: "Weight",
+    gr_dt_score: "Score",
+
     gr_grcalc_ach: "Achieved Score",
     gr_grcalc_max: "Maximum score",
     gr_grcalc_end: "Final Grade:",
+
+    gr_cache_indic: "Using locally stored data",
+    gr_data_err: "Data unavailable",
     
     // settings
     st_sld_lang: "Currently selected language: ",
