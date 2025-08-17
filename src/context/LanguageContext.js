@@ -23,10 +23,10 @@ export const LanguageProvider = ({ children }) => {
         }
         
         try {
-            await AsyncStorage.setItem('language', newLanguage);
             setLang(newLanguage);
+            await AsyncStorage.setItem('language', newLanguage);
         } catch {
-            console.error("[LANG] Failed to set language!\nKeeping current language");
+            console.error("[LANG] Failed to set language!\nKeeping current saved language");
         }
     }
 
@@ -46,9 +46,13 @@ export const LanguageProvider = ({ children }) => {
                         selectedLanguage = lang;
                         return true;
                     }
-                })
+                });
 
-                if (!langFound) console.warn("[LANG] Device language unsupported!\n Using Fallback language");
+                if (langFound) {
+                    await AsyncStorage.setItem('language', selectedLanguage);
+                } else {
+                    console.warn("[LANG] Device language unsupported!\n Using Fallback language");
+                }
             } else {
                 console.warn("[LANG] Saved language unsupported!\nUsing Fallback language");
             }
@@ -69,7 +73,7 @@ export const LanguageProvider = ({ children }) => {
     useEffect(() => {
         loadLanguage();
     }, []);
-
+    
     const contextValue = useMemo(() => ({
         language,
         setLanguage,
@@ -85,5 +89,4 @@ export const LanguageProvider = ({ children }) => {
 
 }
 
-export const SupportedLanguages = Object.keys(translations);
 export const useTranslations = () => React.useContext(LanguageContext);
