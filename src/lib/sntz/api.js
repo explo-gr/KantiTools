@@ -18,7 +18,8 @@ const fetchLoginHash = async (loginUrl) => {
     try {
         const response = await fetch(loginUrl, {
             headers: { 
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'text/html'
             }
         });
         

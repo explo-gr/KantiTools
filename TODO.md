@@ -58,9 +58,8 @@ Settings
 
 
 - info i näbb dnota GMACHT
-- mindestnote berechnen: übersetziga fehlend 
-- gradesmain würd bi subscreens aazeigt
-- timetable dialog
+- mindestnote berechnen: übersetziga fehlend GMACHT
+- timetable dialog NO
 - todos bliibend offa noch löscha
 - ladescreen
 - package.json für müll prüafa GMACHT
@@ -68,3 +67,4 @@ Settings
 - zcached würd nia glada datacontextq GMACHT
 - maxwidth containerview
 - da ganza bildschirma an nama gä
+- open source handling
