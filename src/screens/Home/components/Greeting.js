@@ -5,7 +5,7 @@ import Feather from '@expo/vector-icons/Feather';
 
 const Greeting = () => {
     const { t } = useTranslations();
-    const { colors, defaultThemedStyles } = useThemes();
+    const { colors, } = useThemes();
 
     const getJSX = (icon, greeting, color='#426d9e') => {
         return (
@@ -32,9 +32,7 @@ const Greeting = () => {
         ];
 
         for (const { condition, icon, key, color } of greetingRanges) {
-            //console.log(`[GREETING] Checking condition for ${key}`);
             if (condition(hour)) {
-                //console.log(`[GREETING] Condition passed for hour: ${hour}`)
                 return getJSX(icon, t(key), color);
             }
         }

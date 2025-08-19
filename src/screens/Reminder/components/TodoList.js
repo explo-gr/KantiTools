@@ -123,16 +123,10 @@ const EmptyListMsg = () => {
     const { colors } = useThemes();
 
     return (
-        <View style={{
-            flex: 1,
-            alignItems: 'center',
-            marginTop: 20,
-        }}>
-            <TranslatedText style={{
-                fontSize: 16,
-                fontStyle: 'italic',
+        <View style={styles.emptyListContainer}>
+            <TranslatedText style={[{
                 color: colors.gray
-            }}>
+            }, styles.emptyListText]}>
                 re_empty
             </TranslatedText>
         </View>
@@ -268,17 +262,9 @@ const TodoList = () => {
                 style={styles.fab}
             >
                 <View style={[{ 
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    gap: 3,
                     borderColor: colors.blue,
-                    borderWidth: 2.5,
-                    borderRadius: 25,
-                    padding: 10,
-                    margin: 4,
                     backgroundColor: colors.generic
-                }, defaultThemedStyles.boxshadow]}>
+                }, styles.fabContentContainer, defaultThemedStyles.boxshadow]}>
 
                         <Feather name='plus' size={24} color={colors.hardContrast} />
                         <TranslatedText style={{ color: colors.hardContrast }}>re_create</TranslatedText>
@@ -356,6 +342,25 @@ const styles = StyleSheet.create({
         padding: 5,
         bottom: 100,
         right: '1%'
+    },
+    fabContentContainer: {
+        borderWidth: 2.5,
+        borderRadius: 25,
+        padding: 10,
+        margin: 4,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 3
+    },
+    emptyListContainer: {
+        flex: 1,
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    emptyListText: {
+        fontSize: 16,
+        fontStyle: 'italic',
     }
 });
 

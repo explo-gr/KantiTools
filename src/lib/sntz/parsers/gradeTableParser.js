@@ -44,7 +44,6 @@ const parseGradeTable = (document) => {
     return subjectRefPoints.map((e) => {
         const subjectData = newSubjectDataTemplate();
 
-        // grauahafta code
         const prevTr = $(e).prev('tr');
         subjectData.courseName = prevTr.find('td').eq(0).contents().first().text().trim();
         subjectData.subjName = prevTr.find('td').eq(0).contents().last().text().trim();

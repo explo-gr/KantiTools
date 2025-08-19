@@ -109,34 +109,46 @@ const findFallbackURL = async () => {
 };
 
 export const openMenuplanPDF = async () => {
-    // console.log('\nAttempting to open menuplan...')
+    /*
+        Since it's impossible to open a downloaded
+        PDF on iOS without embedding a PDF engine,
+        the fallback URL will be opened with a
+        regular webbrowser instead
+
+    */
+    if (Platform.OS === 'ios') {
+        const url = await findFallbackURL();
+        Linking.openURL(url);
+
+        return true;
+    }
+
+    console.log('[MENUPLAN] Attempting to open menuplan...')
 
     const { url, id } = reconstructURL();
     const savedID = await getSavedID();
 
-    // console.log(`Current url: ${url}`);
-    // console.log(`Current id: ${id}`);
-    // console.log(`Current savedId: ${savedID}`);
+    console.log(`[MENUPLAN] Current url: ${url}`);
+    console.log(`[MENUPLAN] Current id: ${id}`);
+    console.log(`[MENUPLAN] Current savedId: ${savedID}`);
 
     let fileUri = null;
 
     if (savedID === id) {
-        // console.log('Attempting to open the cached menuplan');
+        console.log('[MENUPLAN] Attempting to open the cached menuplan');
         fileUri = await getCachedMenuplan();
-        // console.log('savedId and id match');
+        console.log('[MENUPLAN] savedId and id match');
     }
 
     if (!fileUri) {
-        // console.log('No cached Menuplan was found.\nAttempting to download the PDF');
+        console.log('[MENUPLAN] No cached Menuplan was found.\nAttempting to download the PDF');
+
         fileUri = await downloadPDF(url);
 
         if (!fileUri) {
-            // console.log('Standard method failed, trying fallback');
-
+            console.log('[MENUPLAN] Standard method failed, trying fallback');
             const fallbackURL = await findFallbackURL();
-            
-            // console.log(`Fallback URL found: ${fallbackURL}`)
-
+            console.log(`[MENUPLAN] Fallback URL found: ${fallbackURL}`);
             if (fallbackURL) fileUri = await downloadPDF(fallbackURL);
         }
 
@@ -148,24 +160,20 @@ export const openMenuplanPDF = async () => {
         return false;
     }
 
-    if (Platform.OS === 'android') {
-        try {
-            const contentUri = await FileSystem.getContentUriAsync(fileUri);
+    try {
+        const contentUri = await FileSystem.getContentUriAsync(fileUri);
 
-            await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
-                data: contentUri,
-                type: 'application/pdf',
-                flags: 1, // FLAG_GRANT_READ_URI_PERMISSION
-            });
-        } catch (err) {
-            console.error('[MENUPLAN] Failed to open PDF with intent:', err);
-            return false;
-        }
-    } else {
-        Linking.openURL(fileUri);
+        await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
+            data: contentUri,
+            type: 'application/pdf',
+            flags: 1, // FLAG_GRANT_READ_URI_PERMISSION
+        });
+
+        return true;
+    } catch (err) {
+        console.error('[MENUPLAN] Failed to open PDF with intent:', err);
+        return false;
     }
-
-    return true;
 };
 
 export const clearMenuplanData = async () => {

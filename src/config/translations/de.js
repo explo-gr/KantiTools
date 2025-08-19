@@ -68,7 +68,8 @@ export default {
     gr_calcmin_gr: "Note",
 
     gr_pluspoints: "Pluspunkte",
-    gr_curr_pluspoints: "Aktuelle Pluspunkte",
+    gr_curr_pluspoints: "Anzahl Pluspunkte: ",
+    gr_curr_minuspoints: "Anzahl Minuspunkte: ",
 
     gr_dt_date: "Datum",
     gr_dt_weight: "Gewichtung",

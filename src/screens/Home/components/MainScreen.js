@@ -13,7 +13,7 @@ import Weekdays from './Weekdays';
 import Divider from '../../../components/common/Divider';
 
 // expo modules
-import * as DocumentPicker from 'expo-document-picker';
+import { getDocumentAsync } from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
 import * as Haptics from 'expo-haptics';
@@ -25,7 +25,7 @@ const TIMETABLE_URI = `${TIMETABLE_DIR}/${FILE_NAME}`;
 
 const MAIL_URL = 'https://outlook.office.com';
 const BKS_HOMEPAGE_URL = 'https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/bks/uberuns/Seiten/default.aspx';
-const SHAREPOINT_URL = 'https://bkscampusch-my.sharepoint.com/';
+const SHAREPOINT_URL = 'https://bkscampusch.sharepoint.com/sites/Schulhandbuch2/Freigegebene%20Dokumente/Forms/AllItems.aspx';
 
 // Main Home Screen
 const HomeMain = ({ navigation }) => {
@@ -67,7 +67,7 @@ const HomeMain = ({ navigation }) => {
         // prompt user to pick pdf if no file was found
         if (!ttblAvailable) {
             try {
-                const document = await DocumentPicker.getDocumentAsync({
+                const document = await getDocumentAsync({
                     type: 'application/pdf',
                 });
                 

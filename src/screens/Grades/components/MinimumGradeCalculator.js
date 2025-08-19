@@ -1,11 +1,9 @@
 // Imports
-import { Text, View, StyleSheet, TextInput, FlatList, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
+import { Text, View, StyleSheet, TextInput, FlatList, Keyboard, Pressable } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import GradeItem from './GradeItem';
-import { useHeaderHeight } from '@react-navigation/elements'
 import Button from '../../../components/common/Button';
-import Divider from '../../../components/common/Divider';
 import { useTranslations } from '../../../context/LanguageContext';
 
 const createNewEntry = (id) => ({
@@ -120,13 +118,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                     <Button title={t('add')} onPress={addItem} icon={'plus'}/>
                 </View>
             </View>
-{/*
-            <KeyboardAvoidingView
-                behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
-                style={{ flex: 1 }}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 150 : 50}
-            >
-*/}
+
             {!!dataTable.length && (
                 <Pressable onPress={Keyboard.dismiss}>
                     <FlatList
@@ -135,7 +127,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         keyExtractor={item => item.id}
                         keyboardShouldPersistTaps={'handled'}
                         scrollEnabled
-                        contentContainerStyle={{ paddingBottom: 300 }}
+                        contentContainerStyle={styles.contentContainer}
                         renderItem={({ item }) => {
                             return (
                                 <GradeItem
@@ -173,9 +165,6 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                     />
                 </Pressable>
             )}
-{/*
-            </KeyboardAvoidingView>
-*/}
         </View>
     );
 };
@@ -213,6 +202,9 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 8,
         height: 45
+    },
+    contentContainer: {
+        paddingBottom: 300
     }
 });
 

@@ -1,6 +1,5 @@
 import isEmpty from '../../lib/isEmpty';
 
-//api.js
 const HOST = Object.freeze({
     LOGIN: 'https://schulnetz.bks-campus.ch/loginto.php',
     GRADES: 'https://schulnetz.bks-campus.ch/index.php?pageid=21311',
@@ -9,10 +8,6 @@ const HOST = Object.freeze({
     START: 'https://schulnetz.bks-campus.ch/index.php?pageid=1',
     HOST: 'https://schulnetz.bks-campus.ch/',
 });
-
-// TODO
-// - allow different hosts
-// - make host logic dynamic --> stundenplan
 
 const fetchLoginHash = async (loginUrl) => {
     try {
@@ -33,9 +28,7 @@ const fetchLoginHash = async (loginUrl) => {
     }
 };
 
-// generated debug logs with mr. gpt
 const authenticate = async (username, password) => {
-    // TODO: return value with id and transid
 
     console.log('[AUTH] Starting authentication...');
     console.log(`[AUTH] Username: ${username}`);
@@ -83,7 +76,7 @@ const authenticate = async (username, password) => {
 
         if (setCookie) {
             const match = setCookie.match(/PHPSESSID=([^;]+);/); // I should start using regex more
-            
+
             if (match) {
                 sessionId = match[1];
                 console.log(`[AUTH] Captured session ID: ${sessionId}`);
@@ -121,7 +114,7 @@ const authenticate = async (username, password) => {
 
 const fetchSntzPages = async ({ queryItems = [], username, password }) => {
     if (!username || !password ) return null;
-    console.log(`[FETCH] Attempting to log in with the following credentials: ${username}, ${password}`);
+    console.log(`[FETCH] Attempting to log in with the following credentials: ${username}`);
 
     const { loginSuccessful, sessionId, browserID } = await authenticate(username, password);
     console.log(`[FETCH] browserID passed by authenticate: ${browserID.id}, ${browserID.transid}`);

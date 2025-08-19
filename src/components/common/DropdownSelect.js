@@ -4,9 +4,14 @@ import TranslatedText from '../translations/TranslatedText';
 import { useThemes } from '../../context/ThemeContext';
 import ScaleOnFocus from '../utils/ScaleOnFocus';
 import Feather from '@expo/vector-icons/Feather';
-import * as Haptics from 'expo-haptics';
+import { impactAsync, ImpactFeedbackStyle } from 'expo-haptics';
 
-const Item = ({ item, selectedItem, onSelect, setModalVisible }) => {
+const Item = ({
+    item,
+    selectedItem,
+    onSelect,
+    setModalVisible
+}) => {
     const { defaultThemedStyles } = useThemes();
 
     const isSelected = item === selectedItem;
@@ -27,7 +32,8 @@ const Item = ({ item, selectedItem, onSelect, setModalVisible }) => {
                 e.stopPropagation();
                 onSelect(item);
                 setModalVisible(false);
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+
+                impactAsync(ImpactFeedbackStyle.Soft);
             }}
         >
             <ScaleOnFocus
@@ -143,6 +149,3 @@ const styles = StyleSheet.create({
 });
 
 export default DropdownSelect;
-
-//https://reactnative.dev/docs/modal
-//https://reactnative.dev/docs/flatlist

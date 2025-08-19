@@ -1,6 +1,4 @@
 // Imports
-import { Text, View, StyleSheet } from 'react-native';
-import { useThemes } from '../../../context/ThemeContext';
 import MinimumGradeCalculator from './MinimumGradeCalculator';
 import ContainerView from '../../../components/common/ContainerView';
 import Divider from '../../../components/common/Divider';
@@ -8,7 +6,6 @@ import Divider from '../../../components/common/Divider';
 // Grade Calculation
 const GradesMinCalc = ({ route }) => {
     const gradeData = route.params?.gradeData;
-    const { defaultThemedStyles } = useThemes();
 
     return (
         <ContainerView>
@@ -17,13 +14,5 @@ const GradesMinCalc = ({ route }) => {
         </ContainerView>
     )
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
 
 export default GradesMinCalc;

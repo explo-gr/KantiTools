@@ -1,11 +1,10 @@
-import { useContext } from "react";
-import { ThemeContext, useThemes } from "../../context/ThemeContext";
+import { useThemes } from "../../context/ThemeContext";
 import { StyleSheet, View } from "react-native";
 
 const Divider = () => {
-    const { colors, defaultThemedStyles } = useThemes();
+    const { colors } = useThemes();
     return (
-        <View style={[{backgroundColor: colors.blue}, styles.divider, /* defaultThemedStyles.boxshadow */]}/>
+        <View style={[{backgroundColor: colors.blue}, styles.divider]}/>
     );
 };
     

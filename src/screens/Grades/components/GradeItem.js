@@ -3,7 +3,14 @@ import { View, StyleSheet, TextInput } from 'react-native';
 import Button from '../../../components/common/Button';
 import { useTranslations } from '../../../context/LanguageContext';
 
-const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onDuplicate }) => {
+const GradeItem = ({
+    grade,
+    onGradeChange,
+    weight,
+    onWeightChange,
+    onDelete,
+    onDuplicate
+}) => {
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
 

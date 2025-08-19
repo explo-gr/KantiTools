@@ -1,16 +1,3 @@
-const calcPluspunkte = (grades) => {
-    if (!grades) return null;
-
-    let points = 0;
-    grades.forEach((grade) => {
-        if (!grade) return; 
-        const rounded = Math.round(grade * 2) / 2;
-        points += rounded - 4;
-    });
-
-    return points;
-}
-
 const calcPlusMinuspunkte = (grades) => {
     if (!grades) return null;
 
@@ -33,4 +20,4 @@ const calcPlusMinuspunkte = (grades) => {
     return { plus, minus };
 }
 
-export default calcPluspunkte;
+export default calcPlusMinuspunkte;

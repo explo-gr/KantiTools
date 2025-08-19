@@ -1,11 +1,18 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { useThemes } from '../../context/ThemeContext';
 import TranslatedText from '../translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
 
-const Button = ({ onPress, title, color, disabled=false, icon, style = {} }) => {
-    const { defaultThemedStyles, colors, theme } = useThemes();
+const Button = ({
+    onPress,
+    title,
+    color,
+    disabled=false,
+    icon,
+    style = {}
+}) => {
+    const { colors, theme } = useThemes();
     if (!color) color = colors.blue;
 
     const themedStyles = useMemo(() => {
@@ -23,7 +30,6 @@ const Button = ({ onPress, title, color, disabled=false, icon, style = {} }) => 
                 backgroundColor: color ? color : colors.blue
             },
             text: {
-                //color: isDark ? colors.hardContrast : colors.generic,
                 color: colors.generic,
                 marginHorizontal: 3,
                 fontSize: 15,
@@ -41,9 +47,7 @@ const Button = ({ onPress, title, color, disabled=false, icon, style = {} }) => 
             disabled={disabled}
             style={[{
                 opacity: disabled ? 0.2 : 1.0,
-                justifyContent: 'center',
-                alignItems: 'center'
-            }, style]}
+            }, styles.centerView, style]}
         >
             <View style={themedStyles.buttonShell}>
                 {icon && (
@@ -56,5 +60,12 @@ const Button = ({ onPress, title, color, disabled=false, icon, style = {} }) => 
         </TouchableOpacity>
     );
 };
+
+const styles = StyleSheet.create({
+    centerView: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
+});
 
 export default Button;

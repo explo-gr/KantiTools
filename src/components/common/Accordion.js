@@ -4,9 +4,18 @@ import Animated, { useSharedValue, Easing, withTiming, useAnimatedStyle, ReduceM
 import { useTranslations } from '../../context/LanguageContext';
 import Feather from '@expo/vector-icons/Feather';
 import Divider from '../../components/common/Divider';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tint, disabled = false, immutable = false }) => {
+const Accordion = ({
+    isOpen,
+    changeIsOpen,
+    title,
+    rightItem=<></>,
+    children,
+    tint,
+    disabled = false,
+    immutable = false
+}) => {
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
 
@@ -26,7 +35,7 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
     }));
 
     const openingAnimationStyle = useAnimatedStyle(() => ({
-        height: height.value, // use height instead of maxHeight for precise animation
+        height: height.value
     }));
 
     useEffect(() => {
@@ -59,7 +68,7 @@ const Accordion = ({ isOpen, changeIsOpen, title, rightItem=<></>, children, tin
                     <Text style={[{ fontSize: titleTextSize }, styles.titleText, defaultThemedStyles.text]}>
                         {t(title)}
                     </Text>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: 12, alignItems: 'center' }}>
+                    <View style={styles.headerSubcontainer}>
                         {rightItem}
                         <Animated.View style={[styles.chevronContainer, chevronAnimationStyle]}>
                             <Feather name='chevron-down' size={30} color={colors.hardContrast} />
@@ -113,6 +122,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 15,
         paddingVertical: 8,
+    },
+    headerSubcontainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        gap: 12,
+        alignItems: 'center'
     },
     chevronContainer: {
         justifyContent: 'center',

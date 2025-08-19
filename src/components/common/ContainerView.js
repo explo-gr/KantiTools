@@ -1,13 +1,15 @@
-import { View } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 import { useThemes } from '../../context/ThemeContext';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { StatusBar } from 'expo-status-bar';
 
-// add scroll option
 const ContainerView = ({ children, style }) => {
-    const headerHeight = useHeaderHeight();
     const { defaultThemedStyles, theme } = useThemes();
 
+    const headerHeight = useHeaderHeight();
+    const { width } = useWindowDimensions();
+
+    const contentWidth = width < 800 ? '94%' : '82%';
     const addedPadding = headerHeight === 0 ? 40 : 20;
 
     return (
@@ -18,17 +20,14 @@ const ContainerView = ({ children, style }) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 flex: 1,
-                //backgroundColor: 'white'
             }
         ]}>
             <View style={[
                 style,
                 {
-                    // mit padding schaffa anstatt width und height?
-                    width: '94%',
+                    width: contentWidth,
                     height: '95%',
                     flex: 1,
-                    //backgroundColor: 'white'
                 }
             ]}>
                 {children}

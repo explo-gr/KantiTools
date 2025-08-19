@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Divider from '../../components/common/Divider';
 import TranslatedText from '../../components/translations/TranslatedText';
 import { useThemes } from '../../context/ThemeContext';
@@ -12,22 +12,13 @@ const Header = ({ title, showIcon = true }) => {
 
     return (
             <View>
-                <View style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: 5,
-                    paddingTop: 7.5,
-                    flexDirection: 'row'
-                }}>
+                <View style={styles.container}>
                     { showIcon && (
-                        <Feather name={icons[title] || 'alert-circle'} size={30} color={colors.blue} style={{ margin: 5 }}/>
+                        <Feather name={icons[title] || 'alert-circle'} size={30} color={colors.blue} style={styles.icon}/>
                     ) }
-                    <TranslatedText style={{
-                        fontWeight: 'bold',
-                        fontSize: 28,
+                    <TranslatedText style={[{
                         color: colors.blue,
-                        textAlignVertical: 'center'
-                    }}>
+                    }, styles.text]}>
                         {t(title)}
                     </TranslatedText>
                 </View>
@@ -35,5 +26,23 @@ const Header = ({ title, showIcon = true }) => {
             </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 5,
+        paddingTop: 7.5,
+        flexDirection: 'row'
+    },
+    icon: {
+        margin: 5
+    },
+    text: {
+        fontWeight: 'bold',
+        fontSize: 28,
+        textAlignVertical: 'center'
+    }
+});
 
 export default Header;

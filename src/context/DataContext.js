@@ -1,4 +1,3 @@
-// contexts/DataContext.js
 import React, { createContext, useEffect, useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from './AuthenticationContext';
@@ -10,8 +9,6 @@ const DataContext = createContext(null);
 
 const DATA_KEYS = {
     grades: 'cached_grades',
-    // ATTENDANCE: 'cached_attendance',
-    // TIMETABLE: 'cached_timetable'
 };
 
 export const DataProvider = ({ children }) => {

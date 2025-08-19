@@ -60,11 +60,12 @@ Settings
 - info i näbb dnota GMACHT
 - mindestnote berechnen: übersetziga fehlend GMACHT
 - timetable dialog NO
-- todos bliibend offa noch löscha
-- ladescreen
+- todos bliibend offa noch löscha NO
+- ladescreen NO
 - package.json für müll prüafa GMACHT
 - übersetziga
 - zcached würd nia glada datacontextq GMACHT
-- maxwidth containerview
-- da ganza bildschirma an nama gä
-- open source handling
+- maxwidth containerview GMACHT
+- da ganza bildschirma an nama gä GMACHT
+- open source handling GMACHT
+- imports cleara, inline styling wägmacha

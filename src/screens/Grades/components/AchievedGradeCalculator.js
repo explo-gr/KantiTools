@@ -27,7 +27,7 @@ const getGradeTint = (grade) => {
 
 // Grade Calculation
 const AchievedGradeCalculator = () => {
-    const { defaultThemedStyles, colors } = useThemes();
+    const { colors } = useThemes();
 
     const [ achievedScore, setAchievedScore ] = useState('');
     const [ maxScore, setMaxScore ] = useState('');
@@ -66,21 +66,15 @@ const AchievedGradeCalculator = () => {
     }, [achievedScore, maxScore])
 
     return (
-        <View style={{
-            alignItems: 'center',
-            flexDirection: 'column',
-            gap: 80
-        }}>
-            <View style={{
-                flexDirection: 'row',
-            }}>
-                <Pressable onPress={() => achievedInputRef.current?.focus()} style={[{
-                    backgroundColor: colors.blue
-                }, styles.inputContainer]}>
-                    <TranslatedText style={{
-                        color: colors.generic,
-                        fontSize: 14
-                    }}>gr_grcalc_ach</TranslatedText>
+        <View style={styles.wrapper}>
+            <View style={styles.row}>
+                <Pressable 
+                    onPress={() => achievedInputRef.current?.focus()} 
+                    style={[{ backgroundColor: colors.blue }, styles.inputContainer]}
+                >
+                    <TranslatedText style={[{ color: colors.generic }, styles.label]}>
+                        gr_grcalc_ach
+                    </TranslatedText>
                     <TextInput
                         onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g, ''))}
                         value={achievedScore}
@@ -90,18 +84,16 @@ const AchievedGradeCalculator = () => {
                         cursorColor={colors.generic}
                         maxLength={5}
                         ref={achievedInputRef}
-                        style={[{
-                            color: colors.generic
-                        }, styles.input]}
+                        style={[{ color: colors.generic }, styles.input]}
                     />
                 </Pressable>
-                <Pressable onPress={() => maxInputRef.current?.focus()}  style={[{
-                    backgroundColor: colors.blue
-                }, styles.inputContainer]}>
-                    <TranslatedText style={{
-                        color: colors.generic,
-                        fontSize: 14
-                    }}>gr_grcalc_max</TranslatedText>
+                <Pressable 
+                    onPress={() => maxInputRef.current?.focus()}  
+                    style={[{ backgroundColor: colors.blue }, styles.inputContainer]}
+                >
+                    <TranslatedText style={[{ color: colors.generic }, styles.label]}>
+                        gr_grcalc_max
+                    </TranslatedText>
                     <TextInput
                         onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g, ''))}
                         value={maxScore}
@@ -111,42 +103,19 @@ const AchievedGradeCalculator = () => {
                         cursorColor={colors.generic}
                         maxLength={5}
                         ref={maxInputRef}
-                        style={[{
-                            color: colors.generic
-                        }, styles.input]}
+                        style={[{ color: colors.generic }, styles.input]}
                     />
                 </Pressable>
             </View>
-            <View style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 10,
-            }}>
-                <View style={{
-                    flexDirection: 'row',
-                    gap: 10,
-                    alignItems: 'center',
-                }}>
+            <View style={styles.resultWrapper}>
+                <View style={styles.resultHeader}>
                     <Feather name="bar-chart" size={30} color={colors.blue} />
-                    <TranslatedText style={[{
-                        fontSize: 25,
-                        color: colors.blue
-                    }]}>
+                    <TranslatedText style={[{ color: colors.blue }, styles.resultLabel]}>
                         gr_grcalc_end
                     </TranslatedText>
                 </View>
-                <View style={{
-                    borderColor: colors.blue,
-                    borderWidth: 3.5,
-                    padding: 12,
-                    borderRadius: 28,
-                    maxWidth: 230,
-                    maxHeight: 145,
-                    //backgroundColor: `${colors.blue}1a`
-                }}>
-                    <Text style={[{
-                        color: gradeColor.current,
-                    }, styles.outputText]}>
+                <View style={[{ borderColor: colors.blue }, styles.resultBox]}>
+                    <Text style={[{ color: gradeColor.current }, styles.outputText]}>
                         { Number(output).toFixed(2) }
                     </Text>
                 </View>
@@ -156,10 +125,13 @@ const AchievedGradeCalculator = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    wrapper: {
         alignItems: 'center',
-        justifyContent: 'center',
+        flexDirection: 'column',
+        gap: 80
+    },
+    row: {
+        flexDirection: 'row',
     },
     inputContainer: {
         borderRadius: 26,
@@ -171,16 +143,43 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    label: {
+        fontSize: 14,
+    },
     input: {
         fontSize: 35,
         fontFamily: 'monospace',
         padding: 8
     },
+    resultWrapper: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 10,
+    },
+    resultHeader: {
+        flexDirection: 'row',
+        gap: 10,
+        alignItems: 'center',
+    },
+    resultLabel: {
+        fontSize: 25,
+    },
+    resultBox: {
+        borderWidth: 3.5,
+        padding: 12,
+        borderRadius: 28,
+        maxWidth: 230,
+        maxHeight: 145,
+    },
     outputText: {
         fontSize: 82,
         fontFamily: 'monospace',
         fontWeight: 'bold',
-        //textDecorationLine: 'underline',
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     outputContainer: {
         borderWidth: 3,
