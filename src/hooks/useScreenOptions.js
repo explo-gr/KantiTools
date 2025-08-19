@@ -5,9 +5,10 @@ const useScreenOptions = () => {
     const { colors, theme } = useThemes();
 
     const screenOptions = useMemo(() => ({
+        headerShown: false,
         cardStyle: {
             backgroundColor: colors.generic
-        }
+        },
     }), [theme]);
 
     return screenOptions;

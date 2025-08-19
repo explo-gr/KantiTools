@@ -19,7 +19,10 @@ const GradesScreen = () => {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name='GradesMain' component={GradesMain} options={{ headerShown: false, ...screenOptions }} />
+            <Stack.Screen name='GradesMain' component={GradesMain} options={{
+                    title: t('Grades'),
+                    ...screenOptions
+                }} />
             <Stack.Screen name='GradesMinCalc' component={GradesMinCalc} options={{
                 title: t('gr_calcmin_f'),
                 ...headerOptions

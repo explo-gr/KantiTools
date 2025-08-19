@@ -5,6 +5,7 @@ import SntzAccountManagement from './components/SntzAccountScreen';
 import useHeaderOptions from '../../hooks/useHeaderOptions';
 import useScreenOptions from '../../hooks/useScreenOptions';
 import { useTranslations } from '../../context/LanguageContext';
+import SettingsAttributions from './components/SettingsAttributionScreen';
 
 const Stack = createStackNavigator();
 
@@ -16,9 +17,15 @@ const SettingsScreen = () => {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name='SettingsMain' component={SettingsMain} options={{ headerShown: false, ...screenOptions }} />
+            <Stack.Screen name='SettingsMain' component={SettingsMain} options={{
+                title: t('Settings'),
+                ...screenOptions }} />
             <Stack.Screen name='SntzAccountManagement' component={SntzAccountManagement} options={{
                 title: t('st_sntz_acc_f'),
+                ...headerOptions
+            }} />
+            <Stack.Screen name='SettingsAttribution' component={SettingsAttributions} options={{
+                title: t('st_oss_l'),
                 ...headerOptions
             }} />
         </Stack.Navigator>

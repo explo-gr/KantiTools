@@ -55,7 +55,7 @@ const Credit = () => {
                     <CreditText>Created by Gian-Marco Coray</CreditText>
                     <CreditText>github.com/explo-gr/KantiTools</CreditText>
                     <CreditText>KantiTools</CreditText>
-                    <CreditText>Alpha 1.9</CreditText>
+                    <CreditText>Alpha 2.0</CreditText>
                 </View>
             </View>
         </Pressable>
@@ -75,15 +75,15 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     creditImage: {
-        height: 80,
-        width: 80,
+        height: 70,
+        width: 70,
         borderRadius: 25
     },
     creditText: {
         fontStyle: 'normal',
         fontWeight: '320',
         fontFamily: 'monospace',
-        fontSize: 13
+        fontSize: 12
     }
 });
 

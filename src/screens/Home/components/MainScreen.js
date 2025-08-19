@@ -73,7 +73,7 @@ const HomeMain = ({ navigation }) => {
                 
                 if (document.canceled || document.assets.length !== 1) {
                     // error
-                    Alert.alert(t('hm_ttbl_file_req'));
+                    Alert.alert(t('ffile_req'));
                     return;
                 }
             
@@ -118,7 +118,7 @@ const HomeMain = ({ navigation }) => {
             [
                 { text: t('cancel'), style: 'cancel' },
                 {
-                    text: 'Reset',
+                    text: t('reset'),
                     style: 'destructive',
                     onPress: async () => {
                         try {

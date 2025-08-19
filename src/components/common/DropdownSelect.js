@@ -6,7 +6,7 @@ import ScaleOnFocus from '../utils/ScaleOnFocus';
 import Feather from '@expo/vector-icons/Feather';
 import * as Haptics from 'expo-haptics';
 
-const Item = ({ item, selectedItem, onSelect }) => {
+const Item = ({ item, selectedItem, onSelect, setModalVisible }) => {
     const { defaultThemedStyles } = useThemes();
 
     const isSelected = item === selectedItem;
@@ -94,7 +94,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                         <FlatList
                             data={entries}
                             keyExtractor={item => item}
-                            renderItem={({ item }) => <Item item={item} onSelect={onSelect} selectedItem={selectedItem}/> }
+                            renderItem={({ item }) => <Item item={item} onSelect={onSelect} selectedItem={selectedItem} setModalVisible={setModalVisible} /> }
                         />
                     </View>
                 </Pressable>

@@ -155,21 +155,18 @@ const SettingsMain = ({ navigation }) => {
                         onPress={handleReset}
                     />
                 </SettingsItem>
+                <SettingsItem title={t('st_oss_l')}>
+                    <Button
+                        title={t('open')}
+                        onPress={() => navigation.navigate('SettingsAttribution')}
+                        icon={'arrow-right'}
+                    />
+                </SettingsItem>
                 <Credit/>
             </ScrollView>
         </ContainerView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        paddingTop: 25,
-        paddingVertical: 50
-    }
-});
 
 export default SettingsMain;
 

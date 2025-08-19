@@ -89,4 +89,5 @@ export const LanguageProvider = ({ children }) => {
 
 }
 
+export const SupportedLanguages = Object.keys(translations);
 export const useTranslations = () => React.useContext(LanguageContext);

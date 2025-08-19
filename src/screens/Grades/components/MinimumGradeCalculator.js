@@ -40,12 +40,12 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
         entryId.current += 1;
 
         const newEntry = createNewEntry(`entry-${entryId.current}`);
-        updateDataTable(prev => [...prev, newEntry]);
+        updateDataTable(prev => [newEntry, ...prev]);
     };
 
     useEffect(() => {
         let weightSum = 0;
-        let minGrade = 0;Platform
+        let minGrade = 0;
 
         dataTable.forEach(({ weight, grade }) => {
             const parsedWeight = Number(weight) || 1;
@@ -60,14 +60,27 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
         const convertedDesiredGrade = Number(desiredGrade);
         const convertedDesiredWeight = Number(dgWeight) || 1;
 
+        let tempOutput;
+
         if (convertedDesiredGrade) {
             minGrade += convertedDesiredGrade * (weightSum + convertedDesiredWeight);
-            const result = Math.round((minGrade /= convertedDesiredWeight) * 100) / 100;
-            setOutput(result.toFixed(2));
+
+            const result = minGrade /= convertedDesiredWeight;
+            console.log(result);
+
+            if (result < 1) {
+                tempOutput = '1-';
+            } else if (result > 6) {
+                tempOutput = '6+';
+            } else {
+                tempOutput = (Math.round((minGrade /= convertedDesiredWeight) * 100) / 100).toFixed(2);
+            }
+
         } else {
-            setOutput('1.00');
+            tempOutput = '1.00';
         }
 
+        setOutput(tempOutput);
     }, [desiredGrade, dgWeight, dataTable])
 
     return (
@@ -86,7 +99,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         keyboardType='number-pad'
                         placeholder={t('gr_calcmin_dd')}
                         placeholderTextColor={colors.gray}
-                        maxLength={4}
+                        maxLength={5}
                         style={[{
                             borderColor: colors.blue,
                             color: colors.hardContrast
@@ -98,7 +111,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         keyboardType='number-pad'
                         placeholder={t('gr_calcmin_wt')}
                         placeholderTextColor={colors.gray}
-                        maxLength={4}
+                        maxLength={5}
                         style={[{
                             borderColor: colors.blue,
                             color: colors.hardContrast

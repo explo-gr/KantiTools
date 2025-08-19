@@ -15,7 +15,7 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
                 placeholder={placeholder}
                 placeholderTextColor={colors.gray}
                 keyboardType='number-pad'
-                maxLength={4}
+                maxLength={6}
                 style={[{
                     borderColor: colors.blue,
                     color: colors.hardContrast
