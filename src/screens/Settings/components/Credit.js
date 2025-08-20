@@ -55,7 +55,7 @@ const Credit = () => {
                     <CreditText>Created by Gian-Marco Coray</CreditText>
                     <CreditText>github.com/explo-gr/KantiTools</CreditText>
                     <CreditText>KantiTools</CreditText>
-                    <CreditText>Alpha 2.0</CreditText>
+                    <CreditText>RC 1</CreditText>
                 </View>
             </View>
         </Pressable>

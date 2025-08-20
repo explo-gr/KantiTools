@@ -148,6 +148,7 @@ const HomeMain = ({ navigation }) => {
                         label={t('hm_ttbl')}
                         onPress={handleTimetable}
                         onLongPress={handleResetTimetable}
+                        disabled={Platform.OS === 'ios'}
                     />
                     <ActionBox
                         icon='shopping-cart'

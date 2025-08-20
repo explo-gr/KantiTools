@@ -19,7 +19,6 @@ const TabNavigator = ({ state, descriptors, navigation }) => {
     return (
         <View style={[{ backgroundColor: colors.blue }, styles.navigationContainer, defaultThemedStyles.boxshadow]}>
             {state.routes.map((route, index) => {
-                const { options } = descriptors[route.key];
                 const label = route.name;
 
                 const isFocused = state.index === index;
@@ -49,18 +48,17 @@ const TabNavigator = ({ state, descriptors, navigation }) => {
                         key={index.toString()}
                         onPress={onPress}
                         onLongPress={onLongPress}
-                        style={{ flex: 1, margin: 3 }}
+                        style={styles.rootContainer}
                     >
-                        <View style={{
-                            height: '100%',
-                            justifyContent: 'center',
+                        <View style={[{
                             flexDirection: isCompact ? 'column' : 'row',
-                            alignItems: 'center'
-                        }}>
+                        }, styles.container]}>
                             <ScaleOnFocus isFocused={isFocused} from={0.8} to={1.1}>
-                                <Feather name={icons[route.name]} size={30} color={colors.generic} style={{ margin: 5 }}/>
+                                <Feather name={icons[route.name]} size={30} color={colors.generic} style={styles.icon}/>
                             </ScaleOnFocus>
-                            <TranslatedText style={[{color: colors.generic}, { textAlign: 'center', fontSize: 11 }]}>
+                            <TranslatedText style={[{
+                                color: colors.generic
+                            }, styles.text]}>
                                 {label}
                             </TranslatedText>
                         </View>
@@ -84,6 +82,23 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         position: 'absolute',
+    },
+    rootContainer: {
+        flex: 1,
+        margin: 3
+    },
+    container: {
+        alignItems: 'center',
+        height: '100%',
+        justifyContent: 'center',
+    },
+    icon: {
+        margin: 5
+    },
+    text: {
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        fontSize: 11,
     }
 });
 

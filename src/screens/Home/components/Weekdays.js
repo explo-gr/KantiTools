@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react';
 import * as Haptics from 'expo-haptics';
 
 const Box = ({ title, highlighted, current, onPress = () => null }) => {
-    const { defaultThemedStyles, colors, theme } = useThemes();
+    const { colors } = useThemes();
     const { width } = useWindowDimensions();
 
     const containerStyle = highlighted
@@ -28,11 +28,9 @@ const Box = ({ title, highlighted, current, onPress = () => null }) => {
         <TouchableOpacity style={[{
             transform: [{ scale: current ? 1.2 : 1.0 }]
         }, containerStyle, boxDimensions, styles.box]} onPress={onPress}>
-            <Text style={{
-                textAlignVertical: 'center',
-                fontSize: 14,
+            <Text style={[{
                 color: highlighted ? colors.generic : colors.blue
-            }}>{title}</Text>
+            }, styles.boxText]}>{title}</Text>
         </TouchableOpacity>
     );
 }
@@ -41,7 +39,7 @@ const Weekdays = () => {
     const { t, language } = useTranslations();
 
     const weekday_raw = new Date().getDay();
-    const weekday = !weekday_raw ? 6 : weekday_raw - 1; // i hate trump
+    const weekday = !weekday_raw ? 6 : weekday_raw - 1;
     
     const weekdays = useMemo(() => ([ t('monday'), t('tuesday'), t('wednesday'), t('thursday'), t('friday'), t('saturday'), t('sunday') ]), [language]);
     
@@ -58,9 +56,9 @@ const Weekdays = () => {
             if (updated.every((e, i) => e === code[i])) {
                 Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
                 Alert.alert(
-                    'hi',
+                    'Klopf Klopf',
                     '',
-                    [{ text: 'hi', style: 'cancel' }]
+                    [{ text: 'Wer ist da?', style: 'cancel' }]
                 );
             } else {
                 Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
@@ -101,6 +99,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 1,
         margin: 1
+    },
+    boxText: {
+        textAlignVertical: 'center',
+        fontSize: 14,
     }
 });
 

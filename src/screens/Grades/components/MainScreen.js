@@ -39,7 +39,7 @@ const GradesMain = ({ navigation }) => {
         <ContainerView>
             <Header title={'Grades'}/>
             <View style={{
-                height: '12%'
+                height: '12.5%',
             }}>
                 <ActionBoxContainer>
                     <ActionBox

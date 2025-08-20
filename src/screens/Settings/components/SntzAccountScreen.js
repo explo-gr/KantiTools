@@ -41,8 +41,8 @@ const Screen = ({ navigation }) => {
 
     const handleLogout = () => {
         Alert.alert(
-            'Logout',
-            'Are you sure you want to log out?',
+            t('st_sntz_logout'),
+            t('st_sntz_logout_msg'),
             [
                 { text: t('cancel'), style: 'cancel' },
                 {
@@ -77,7 +77,7 @@ const Screen = ({ navigation }) => {
             alertMsg = t('st_sntz_login_n');
         }
 
-        Alert.alert(alertMsg); // später mit eigener alertbox ersetzen?
+        Alert.alert(alertMsg);
         setIsValidating(false);
     };
 
@@ -112,7 +112,7 @@ const Screen = ({ navigation }) => {
         if (iconName === 'eye') {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
 
-            Alert.alert('The 👁️ is watching', 'Li4gLS4uLiAuLiAtLiAuLi4gLS4tLiAuLi4uIC4tLSAuLi0gLi0uLg==', [{ text: 'I ACCEPT', onPress: () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success) }]);
+            //Alert.alert('', 'Li4gLS4uLiAuLiAtLiAuLi4gLS4tLiAuLi4uIC4tLSAuLi0gLi0uLg==', [{ text: 'I ACCEPT', onPress: () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success) }]);
 
             setStatusBarBackgroundColor('red', true);
             setTimeout(() => setStatusBarBackgroundColor('#00000000', true), 1000);
@@ -120,10 +120,7 @@ const Screen = ({ navigation }) => {
     }, [iconName]);
 
     return (
-        <ContainerView style={{
-            alignItems: 'center',
-            gap: 20
-        }}>
+        <ContainerView style={styles.containerView}>
             <Divider/>
             <Pressable onPress={handleSecretPress} style={[{
                 backgroundColor: colors.blue
@@ -133,17 +130,12 @@ const Screen = ({ navigation }) => {
             <View style={[{
                 borderColor: colors.hardContrast
             }, styles.textContainer]}>
-                <TranslatedText style={[{
-                    textAlign: 'left',
-                    textAlignVertical: 'center',
-                    fontSize: 14.5
-                }, defaultThemedStyles.text]}>st_sntz_info</TranslatedText>
+                <TranslatedText style={[styles.text, defaultThemedStyles.text]}>st_sntz_info</TranslatedText>
             </View>
             <TextInput
                 placeholder={t('st_sntz_login')}
                 placeholderTextColor={`${colors.hardContrast}b3`}
-                //textContentType='username'
-                autoComplete='username'
+                autoComplete='email'
                 autoCapitalize='none'
                 keyboardType='email-address'
                 autoCorrect={false}
@@ -163,7 +155,6 @@ const Screen = ({ navigation }) => {
             <TextInput
                 placeholder={t('st_sntz_password')}
                 placeholderTextColor={`${colors.hardContrast}b3`}
-                //textContentType='password'
                 autoComplete='password'
                 autoCapitalize='none'
                 autoCorrect={false}
@@ -204,7 +195,7 @@ const Screen = ({ navigation }) => {
 // das vlt no wäg
 const SntzAccountManagement = ({ navigation }) => {
     return (
-            <Screen navigation={navigation}/>
+        <Screen navigation={navigation}/>
     );
 }
 
@@ -239,6 +230,15 @@ const styles = StyleSheet.create({
         marginVertical: 25,
         width: '90%',
         justifyContent: 'space-between',
+    },
+    containerView: {
+        alignItems: 'center',
+        gap: 20
+    },
+    text: {
+        textAlign: 'left',
+        textAlignVertical: 'center',
+        fontSize: 14.5
     }
 });
 

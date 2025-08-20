@@ -13,13 +13,11 @@ import TabNavigator from './BottomTabNavigator';
 
 // Theme
 import { useThemes } from '../../context/ThemeContext';
-import useScreenOptions from '../../hooks/useScreenOptions';
 
 const Tab = createBottomTabNavigator();
 
 const AppTabNavigator = () => {
     const { colors, theme } = useThemes();
-    const screenOptions = useScreenOptions();
 
     const navigationTheme = useMemo(() => ({
         ...DefaultTheme,

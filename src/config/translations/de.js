@@ -15,6 +15,7 @@ export default {
     loading: "Wird geladen",
     save: "Speichern",
     reset: "Löschen",
+    refresh: "Aktualisieren",
 
     // home
     hm_gr_morning: "Guten Morgen",
@@ -83,27 +84,30 @@ export default {
     gr_data_err: "Keine Daten verfügbar",
     
     // settings
-    st_sld_lang: "Derzeit ausgewählte Sprache: ",
+    st_sld_lang: "Derzeit ausgewählte Sprache",
     st_hd_app: "Anzeige",
-    st_prf_thm: "Bevorzugtes Aussehen: ",
+    st_prf_thm: "Bevorzugtes Aussehen",
     st_ac_mgt: "Account",
-    st_st_ln: "Login Status:",
+    st_st_ln: "Login Status",
     st_ln_y: "Eingeloggt",
     st_ln_n: "Ausgeloggt",
-    st_op_ln: "Loginverwaltung:",
+    st_op_ln: "Loginverwaltung",
     st_dt_mgt: "Daten",
-    st_rst_sts: "Auf Werkeinstellungen zurücksetzen:",
+    st_rst_sts: "Auf Werkeinstellungen zurücksetzen",
+    st_oss_l: "Open Source Lizenzen",
 
     st_sntz_login: "Email Adresse",
     st_sntz_password: "Passwort",
     st_sntz_login_cm: "Login hinzufügen",
     st_sntz_remove_ac: "Login entfernen",
     st_sntz_acc_f: "Loginverwaltung",
-    st_sntz_info: "Verbinde deinen Schulnetz Account und verwalte Noten und Stundenplan direkt mit der App!",
+    st_sntz_info: "Verbinde deinen Schulnetz Account und verwalte deine Noten direkt in der App!",
     st_sntz_login_y: "Verbindung erfolgreich hergestellt!",
     st_sntz_login_y_msg: "Account wurde hinzugügt.",
     st_sntz_login_n: "Authentifizierung fehlgeschlagen!",
     st_sntz_login_n_msg: "Überprüfe deine Anmeldedaten.",
+    st_sntz_logout: "Abmelden",
+    st_sntz_logout_msg: "Sind Sie sicher, dass Sie sich abmelden wollen?",
 
         // lang
         de: "Deutsch",

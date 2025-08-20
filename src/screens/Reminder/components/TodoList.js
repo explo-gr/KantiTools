@@ -17,12 +17,9 @@ import { useThemes } from '../../../context/ThemeContext';
 import Feather from '@expo/vector-icons/Feather';
 import Accordion from '../../../components/common/Accordion';
 import { useTranslations } from '../../../context/LanguageContext';
+import ScaleOnFocus from '../../../components/utils/ScaleOnFocus';
 
 const TINT_COLORS = ['red', 'yellow', 'green', 'lightblue', 'purple'];
-// red, green, blue, yellow
-
-// NEUES PROBLEM
-// WENN ÖPERT ES MIT DER DESCRIPTION LÄNGI ÜBERTRIIBT ÜBERTRIFFTS MAXHEIGHT FUM ACCORDION, D.H. DEDIT UND DR ENTFERN BUTTON SIND NÜMMA VISIBLE
 
 const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
@@ -90,15 +87,22 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                     <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_tint</TranslatedText>
                     <View style={styles.tintRow}>
                         {TINT_COLORS.map((color) => (
-                            <TouchableOpacity
-                                key={color}
-                                style={[{
-                                    borderColor: colors.blue,
-                                    backgroundColor: getColorCode(color),
-                                    borderWidth: tint === color ? 3 : 1.5
-                                }, styles.tintCircle]}
-                                onPress={() => setTint(color)}
-                            />
+                            <ScaleOnFocus
+                                from={0.9}
+                                to={1.15}
+                                isFocused={tint === color}
+                                key={`sof-${color}`}
+                            >
+                                <TouchableOpacity
+                                    key={`to-${color}`}
+                                    style={[{
+                                        borderColor: colors.blue,
+                                        backgroundColor: getColorCode(color),
+                                        borderWidth: tint === color ? 3 : 1.5
+                                    }, styles.tintCircle]}
+                                    onPress={() => setTint(color)}
+                                />
+                            </ScaleOnFocus>
                         ))}
                     </View>
 
@@ -183,6 +187,27 @@ const TodoList = () => {
         setTodos(prev => prev.filter((_, i) => i !== index));
     };
 
+    const handleDeletePrompt = (index) => {
+        Alert.alert(
+            t('re_del'),
+            t('re_del_msg'),
+            [
+                {
+                    text: t('cancel'),
+                    style: 'cancel'
+                },
+                {
+                    text: t('delete'),
+                    onPress: () => {
+                        handleDelete(index);
+                    },
+                    style: 'destructive'
+                },
+            ],
+            { cancelable: true }
+        );
+    };
+
     const handleEdit = (item, index) => {
         setEditIndex(index);
         setTodoToEdit(item);
@@ -198,9 +223,7 @@ const TodoList = () => {
                             data={todos}
                             keyExtractor={(_, index) => index.toString()}
                             renderItem={({ item, index }) => (
-                                <View style={{
-                                    marginBottom: 8
-                                }}>
+                                <View style={styles.rootContainer}>
                                     <Accordion
                                         title={item.title}
                                         isOpen={!!isOpen[index]}
@@ -210,40 +233,16 @@ const TodoList = () => {
                                         {
                                             item.description
                                                 ?   <Text style={{ color: colors.hardContrast }}>{item.description}</Text>
-                                                :   <TranslatedText style={{ color: colors.gray, fontStyle: 'italic' }}>re_no_descr</TranslatedText>
+                                                :   <TranslatedText style={[{
+                                                    color: colors.gray
+                                                }, styles.noDescrText]}>re_no_descr</TranslatedText>
                                         }
-                                        <View style={{
-                                            gap: 12,
-                                            flexDirection: 'row',
-                                            justifyContent: 'flex-end',
-                                            alignItems: 'center'
-                                        }}>
-                                            <TouchableOpacity onPress={() => {
-                                                handleEdit(item, index);
-                                            }}>
+                                        <View style={styles.todoContentContainer}>
+                                            <TouchableOpacity onPress={() => handleEdit(item, index)}>
                                                 <Feather name='edit-2' size={22} color={colors.blue} />
                                             </TouchableOpacity>
                                             <TouchableOpacity
-                                                onPress={() => {
-                                                    Alert.alert(
-                                                        t('re_del'),
-                                                        t('re_del_msg'),
-                                                        [
-                                                            {
-                                                                text: t('cancel'),
-                                                                style: 'cancel'
-                                                            },
-                                                            {
-                                                                text: t('delete'),
-                                                                onPress: () => {
-                                                                    handleDelete(index);
-                                                                },
-                                                                style: 'destructive'
-                                                            },
-                                                        ],
-                                                        { cancelable: true }
-                                                    );
-                                                }}
+                                                onPress={() => handleDeletePrompt(index)}
                                             >
                                             <Feather name='trash-2' size={22} color={colors.red} />
                                             </TouchableOpacity>
@@ -319,9 +318,9 @@ const styles = StyleSheet.create({
         marginVertical: 8
     },
     tintCircle: {
-        width: 32,
-        height: 32,
-        borderRadius: 16,
+        width: 34,
+        height: 34,
+        borderRadius: 17,
     },
     buttonRow: {
         flexDirection: 'row',
@@ -361,6 +360,18 @@ const styles = StyleSheet.create({
     emptyListText: {
         fontSize: 16,
         fontStyle: 'italic',
+    },
+    rootContainer: {
+        marginBottom: 8
+    },
+    noDescrText: {
+        fontStyle: 'italic'
+    },
+    todoContentContainer: {
+        gap: 12,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
     }
 });
 

@@ -15,6 +15,7 @@ export default {
     loading: "Loading",
     save: "Save",
     reset: "Reset",
+    refresh: "Refresh",
 
     // home
     hm_gr_morning: "Good morning",
@@ -68,7 +69,8 @@ export default {
     gr_calcmin_gr: "Grade",
 
     gr_pluspoints: "Plus points",
-    gr_curr_pluspoints: "Current amount of plus points",
+    gr_curr_pluspoints: "Current plus points: ",
+    gr_curr_minuspoints: "Current minus points: ",
 
     gr_dt_date: "Date",
     gr_dt_weight: "Weight",
@@ -82,27 +84,30 @@ export default {
     gr_data_err: "Data unavailable",
     
     // settings
-    st_sld_lang: "Currently selected language: ",
+    st_sld_lang: "Currently selected language",
     st_hd_app: "Appearance",
-    st_prf_thm: "Preferred Theme:",
+    st_prf_thm: "Preferred Theme",
     st_ac_mgt: "Account",
-    st_op_ln: "Add or remove login:",
-    st_st_ln: "Current login status:",
+    st_op_ln: "Add or remove login",
+    st_st_ln: "Current login status",
     st_ln_y: "Logged in",
     st_ln_n: "Logged out",
     st_dt_mgt: "Storage",
-    st_rst_sts: "Factory reset:",
+    st_rst_sts: "Factory reset",
+    st_oss_l: "Open source licenses",
 
     st_sntz_login: "Email Adress",
     st_sntz_password: "Password",
     st_sntz_login_cm: "Add Login",
     st_sntz_remove_ac: "Remove Login",
     st_sntz_acc_f: "Login management",
-    st_sntz_info: "Connect your Schulnetz Account to acces and manage your grade and timetable right from the app!",
+    st_sntz_info: "Connect your Schulnetz Account to acces and manage your grades right from the app!",
     st_sntz_login_y: "Connection successfully established!",
     st_sntz_login_y_msg: "Account has been added.",
     st_sntz_login_n: "Authentification failed!",
     st_sntz_login_n_msg: "Verify your credentials.",
+    st_sntz_logout: "Logout",
+    st_sntz_logout_msg: "Are you sure you want to log out?",
 
         // lang
         de: "German",

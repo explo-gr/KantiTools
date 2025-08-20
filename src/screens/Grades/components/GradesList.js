@@ -58,6 +58,18 @@ const GradesList = ({ forwardGradeData = () => null }) => {
             [i]: !prev[i]
         }));
     };
+
+    const handleForwardGradeData = (subject) => {
+        /*
+            forward data to min grade calc and parse the values
+            into an appropriate format
+        */
+        forwardGradeData(subject.exams.map((exam, idx) => ({
+            id: -(1 + idx), // avoid duplicate keys
+            grade: exam.grade.toString().replace(/[^0-9.,]/g, ''),
+            weight: exam.weight.toString().replace(/[^0-9.,]/g, '')
+        })));
+    }
     
     useEffect(() => {
         setDataAvailable(!!grades.data);
@@ -127,17 +139,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                         <Button
                                             icon={'external-link'}
                                             title={'gr_calcmin_f'}
-                                            onPress={() => {
-                                                /*
-                                                    forward data to min grade calc and parse the values
-                                                    into an appropriate format
-                                                */
-                                                forwardGradeData(subject.exams.map((exam, idx) => ({
-                                                    id: -(1 + idx), // avoid duplicate keys
-                                                    grade: exam.grade.toString().replace(/[^0-9.,]/g, ''),
-                                                    weight: exam.weight.toString().replace(/[^0-9.,]/g, '')
-                                                })));
-                                            }}
+                                            onPress={() => handleForwardGradeData(subject)}
                                         />
                                     </View>
                                 )}
