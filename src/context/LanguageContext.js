@@ -7,10 +7,11 @@ import de from '../config/translations/de';
 import en from '../config/translations/en';
 import es from '../config/translations/es';
 import fr from '../config/translations/fr';
-import rm from '../config/translations/rm';
 import it from '../config/translations/it';
+import rm_sr from '../config/translations/rm-sr';
+import rm_rg from '../config/translations/rm';
 
-const translations = Object.freeze({ de, en, es, fr, rm, it });
+const translations = Object.freeze({ de, fr, it, rm_rg, rm_sr, en, es });
 
 const LanguageContext = createContext();
 export const LanguageProvider = ({ children }) => {

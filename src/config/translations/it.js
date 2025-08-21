@@ -115,7 +115,8 @@ export default {
         es: "Spagnolo",
         fr: "Francese",
         it: "Italiano",
-        rm: "Romancio",
+        rm_rg: "Romancio",
+        rm_sr: "Sursilvano",
 
         // theme
         dark: "Scuro",

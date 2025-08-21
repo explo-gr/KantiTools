@@ -114,8 +114,9 @@ export default {
         en: "Englisch",
         es: "Spanisch",
         fr: "Französisch",
-        rm: "Romanisch",
         it: "Italienisch",
+        rm_rg: "Rätoromanisch",
+        rm_sr: "Surselvisch",
 
         // theme
         dark: "Dunkel",
