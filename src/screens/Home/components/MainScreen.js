@@ -1,5 +1,5 @@
 // Imports
-import { Text, View, StyleSheet, Alert, Platform, Linking } from 'react-native';
+import { View, StyleSheet, Alert, Platform, Linking } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import ContainerView from '../../../components/common/ContainerView';

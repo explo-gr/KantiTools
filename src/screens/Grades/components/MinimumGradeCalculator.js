@@ -89,7 +89,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                 },styles.outputText]}>{ output }</Text>
             </View>
 
-            <View style={{ paddingBottom: 5 }}>
+            <View style={styles.rootHeaderContainer}>
                 <View style={styles.headerContainer}>
                     <TextInput
                         onChangeText={(input) => setDesiredGrade(input.replace(/[^0-9.,]/g, ''))}
@@ -205,6 +205,9 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         paddingBottom: 300
+    },
+    rootHeaderContainer: {
+        paddingBottom: 5
     }
 });
 

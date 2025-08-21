@@ -215,41 +215,43 @@ const TodoList = () => {
         setModalVisible(true);
     }
 
+    const renderTodoItem = ({ item, index }) => (
+        <View style={styles.rootContainer}>
+            <Accordion
+                title={item.title}
+                isOpen={!!isOpen[index]}
+                changeIsOpen={() => handleOpen(index)}
+                tint={getColorCode(item.tint)}
+            >
+                {
+                    item.description
+                        ?   <Text style={{ color: colors.hardContrast }}>{item.description}</Text>
+                        :   <TranslatedText style={[{
+                            color: colors.gray
+                        }, styles.noDescrText]}>re_no_descr</TranslatedText>
+                }
+                <View style={styles.todoContentContainer}>
+                    <TouchableOpacity onPress={() => handleEdit(item, index)}>
+                        <Feather name='edit-2' size={22} color={colors.blue} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => handleDeletePrompt(index)}
+                    >
+                    <Feather name='trash-2' size={22} color={colors.red} />
+                    </TouchableOpacity>
+                </View>
+            </Accordion>
+        </View>
+    );
+
     return (
         <>
             {
                 todos.length > 0
                     ?   <FlatList
                             data={todos}
-                            keyExtractor={(_, index) => index.toString()}
-                            renderItem={({ item, index }) => (
-                                <View style={styles.rootContainer}>
-                                    <Accordion
-                                        title={item.title}
-                                        isOpen={!!isOpen[index]}
-                                        changeIsOpen={() => handleOpen(index)}
-                                        tint={getColorCode(item.tint)}
-                                    >
-                                        {
-                                            item.description
-                                                ?   <Text style={{ color: colors.hardContrast }}>{item.description}</Text>
-                                                :   <TranslatedText style={[{
-                                                    color: colors.gray
-                                                }, styles.noDescrText]}>re_no_descr</TranslatedText>
-                                        }
-                                        <View style={styles.todoContentContainer}>
-                                            <TouchableOpacity onPress={() => handleEdit(item, index)}>
-                                                <Feather name='edit-2' size={22} color={colors.blue} />
-                                            </TouchableOpacity>
-                                            <TouchableOpacity
-                                                onPress={() => handleDeletePrompt(index)}
-                                            >
-                                            <Feather name='trash-2' size={22} color={colors.red} />
-                                            </TouchableOpacity>
-                                        </View>
-                                    </Accordion>
-                                </View>
-                            )}
+                            keyExtractor={(item, index) => `${item.title}-${index.toString()}`}
+                            renderItem={renderTodoItem}
                             contentContainerStyle={{ paddingBottom: 200 }}
                         />
 
@@ -264,9 +266,8 @@ const TodoList = () => {
                     borderColor: colors.blue,
                     backgroundColor: colors.generic
                 }, styles.fabContentContainer, defaultThemedStyles.boxshadow]}>
-
-                        <Feather name='plus' size={24} color={colors.hardContrast} />
-                        <TranslatedText style={{ color: colors.hardContrast }}>re_create</TranslatedText>
+                    <Feather name='plus' size={24} color={colors.hardContrast} />
+                    <TranslatedText style={{ color: colors.hardContrast }}>re_create</TranslatedText>
                 </View>
             </TouchableOpacity>
 

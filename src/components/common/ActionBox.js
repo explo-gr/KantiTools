@@ -24,10 +24,9 @@ const ActionBox = ({
             disabled={disabled}
         >
             <Feather name={icon} size={32} color={inverted ? colors.blue : colors.generic}/>
-            <TranslatedText style={{
-                color: colors.generic,
-                fontSize: 12
-            }}>
+            <TranslatedText style={[{
+                color: colors.generic
+            }, styles.text]}>
                 {label}
             </TranslatedText>
         </TouchableOpacity>
@@ -43,6 +42,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         borderRadius: 25,
         padding: 20
+    },
+    text: {
+        fontSize: 12
     }
 });
 

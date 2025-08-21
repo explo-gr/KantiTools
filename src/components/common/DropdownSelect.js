@@ -68,10 +68,9 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                         borderColor: colors.blue
                     }, styles.buttonShell ]}>
                     <Feather name='chevron-down' size={24} color={colors.blue} />
-                    <TranslatedText style={{
+                    <TranslatedText style={[{
                             color: colors.hardContrast,
-                            marginRight: 3
-                        }}>
+                        }, styles.itemText]}>
                         { selectedItem || '---' }
                     </TranslatedText>
                 </View>
@@ -146,6 +145,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row'
     },
+    itemText: {
+        marginRight: 3
+    }
 });
 
 export default DropdownSelect;

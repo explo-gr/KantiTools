@@ -80,7 +80,7 @@ const Accordion = ({
             {/* Animated collapsible content */}
             <Animated.View style={[styles.contentContainer, openingAnimationStyle]}>
                 <Divider/>
-                <View style={{ padding: 12 }}>
+                <View style={styles.childrenContainer}>
                     {children}
                 </View>
             </Animated.View>
@@ -102,7 +102,7 @@ const Accordion = ({
                 }}
             >
                 <Divider/>
-                <View style={{ padding: 12 }}>
+                <View style={styles.childrenContainer}>
                     {children}
                 </View>
             </View>
@@ -146,6 +146,9 @@ const styles = StyleSheet.create({
         zIndex: -1,
         pointerEvents: 'none',
     },
+    childrenContainer: {
+        padding: 12
+    }
 });
 
 export default Accordion;

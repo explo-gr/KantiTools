@@ -1,25 +1,22 @@
 // imports regarding general objects
-import { useContext, useEffect, useState } from 'react';
-import { Alert, StyleSheet, View, Image, ScrollView, Text } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, View, ScrollView, StyleSheet } from 'react-native';
 import Button from '../../../components/common/Button'
 import DropdownSelect from '../../../components/common/DropdownSelect';
 import { SupportedLanguages, useTranslations } from '../../../context/LanguageContext';
-import { ThemeContext, useThemes } from '../../../context/ThemeContext';
+import { useThemes } from '../../../context/ThemeContext';
 import SettingsItem from './SettingsItem';
 import SettingsCategoryHeader from './SettingsCategoryHeader';
 import { useSettings } from '../../../context/SettingsContext';
 import ContainerView from '../../../components/common/ContainerView';
 import Credit from './Credit';
 import Header from '../../../components/common/Header';
-import { AuthProvider, useAuth } from '../../../context/AuthenticationContext';
+import { useAuth } from '../../../context/AuthenticationContext';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import TranslatedText from '../../../components/translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
 import { useData } from '../../../context/DataContext';
 import { clearMenuplanData } from '../../../lib/menuplanHelper';
-
-// Account management de 
-// https://docs.expo.dev/versions/latest/sdk/securestore/
 
 const AccountStatusIndicator = () => {
     const { user, loadingAuth } = useAuth();
@@ -33,13 +30,7 @@ const AccountStatusIndicator = () => {
     const iconColor = isLoggedIn ? colors.green : colors.red; 
           
     return (
-        <View style={{
-            flexDirection: 'row',
-            alignContent: 'center',
-            justifyContent: 'center',
-            gap: 4,
-            margin: 3
-        }}>
+        <View style={styles.statusContainer}>
             <TranslatedText style={defaultThemedStyles.text}>
                 {textKey}
             </TranslatedText>
@@ -167,6 +158,16 @@ const SettingsMain = ({ navigation }) => {
         </ContainerView>
     );
 };
+
+const styles = StyleSheet.create({
+    statusContainer: {
+        flexDirection: 'row',
+        alignContent: 'center',
+        justifyContent: 'center',
+        gap: 4,
+        margin: 3
+    }
+});
 
 export default SettingsMain;
 

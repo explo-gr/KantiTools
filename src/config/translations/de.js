@@ -25,7 +25,7 @@ export default {
     hm_gr_evening: "Guten Abend",
     hm_gr_night: "Gute Nacht",
     hm_men_err: "PDF nicht gefunden",
-    hm_men_err_msg: "Überprüfe deine Netzwerkverbindung!",
+    hm_men_err_msg: "Überprüfe Sie Ihre Netzwerkverbindung!",
     hm_men: "Menüplan",
     hm_ttbl: "Stundenplan",
     hm_ttbl_rst: "Stundenplan zurücksetzen?",
@@ -118,9 +118,9 @@ export default {
         it: "Italienisch",
 
         // theme
-        dark: 'Dunkel',
-        white: 'Hell',
-        system: 'System',
+        dark: "Dunkel",
+        white: "Hell",
+        system: "System",
 
     // Tabbar
     Home: "Start",

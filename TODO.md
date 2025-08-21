@@ -63,7 +63,7 @@ Settings
 - todos bliibend offa noch löscha NO
 - ladescreen NO
 - package.json für müll prüafa GMACHT
-- übersetziga
+- übersetziga FAST
 - zcached würd nia glada datacontextq GMACHT
 - maxwidth containerview GMACHT
 - da ganza bildschirma an nama gä GMACHT
