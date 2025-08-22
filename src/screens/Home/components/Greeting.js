@@ -60,20 +60,11 @@ const styles = StyleSheet.create({
 
 export default Greeting;
 
-// Morgen 05:00 bis 09:00
-// Vormittag 09:00 bis 12:00
-// Mittag 12:00 bis 13:00
-// Nachmittag 13:00 bis 18:00
-// Abend 18:00 bis 21:00
-// Nacht 21:00 bis 05:00
-
-// morning, morning, afternoon, evening, night
-
-/* 
-German | English | Italian | French | Spanish
-Guten Morgen | Good morning | Buongiorno | Bonjour | Buenos días
-Guten Vormittag | Good morning | Buongiorno | Bonjour | Buenos días
-Guten Mittag | Good afternoon | Buon pomeriggio¹ | Bon après-midi¹ | Buenas tardes
-Guten Nachmittag | Good afternoon | Buon pomeriggio | Bon après-midi | Buenas tardes
-Guten Abend | Good evening | Buonasera | Bonsoir | Buenas noches²
-Gute Nacht | Good night | Buonanotte | Bonne nuit | Buenas noches */
+/*
+    Morgen 05:00 bis 09:00
+    Vormittag 09:00 bis 12:00
+    Mittag 12:00 bis 13:00
+    Nachmittag 13:00 bis 18:00
+    Abend 18:00 bis 21:00
+    Nacht 21:00 bis 05:00
+*/

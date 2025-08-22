@@ -170,8 +170,3 @@ const styles = StyleSheet.create({
 });
 
 export default SettingsMain;
-
-// idee
-// dä login bildschrim kamma no innagoh
-// wemma nit iigloggt isch
-// dä login sälber remova tuat ma grad bir hauptsitta

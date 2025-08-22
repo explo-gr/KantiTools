@@ -1,5 +1,5 @@
-import { useThemes } from "../../../context/ThemeContext";
-import { useTranslations } from "../../../context/LanguageContext";
+import { useThemes } from '../../../context/ThemeContext';
+import { useTranslations } from '../../../context/LanguageContext';
 import { View, Text, StyleSheet } from 'react-native'
 
 const SettingsItem = ({ children, title, ...props }) => {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     rightview: {
         flex: 2,
         alignContent: 'center',
-        alignItems: "flex-end"
+        alignItems: 'flex-end'
     }
 });
 

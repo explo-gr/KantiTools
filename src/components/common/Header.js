@@ -13,9 +13,9 @@ const Header = ({ title, showIcon = true }) => {
     return (
             <View>
                 <View style={styles.container}>
-                    { showIcon && (
+                    {showIcon && (
                         <Feather name={icons[title] || 'alert-circle'} size={30} color={colors.blue} style={styles.icon}/>
-                    ) }
+                    )}
                     <TranslatedText style={[{
                         color: colors.blue,
                     }, styles.text]}>

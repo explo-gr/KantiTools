@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
         padding: 20
     },
     text: {
-        fontSize: 12
+        fontSize: 12,
+        textAlign: 'center'
     }
 });
 

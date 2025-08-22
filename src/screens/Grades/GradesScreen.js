@@ -1,11 +1,9 @@
 // imports regarding general objects
-import { StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import GradesMain from './components/MainScreen';
 import GradesGradeCalc from './components/GradeCalcScreen';
 import GradesMinCalc from './components/MinCalcScreen';
 import useHeaderOptions from '../../hooks/useHeaderOptions';
-import { useThemes } from '../../context/ThemeContext';
 import useScreenOptions from '../../hooks/useScreenOptions';
 import { useTranslations } from '../../context/LanguageContext';
 

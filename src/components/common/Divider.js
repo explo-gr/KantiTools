@@ -1,5 +1,5 @@
-import { useThemes } from "../../context/ThemeContext";
-import { StyleSheet, View } from "react-native";
+import { useThemes } from '../../context/ThemeContext';
+import { StyleSheet, View } from 'react-native';
 
 const Divider = () => {
     const { colors } = useThemes();

@@ -18,9 +18,6 @@
         "android": {
             "softwareKeyboardLayoutMode": "pan"
         },
-        "web": {
-            "favicon": "./src/assets/icons/favicon.png"
-        },
         "plugins": [
             "expo-localization",
             "expo-secure-store"

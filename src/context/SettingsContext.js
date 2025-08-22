@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { createContext, useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import defaultSettings from '../config/settings/settings';
 
 const SettingsContext = createContext();

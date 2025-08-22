@@ -116,7 +116,8 @@ export default {
         es: "spagnol",
         fr: "franzos",
         it: "talian",
-        rm: "romontsch",
+        rm_rg: "rumantsch",
+        rm_sr: "sursilvan",
 
         // theme
         dark: "stgir",

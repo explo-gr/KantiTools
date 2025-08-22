@@ -6,14 +6,14 @@ import { useTranslations } from '../../../context/LanguageContext';
 import { useEffect, useRef, useState } from 'react';
 import TranslatedText from '../../../components/translations/TranslatedText';
 import api from '../../../lib/sntz/api';
-import { AuthProvider, useAuth } from '../../../context/AuthenticationContext';
+import { useAuth } from '../../../context/AuthenticationContext';
 import Button from '../../../components/common/Button';
 import Divider from '../../../components/common/Divider';
 import * as Haptics from 'expo-haptics';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 
-// Hey, Space Cadet (Beast Monster Thing in Space) by Car Seat Headrest
-const Screen = ({ navigation }) => {
+
+const SntzAccountManagement = () => {
     const { colors, defaultThemedStyles } = useThemes();
     const { t } = useTranslations();
     const { user, login, logout, loadingAuth } = useAuth();
@@ -112,8 +112,6 @@ const Screen = ({ navigation }) => {
         if (iconName === 'eye') {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
 
-            //Alert.alert('', 'Li4gLS4uLiAuLiAtLiAuLi4gLS4tLiAuLi4uIC4tLSAuLi0gLi0uLg==', [{ text: 'I ACCEPT', onPress: () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success) }]);
-
             setStatusBarBackgroundColor('red', true);
             setTimeout(() => setStatusBarBackgroundColor('#00000000', true), 1000);
         }
@@ -192,13 +190,6 @@ const Screen = ({ navigation }) => {
     );
 }
 
-// das vlt no wäg
-const SntzAccountManagement = ({ navigation }) => {
-    return (
-        <Screen navigation={navigation}/>
-    );
-}
-
 const styles = StyleSheet.create({
     circle: {
         width: 120,
@@ -226,10 +217,10 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-        gap: 20,
+        gap: 5,
         marginVertical: 25,
-        width: '90%',
-        justifyContent: 'space-between',
+        width: '100%',
+        justifyContent: 'space-evenly',
     },
     containerView: {
         alignItems: 'center',

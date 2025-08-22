@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
 import { StyleSheet, View, Text } from 'react-native';

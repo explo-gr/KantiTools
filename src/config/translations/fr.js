@@ -98,8 +98,8 @@ export default {
 
     st_sntz_login: "Adresse e-mail",
     st_sntz_password: "Mot de passe",
-    st_sntz_login_cm: "Ajouter une connexion",
-    st_sntz_remove_ac: "Supprimer la connexion",
+    st_sntz_login_cm: "Ajouter",
+    st_sntz_remove_ac: "Supprimer",
     st_sntz_acc_f: "Gestion des connexions",
     st_sntz_info: "Connecte ton compte Schulnetz pour accéder à tes notes directement dans l’application!",
     st_sntz_login_y: "Connexion réussie!",

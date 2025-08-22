@@ -1,7 +1,6 @@
 // Imports
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeMain from './components/MainScreen'
-import useHeaderOptions from '../../hooks/useHeaderOptions';
 import useScreenOptions from '../../hooks/useScreenOptions';
 import { useTranslations } from '../../context/LanguageContext';
 

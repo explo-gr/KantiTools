@@ -7,7 +7,12 @@ import Animated, {
 import { useFocusEffect } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 
-const ScaleOnFocus = ({ isFocused, children, from=1, to=2 }) => {
+const ScaleOnFocus = ({
+    isFocused,
+    children,
+    from=1,
+    to=2
+}) => {
     const scale = useSharedValue(1);
     const animationConfig = {
         duration: 350,

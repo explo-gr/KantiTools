@@ -64,7 +64,6 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
             minGrade += convertedDesiredGrade * (weightSum + convertedDesiredWeight);
 
             const result = minGrade /= convertedDesiredWeight;
-            console.log(result);
 
             if (result < 1) {
                 tempOutput = '1-';
@@ -128,40 +127,38 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         keyboardShouldPersistTaps={'handled'}
                         scrollEnabled
                         contentContainerStyle={styles.contentContainer}
-                        renderItem={({ item }) => {
-                            return (
-                                <GradeItem
-                                    grade={item.grade}
-                                    weight={item.weight}
+                        renderItem={({ item }) => 
+                            <GradeItem
+                                grade={item.grade}
+                                weight={item.weight}
 
-                                    onDelete={() => updateDataTable(prev => deleteEntry(prev, item.id)) }
-                                    onDuplicate={() => {
-                                        updateDataTable(prev => {
-                                            entryId.current += 1;
-                                            return duplicateEntry(prev, item.id, `entry-${entryId.current}`);
-                                        });
-                                    }}
-                                    onGradeChange={(input) =>
-                                        updateDataTable(prev =>
-                                            prev.map((entry) =>
-                                            entry.id === item.id
-                                                ? { ...entry, grade: input.replace(/[^0-9.,]/g, '') }
-                                                : entry
-                                            )
+                                onDelete={() => updateDataTable(prev => deleteEntry(prev, item.id)) }
+                                onDuplicate={() => {
+                                    updateDataTable(prev => {
+                                        entryId.current += 1;
+                                        return duplicateEntry(prev, item.id, `entry-${entryId.current}`);
+                                    });
+                                }}
+                                onGradeChange={(input) =>
+                                    updateDataTable(prev =>
+                                        prev.map((entry) =>
+                                        entry.id === item.id
+                                            ? { ...entry, grade: input.replace(/[^0-9.,]/g, '') }
+                                            : entry
                                         )
-                                    }
-                                    onWeightChange={(input) =>
-                                        updateDataTable(prev =>
-                                            prev.map((entry) =>
-                                            entry.id === item.id
-                                                ? { ...entry, weight: input.replace(/[^0-9.,]/g, '') }
-                                                : entry
-                                            )
+                                    )
+                                }
+                                onWeightChange={(input) =>
+                                    updateDataTable(prev =>
+                                        prev.map((entry) =>
+                                        entry.id === item.id
+                                            ? { ...entry, weight: input.replace(/[^0-9.,]/g, '') }
+                                            : entry
                                         )
-                                    }
-                                />
-                            );
-                        }}
+                                    )
+                                }
+                            />
+                        }
                     />
                 </Pressable>
             )}
