@@ -1,4 +1,4 @@
-import { View, TextInput, Alert, StyleSheet, Pressable } from 'react-native';
+import { View, TextInput, Alert, StyleSheet, Pressable, KeyboardAvoidingView } from 'react-native';
 import ContainerView from '../../../components/common/ContainerView';
 import Feather from '@expo/vector-icons/Feather';
 import { useThemes } from '../../../context/ThemeContext';
@@ -18,17 +18,17 @@ const SntzAccountManagement = () => {
     const { t } = useTranslations();
     const { user, login, logout, loadingAuth } = useAuth();
 
-    const [ inputtedPassword, setInputtedPassword ] = useState('');
-    const [ inputtedEmail, setInputtedEmail ] = useState('');
+    const [inputtedPassword, setInputtedPassword] = useState('');
+    const [inputtedEmail, setInputtedEmail] = useState('');
 
-    const [ inputEnabled, setInputEnabled ] = useState(false);
-    const [ loginBtnEnabled, setLoginBtnEnabled ] = useState(false);
-    const [ logoutBtnEnabled, setLogoutBtnEnabled ] = useState(false);
+    const [inputEnabled, setInputEnabled] = useState(false);
+    const [loginBtnEnabled, setLoginBtnEnabled] = useState(false);
+    const [logoutBtnEnabled, setLogoutBtnEnabled] = useState(false);
 
-    const [ validating, setIsValidating ] = useState(false);
+    const [validating, setIsValidating] = useState(false);
 
-    const [ iconName, setIconName ] = useState('link');
-    const [ showEye, setShowEye ] = useState(false);
+    const [iconName, setIconName] = useState('link');
+    const [showEye, setShowEye] = useState(false);
 
     const secretCounter = useRef(0);
 
@@ -119,11 +119,11 @@ const SntzAccountManagement = () => {
 
     return (
         <ContainerView style={styles.containerView}>
-            <Divider/>
+            <Divider />
             <Pressable onPress={handleSecretPress} style={[{
                 backgroundColor: colors.blue
             }, styles.circle, defaultThemedStyles.boxshadow]}>
-                <Feather name={iconName} size={75} color={colors.white}/>
+                <Feather name={iconName} size={75} color={colors.white} />
             </Pressable>
             <View style={[{
                 borderColor: colors.hardContrast
@@ -140,13 +140,12 @@ const SntzAccountManagement = () => {
                 value={inputtedEmail}
                 onChangeText={setInputtedEmail}
                 editable={inputEnabled}
-                
+
                 style={[{
-                    color: `${colors.hardContrast}${
-                        inputEnabled
+                    color: `${colors.hardContrast}${inputEnabled
                             ? ''
                             : 'b3'
-                    }`,
+                        }`,
                     borderColor: colors.hardContrast
                 }, styles.input]}
             />
@@ -162,11 +161,10 @@ const SntzAccountManagement = () => {
                 secureTextEntry
 
                 style={[{
-                    color: `${colors.hardContrast}${
-                        inputEnabled
+                    color: `${colors.hardContrast}${inputEnabled
                             ? ''
                             : 'b3'
-                    }`,
+                        }`,
                     borderColor: colors.hardContrast
                 }, styles.input]}
             />

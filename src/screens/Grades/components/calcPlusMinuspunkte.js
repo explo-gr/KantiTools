@@ -8,8 +8,6 @@ const calcPlusMinuspunkte = (grades) => {
         if (!grade) return; 
         const rounded = Math.round(grade * 2) / 2;  // round quarters
 
-        console.log(rounded);
-
         if (rounded >= 4) {
             plus += rounded - 4;
         } else {

@@ -1,4 +1,3 @@
-// imports regarding general objects
 import { useEffect, useState } from 'react';
 import { Alert, View, ScrollView, StyleSheet } from 'react-native';
 import Button from '../../../components/common/Button'
@@ -17,6 +16,7 @@ import TranslatedText from '../../../components/translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
 import { useData } from '../../../context/DataContext';
 import { clearMenuplanData } from '../../../lib/menuplanHelper';
+import Divider from '../../../components/common/Divider';
 
 const AccountStatusIndicator = () => {
     const { user, loadingAuth } = useAuth();
@@ -69,12 +69,16 @@ const SettingsMain = ({ navigation }) => {
                     text: t('yes'),
                     onPress: async () => {
                         // revert settings
-                        resetSettings();
-                        await resetLanguage();
-                        await clearDataCache();
-                        await clearMenuplanData();
-                        await logout();
-                        Alert.alert(t('reset'), t('st_rst_succ_msg'));
+                        try {
+                            resetSettings();
+                            await resetLanguage();
+                            await clearDataCache();
+                            await clearMenuplanData();
+                            await logout();
+                            Alert.alert(t('reset'), t('st_rst_succ_msg'));
+                        } catch {
+                            Alert.alert(t('reset'), t('error'));
+                        }
                     },
                     style: 'destructive'
                 },
@@ -127,7 +131,7 @@ const SettingsMain = ({ navigation }) => {
                     st_ac_mgt
                 </SettingsCategoryHeader>
                 <SettingsItem title={t('st_st_ln')}>
-                        <AccountStatusIndicator/>
+                    <AccountStatusIndicator/>
                 </SettingsItem>
                 <SettingsItem title={t('st_op_ln')}>
                     <Button

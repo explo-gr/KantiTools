@@ -16,6 +16,7 @@ export default {
     save: "Salva",
     reset: "Ripristina",
     refresh: "Aggiorna",
+    lgin_nt: "Accesso richiesto per questa funzione",
 
     // home
     hm_gr_morning: "Buongiorno",
@@ -30,7 +31,7 @@ export default {
     hm_ttbl: "Orario",
     hm_ttbl_rst: "Ripristinare l’orario?",
     hm_ttbl_rst_msg: "Questo eliminerà l’orario salvato. Ti verrà chiesto di selezionarne uno nuovo.",
-    hm_ttbl_rst_f_msg: "Impossibile ripristinare l’orario.",
+    hm_ttbl_rst_f_msg: "Impossibile ripristinare l’orario",
     hm_ttbl_file_req: "Seleziona un file",
     hm_ttbl_file_f: "Impossibile elaborare il PDF",
     hm_ttbl_file_o_f: "Impossibile aprire il file",
@@ -69,8 +70,8 @@ export default {
     gr_calcmin_gr: "Voto",
 
     gr_pluspoints: "Punti bonus",
-    gr_curr_pluspoints: "Punti bonus attuali: ",
-    gr_curr_minuspoints: "Punti malus attuali: ",
+    gr_curr_pluspoints: "Punti bonus: ",
+    gr_curr_minuspoints: "Punti malus: ",
 
     gr_dt_date: "Data",
     gr_dt_weight: "Peso",
@@ -94,6 +95,8 @@ export default {
     st_ln_n: "Disconnesso",
     st_dt_mgt: "Archiviazione",
     st_rst_sts: "Ripristino applicazione",
+    st_rst_msg: "Questa operazione non può essere annullata.",
+    st_rst_succ_msg: "Tutti i dati sono stati ripristinati con successo.",
     st_oss_l: "Licenze open source",
 
     st_sntz_login: "Indirizzo e-mail",
@@ -103,9 +106,9 @@ export default {
     st_sntz_acc_f: "Gestione accessi",
     st_sntz_info: "Collega il tuo account Schulnetz per accedere ai tuoi voti direttamente dall’app!",
     st_sntz_login_y: "Connessione riuscita!",
-    st_sntz_login_y_msg: "Account aggiunto.",
+    st_sntz_login_y_msg: "Account aggiunto",
     st_sntz_login_n: "Autenticazione fallita!",
-    st_sntz_login_n_msg: "Verifica le credenziali.",
+    st_sntz_login_n_msg: "Verifica le credenziali",
     st_sntz_logout: "Disconnetti",
     st_sntz_logout_msg: "Sei sicuro di voler uscire?",
 

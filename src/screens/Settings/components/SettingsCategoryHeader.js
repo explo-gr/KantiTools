@@ -2,6 +2,7 @@ import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
 import { StyleSheet, View, Text } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
+import Divider from '../../../components/common/Divider';
 
 const SettingsCategoryHeader = ({ children, icon }) => {
     const { colors } = useThemes();
@@ -14,7 +15,7 @@ const SettingsCategoryHeader = ({ children, icon }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.textcontainer}>
+            <View style={styles.textContainer}>
                 <Feather name={icon || 'edit-2'} size={24} color={colors.blue} />
                 <Text style={[{
                         color: colors.blue
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
         marginBottom: 2,
         justifyContent: 'center'
     },
-    textcontainer: {
+    textContainer: {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center'

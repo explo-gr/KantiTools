@@ -17,6 +17,7 @@ export default {
     save: "Arcunar",
     reset: "Stizzar",
     refresh: "Actualisar",
+    lgin_nt: "Login è necessari",
 
     // home
     hm_gr_morning: "Bun di",
@@ -26,12 +27,12 @@ export default {
     hm_gr_evening: "Buna saira",
     hm_gr_night: "Buna notg",
     hm_men_err: "Betg chattà PDF",
-    hm_men_err_msg: "Controllai vossa colliaziun d'internet",
+    hm_men_err_msg: "Controllai vossa colliaziun d'internet.",
     hm_men: "Plan da mangiar",
     hm_ttbl: "Urari",
     hm_ttbl_rst: "Stizzar il urari?",
     hm_ttbl_rst_msg: "Questa acziun stizza il urari arcunà. Vus vegnis supplitgads da selecziunar in auter.",
-    hm_ttbl_rst_f_msg: "L'urari n'ha betg pudì vegnir stizzà",
+    hm_ttbl_rst_f_msg: "L'urari n'ha betg pudì vegnir stizzà.",
     hm_ttbl_file_req: "Selecziunai per plaschair ina datoteca",
     hm_ttbl_file_f: "Il PDF n'ha betg pudì vegnir elavurà",
     hm_ttbl_file_o_f: "La datoteca n'ha betg pudì vegnir avert",
@@ -57,7 +58,7 @@ export default {
     re_tint: "Colur",
     re_empty: "Naginas notizias",
     re_del: "Stizzar todo?",
-    re_del_msg: "Questa acziun è irreversibla",
+    re_del_msg: "Questa acziun è irreversibla.",
     re_no_descr: "nagina descripziun",
 
     // grades
@@ -77,7 +78,7 @@ export default {
     gr_dt_weight: "Pais",
     gr_dt_score: "Puncts",
 
-    gr_grcalc_ach: "puncts fatg",
+    gr_grcalc_ach: "Puncts fatg",
     gr_grcalc_max: "Puncts maximal",
     gr_grcalc_end: "Nota finala",
 
@@ -95,6 +96,8 @@ export default {
     st_op_ln: "Administraziun da login",
     st_dt_mgt: "Datas",
     st_rst_sts: "Revertir a las configuraziuns da basa",
+    st_rst_msg: "Questa acziun è irreversibla.",
+    st_rst_succ_msg: "Revertida da datas reussida",
     st_oss_l: "Licensas d'open source",
 
     st_sntz_login: "Adressa dad e-mail ",
@@ -111,18 +114,18 @@ export default {
     st_sntz_logout_msg: "Essas vus segirs che vus vulais sa deconnectar?",
 
         // lang
-        de: "tudestg",
-        en: "englais",
-        es: "spagnol",
-        fr: "franzos",
-        it: "talian",
-        rm_rg: "rumantsch",
-        rm_sr: "sursilvan",
+        de: "Tudestg",
+        en: "Englais",
+        es: "Spagnol",
+        fr: "Franzos",
+        it: "Talian",
+        rm_rg: "Rumantsch",
+        rm_sr: "Sursilvan",
 
         // theme
-        dark: "stgir",
-        white: "cler",
-        system: "sistem",
+        dark: "Stgir",
+        white: "Cler",
+        system: "Sistem",
 
     // Tabbar
     Home: "Start",

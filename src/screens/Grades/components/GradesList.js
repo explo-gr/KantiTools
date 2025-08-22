@@ -90,63 +90,53 @@ const GradesList = ({ forwardGradeData = () => null }) => {
     return (
         <View key={'grade-view'}>
             { grades.cached && (<CacheIndicator/>) }
-            {
-                dataAvailable
-                    ? grades.data.map((subject, i) => (
-                        <View
-                            id={`view-${i}`}
-                            key={`view-${i}`}
-                            style={styles.accordionContainer}
+            { dataAvailable
+                ? grades.data.map((subject, i) => (
+                    <View key={`view-${i}`} style={styles.accordionContainer}>
+                        <Accordion
+                            key={`acc-${i}`}
+                            title={`${subject.subjName}:`}
+                            isOpen={!!isOpen[i]}
+                            changeIsOpen={() => handleOpen(i)}
+                            disabled={!subject.exams.length}
+                            immutable
+                            rightItem={
+                                <Text style={[{
+                                    color: colors.hardContrast
+                                }, styles.avgGradeText]}>
+                                    {subject.onlineMean || '---'}
+                                </Text>
+                            }
                         >
-                            <Accordion
-                                key={`acc-${i}`}
-                                title={`${subject.subjName}:`}
-                                isOpen={!!isOpen[i]}
-                                changeIsOpen={() => handleOpen(i)}
-                                disabled={!subject.exams.length}
-                                immutable
-                                rightItem={
-                                    <Text style={[{
-                                        color: colors.hardContrast
-                                    }, styles.avgGradeText]}>
-                                        {subject.onlineMean || '---'}
-                                    </Text>
-                                }
-                            >
-                                {!!subject.exams.length && (
-                                    <View
-                                        style={styles.detailsContainer}
-                                        key={`detail-container-view-${i}`}
-                                    >
-                                        {
-                                            subject.exams.map((exam, idx) => (
-                                                <TouchableOpacity
-                                                    style={styles.examContainer}
-                                                    key={`${i}-exam-${idx}`}
-                                                    onPress={() => {
-                                                        handleExamDetails(exam);
-                                                    }}
-                                                >
-                                                    <Text style={[styles.examTopicText, defaultThemedStyles.text]} key={`${i}-text-${idx}-topic`}>
-                                                        {exam.topic}
-                                                    </Text>
-                                                    <Text style={[styles.examGradeText, defaultThemedStyles.text]} key={`${i}-text-${idx}-grade`}>
-                                                        {exam.grade || '-'}
-                                                    </Text>
-                                                </TouchableOpacity>
-                                            ))
-                                        }
-                                        <Button
-                                            icon={'external-link'}
-                                            title={'gr_calcmin_f'}
-                                            onPress={() => handleForwardGradeData(subject)}
-                                        />
-                                    </View>
-                                )}
-                            </Accordion>
-                        </View>
-                    ))
-                    : <NoDataIndicator/>
+                            {!!subject.exams.length && (
+                                <View style={styles.detailsContainer} key={`detail-container-view-${i}`}>
+                                    {subject.exams.map((exam, idx) => (
+                                            <TouchableOpacity
+                                                style={styles.examContainer}
+                                                key={`${i}-exam-${idx}`}
+                                                onPress={() => {
+                                                    handleExamDetails(exam);
+                                                }}
+                                            >
+                                                <Text style={[styles.examTopicText, defaultThemedStyles.text]} key={`${i}-text-${idx}-topic`}>
+                                                    {exam.topic}
+                                                </Text>
+                                                <Text style={[styles.examGradeText, defaultThemedStyles.text]} key={`${i}-text-${idx}-grade`}>
+                                                    {exam.grade || '-'}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        ))}
+                                    <Button
+                                        icon={'external-link'}
+                                        title={'gr_calcmin_f'}
+                                        onPress={() => handleForwardGradeData(subject)}
+                                    />
+                                </View>
+                            )}
+                        </Accordion>
+                    </View>
+                ))
+                : <NoDataIndicator/>
             }
         </View>
     );

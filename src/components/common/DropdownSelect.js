@@ -94,7 +94,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                 >
                     <View style={[{
                             maxHeight,
-                            width: width * 0.75
+                            width: width * 0.7
                         }, styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
                         <FlatList
                             data={entries}
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     },
     entryText: {
         fontWeight: 'bolder',
-        fontSize: 28,
+        fontSize: 30,
     },
     entryView: {
         alignSelf: 'center',
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     },
     buttonShell: {
         height: 50,
-        maxWidth: 200,
+        maxWidth: 250,
         minWidth: 100,
         borderWidth: 2.5,
         borderRadius: 20,

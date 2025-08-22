@@ -16,6 +16,7 @@ export default {
     save: "Guardar",
     reset: "Restablecer",
     refresh: "Actualizar",
+    lgin_nt: "Se requiere iniciar sesión",
 
     // home
     hm_gr_morning: "Buenos días",
@@ -69,8 +70,8 @@ export default {
     gr_calcmin_gr: "Nota",
 
     gr_pluspoints: "Puntos extra",
-    gr_curr_pluspoints: "Puntos extra actuales: ",
-    gr_curr_minuspoints: "Puntos negativos actuales: ",
+    gr_curr_pluspoints: "Puntos extra: ",
+    gr_curr_minuspoints: "Puntos negativos: ",
 
     gr_dt_date: "Fecha",
     gr_dt_weight: "Peso",
@@ -94,6 +95,8 @@ export default {
     st_ln_n: "Desconectado",
     st_dt_mgt: "Almacenamiento",
     st_rst_sts: "Restablecer aplicación",
+    st_rst_msg: "Esta acción no se puede deshacer.",
+    st_rst_succ_msg: "Todos los datos se han restablecido correctamente.",
     st_oss_l: "Licencias open source",
 
     st_sntz_login: "Correo electrónico",
@@ -103,9 +106,9 @@ export default {
     st_sntz_acc_f: "Gestión de accesos",
     st_sntz_info: "Conecta tu cuenta Schulnetz para acceder a tus notas directamente en la app!",
     st_sntz_login_y: "¡Conexión exitosa!",
-    st_sntz_login_y_msg: "Cuenta añadida.",
+    st_sntz_login_y_msg: "Cuenta añadida",
     st_sntz_login_n: "¡Autenticación fallida!",
-    st_sntz_login_n_msg: "Verifica tus credenciales.",
+    st_sntz_login_n_msg: "Verifica tus credenciales",
     st_sntz_logout: "Cerrar sesión",
     st_sntz_logout_msg: "¿Seguro que quieres cerrar sesión?",
 

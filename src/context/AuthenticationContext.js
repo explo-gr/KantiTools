@@ -21,13 +21,13 @@ export const AuthProvider = ({ children }) => {
     const login = async (username, password) => {
         setUser({ username, password });
         await CredentialsStorage.saveCredentials(username, password);
-        console.log("[AUTH] Login successful");
+        console.log('[AUTH] Login successful');
     };
 
     const logout = async () => {
         setUser(null);
         await CredentialsStorage.clearCredentials();
-        console.log("[AUTH] Logout successful");
+        console.log('[AUTH] Logout successful');
     };
 
     return (

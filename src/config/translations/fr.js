@@ -16,6 +16,7 @@ export default {
     save: "Enregistrer",
     reset: "Réinitialiser",
     refresh: "Actualiser",
+    lgin_nt: "Connexion requise pour cette fonctionnalité", 
 
     // home
     hm_gr_morning: "Bonjour",
@@ -30,7 +31,7 @@ export default {
     hm_ttbl: "Horaire",
     hm_ttbl_rst: "Réinitialiser l’horaire?",
     hm_ttbl_rst_msg: "Cela supprimera l’horaire enregistré. Tu devras en choisir un nouveau.",
-    hm_ttbl_rst_f_msg: "Impossible de réinitialiser l’horaire.",
+    hm_ttbl_rst_f_msg: "Impossible de réinitialiser l’horaire",
     hm_ttbl_file_req: "Veuillez sélectionner un fichier",
     hm_ttbl_file_f: "Impossible de traiter le PDF",
     hm_ttbl_file_o_f: "Le fichier n’a pas pu être ouvert",
@@ -69,8 +70,8 @@ export default {
     gr_calcmin_gr: "Note",
 
     gr_pluspoints: "Points bonus",
-    gr_curr_pluspoints: "Points bonus actuels: ",
-    gr_curr_minuspoints: "Points malus actuels: ",
+    gr_curr_pluspoints: "Points bonus: ",
+    gr_curr_minuspoints: "Points malus: ",
 
     gr_dt_date: "Date",
     gr_dt_weight: "Poids",
@@ -94,18 +95,20 @@ export default {
     st_ln_n: "Déconnecté",
     st_dt_mgt: "Stockage",
     st_rst_sts: "Réinitialiser l’application",
+    st_rst_msg: "Cette action ne peut pas être annulée.",
+    st_rst_succ_msg: "Toutes les données ont été réinitialisées avec succès.",
     st_oss_l: "Licences open source",
 
     st_sntz_login: "Adresse e-mail",
     st_sntz_password: "Mot de passe",
     st_sntz_login_cm: "Ajouter",
-    st_sntz_remove_ac: "Supprimer",
+    st_sntz_remove_ac: "Supprimer la connexion",
     st_sntz_acc_f: "Gestion des connexions",
     st_sntz_info: "Connecte ton compte Schulnetz pour accéder à tes notes directement dans l’application!",
     st_sntz_login_y: "Connexion réussie!",
-    st_sntz_login_y_msg: "Compte ajouté.",
+    st_sntz_login_y_msg: "Compte ajouté",
     st_sntz_login_n: "Échec de l’authentification!",
-    st_sntz_login_n_msg: "Vérifie tes identifiants.",
+    st_sntz_login_n_msg: "Vérifie tes identifiants",
     st_sntz_logout: "Déconnexion",
     st_sntz_logout_msg: "Es-tu sûr de vouloir te déconnecter?",
 

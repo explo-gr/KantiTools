@@ -49,8 +49,6 @@ const Weekdays = () => {
     const handlePress = (index) => {
         const updated = [ ...pressedIndices, index ];
         setPressedIndices(updated);
-
-        console.log(updated);
         
         if (updated.length === code.length) {
             if (updated.every((e, i) => e === code[i])) {

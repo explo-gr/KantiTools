@@ -118,9 +118,13 @@ export const openMenuplanPDF = async () => {
     */
     if (Platform.OS === 'ios') {
         const url = await findFallbackURL();
-        Linking.openURL(url);
 
-        return true;
+        try {
+            await Linking.openURL(url);
+            return true;
+        } catch {
+            return false;
+        }
     }
 
     console.log('[MENUPLAN] Attempting to open menuplan...')

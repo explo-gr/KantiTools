@@ -10,6 +10,7 @@ import calcPlusMinusPunkte from './calcPlusMinuspunkte';
 import Button from '../../../components/common/Button';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useCallback } from 'react';
+import LoginReqView from '../../../components/common/LoginReqView';
 
 const GradesMain = ({ navigation }) => {
     const { grades, isReady, refreshAll } = useData();
@@ -64,20 +65,27 @@ const GradesMain = ({ navigation }) => {
                 </ActionBoxContainer>
             </View>
             <Divider/>
-            <ScrollView
-                contentContainerStyle={styles.contentContainer}
+            <LoginReqView
+                infoStyle={styles.infoStyle}
+                style={{
+                    flex: 1
+                }}
             >
-                <GradesList forwardGradeData={forwardGradeData}/>
-                {isReady && !grades.cached && grades.data && (
-                    <View style={styles.refreshBtnContainer}>
-                        <Button
-                            title={t('refresh')}
-                            onPress={refreshAll}
-                            icon={'refresh-cw'}
-                        />
-                    </View>
-                )}
-            </ScrollView>
+                <ScrollView
+                    contentContainerStyle={styles.contentContainer}
+                >
+                    <GradesList forwardGradeData={forwardGradeData}/>
+                    {isReady && !grades.cached && grades.data && (
+                        <View style={styles.refreshBtnContainer}>
+                            <Button
+                                title={t('refresh')}
+                                onPress={refreshAll}
+                                icon={'refresh-cw'}
+                            />
+                        </View>
+                    )}
+                </ScrollView>
+            </LoginReqView>
         </ContainerView>
     );
 }
@@ -90,6 +98,10 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         paddingBottom: 120
+    },
+    infoStyle: {
+        justifyContent: 'flex-start',
+        marginTop: 20
     }
 });
 

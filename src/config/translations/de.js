@@ -16,6 +16,7 @@ export default {
     save: "Speichern",
     reset: "Löschen",
     refresh: "Aktualisieren",
+    lgin_nt: "Anmeldung für diese Funktion erforderlich", 
 
     // home
     hm_gr_morning: "Guten Morgen",
@@ -56,7 +57,7 @@ export default {
     re_tint: "Farbton",
     re_empty: "keine Einträge",
     re_del: "Todo löschen?",
-    re_del_msg: "Diese Aktion kann nicht rückgängig gemacht werden.",
+    re_del_msg: "Diese Aktion kann nicht rückgängig gemacht werden",
     re_no_descr: "keine Beschreibung vorhanden",
 
     // grades
@@ -94,6 +95,8 @@ export default {
     st_op_ln: "Loginverwaltung",
     st_dt_mgt: "Daten",
     st_rst_sts: "Auf Werkeinstellungen zurücksetzen",
+    st_rst_msg: "Diese Aktion kann nicht rückgängig gemacht werden.",
+    st_rst_succ_msg: "Alle Daten wurden erfolgreich zurückgesetzt.",
     st_oss_l: "Open Source Lizenzen",
 
     st_sntz_login: "Email Adresse",
@@ -105,7 +108,7 @@ export default {
     st_sntz_login_y: "Verbindung erfolgreich hergestellt!",
     st_sntz_login_y_msg: "Account wurde hinzugügt.",
     st_sntz_login_n: "Authentifizierung fehlgeschlagen!",
-    st_sntz_login_n_msg: "Überprüfe deine Anmeldedaten.",
+    st_sntz_login_n_msg: "Überprüfen Sie Ihre Anmeldedaten.",
     st_sntz_logout: "Abmelden",
     st_sntz_logout_msg: "Sind Sie sicher, dass Sie sich abmelden wollen?",
 
@@ -115,7 +118,7 @@ export default {
         es: "Spanisch",
         fr: "Französisch",
         it: "Italienisch",
-        rm_rg: "Rätoromanisch",
+        rm_rg: "Romanisch",
         rm_sr: "Surselvisch",
 
         // theme

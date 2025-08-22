@@ -52,10 +52,10 @@ const Credit = () => {
                     source={require('../../../assets/icons/icon.png')}
                 />
                 <View style={styles.creditTextContainer}>
-                    <CreditText>Created by Gian-Marco Coray</CreditText>
+                    <CreditText>MA25 Gian-Marco Coray</CreditText>
                     <CreditText>github.com/explo-gr/KantiTools</CreditText>
                     <CreditText>KantiTools</CreditText>
-                    <CreditText>RC 1</CreditText>
+                    <CreditText>Release 1.0.0</CreditText>
                 </View>
             </View>
         </Pressable>

@@ -136,6 +136,8 @@ const styles = StyleSheet.create({
     titleText: {
         overflow: 'hidden',
         fontWeight: 'bold',
+        maxWidth: '80%',
+        textAlignVertical: 'center'
     },
     contentContainer: {
         overflow: 'hidden',

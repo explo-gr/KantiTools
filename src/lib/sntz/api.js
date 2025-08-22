@@ -23,7 +23,7 @@ const fetchLoginHash = async (loginUrl) => {
 
         return hash_index === -1 ? null : html.substring(hash_index + 28, hash_index + 60);
     } catch (error) {
-        console.error("Failed to fetch login hash:", error);
+        console.error('[AUTH] Failed to fetch login hash:', error);
         return null;
     }
 };

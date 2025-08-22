@@ -80,6 +80,7 @@ const AchievedGradeCalculator = () => {
                         value={achievedScore}
                         keyboardType='number-pad'
                         placeholder='---'
+                        textAlign='center'
                         placeholderTextColor={`${colors.generic}b3`}
                         cursorColor={colors.generic}
                         maxLength={5}
@@ -99,6 +100,7 @@ const AchievedGradeCalculator = () => {
                         value={maxScore}
                         keyboardType='number-pad'
                         placeholder='---'
+                        textAlign='center'
                         placeholderTextColor={`${colors.generic}b3`}
                         cursorColor={colors.generic}
                         maxLength={5}
@@ -109,7 +111,7 @@ const AchievedGradeCalculator = () => {
             </View>
             <View style={styles.resultWrapper}>
                 <View style={styles.resultHeader}>
-                    <Feather name="bar-chart" size={30} color={colors.blue} />
+                    <Feather name='bar-chart' size={30} color={colors.blue} />
                     <TranslatedText style={[{ color: colors.blue }, styles.resultLabel]}>
                         gr_grcalc_end
                     </TranslatedText>

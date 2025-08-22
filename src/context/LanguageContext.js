@@ -11,7 +11,7 @@ import it from '../config/translations/it';
 import rm_sr from '../config/translations/rm-sr';
 import rm_rg from '../config/translations/rm';
 
-const translations = Object.freeze({ de, fr, it, rm_rg, rm_sr, en, es });
+const translations = Object.freeze({ de, it, en, fr, rm_rg, rm_sr, es });
 
 const LanguageContext = createContext();
 export const LanguageProvider = ({ children }) => {
@@ -27,7 +27,7 @@ export const LanguageProvider = ({ children }) => {
             setLang(newLanguage);
             await AsyncStorage.setItem('language', newLanguage);
         } catch {
-            console.error("[LANG] Failed to set language!\nKeeping current saved language");
+            console.error('[LANG] Failed to set language!\nKeeping current saved language');
         }
     }
 
