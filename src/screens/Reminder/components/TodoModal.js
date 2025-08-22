@@ -25,6 +25,15 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
     const [ tint, setTint ] = useState(TINT_COLORS[0]);
 
     const getColorCode = useCallback((color) => colors[color] || colors.generic, [theme]);
+    const handleCancel = () => {
+        if (editIndex) {
+            // only discard data after cancelling an edit
+            setTitle('');
+            setDescription('');
+            setTint('');
+        }
+        onCancel();
+    }
 
     useEffect(() => {
         if (todoToEdit) {
@@ -52,7 +61,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
             statusBarTranslucent={true}
             transparent={true}
             visible={visible}
-            onRequestClose={onCancel}
+            onRequestClose={handleCancel}
         >
             <Pressable style={styles.centeredView} onPress={Keyboard.dismiss}>
                 <View style={[styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
@@ -89,6 +98,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                                 to={1.15}
                                 isFocused={tint === color}
                                 key={`sof-${color}`}
+                                duration={450}
                             >
                                 <TouchableOpacity
                                     key={`to-${color}`}
@@ -104,7 +114,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                     </View>
 
                     <View style={styles.buttonRow}>
-                        <TouchableOpacity onPress={onCancel} style={[styles.buttonShell, { backgroundColor: colors.red }]}> 
+                        <TouchableOpacity onPress={handleCancel} style={[styles.buttonShell, { backgroundColor: colors.red }]}> 
                             <Feather name='x' size={22} color={colors.generic} />
                             <TranslatedText style={defaultThemedStyles.textContrast}>cancel</TranslatedText>
                         </TouchableOpacity>
@@ -140,9 +150,9 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1.2,
         borderRadius: 14,
-        paddingVertical: 12,
-        paddingHorizontal: 16,
-        marginBottom: 6
+        paddingVertical: 10,
+        paddingHorizontal: 14,
+        marginBottom: 6,
     },
     tintRow: {
         flexDirection: 'row',

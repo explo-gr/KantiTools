@@ -17,7 +17,7 @@ const ContainerView = ({ children, style }) => {
             defaultThemedStyles.view,
             {
                 paddingTop: addedPadding,
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 alignItems: 'center',
                 flex: 1,
             }

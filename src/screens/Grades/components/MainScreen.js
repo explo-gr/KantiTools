@@ -31,7 +31,9 @@ const GradesMain = ({ navigation }) => {
 
             Alert.alert(
                 t('gr_pluspoints'),
-                `${t('gr_curr_pluspoints')}${plus}\n${t('gr_curr_minuspoints')}${minus}`
+                `${t('gr_curr_pluspoints')}${plus}\n${t('gr_curr_minuspoints')}${minus}`,
+                null,
+                { cancelable: true }
             );
         };
     };
@@ -65,12 +67,7 @@ const GradesMain = ({ navigation }) => {
                 </ActionBoxContainer>
             </View>
             <Divider/>
-            <LoginReqView
-                infoStyle={styles.infoStyle}
-                style={{
-                    flex: 1
-                }}
-            >
+            <LoginReqView infoStyle={styles.infoStyle} style={{ flex: 1, justifyContent: 'flex-start' }}>
                 <ScrollView
                     contentContainerStyle={styles.contentContainer}
                 >
@@ -97,7 +94,8 @@ const styles = StyleSheet.create({
         marginTop: 4
     },
     contentContainer: {
-        paddingBottom: 120
+        paddingBottom: 120,
+        justifyContent: 'flex-start'
     },
     infoStyle: {
         justifyContent: 'flex-start',

@@ -119,7 +119,6 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
             </View>
 
             {!!dataTable.length && (
-                <Pressable onPress={Keyboard.dismiss}>
                     <FlatList
                         data={dataTable}
                         extraData={dataTable}
@@ -160,7 +159,6 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                             />
                         }
                     />
-                </Pressable>
             )}
         </View>
     );
@@ -201,7 +199,7 @@ const styles = StyleSheet.create({
         height: 45
     },
     contentContainer: {
-        paddingBottom: 300
+        paddingBottom: 120
     },
     rootHeaderContainer: {
         paddingBottom: 5

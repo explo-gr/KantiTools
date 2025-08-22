@@ -200,7 +200,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 20,
         padding: 12,
-        width: '80%'
+        width: '80%',
+        minHeight: 45
     },
     textContainer: {
         width: '90%',

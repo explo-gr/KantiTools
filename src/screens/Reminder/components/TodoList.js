@@ -66,7 +66,12 @@ const TodoList = () => {
     };
 
     const handleDelete = (index) => {
-        setTodos(prev => prev.filter((_, i) => i !== index));
+        setTodos(prev => {
+            const updated = prev.filter((_, i) => i !== index);
+            setIsOpen({});
+
+            return updated;
+        });
     };
 
     const handleDeletePrompt = (index) => {
@@ -144,7 +149,6 @@ const TodoList = () => {
                         keyExtractor={(item, index) => `${item.title}-${index.toString()}`}
                         renderItem={renderTodoItem}
                         contentContainerStyle={{ paddingBottom: 200 }}
-                        removeClippedSubviews={true}
                     />
 
                 :   <EmptyListMsg/>

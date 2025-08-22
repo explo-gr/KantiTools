@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useData } from '../../../context/DataContext';
 import { View, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import Accordion from '../../../components/common/Accordion';
@@ -59,7 +59,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
         }));
     };
 
-    const handleForwardGradeData = (subject) => {
+    const handleForwardGradeData = useCallback((subject) => {
         /*
             forward data to min grade calc and parse the values
             into an appropriate format
@@ -69,14 +69,14 @@ const GradesList = ({ forwardGradeData = () => null }) => {
             grade: exam.grade.toString().replace(/[^0-9.,]/g, ''),
             weight: exam.weight.toString().replace(/[^0-9.,]/g, '')
         })));
-    }
+    }, [forwardGradeData]);
     
     useEffect(() => {
         setDataAvailable(!!grades.data);
     }), [grades.data];
 
     useEffect(() => {
-        setDataReady(isReady)
+        setDataReady(isReady);
     }, [isReady]);
 
     if (!dataReady) {
@@ -130,6 +130,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                         icon={'external-link'}
                                         title={'gr_calcmin_f'}
                                         onPress={() => handleForwardGradeData(subject)}
+                                        style={styles.gradeCalcBtn}
                                     />
                                 </View>
                             )}
@@ -147,6 +148,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 3,
         gap: 15,
         marginHorizontal: 5
+    },
+    gradeCalcBtn: {
+        marginTop: 1
     },
     examContainer: {
         alignItems: 'center',

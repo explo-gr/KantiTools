@@ -151,7 +151,8 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 35,
         fontFamily: 'monospace',
-        padding: 8
+        padding: 8,
+        minHeight: 40
     },
     resultWrapper: {
         justifyContent: 'center',

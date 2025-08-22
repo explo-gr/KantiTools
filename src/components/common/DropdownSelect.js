@@ -84,10 +84,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                 onRequestClose={() => setModalVisible(!modalVisible)}
             >
                 <Pressable
-                    style={{
-                        flex: 1,
-                        backgroundColor: 'rgba(0,0,0,0.4)',
-                    }}
+                    style={styles.rootContainer}
                     onPress={() => {
                         setModalVisible(!modalVisible);
                     }}
@@ -112,6 +109,10 @@ const styles = StyleSheet.create({
     centeredView: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    rootContainer: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.4)'
     },
     modalContainer: {
         padding: 24,

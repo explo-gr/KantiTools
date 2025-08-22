@@ -11,11 +11,12 @@ const ScaleOnFocus = ({
     isFocused,
     children,
     from=1,
-    to=2
+    to=2,
+    duration=350
 }) => {
     const scale = useSharedValue(1);
     const animationConfig = {
-        duration: 350,
+        duration: duration,
         easing: Easing.inOut(Easing.back(4)),
     };
 
