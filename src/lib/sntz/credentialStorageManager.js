@@ -1,6 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
 
-// burökratie🙂‍↔️
 const CREDENTIAL_ID = {
     username: 'sntz-username',
     password: 'sntz-password',

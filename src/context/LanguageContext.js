@@ -32,6 +32,8 @@ export const LanguageProvider = ({ children }) => {
     }
 
     const loadLanguage = async (skipStorage = false) => {
+        console.log('[LANG] Loading Language');
+        
         try {
             const storedLanguage = skipStorage ? null : await AsyncStorage.getItem('language');
             let selectedLanguage = 'en';

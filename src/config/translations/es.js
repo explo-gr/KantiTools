@@ -14,7 +14,7 @@ export default {
     add: "Añadir",
     loading: "Cargando",
     save: "Guardar",
-    reset: "Restablecer",
+    reset: "Restituir",
     refresh: "Actualizar",
     lgin_nt: "Se requiere iniciar sesión",
 

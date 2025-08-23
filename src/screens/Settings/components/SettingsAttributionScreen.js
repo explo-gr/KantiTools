@@ -42,7 +42,7 @@ const SettingsAttributions = () => {
     })), []);
 
     return (
-        <ContainerView>
+        <ContainerView ignoreHeight>
             <FlatList
                 data={data}
                 keyExtractor={(item) => item.packageName}

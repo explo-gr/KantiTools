@@ -1,6 +1,5 @@
 import * as cheerio from 'cheerio';
 
-// kei typescript für mi 🤷‍♂️😎
 const newExamDataTemplate = () => ({
     date: null,
     topic: null,

@@ -49,10 +49,6 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
             ? todoToEdit.id
             : `${title.trim()}-${Date.now()}`
 
-        console.log(!!editIndex);
-        console.log(id)
-        console.log(todoToEdit?.id)
-
         if (!title.trim()) return;
         onOk({
             title: title.trim(),
@@ -108,7 +104,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                                 to={1.15}
                                 isFocused={tint === color}
                                 key={`sof-${color}`}
-                                duration={450}
+                                duration={350}
                             >
                                 <TouchableOpacity
                                     key={`to-${color}`}

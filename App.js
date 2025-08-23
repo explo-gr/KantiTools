@@ -4,6 +4,9 @@
  * Licensed under the MIT License. See LICENSE file for details.
  */
 
+import { useEffect, useState } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+
 // Contexts
 import { LanguageProvider } from './src/context/LanguageContext';
 import { ThemeProvider } from './src/context/ThemeContext';
@@ -13,15 +16,40 @@ import { DataProvider } from './src/context/DataContext';
 
 // Components
 import AppTabNavigator from './src/navigation/navigators/AppTabNavigator';
+import Feather from '@expo/vector-icons/Feather';
+import Placeholder from './src/components/utils/Placeholder';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+    const [appIsReady, setAppIsReady] = useState(false);
+
+    useEffect(() => {
+        const prepare = async () => {
+            try {
+                await Promise.race([
+                    Feather.loadFont(),
+                    new Promise(resolve => setTimeout(resolve, 2000))
+                ]);
+            } catch {
+                console.log('[SPLASH] Promise rejection');
+            } finally {
+                setAppIsReady(true);
+                await SplashScreen.hideAsync();
+                console.log('[SPLASH] Loading finished');
+            }
+        };
+
+        prepare();
+    }, []);
+
     return (
         <AuthProvider>
             <SettingsProvider>
                 <ThemeProvider>
                     <LanguageProvider>
                         <DataProvider>
-                            <AppTabNavigator />
+                            {appIsReady ? (<AppTabNavigator />) : (<Placeholder/>)}
                         </DataProvider>
                     </LanguageProvider>
                 </ThemeProvider>

@@ -26,6 +26,7 @@ const SettingsScreen = () => {
             }} />
             <Stack.Screen name='SettingsAttribution' component={SettingsAttributions} options={{
                 title: t('st_oss_l'),
+                freezeOnBlur: true,
                 ...headerOptions
             }} />
         </Stack.Navigator>

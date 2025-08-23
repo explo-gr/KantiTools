@@ -2914,6 +2914,13 @@
     "path": "/home/gianm/Documents/MA25/KantiTools/node_modules/expo-secure-store",
     "licenseFile": "/home/gianm/Documents/MA25/KantiTools/node_modules/expo-secure-store/README.md"
   },
+  "expo-splash-screen@0.29.24": {
+    "licenses": "MIT",
+    "repository": "https://github.com/expo/expo",
+    "publisher": "650 Industries, Inc.",
+    "path": "/home/gianm/Documents/MA25/KantiTools/node_modules/expo-splash-screen",
+    "licenseFile": "/home/gianm/Documents/MA25/KantiTools/node_modules/expo-splash-screen/README.md"
+  },
   "expo-status-bar@2.0.1": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
@@ -2928,7 +2935,7 @@
     "path": "/home/gianm/Documents/MA25/KantiTools/node_modules/expo-web-browser",
     "licenseFile": "/home/gianm/Documents/MA25/KantiTools/node_modules/expo-web-browser/README.md"
   },
-  "expo@52.0.46": {
+  "expo@52.0.47": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "Expo",

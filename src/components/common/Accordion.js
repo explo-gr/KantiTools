@@ -38,6 +38,8 @@ const Accordion = ({
         height: height.value
     }));
 
+    const handleOpenClose = () => !disabled && changeIsOpen(!isOpen);
+
     useEffect(() => {
         if (!hasMounted.current) {
             height.value = isOpen ? contentHeight : 0;
@@ -63,7 +65,7 @@ const Accordion = ({
         <View style={[styles.accordionContainer, defaultThemedStyles.card, {
             backgroundColor: `${tint}29`
         }]}>
-            <TouchableOpacity onPress={() => !disabled && changeIsOpen(!isOpen)}>
+            <TouchableOpacity onPress={handleOpenClose}>
                 <View style={styles.headerContainer}>
                     <Text style={[{ fontSize: titleTextSize }, styles.titleText, defaultThemedStyles.text]}>
                         {t(title)}
@@ -84,7 +86,7 @@ const Accordion = ({
                     {children}
                 </View>
             </Animated.View>
-
+            
             {/*
                 Hidden measurement view (renders content but off-screen)
                 Very weird and hacky approach but this allows dynamic heights

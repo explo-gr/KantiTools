@@ -56,7 +56,7 @@ const authenticate = async (username, password) => {
         loginhash: loginHash
     });
 
-    console.log('[AUTH] Payload to be sent:', payload.toString());
+    console.log('[AUTH] Payload will be sent');
 
     try {
         const response = await fetch(HOST.START, {
@@ -89,7 +89,7 @@ const authenticate = async (username, password) => {
 
         if (response.url.includes('loginto')) {
             console.log(`[AUTH] Response URL: ${response.url}`)
-            console.warn('[AUTH] Login failed — back to login prompt');
+            console.warn('[AUTH] Login failed - back to login prompt');
             return { loginSuccessful, sessionId, browserID };
         }
 
