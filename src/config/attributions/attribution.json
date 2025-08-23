@@ -4999,7 +4999,7 @@
     "path": "/home/gianm/Documents/MA25/KantiTools/node_modules/react-native-reanimated",
     "licenseFile": "/home/gianm/Documents/MA25/KantiTools/node_modules/react-native-reanimated/LICENSE"
   },
-  "react-native-safe-area-context@5.2.0": {
+  "react-native-safe-area-context@4.12.0": {
     "licenses": "MIT",
     "repository": "https://github.com/th3rdwave/react-native-safe-area-context",
     "publisher": "Janic Duplessis",

@@ -110,8 +110,8 @@ const TodoList = () => {
         AsyncStorage.getItem(TODO_STORAGE_KEY).then(data => {
             if (data) {
                 setTodos(JSON.parse(data));
-                setIsLoading(false);
             };
+            setIsLoading(false);
         });
     }, []);
 

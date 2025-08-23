@@ -1,6 +1,6 @@
 import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
-import { Platform, Linking } from 'react-native';
+import { Platform, Linking, Alert } from 'react-native';
 import * as cheerio from 'cheerio';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { openBrowserAsync } from 'expo-web-browser';
@@ -89,8 +89,12 @@ const downloadPDF = async (url) => {
     const path = `${MENUPLAN_DIR}/${FILE_NAME}`;
     await FileSystem.makeDirectoryAsync(MENUPLAN_DIR, { intermediates: true });
 
-    const result = await FileSystem.downloadAsync(url, path);
-    return result.status === 200 || result.status === undefined ? result.uri : null;
+    try {
+        const result = await FileSystem.downloadAsync(url, path);
+        return result.status === 200 || result.status === undefined ? result.uri : null;
+    } catch {
+        return null;
+    }
 };
 
 const findFallbackURL = async () => {
@@ -101,6 +105,8 @@ const findFallbackURL = async () => {
         const $ = cheerio.load(html);
         const links = $('a[href]').map((_, el) => $(el).attr('href')).get();
         const pdfLink = links.findLast(href => href.includes('Woche') && href.includes('Münzmühle') && href.endsWith('.pdf'));
+
+        console.log('fdjksalö')
 
         return pdfLink ? `${pdfLink}` : null;
     } catch (err) {

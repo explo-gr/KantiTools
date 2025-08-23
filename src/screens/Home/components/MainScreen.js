@@ -72,7 +72,7 @@ const HomeMain = ({ navigation }) => {
                 
                 if (document.canceled || document.assets.length !== 1) {
                     // error
-                    Alert.alert(t('ffile_req'));
+                    Alert.alert(t('hm_ttbl'), t('hm_ttbl_file_req'));
                     return;
                 }
             
@@ -85,7 +85,7 @@ const HomeMain = ({ navigation }) => {
                 setTtblAvailable(true);
             } catch {
                 // error
-                Alert.alert(t('hm_ttbl_file_f'));
+                Alert.alert(t('hm_ttbl'), t('hm_ttbl_file_f'));
                 return;
             }
         }
@@ -103,7 +103,7 @@ const HomeMain = ({ navigation }) => {
             }
         } catch {
             // error
-            Alert.alert(t('hm_ttbl_file_o_f'));
+            Alert.alert(t('hm_ttbl'), t('hm_ttbl_file_o_f'));
         }
     };
 
