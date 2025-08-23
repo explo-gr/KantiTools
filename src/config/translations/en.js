@@ -31,7 +31,7 @@ export default {
     hm_ttbl_rst: "Reset Timetable?",
     hm_ttbl_rst_msg: "This will remove the saved timetable. You will be prompted to select a new one.",
     hm_ttbl_rst_f_msg: "Could not reset the timetable",
-    hm_ttbl_file_req: "Please specify a file",
+    hm_ttbl_file_req: "Please specify a file. This file can later be deleted by long pressing the button.",
     hm_ttbl_file_f: "Failed to process PDF",
     hm_ttbl_file_o_f: "File could not be opened",
     hm_mail: "Mail",

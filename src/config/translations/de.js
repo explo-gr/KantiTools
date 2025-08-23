@@ -32,7 +32,7 @@ export default {
     hm_ttbl_rst: "Stundenplan zurücksetzen?",
     hm_ttbl_rst_msg: "Diese Aktion löscht den gespeicherten Stundenplan. Sie werden aufgefordert, einen neuen auszuwählen.",
     hm_ttbl_rst_f_msg: "Stundenplan konnte nicht zurückgesetzt werden",
-    hm_ttbl_file_req: "Bitte wählen Sie eine Datei aus",
+    hm_ttbl_file_req: "Bitte wählen Sie ein PDF aus. Das PDF kann später durch einen langen Klick gelöscht werden.",
     hm_ttbl_file_f: "PDF konnte nicht verarbeitet werden",
     hm_ttbl_file_o_f: "Datei konnte nicht geöffnet werden",
     hm_mail: "Mail",

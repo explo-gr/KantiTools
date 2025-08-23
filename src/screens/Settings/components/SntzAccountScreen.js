@@ -77,7 +77,7 @@ const SntzAccountManagement = () => {
             alertMsg = t('st_sntz_login_n');
         }
 
-        Alert.alert(alertMsg);
+        Alert.alert(t('st_ac_mgt'), alertMsg);
         setIsValidating(false);
     };
 

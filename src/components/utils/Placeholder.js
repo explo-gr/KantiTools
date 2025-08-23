@@ -2,7 +2,7 @@ import { View } from 'react-native';
 
 const Placeholder = () => {
     return (
-        <View style={{ flex: 1, backgroundColor: 'red' }}/>
+        <View style={{ flex: 1, backgroundColor: 'white' }}/>
     );
 }
 
