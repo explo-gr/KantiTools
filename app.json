@@ -1,26 +1,32 @@
 {
-    "expo": {
-        "name": "KantiTools",
-        "slug": "KantiTools",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./src/assets/icons/icon.png",
-        "userInterfaceStyle": "automatic",
-        "newArchEnabled": true,
-        "splash": {
-            "image": "./src/assets/splash/splash-icon.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "softwareKeyboardLayoutMode": "pan"
-        },
-        "plugins": [
-            "expo-localization",
-            "expo-secure-store"
-        ]
+  "expo": {
+    "name": "KantiTools",
+    "slug": "KantiTools",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/icons/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./src/assets/splash/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.gianmarcoc_07.KantiTools"
+    },
+    "plugins": [
+      "expo-localization",
+      "expo-secure-store"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1a624e27-cb65-42fa-abaf-f4ae9c011b69"
+      }
     }
+  }
 }
