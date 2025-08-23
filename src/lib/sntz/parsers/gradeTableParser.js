@@ -6,7 +6,8 @@ const newExamDataTemplate = () => ({
     topic: null,
     grade: null,
     weight: null,
-    score: null
+    score: null,
+    examId: null
 });
 
 const newSubjectDataTemplate = () => ({
@@ -16,7 +17,9 @@ const newSubjectDataTemplate = () => ({
     onlineMean: null,
     confirmationHref: null,
 
-    exams: null
+    exams: null,
+
+    subjId: null
 });
 
 // query subjects and retrieve resp. data
@@ -49,6 +52,10 @@ const parseGradeTable = (document) => {
         subjectData.subjName = prevTr.find('td').eq(0).contents().last().text().trim();
         subjectData.onlineMean = Number(prevTr.find('td').eq(1).text().trim());
 
+        subjectData.subjId = `${subjectData.courseName}-${subjectData.subjName}`
+            .replace(/\s+/g, '_')
+            .toLowerCase();
+
         // href="javascript:decision('Der Best%C3%A4tigungsvorgang kann nicht r%C3%BCckg%C3%A4ngig gemacht werden. Weiterfahren?','index.php?pageid=21311&amp;action=nvw_bestaetigen&amp;id=5689ff98b8f58a10&amp;transid=9e7509&amp;listindex=2')"
         const rawConfirmationHref = prevTr.find('td').find('a').eq(0).attr('href');
         
@@ -72,6 +79,10 @@ const parseGradeTable = (document) => {
             }
 
             examData.weight = Number($(e).find('td').eq(3).contents().first().text().trim());
+
+            examData.examId = `${examData.date}-${examData.topic}`
+                .replace(/\s+/g, '_')
+                .toLowerCase();
 
             examArray.push(examData);
         });

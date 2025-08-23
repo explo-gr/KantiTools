@@ -14,6 +14,9 @@ import Feather from '@expo/vector-icons/Feather';
 import Accordion from '../../../components/common/Accordion';
 import { useTranslations } from '../../../context/LanguageContext';
 import TodoModal from './TodoModal';
+import LoadingIndicator from '../../../components/common/LoadingIndicator';
+
+const TODO_STORAGE_KEY = 'todos';
 
 const EmptyListMsg = () => {
     const { colors } = useThemes();
@@ -34,6 +37,7 @@ const TodoList = () => {
     const { t } = useTranslations();
 
     const [ todos, setTodos ] = useState([]);
+    const [ isLoading, setIsLoading ] = useState(true);
     const [ modalVisible, setModalVisible ] = useState(false);
 
     const [ editIndex, setEditIndex ] = useState(null);
@@ -103,13 +107,16 @@ const TodoList = () => {
     }
 
     useEffect(() => {
-        AsyncStorage.getItem('todos').then(data => {
-            if (data) setTodos(JSON.parse(data));
+        AsyncStorage.getItem(TODO_STORAGE_KEY).then(data => {
+            if (data) {
+                setTodos(JSON.parse(data));
+                setIsLoading(false);
+            };
         });
     }, []);
 
     useEffect(() => {
-        AsyncStorage.setItem('todos', JSON.stringify(todos));
+        AsyncStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
     }, [todos]);
 
     const renderTodoItem = ({ item, index }) => (
@@ -122,7 +129,7 @@ const TodoList = () => {
             >
                 {
                     item.description
-                        ?   <Text style={{ color: colors.hardContrast }}>{item.description}</Text>
+                        ?   <Text style={[{ color: colors.hardContrast }, styles.descrText]}>{item.description}</Text>
                         :   <TranslatedText style={[{
                                 color: colors.gray
                             }, styles.noDescrText]}>re_no_descr</TranslatedText>
@@ -141,12 +148,20 @@ const TodoList = () => {
         </View>
     );
 
+    if (isLoading) {
+        return (
+            <View style={styles.loadingIndContainer}>
+                <LoadingIndicator status={t('loading')}/>
+            </View>
+        );
+    }
+
     return (
         <>
-            { todos.length > 0
+            {todos.length > 0
                 ?   <FlatList
                         data={todos}
-                        keyExtractor={(item, index) => `${item.title}-${index.toString()}`}
+                        keyExtractor={(item) => item.id}
                         renderItem={renderTodoItem}
                         contentContainerStyle={{ paddingBottom: 200 }}
                     />
@@ -202,6 +217,7 @@ const styles = StyleSheet.create({
     },
     todoContentContainer: {
         gap: 12,
+        margin: 4,
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center'
@@ -221,6 +237,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         gap: 3
+    },
+    loadingIndContainer: {
+        margin: 15,
+        flex: 1
+    },
+    descrText: {
+        fontSize: 14.5
     }
 });
 

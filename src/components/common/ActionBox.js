@@ -19,7 +19,7 @@ const ActionBox = ({
             onLongPress={onLongPress}
             style={[{
                 backgroundColor: inverted ? colors.generic : colors.blue,
-                opacity: disabled ? 0.2 : 1.0,
+                opacity: disabled ? 0.2 : 1.0
             }, styles.container]}
             disabled={disabled}
         >

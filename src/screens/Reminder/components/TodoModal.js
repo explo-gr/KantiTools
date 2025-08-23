@@ -44,10 +44,20 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
     }, [todoToEdit]);
 
     const handleOk = () => {
+        // only create a fresh key if needed
+        const id = editIndex
+            ? todoToEdit.id
+            : `${title.trim()}-${Date.now()}`
+
+        console.log(!!editIndex);
+        console.log(id)
+        console.log(todoToEdit?.id)
+
         if (!title.trim()) return;
         onOk({
             title: title.trim(),
             description: description.trim(),
+            id,
             tint
         }, editIndex);
         setTitle('');

@@ -2,7 +2,7 @@ import { ActivityIndicator, StyleSheet } from 'react-native';
 import { View, Text } from 'react-native';
 import { useThemes } from '../../context/ThemeContext';
 
-const LoadingIndicator = ({ status='' }) => {
+const LoadingIndicator = ({ status='loading' }) => {
     const { colors, defaultThemedStyles, theme } = useThemes();
 
     return (
@@ -17,10 +17,11 @@ const LoadingIndicator = ({ status='' }) => {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         margin: 5,
-        gap: 5
+        gap: 5,
+        flex: 1
     }
 });
 

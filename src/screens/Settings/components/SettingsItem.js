@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
         marginVertical: 5
     },
     text: {
-        fontSize: 16
+        fontSize: 16,
+        maxWidth: '90%'
     },
     leftview: {
         flex: 4,

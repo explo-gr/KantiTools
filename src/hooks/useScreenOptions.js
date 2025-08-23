@@ -6,6 +6,7 @@ const useScreenOptions = () => {
 
     const screenOptions = useMemo(() => ({
         headerShown: false,
+        cardOverlayEnabled: true,
         cardStyle: {
             backgroundColor: colors.generic
         },

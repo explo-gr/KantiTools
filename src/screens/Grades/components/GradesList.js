@@ -91,13 +91,13 @@ const GradesList = ({ forwardGradeData = () => null }) => {
         <View key={'grade-view'}>
             { grades.cached && (<CacheIndicator/>) }
             { dataAvailable
-                ? grades.data.map((subject, i) => (
-                    <View key={`view-${i}`} style={styles.accordionContainer}>
+                ? grades.data.map((subject) => (
+                    <View key={`view-${subject.subjId}`} style={styles.accordionContainer}>
                         <Accordion
-                            key={`acc-${i}`}
+                            key={`acc-${subject.subjId}`}
                             title={`${subject.subjName}:`}
-                            isOpen={!!isOpen[i]}
-                            changeIsOpen={() => handleOpen(i)}
+                            isOpen={!!isOpen[subject.subjId]}
+                            changeIsOpen={() => handleOpen(subject.subjId)}
                             disabled={!subject.exams.length}
                             immutable
                             rightItem={
@@ -109,19 +109,19 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                             }
                         >
                             {!!subject.exams.length && (
-                                <View style={styles.detailsContainer} key={`detail-container-view-${i}`}>
-                                    {subject.exams.map((exam, idx) => (
+                                <View style={styles.detailsContainer} key={`detail-container-view-${subject.subjId}`}>
+                                    {subject.exams.map((exam) => (
                                             <TouchableOpacity
                                                 style={styles.examContainer}
-                                                key={`${i}-exam-${idx}`}
+                                                key={`exam-${exam.examId}`}
                                                 onPress={() => {
                                                     handleExamDetails(exam);
                                                 }}
                                             >
-                                                <Text style={[styles.examTopicText, defaultThemedStyles.text]} key={`${i}-text-${idx}-topic`}>
+                                                <Text style={[styles.examTopicText, defaultThemedStyles.text]} key={`topic-${exam.examId}`}>
                                                     {exam.topic}
                                                 </Text>
-                                                <Text style={[styles.examGradeText, defaultThemedStyles.text]} key={`${i}-text-${idx}-grade`}>
+                                                <Text style={[styles.examGradeText, defaultThemedStyles.text]} key={`grade-${exam.examId}`}>
                                                     {exam.grade || '-'}
                                                 </Text>
                                             </TouchableOpacity>
@@ -146,11 +146,11 @@ const GradesList = ({ forwardGradeData = () => null }) => {
 const styles = StyleSheet.create({
     detailsContainer: {
         paddingHorizontal: 3,
-        gap: 15,
+        gap: 18,
         marginHorizontal: 5
     },
     gradeCalcBtn: {
-        marginTop: 1
+        marginTop: 3
     },
     examContainer: {
         alignItems: 'center',
@@ -184,11 +184,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     examTopicText: {
-        fontSize: 15.5
+        fontSize: 16,
+        maxWidth: '90%',
+        overflow: 'hidden'
     },
     examGradeText: {
-        fontSize: 16,
-        fontFamily: 'monospace'
+        fontSize: 17,
+        fontFamily: 'monospace',
+        fontWeight: 'bold'
     }
 });
 
