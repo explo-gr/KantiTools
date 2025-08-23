@@ -3,6 +3,7 @@ import * as IntentLauncher from 'expo-intent-launcher';
 import { Platform, Linking } from 'react-native';
 import * as cheerio from 'cheerio';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { openBrowserAsync } from 'expo-web-browser';
 
 const MENUPLAN_DIR = `${FileSystem.documentDirectory}menuplan`;
 const FILE_NAME = 'current-menuplan.pdf';
@@ -120,7 +121,7 @@ export const openMenuplanPDF = async () => {
         const url = await findFallbackURL();
 
         try {
-            await Linking.openURL(url);
+            await openBrowserAsync(url);
             return true;
         } catch {
             return false;

@@ -63,7 +63,6 @@ const HomeMain = ({ navigation }) => {
     }, []);
 
     const handleTimetable = async () => {
-
         // prompt user to pick pdf if no file was found
         if (!ttblAvailable) {
             try {
@@ -101,8 +100,6 @@ const HomeMain = ({ navigation }) => {
                     type: 'application/pdf',
                     flags: 1, // FLAG_GRANT_READ_URI_PERMISSION
                 });
-            } else {
-                Linking.openURL(TIMETABLE_URI);
             }
         } catch {
             // error
