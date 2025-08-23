@@ -5007,7 +5007,7 @@
     "path": "/home/gianm/Documents/MA25/KantiTools/node_modules/react-native-safe-area-context",
     "licenseFile": "/home/gianm/Documents/MA25/KantiTools/node_modules/react-native-safe-area-context/LICENSE"
   },
-  "react-native-screens@4.9.1": {
+  "react-native-screens@4.4.0": {
     "licenses": "MIT",
     "repository": "https://github.com/software-mansion/react-native-screens",
     "publisher": "Krzysztof Magiera",
