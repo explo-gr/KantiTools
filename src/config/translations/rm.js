@@ -62,7 +62,7 @@ export default {
     re_no_descr: "nagina descripziun",
 
     // grades
-    gr_calcgrade: "Calculatur da notas",
+    gr_calcgrade: "Calcular nota",
     gr_calcgrade_f: "Calculator da notas",
     gr_calcmin: "Nota minimala",
     gr_calcmin_f: "Calcular nota minimala",

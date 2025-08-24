@@ -10,7 +10,7 @@ const Button = ({
     color,
     disabled=false,
     icon,
-    style = {}
+    style = {},
 }) => {
     const { colors, theme } = useThemes();
     if (!color) color = colors.blue;
@@ -19,27 +19,30 @@ const Button = ({
         const styles = StyleSheet.create({
             buttonShell: {
                 height: 45,
-                maxWidth: 400,
-                minWidth: 100,
+                maxWidth: 200,
+                minWidth: title ? 100 : 50,
                 borderRadius: 18,
-                padding: 8,
+                paddingHorizontal: 10,
+                paddingVertical: 4,
                 gap: 3,
                 flexDirection: 'row',
-                justifyContent: 'center',
+                justifyContent: 'space-around',
                 alignItems: 'center',
                 backgroundColor: color ? color : colors.blue
             },
             text: {
                 color: colors.generic,
                 marginHorizontal: 3,
+                textAlignVertical: 'center',
                 fontSize: 15,
+                maxWidth: '90%',
                 textAlign: 'center',
                 fontWeight: 'bolder'
             }
         });
 
         return styles;
-    }, [theme]);
+    }, [theme, color]);
 
     return (
         <TouchableOpacity
@@ -51,11 +54,15 @@ const Button = ({
         >
             <View style={themedStyles.buttonShell}>
                 {icon && (
-                    <Feather name={icon} size={20} color={colors.generic}/>
+                    <View style={styles.centerView}>
+                        <Feather name={icon} size={20} color={colors.generic}/>
+                    </View>
                 )}
-                <TranslatedText style={themedStyles.text}>
-                    {title || 'ok'}
-                </TranslatedText>
+                {title && (
+                    <TranslatedText numberOfLines={1} style={themedStyles.text}>
+                        {title}
+                    </TranslatedText>
+                )}
             </View>
         </TouchableOpacity>
     );

@@ -10,7 +10,6 @@ export const ThemeProvider = ({ children }) => {
     const systemTheme = useColorScheme();
 
     const theme = settings.theme === 'system' ? systemTheme : settings.theme;
-
     const colors = useMemo(() => getColorPalette(theme), [theme]);
 
     const defaultThemedStyles = useMemo(() => {

@@ -1,4 +1,5 @@
-import { View, TextInput, Alert, StyleSheet, Pressable, KeyboardAvoidingView } from 'react-native';
+import { View, Alert, StyleSheet, Pressable } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import ContainerView from '../../../components/common/ContainerView';
 import Feather from '@expo/vector-icons/Feather';
 import { useThemes } from '../../../context/ThemeContext';
@@ -123,7 +124,7 @@ const SntzAccountManagement = () => {
             <Pressable onPress={handleSecretPress} style={[{
                 backgroundColor: colors.blue
             }, styles.circle, defaultThemedStyles.boxshadow]}>
-                <Feather name={iconName} size={75} color={colors.white} />
+                <Feather name={iconName} size={70} color={colors.white} />
             </Pressable>
             <View style={[{
                 borderColor: colors.hardContrast
@@ -133,13 +134,14 @@ const SntzAccountManagement = () => {
             <TextInput
                 placeholder={t('st_sntz_login')}
                 placeholderTextColor={`${colors.hardContrast}b3`}
-                autoComplete='email'
+                autoComplete={'email'}
                 autoCapitalize='none'
                 keyboardType='email-address'
                 autoCorrect={false}
                 value={inputtedEmail}
                 onChangeText={setInputtedEmail}
                 editable={inputEnabled}
+                importantForAutofill='yes'
 
                 style={[{
                     color: `${colors.hardContrast}${inputEnabled
@@ -152,12 +154,13 @@ const SntzAccountManagement = () => {
             <TextInput
                 placeholder={t('st_sntz_password')}
                 placeholderTextColor={`${colors.hardContrast}b3`}
-                autoComplete='password'
+                autoComplete={'password'}
                 autoCapitalize='none'
                 autoCorrect={false}
                 value={inputtedPassword}
                 onChangeText={setInputtedPassword}
                 editable={inputEnabled}
+                importantForAutofill='yes'
                 secureTextEntry
 
                 style={[{
@@ -175,6 +178,7 @@ const SntzAccountManagement = () => {
                     color={colors.lightblue}
                     disabled={!loginBtnEnabled}
                     icon={'user-plus'}
+                    //style={styles.buttonL}
                 />
                 <Button
                     title={t('st_sntz_remove_ac')}
@@ -182,6 +186,7 @@ const SntzAccountManagement = () => {
                     color={colors.red}
                     disabled={!logoutBtnEnabled}
                     icon={'log-out'}
+                    //style={styles.buttonR}
                 />
             </View>
         </ContainerView>
@@ -195,6 +200,14 @@ const styles = StyleSheet.create({
         borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    buttonR: {
+        marginLeft: 2,
+        marginRight: 4
+    },
+    buttonL: {
+        marginLeft: 4,
+        marginRight: 2
     },
     input: {
         borderWidth: 1,
@@ -216,10 +229,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-        gap: 5,
-        marginVertical: 25,
-        width: '100%',
+        width: '105%',
         justifyContent: 'space-evenly',
+        marginTop: 20
     },
     containerView: {
         alignItems: 'center',

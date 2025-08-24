@@ -46,8 +46,8 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
         let minGrade = 0;
 
         dataTable.forEach(({ weight, grade }) => {
-            const parsedWeight = Number(weight) || 1;
-            const parsedGrade = Number(grade);
+            const parsedWeight = Number(weight.replaceAll(',', '.')) || 1;
+            const parsedGrade = Number(grade.replaceAll(',', '.'));
 
             if (parsedGrade) {
                 weightSum += parsedWeight;
@@ -55,8 +55,8 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
             }
         });
 
-        const convertedDesiredGrade = Number(desiredGrade);
-        const convertedDesiredWeight = Number(dgWeight) || 1;
+        const convertedDesiredGrade = Number(desiredGrade.replace(',', '.'));
+        const convertedDesiredWeight = Number(dgWeight.replace(',', '.')) || 1;
 
         let tempOutput;
 
@@ -114,7 +114,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                             color: colors.hardContrast
                         }, styles.input]}
                     />
-                    <Button title={t('add')} onPress={addItem} icon={'plus'}/>
+                    <Button onPress={addItem} icon={'plus'}/>
                 </View>
             </View>
 
@@ -168,9 +168,9 @@ const styles = StyleSheet.create({
     outputText: {
         fontFamily: 'monospace',
         fontWeight: 'bold',
-        fontSize: 82,
-        marginBottom: 20,
-        marginTop: 5
+        fontSize: 80,
+        marginBottom: 12,
+        marginTop: 4
     },
     outputContainer: {
         justifyContent: 'center',
@@ -192,11 +192,11 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 2,
-        borderRadius: 14,
+        borderRadius: 16,
         paddingHorizontal: 10,
         flex: 1,
         padding: 8,
-        height: 45
+        height: 45,
     },
     contentContainer: {
         paddingBottom: 120

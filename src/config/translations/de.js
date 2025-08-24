@@ -17,6 +17,7 @@ export default {
     reset: "Löschen",
     refresh: "Aktualisieren",
     lgin_nt: "Anmeldung für diese Funktion erforderlich", 
+    new: "Neu",
 
     // home
     hm_gr_morning: "Guten Morgen",
