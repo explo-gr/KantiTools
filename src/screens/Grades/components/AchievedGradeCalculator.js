@@ -166,7 +166,10 @@ const styles = StyleSheet.create({
         fontSize: 32,
         fontFamily: 'monospace',
         padding: 8,
-        height: 64
+        height: 64,
+        textAlignVertical: 'center',
+        width: '100%',
+        //borderWidth: 1,
     },
     resultWrapper: {
         justifyContent: 'center',
@@ -207,6 +210,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: '35%',
+        width: '100%',
+        //borderWidth: 1
     }
 });
 

@@ -1,4 +1,4 @@
-import { View, Alert, StyleSheet, Pressable } from 'react-native';
+import { View, Alert, StyleSheet, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import ContainerView from '../../../components/common/ContainerView';
 import Feather from '@expo/vector-icons/Feather';
@@ -178,7 +178,6 @@ const SntzAccountManagement = () => {
                     color={colors.lightblue}
                     disabled={!loginBtnEnabled}
                     icon={'user-plus'}
-                    //style={styles.buttonL}
                 />
                 <Button
                     title={t('st_sntz_remove_ac')}
@@ -186,7 +185,6 @@ const SntzAccountManagement = () => {
                     color={colors.red}
                     disabled={!logoutBtnEnabled}
                     icon={'log-out'}
-                    //style={styles.buttonR}
                 />
             </View>
         </ContainerView>
@@ -200,14 +198,6 @@ const styles = StyleSheet.create({
         borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    buttonR: {
-        marginLeft: 2,
-        marginRight: 4
-    },
-    buttonL: {
-        marginLeft: 4,
-        marginRight: 2
     },
     input: {
         borderWidth: 1,
@@ -229,9 +219,10 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-        width: '105%',
-        justifyContent: 'space-evenly',
-        marginTop: 20
+        width: '95%',
+        justifyContent: 'space-between',
+        gap: 10,
+        marginTop: 20,
     },
     containerView: {
         alignItems: 'center',

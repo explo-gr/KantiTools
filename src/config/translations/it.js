@@ -17,6 +17,7 @@ export default {
     reset: "Ripristina",
     refresh: "Aggiorna",
     lgin_nt: "Accesso richiesto per questa funzione",
+    new: "Nuovo",
 
     // home
     hm_gr_morning: "Buongiorno",

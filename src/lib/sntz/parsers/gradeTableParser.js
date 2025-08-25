@@ -49,7 +49,7 @@ const parseGradeTable = (document) => {
         const prevTr = $(e).prev('tr');
         subjectData.courseName = prevTr.find('td').eq(0).contents().first().text().trim();
         subjectData.subjName = prevTr.find('td').eq(0).contents().last().text().trim();
-        subjectData.onlineMean = Number(prevTr.find('td').eq(1).text().trim());
+        subjectData.onlineMean = Number(prevTr.find('td').eq(1).text().trim().replace(/[^0-9.]/g, ''));
 
         subjectData.subjId = `${subjectData.courseName}-${subjectData.subjName}`
             .replace(/\s+/g, '_')

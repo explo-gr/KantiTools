@@ -70,7 +70,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
             } else if (result > 6) {
                 tempOutput = '6+';
             } else {
-                tempOutput = (Math.round((minGrade /= convertedDesiredWeight) * 100) / 100).toFixed(2);
+                tempOutput = (Math.round(result * 100) / 100).toFixed(2);
             }
 
         } else {
@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 16,
         paddingHorizontal: 10,
+        flexGrow: 4,
         flex: 1,
         padding: 8,
         height: 45,

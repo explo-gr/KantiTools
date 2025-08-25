@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useEffect, useState, useCallback, useMemo } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from './AuthenticationContext';
 import api from '../lib/sntz/api';
@@ -18,7 +18,7 @@ export const DataProvider = ({ children }) => {
 
     const [grades, setGrades] = useState({ data: null, cached: false });
 
-    const clearDataCache = async () => {
+    const clearDataCache = useCallback(async () => {
         console.log('[DATA] Clearing cached data...');
         for (const key in DATA_KEYS) {
             try {
@@ -28,7 +28,7 @@ export const DataProvider = ({ children }) => {
                 console.log(`[DATA] Failed to clear: ${key}`, err);
             }
         }
-    };
+    }, []);
 
     const fetchAndStore = useCallback(async (queryItems = []) => {
         if (!user || loadingAuth) {
@@ -97,20 +97,25 @@ export const DataProvider = ({ children }) => {
         }
 
         console.log('[DATA] Starting refreshAll...');
-        setIsReady(false);
+
         setIsFetching(true);
+        try {
+            setIsReady(false);
 
-        await fetchAndStore([
-            {
-                url: api.HOST.GRADES,
-                key: 'grades',
-                parser: parseGradeTable,
-                setState: setGrades,
-            }
-        ]);
+            await fetchAndStore([
+                {
+                    url: api.HOST.GRADES,
+                    key: 'grades',
+                    parser: parseGradeTable,
+                    setState: setGrades,
+                }
+            ]);
 
-        setIsFetching(false);
-        setIsReady(true);
+            setIsReady(true);
+        } finally {
+            setIsFetching(false);
+        }
+        
         console.log('[DATA] Data refreshed. Set isReady to true.');
     }, [user, loadingAuth, isFetching, fetchAndStore]);
 
@@ -125,13 +130,15 @@ export const DataProvider = ({ children }) => {
         }
     }, [user, loadingAuth]);
 
+    const contextValue = useMemo(() => ({
+        grades,
+        refreshAll,
+        isReady,
+        clearDataCache
+    }), [grades, refreshAll, isReady, clearDataCache]);
+
     return (
-        <DataContext.Provider value={{
-            grades,
-            refreshAll,
-            isReady,
-            clearDataCache
-        }}>
+        <DataContext.Provider value={contextValue}>
             {children}
         </DataContext.Provider>
     );

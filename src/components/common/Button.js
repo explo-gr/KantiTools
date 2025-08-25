@@ -18,48 +18,51 @@ const Button = ({
     const themedStyles = useMemo(() => {
         const styles = StyleSheet.create({
             buttonShell: {
-                height: 45,
-                maxWidth: 200,
-                minWidth: title ? 100 : 50,
+                height: 47.5,
                 borderRadius: 18,
-                paddingHorizontal: 10,
-                paddingVertical: 4,
-                gap: 3,
+                paddingHorizontal: 9,
+                gap: 2,
+
                 flexDirection: 'row',
-                justifyContent: 'space-around',
+                justifyContent: 'space-evenly',
                 alignItems: 'center',
-                backgroundColor: color ? color : colors.blue
+                backgroundColor: color ?? colors.blue,
             },
             text: {
                 color: colors.generic,
-                marginHorizontal: 3,
-                textAlignVertical: 'center',
+                marginLeft: 2,
                 fontSize: 15,
-                maxWidth: '90%',
-                textAlign: 'center',
-                fontWeight: 'bolder'
+                textAlignVertical: 'center',
+                textAlign: 'center'
+            },
+            container: {
+                opacity: disabled ? 0.2 : 1.0,
+                flexGrow: 1,
+                flexShrink: 1,
+                minWidth: title ? 100 : 47.5,
+                maxWidth: 350,
+                justifyContent: 'center',
+                alignItems: 'stretch',
             }
         });
 
         return styles;
-    }, [theme, color]);
+    }, [theme, color, title, disabled]);
 
     return (
         <TouchableOpacity
             onPress={onPress}
             disabled={disabled}
-            style={[{
-                opacity: disabled ? 0.2 : 1.0,
-            }, styles.centerView, style]}
+            style={[themedStyles.container, style]}
         >
             <View style={themedStyles.buttonShell}>
                 {icon && (
-                    <View style={styles.centerView}>
+                    <View style={styles.iconContainer}>
                         <Feather name={icon} size={20} color={colors.generic}/>
                     </View>
                 )}
                 {title && (
-                    <TranslatedText numberOfLines={1} style={themedStyles.text}>
+                    <TranslatedText ellipsizeMode={'tail'} numberOfLines={1} style={themedStyles.text}>
                         {title}
                     </TranslatedText>
                 )}
@@ -69,7 +72,7 @@ const Button = ({
 };
 
 const styles = StyleSheet.create({
-    centerView: {
+    iconContainer: {
         justifyContent: 'center',
         alignItems: 'center'
     }

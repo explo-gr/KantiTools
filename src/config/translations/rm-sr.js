@@ -18,6 +18,7 @@ export default {
     reset: "Stizzar",
     refresh: "Actualisar",
     lgin_nt: "Login ei necessari",
+    new: "Niev",
 
     // home
     hm_gr_morning: "Bien di",

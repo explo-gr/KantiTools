@@ -44,14 +44,6 @@ const SettingsMain = ({ navigation }) => {
 
     // Language Settings
     const { language, setLanguage, t, resetLanguage } = useTranslations();
-    const [ selectedLanguage, setSelectedLanguage ] = useState(null);
-
-    useEffect(() => {
-        // force selectedLanguage to update when resetting
-        if (selectedLanguage !== language) {
-            setSelectedLanguage(language);
-        }
-    }, [language])
 
     // Theme Settings
     const themeStates = ['dark', 'white', 'system'];
