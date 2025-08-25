@@ -18,6 +18,7 @@ export default {
     reset: "Stizzar",
     refresh: "Actualisar",
     lgin_nt: "Login ei necessari",
+    new: "Niev",
 
     // home
     hm_gr_morning: "Bien di",
@@ -62,7 +63,7 @@ export default {
     re_no_descr: "negina descripziun",
 
     // grades
-    gr_calcgrade: "Calculatur da notas",
+    gr_calcgrade: "Calcular nota",
     gr_calcgrade_f: "Calculator da notas",
     gr_calcmin: "Nota minimala",
     gr_calcmin_f: "Calcular nota minimala",

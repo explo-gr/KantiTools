@@ -30,9 +30,11 @@ const Item = ({
         <TouchableOpacity
             onPress={(e) => {
                 e.stopPropagation();
-                onSelect(item);
-                setModalVisible(false);
 
+                // skip if target item remains the same
+                if (item !== selectedItem) onSelect(item);
+                setModalVisible(false);
+                
                 impactAsync(ImpactFeedbackStyle.Soft);
             }}
         >
@@ -68,7 +70,7 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
                         borderColor: colors.blue
                     }, styles.buttonShell ]}>
                     <Feather name='chevron-down' size={24} color={colors.blue} />
-                    <TranslatedText style={[{
+                    <TranslatedText numberOfLines={1} adjustsFontSizeToFit style={[{
                             color: colors.hardContrast,
                         }, styles.itemText]}>
                         { selectedItem || '---' }
@@ -140,7 +142,9 @@ const styles = StyleSheet.create({
         minWidth: 100,
         borderWidth: 2.5,
         borderRadius: 20,
-        padding: 6,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        gap: 2,
 
         justifyContent: 'space-between',
         alignItems: 'center',

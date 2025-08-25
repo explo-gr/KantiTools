@@ -33,6 +33,7 @@ const GradeItem = ({
                 onPress={action}
                 icon={icon}
                 color={btnColor}
+                style={styles.button}
             />
         </View>
     );
@@ -62,14 +63,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: 10,
+        gap: 10
     },
     input: {
         flex: 1,
         borderWidth: 2,
         borderRadius: 14,
         padding: 12,
+        flexGrow: 8
     },
+    button: {
+        flex: 1
+    }
 });
 
 export default GradeItem;

@@ -54,7 +54,7 @@ const TabNavigator = ({ state, navigation }) => {
                             <ScaleOnFocus isFocused={isFocused} from={0.8} to={1.1}>
                                 <Feather name={icons[route.name]} size={30} color={colors.generic} style={styles.icon}/>
                             </ScaleOnFocus>
-                            <TranslatedText style={[{
+                            <TranslatedText adjustsFontSizeToFit numberOfLines={1} style={[{
                                 color: colors.generic
                             }, styles.text]}>
                                 {label}

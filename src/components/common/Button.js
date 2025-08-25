@@ -10,7 +10,7 @@ const Button = ({
     color,
     disabled=false,
     icon,
-    style = {}
+    style = {},
 }) => {
     const { colors, theme } = useThemes();
     if (!color) color = colors.blue;
@@ -18,51 +18,61 @@ const Button = ({
     const themedStyles = useMemo(() => {
         const styles = StyleSheet.create({
             buttonShell: {
-                height: 45,
-                maxWidth: 400,
-                minWidth: 100,
+                height: 47.5,
                 borderRadius: 18,
-                padding: 8,
-                gap: 3,
+                paddingHorizontal: 9,
+                gap: 2,
+
                 flexDirection: 'row',
-                justifyContent: 'center',
+                justifyContent: 'space-evenly',
                 alignItems: 'center',
-                backgroundColor: color ? color : colors.blue
+                backgroundColor: color ?? colors.blue,
             },
             text: {
                 color: colors.generic,
-                marginHorizontal: 3,
+                marginLeft: 2,
                 fontSize: 15,
-                textAlign: 'center',
-                fontWeight: 'bolder'
+                textAlignVertical: 'center',
+                textAlign: 'center'
+            },
+            container: {
+                opacity: disabled ? 0.2 : 1.0,
+                flexGrow: 1,
+                flexShrink: 1,
+                minWidth: title ? 100 : 47.5,
+                maxWidth: 350,
+                justifyContent: 'center',
+                alignItems: 'stretch',
             }
         });
 
         return styles;
-    }, [theme]);
+    }, [theme, color, title, disabled]);
 
     return (
         <TouchableOpacity
             onPress={onPress}
             disabled={disabled}
-            style={[{
-                opacity: disabled ? 0.2 : 1.0,
-            }, styles.centerView, style]}
+            style={[themedStyles.container, style]}
         >
             <View style={themedStyles.buttonShell}>
                 {icon && (
-                    <Feather name={icon} size={20} color={colors.generic}/>
+                    <View style={styles.iconContainer}>
+                        <Feather name={icon} size={20} color={colors.generic}/>
+                    </View>
                 )}
-                <TranslatedText style={themedStyles.text}>
-                    {title || 'ok'}
-                </TranslatedText>
+                {title && (
+                    <TranslatedText ellipsizeMode={'tail'} numberOfLines={1} style={themedStyles.text}>
+                        {title}
+                    </TranslatedText>
+                )}
             </View>
         </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
-    centerView: {
+    iconContainer: {
         justifyContent: 'center',
         alignItems: 'center'
     }

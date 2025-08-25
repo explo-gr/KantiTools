@@ -39,13 +39,13 @@ const AchievedGradeCalculator = () => {
     const gradeColor = useRef('#000000');
 
     const calculateOutput = () => {
-        const _achievedScore = Number(achievedScore);
-        const _maxScore = Number(maxScore);
+        const achievedScoreNum = Number(achievedScore.replaceAll(',', '.'));
+        const maxScoreNum = Number(maxScore.replaceAll(',', '.'));
 
         let output = 1;
 
-        if (_maxScore && _achievedScore) {
-            const gradeRaw = (_achievedScore / _maxScore) * 5 + 1;
+        if (maxScoreNum && achievedScoreNum) {
+            const gradeRaw = (achievedScoreNum / maxScoreNum) * 5 + 1;
             output = Math.round(gradeRaw * 100) / 100;
         }
         
@@ -54,6 +54,16 @@ const AchievedGradeCalculator = () => {
         }
 
         return output;
+    };
+
+    const handleAchievFocus = (e) => {
+        e.stopPropagation();
+        achievedInputRef.current?.focus();
+    };
+
+    const handleMaxFocus = (e) => {
+        e.stopPropagation();
+        maxInputRef.current?.focus();
     };
 
     useEffect(() => {
@@ -69,12 +79,14 @@ const AchievedGradeCalculator = () => {
         <View style={styles.wrapper}>
             <View style={styles.row}>
                 <Pressable 
-                    onPress={() => achievedInputRef.current?.focus()} 
+                    onPress={handleAchievFocus} 
                     style={[{ backgroundColor: colors.blue }, styles.inputContainer]}
                 >
-                    <TranslatedText style={[{ color: colors.generic }, styles.label]}>
-                        gr_grcalc_ach
-                    </TranslatedText>
+                    <View style={styles.textContainer}>
+                        <TranslatedText android_hyphenationFrequency={'normal'} numberOfLines={2} style={[{ color: colors.generic }, styles.label]}>
+                            gr_grcalc_ach
+                        </TranslatedText>
+                    </View>
                     <TextInput
                         onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g, ''))}
                         value={achievedScore}
@@ -88,13 +100,15 @@ const AchievedGradeCalculator = () => {
                         style={[{ color: colors.generic }, styles.input]}
                     />
                 </Pressable>
-                <Pressable 
-                    onPress={() => maxInputRef.current?.focus()}  
+                <Pressable
+                    onPress={handleMaxFocus}  
                     style={[{ backgroundColor: colors.blue }, styles.inputContainer]}
                 >
-                    <TranslatedText style={[{ color: colors.generic }, styles.label]}>
-                        gr_grcalc_max
-                    </TranslatedText>
+                    <View style={styles.textContainer}>
+                        <TranslatedText android_hyphenationFrequency={'normal'} numberOfLines={2} style={[{ color: colors.generic }, styles.label]}>
+                            gr_grcalc_max
+                        </TranslatedText>
+                    </View>
                     <TextInput
                         onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g, ''))}
                         value={maxScore}
@@ -130,34 +144,37 @@ const styles = StyleSheet.create({
     wrapper: {
         alignItems: 'center',
         flexDirection: 'column',
-        gap: 80
+        gap: 75
     },
     row: {
         flexDirection: 'row',
     },
     inputContainer: {
         borderRadius: 26,
-        marginHorizontal: 10,
+        margin: 10,
         height: 120,
         width: '42%',
         padding: 10,
-        textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
     },
     label: {
         fontSize: 14,
+        textAlign: 'center',
     },
     input: {
-        fontSize: 35,
+        fontSize: 32,
         fontFamily: 'monospace',
         padding: 8,
-        minHeight: 40
+        height: 64,
+        textAlignVertical: 'center',
+        width: '100%',
+        //borderWidth: 1,
     },
     resultWrapper: {
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 10,
+        gap: 8,
     },
     resultHeader: {
         flexDirection: 'row',
@@ -175,7 +192,7 @@ const styles = StyleSheet.create({
         maxHeight: 145,
     },
     outputText: {
-        fontSize: 82,
+        fontSize: 78,
         fontFamily: 'monospace',
         fontWeight: 'bold',
     },
@@ -188,6 +205,13 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderRadius: 16,
         padding: 10,
+    },
+    textContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '35%',
+        width: '100%',
+        //borderWidth: 1
     }
 });
 

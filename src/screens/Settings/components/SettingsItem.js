@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        maxWidth: '90%'
+        maxWidth: '85%'
     },
     leftview: {
         flex: 4,

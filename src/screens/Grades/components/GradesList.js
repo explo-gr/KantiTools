@@ -126,12 +126,13 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                                 </Text>
                                             </TouchableOpacity>
                                         ))}
-                                    <Button
-                                        icon={'external-link'}
-                                        title={'gr_calcmin_f'}
-                                        onPress={() => handleForwardGradeData(subject)}
-                                        style={styles.gradeCalcBtn}
-                                    />
+                                    <View style={styles.gradeCalcBtnContainer}>
+                                        <Button
+                                            icon={'external-link'}
+                                            title={'gr_calcmin_f'}
+                                            onPress={() => handleForwardGradeData(subject)}
+                                        />
+                                    </View>
                                 </View>
                             )}
                         </Accordion>
@@ -149,8 +150,10 @@ const styles = StyleSheet.create({
         gap: 18,
         marginHorizontal: 5
     },
-    gradeCalcBtn: {
-        marginTop: 3
+    gradeCalcBtnContainer: {
+        marginTop: 3,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     examContainer: {
         alignItems: 'center',

@@ -2,7 +2,7 @@ import { ActivityIndicator, StyleSheet } from 'react-native';
 import { View, Text } from 'react-native';
 import { useThemes } from '../../context/ThemeContext';
 
-const LoadingIndicator = ({ status='loading' }) => {
+const LoadingIndicator = ({ status }) => {
     const { colors, defaultThemedStyles, theme } = useThemes();
 
     return (

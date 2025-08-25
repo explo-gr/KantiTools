@@ -17,6 +17,7 @@ export default {
     reset: "Réinitialiser",
     refresh: "Actualiser",
     lgin_nt: "Connexion requise pour cette fonctionnalité", 
+    new: "Nouveau",
 
     // home
     hm_gr_morning: "Bonjour",

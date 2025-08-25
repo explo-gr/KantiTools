@@ -2,7 +2,6 @@ import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
 import { StyleSheet, View, Text } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
-import Divider from '../../../components/common/Divider';
 
 const SettingsCategoryHeader = ({ children, icon }) => {
     const { colors } = useThemes();
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
         margin: 2,
         width: '100%',
         alignSelf: 'center',
-        marginTop: 10,
+        marginTop: 12.5,
         marginBottom: 2,
         justifyContent: 'center'
     },
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 28,
         marginLeft: 10,
-        transform: [{translateY: -3}]
+        transform: [{translateY: -1.5}]
     }
 });
 

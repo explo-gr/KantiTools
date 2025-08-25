@@ -16,7 +16,6 @@ import TranslatedText from '../../../components/translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
 import { useData } from '../../../context/DataContext';
 import { clearMenuplanData } from '../../../lib/menuplanHelper';
-import Divider from '../../../components/common/Divider';
 
 const AccountStatusIndicator = () => {
     const { user, loadingAuth } = useAuth();
@@ -40,19 +39,13 @@ const AccountStatusIndicator = () => {
 }
 
 const SettingsMain = ({ navigation }) => {
+    // Settings
+    const { changeSetting, resetSettings, settings } = useSettings();
+
     // Language Settings
     const { language, setLanguage, t, resetLanguage } = useTranslations();
-    const [ selectedLanguage, setSelectedLanguage ] = useState();
-
-    useEffect(() => {
-        // force selectedLanguage to update when resetting
-        if (selectedLanguage !== language) {
-            setSelectedLanguage(language);
-        }
-    }, [language])
 
     // Theme Settings
-    const [ selectedThemeBehaviour, setThemeBehaviour ] = useState('system');
     const themeStates = ['dark', 'white', 'system'];
 
     // Data
@@ -68,7 +61,11 @@ const SettingsMain = ({ navigation }) => {
                 {
                     text: t('yes'),
                     onPress: async () => {
-                        // revert settings
+                        /*
+                            reverts all settings to default settings
+                            and resets the data of other components
+                            !! doesn't clear todo and timetable !!
+                        */
                         try {
                             resetSettings();
                             await resetLanguage();
@@ -87,18 +84,15 @@ const SettingsMain = ({ navigation }) => {
         );
     }
 
-    // Settings
-    const { changeSetting, resetSettings } = useSettings();
-
     return (
         <ContainerView>
             <Header title={'Settings'}/>
 
             <ScrollView
-                showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
                     paddingBottom: 150
                 }}
+                showsVerticalScrollIndicator={false}
             >
                 <SettingsCategoryHeader icon='layout'>
                     st_hd_app
@@ -106,25 +100,15 @@ const SettingsMain = ({ navigation }) => {
                 <SettingsItem title={t('st_sld_lang')}>
                     <DropdownSelect
                         entries={[ ...SupportedLanguages ]}
-                        selectedItem={selectedLanguage}
-                        onSelect={(lang) => {
-                            if (lang !== selectedLanguage) {
-                                setSelectedLanguage(lang);
-                                setLanguage(lang);
-                            }
-                        }}
+                        selectedItem={language}
+                        onSelect={setLanguage}
                     />
                 </SettingsItem>
                 <SettingsItem title={t('st_prf_thm')}>
                     <DropdownSelect
                         entries={[ ...themeStates ]}
-                        selectedItem={selectedThemeBehaviour}
-                        onSelect={(theme) => {
-                            if (selectedThemeBehaviour !== theme) {
-                                setThemeBehaviour(theme);
-                                changeSetting('theme', theme);
-                            }
-                        }}
+                        selectedItem={settings.theme}
+                        onSelect={(theme) => changeSetting('theme', theme)}
                     />
                 </SettingsItem>
                 <SettingsCategoryHeader icon='user'>

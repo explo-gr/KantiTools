@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 import TranslatedText from '../translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
@@ -23,10 +23,17 @@ const ActionBox = ({
             }, styles.container]}
             disabled={disabled}
         >
-            <Feather name={icon} size={32} color={inverted ? colors.blue : colors.generic}/>
-            <TranslatedText style={[{
-                color: colors.generic
-            }, styles.text]}>
+            <View style={styles.iconContainer}>
+                <Feather name={icon} size={32} color={inverted ? colors.blue : colors.generic}/>
+            </View>
+            <TranslatedText 
+                style={[{
+                    color: colors.generic
+                }, styles.text]}
+                android_hyphenationFrequency={'normal'}
+                adjustsFontSizeToFit
+                numberOfLines={1}
+            >
                 {label}
             </TranslatedText>
         </TouchableOpacity>
@@ -41,11 +48,15 @@ const styles = StyleSheet.create({
         gap: 5,
         flexDirection: 'column',
         borderRadius: 25,
-        padding: 20
+        padding: 12
     },
     text: {
         fontSize: 12,
         textAlign: 'center'
+    },
+    iconContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 });
 

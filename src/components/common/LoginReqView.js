@@ -17,7 +17,7 @@ const LoginReqView = ({ children, infoStyle, ...props }) => {
             <View style={[styles.statusContainer, infoStyle]}>
                 <View style={styles.msgContainer}>
                     <Feather name={'user-x'} size={24} color={colors.gray} />
-                    <TranslatedText style={[defaultThemedStyles.text, {
+                    <TranslatedText adjustsFontSizeToFit numberOfLines={1} style={[defaultThemedStyles.text, {
                         color: colors.gray
                     }]}>
                         lgin_nt
@@ -37,12 +37,13 @@ const LoginReqView = ({ children, infoStyle, ...props }) => {
 const styles = StyleSheet.create({
     statusContainer: {
         flex: 1,
+        marginHorizontal: '5%',
         justifyContent: 'center',
         alignItems: 'center',
     },
     msgContainer: {
         flexDirection: 'row',
-        gap: 10
+        gap: 12
     }
 });
 

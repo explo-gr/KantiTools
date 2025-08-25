@@ -16,6 +16,8 @@ export default {
     save: "Save",
     reset: "Reset",
     refresh: "Refresh",
+    lgin_nt: "Login required for this feature", 
+    new: "New",
 
     // home
     hm_gr_morning: "Good morning",
