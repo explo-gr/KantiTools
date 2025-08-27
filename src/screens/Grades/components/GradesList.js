@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useData } from '../../../context/DataContext';
 import { View, Text, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import Accordion from '../../../components/common/Accordion';
@@ -39,8 +39,6 @@ const NoDataIndicator = () => {
 const GradesList = ({ forwardGradeData = () => null }) => {
     const { grades, isReady } = useData();
     const { colors, defaultThemedStyles } = useThemes();
-    const [ dataReady, setDataReady ] = useState(false);
-    const [ dataAvailable, setDataAvailable ] = useState(false);
     const { t } = useTranslations();
 
     const [ isOpen, setIsOpen ] = useState({});
@@ -70,16 +68,8 @@ const GradesList = ({ forwardGradeData = () => null }) => {
             weight: exam.weight.toString().replace(/[^0-9.,]/g, '')
         })));
     }, [forwardGradeData]);
-    
-    useEffect(() => {
-        setDataAvailable(!!grades.data);
-    }), [grades.data];
 
-    useEffect(() => {
-        setDataReady(isReady);
-    }, [isReady]);
-
-    if (!dataReady) {
+    if (!isReady) {
         return (
             <View style={styles.loadingIndContainer}>
                 <LoadingIndicator status={t('loading')}/>
@@ -90,7 +80,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
     return (
         <View key={'grade-view'}>
             { grades.cached && (<CacheIndicator/>) }
-            { dataAvailable
+            { !!grades.data
                 ? grades.data.map((subject) => (
                     <View key={`view-${subject.subjId}`} style={styles.accordionContainer}>
                         <Accordion
