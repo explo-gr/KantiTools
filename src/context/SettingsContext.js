@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import defaultSettings from '../config/settings/settings';
 
@@ -6,17 +6,18 @@ const SettingsContext = createContext();
 
 export const SettingsProvider = ({ children }) => {
     const [settings, setSettings] = useState({ ...defaultSettings });
+    const [ settingsReady, setSettingsReady ] = useState(false);
 
-    const changeSetting = (key, value) => {
+    const changeSetting = useCallback((key, value) => {
         setSettings(prev => ({
             ...prev,
             [key]: value
         }));
-    };
+    }, []);
 
-    const resetSettings = () => {
+    const resetSettings = useCallback(() => {
         setSettings({ ...defaultSettings });
-    };
+    }, []);
 
     // Load on startup
     useEffect(() => {
@@ -31,6 +32,8 @@ export const SettingsProvider = ({ children }) => {
                 }
             } catch (e) {
                 console.error(e);
+            } finally {
+                setSettingsReady(true);
             }
         }
 

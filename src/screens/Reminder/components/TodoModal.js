@@ -25,15 +25,22 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
     const [ tint, setTint ] = useState(TINT_COLORS[0]);
 
     const getColorCode = useCallback((color) => colors[color] || colors.generic, [theme]);
+
     const handleCancel = () => {
-        if (editIndex) {
+        if (editIndex + 1) {
             // only discard data after cancelling an edit
             setTitle('');
             setDescription('');
-            setTint('');
+            setTint(TINT_COLORS[0]);
         }
         onCancel();
     }
+
+    const handleBackgroundClick = useCallback(() => {
+        Keyboard.isVisible()
+            ? Keyboard.dismiss()
+            : handleCancel()
+    }, []);
 
     useEffect(() => {
         if (todoToEdit) {
@@ -50,12 +57,15 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
             : `${title.trim()}-${Date.now()}`
 
         if (!title.trim()) return;
+
         onOk({
             title: title.trim(),
             description: description.trim(),
             id,
             tint
         }, editIndex);
+
+        // clear modal
         setTitle('');
         setDescription('');
         setTint(TINT_COLORS[0]);
@@ -69,7 +79,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
             visible={visible}
             onRequestClose={handleCancel}
         >
-            <Pressable style={styles.centeredView} onPress={Keyboard.dismiss}>
+            <Pressable style={styles.centeredView} onPress={handleBackgroundClick}>
                 <View style={[styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
                     <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_title</TranslatedText>
                     <TextInput

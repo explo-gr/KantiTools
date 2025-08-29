@@ -2,19 +2,21 @@ import { useThemes } from '../../../context/ThemeContext';
 import { View, StyleSheet, TextInput } from 'react-native';
 import Button from '../../../components/common/Button';
 import { useTranslations } from '../../../context/LanguageContext';
+import { memo, useMemo } from 'react';
 
-const GradeItem = ({
-    grade,
-    onGradeChange,
-    weight,
-    onWeightChange,
-    onDelete,
-    onDuplicate
-}) => {
-    const { defaultThemedStyles, colors } = useThemes();
-    const { t } = useTranslations();
+const GradePair = memo(({ value, onChange, placeholder, action, actionTitle, icon, btnColor, colors }) => {
+    const inputStyle = useMemo(
+        () => [
+            {
+                borderColor: colors.blue,
+                color: colors.hardContrast,
+            },
+            styles.input,
+        ],
+        [colors]
+    );
 
-    const renderPair = (value, onChange, placeholder, action, actionTitle, icon, btnColor) => (
+    return (
         <View style={styles.pairContainer}>
             <TextInput
                 value={value}
@@ -23,10 +25,8 @@ const GradeItem = ({
                 placeholderTextColor={colors.gray}
                 keyboardType='number-pad'
                 maxLength={6}
-                style={[{
-                    borderColor: colors.blue,
-                    color: colors.hardContrast
-                }, styles.input]}
+                returnKeyType='done'
+                style={inputStyle}
             />
             <Button
                 title={actionTitle}
@@ -37,15 +37,38 @@ const GradeItem = ({
             />
         </View>
     );
+});
+
+const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onDuplicate }) => {
+    const { defaultThemedStyles, colors } = useThemes();
+    const { t } = useTranslations();
 
     return (
         <View style={styles.rootContainer}>
             <View style={[styles.container, defaultThemedStyles.card]}>
-                { renderPair(grade, onGradeChange, t('gr_calcmin_gr'), onDelete, t('delete'), 'trash-2', colors.red) }
-                { renderPair(weight, onWeightChange, t('gr_calcmin_wt'), onDuplicate, t('duplicate'), 'copy', colors.blue) }
+                <GradePair
+                    value={grade}
+                    onChange={onGradeChange}
+                    placeholder={t('gr_calcmin_gr')}
+                    action={onDelete}
+                    actionTitle={t('delete')}
+                    icon='trash-2'
+                    btnColor={colors.red}
+                    colors={colors}
+                />
+                <GradePair
+                    value={weight}
+                    onChange={onWeightChange}
+                    placeholder={t('gr_calcmin_wt')}
+                    action={onDuplicate}
+                    actionTitle={t('duplicate')}
+                    icon='copy'
+                    btnColor={colors.blue}
+                    colors={colors}
+                />
             </View>
         </View>
-    )
+    );
 };
 
 const styles = StyleSheet.create({
@@ -57,24 +80,24 @@ const styles = StyleSheet.create({
     },
     rootContainer: {
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     pairContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: 10
+        gap: 10,
     },
     input: {
         flex: 1,
         borderWidth: 2,
         borderRadius: 14,
         padding: 12,
-        flexGrow: 8
+        flexGrow: 8,
     },
     button: {
-        flex: 1
-    }
+        flex: 1,
+    },
 });
 
-export default GradeItem;
+export default memo(GradeItem);

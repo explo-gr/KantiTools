@@ -134,7 +134,7 @@ const HomeMain = ({ navigation }) => {
     return (
         <ContainerView>
             <Header title={'Home'}/>
-            <View style={styles.greetSeperator}/>
+            <View style={styles.spacer}/>
             <Greeting/>
             <View style={[{
                 borderColor: colors.blue,
@@ -173,7 +173,7 @@ const HomeMain = ({ navigation }) => {
                     />
                 </ActionBoxContainer>
             </View>
-            <View style={styles.greetSeperator}/>
+            <View style={styles.spacer}/>
             <Weekdays/>
         </ContainerView>
     );
@@ -185,13 +185,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    greetSeperator: {
+    spacer: {
         marginTop: '12%'
     },
     abxRootContainer: {
         padding: 10,
         margin: 10,
-        height: '33%',
+        height: 265,
         borderWidth: 3,
         borderRadius: 25,
         justifyContent: 'center',

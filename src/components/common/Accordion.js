@@ -23,7 +23,7 @@ const Accordion = ({
     const animationDuration = 300;
 
     const height = useSharedValue(0);
-    const rotation = useSharedValue(isOpen ? 180 : 0);
+    const rotation = useSharedValue(0);
 
     const [contentHeight, setContentHeight] = useState(0);
     const hasMounted = useRef(false);
@@ -56,7 +56,7 @@ const Accordion = ({
 
         rotation.value = withTiming(isOpen ? 180 : 0, {
             duration: animationDuration,
-            easing: Easing.inOut(Easing.linear),
+            easing: Easing.linear,
             reduceMotion: ReduceMotion.System,
         });
     }, [isOpen, contentHeight]);
@@ -72,7 +72,7 @@ const Accordion = ({
                     </Text>
                     <View style={styles.headerSubcontainer}>
                         {rightItem}
-                        <Animated.View style={[styles.chevronContainer, chevronAnimationStyle]}>
+                        <Animated.View style={chevronAnimationStyle}>
                             <Feather name='chevron-down' size={30} color={colors.hardContrast} />
                         </Animated.View>
                     </View>
@@ -130,10 +130,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         gap: 12,
         alignItems: 'center'
-    },
-    chevronContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     titleText: {
         overflow: 'hidden',

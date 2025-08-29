@@ -12,8 +12,23 @@ import { useTranslations } from '../../../context/LanguageContext';
 import { useCallback } from 'react';
 import LoginReqView from '../../../components/common/LoginReqView';
 
+const RefreshButton = () => {
+    const { refreshAll } = useData();
+    const { t } = useTranslations();
+
+    return (
+        <View style={styles.refreshBtnContainer}>
+            <Button
+                title={t('refresh')}
+                onPress={refreshAll}
+                icon={'refresh-cw'}
+            />
+        </View>
+    );
+};
+
 const GradesMain = ({ navigation }) => {
-    const { grades, isReady, refreshAll } = useData();
+    const { grades, isReady } = useData();
     const { t } = useTranslations();
 
     const forwardGradeData = useCallback((data) => {
@@ -41,9 +56,7 @@ const GradesMain = ({ navigation }) => {
     return (
         <ContainerView>
             <Header title={'Grades'}/>
-            <View style={{
-                height: '12.5%',
-            }}>
+            <View style={styles.abxWrapper}>
                 <ActionBoxContainer>
                     <ActionBox
                         label={'gr_calcgrade'}
@@ -67,21 +80,11 @@ const GradesMain = ({ navigation }) => {
                 </ActionBoxContainer>
             </View>
             <Divider/>
-            <LoginReqView infoStyle={styles.infoStyle} style={{ flex: 1, justifyContent: 'flex-start' }}>
-                <ScrollView
-                    contentContainerStyle={styles.contentContainer}
-                >
-                    <GradesList forwardGradeData={forwardGradeData}/>
-                    {isReady && !grades.cached && grades.data && (
-                        <View style={styles.refreshBtnContainer}>
-                            <Button
-                                title={t('refresh')}
-                                onPress={refreshAll}
-                                icon={'refresh-cw'}
-                            />
-                        </View>
-                    )}
-                </ScrollView>
+            <LoginReqView infoStyle={styles.infoStyle} style={styles.loginReqView}>
+                <GradesList
+                    forwardGradeData={forwardGradeData}
+                    ListFooterComponent={<RefreshButton/>}
+                />
             </LoginReqView>
         </ContainerView>
     );
@@ -93,13 +96,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 4
     },
-    contentContainer: {
-        paddingBottom: 120,
-        justifyContent: 'flex-start'
-    },
     infoStyle: {
         justifyContent: 'flex-start',
         marginTop: 20
+    },
+    loginReqView: {
+        flex: 1,
+        justifyContent: 'flex-start'
+    },
+    abxWrapper: {
+        minHeight: 100
     }
 });
 

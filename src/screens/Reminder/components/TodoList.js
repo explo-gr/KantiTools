@@ -156,18 +156,18 @@ const TodoList = () => {
         );
     }
 
+    if (!todos.length) {
+        return <EmptyListMsg/>;
+    }
+
     return (
         <>
-            {todos.length > 0
-                ?   <FlatList
-                        data={todos}
-                        keyExtractor={(item) => item.id}
-                        renderItem={renderTodoItem}
-                        contentContainerStyle={{ paddingBottom: 200 }}
-                    />
-
-                :   <EmptyListMsg/>
-            }
+            <FlatList
+                data={todos}
+                keyExtractor={(item) => item.id}
+                renderItem={renderTodoItem}
+                contentContainerStyle={{ paddingBottom: 200 }}
+            />
 
             <TouchableOpacity
                 onPress={() => setModalVisible(true)}

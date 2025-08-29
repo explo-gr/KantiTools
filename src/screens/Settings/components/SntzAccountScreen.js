@@ -4,7 +4,7 @@ import ContainerView from '../../../components/common/ContainerView';
 import Feather from '@expo/vector-icons/Feather';
 import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import TranslatedText from '../../../components/translations/TranslatedText';
 import api from '../../../lib/sntz/api';
 import { useAuth } from '../../../context/AuthenticationContext';
@@ -22,23 +22,21 @@ const SntzAccountManagement = () => {
     const [inputtedPassword, setInputtedPassword] = useState('');
     const [inputtedEmail, setInputtedEmail] = useState('');
 
-    const [inputEnabled, setInputEnabled] = useState(false);
-    const [loginBtnEnabled, setLoginBtnEnabled] = useState(false);
-    const [logoutBtnEnabled, setLogoutBtnEnabled] = useState(false);
-
     const [validating, setIsValidating] = useState(false);
 
     const [iconName, setIconName] = useState('link');
-    const [showEye, setShowEye] = useState(false);
-
     const secretCounter = useRef(0);
 
-    const handleSecretPress = () => {
+    const handleSecretPress = useCallback(() => {
         secretCounter.current += 1;
         if (secretCounter.current > 4) {
-            setShowEye(true);
+            setIconName('eye');
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+            setStatusBarBackgroundColor('red', true);
+            setTimeout(() => setStatusBarBackgroundColor('#00000000', true), 1000);
         }
-    }
+    }, []);
 
     const handleLogout = () => {
         Alert.alert(
@@ -62,10 +60,13 @@ const SntzAccountManagement = () => {
         );
     }
 
-    const validateLogin = async () => {
+    const validateLogin = useCallback(async () => {
         setIsValidating(true);
 
-        const { loginSuccessful } = await api.authenticate(inputtedEmail.trim(), inputtedPassword.trim()); // -> bool
+        const { loginSuccessful } = await api.authenticate(
+            inputtedEmail,
+            inputtedPassword
+        ); // -> bool
 
         let alertMsg;
 
@@ -80,7 +81,15 @@ const SntzAccountManagement = () => {
 
         Alert.alert(t('st_ac_mgt'), alertMsg);
         setIsValidating(false);
-    };
+    }, [inputtedEmail, inputtedPassword]);
+
+    const isLoggedIn = !!user;
+    const finishedLoading = !loadingAuth;
+    const formsFilled = inputtedEmail.trim().length && inputtedPassword.trim().length;
+    
+    const inputEnabled = finishedLoading && !isLoggedIn && !validating;
+    const loginBtnEnabled = finishedLoading && !isLoggedIn && formsFilled && !validating;
+    const logoutBtnEnabled = finishedLoading && isLoggedIn && !validating;
 
     useEffect(() => {
         if (user) {
@@ -88,35 +97,12 @@ const SntzAccountManagement = () => {
             setInputtedPassword(user.password);
         }
     }, [loadingAuth]);
-
-    useEffect(() => {
-        const finishedLoading = !loadingAuth;
-        const formsFilled = inputtedEmail.trim().length && inputtedPassword.trim().length;
-        const isLoggedIn = user ? true : false;
-
-        setInputEnabled(finishedLoading && !isLoggedIn && !validating);
-        setLoginBtnEnabled(finishedLoading && !isLoggedIn && formsFilled && !validating);
-        setLogoutBtnEnabled(finishedLoading && isLoggedIn && !validating);
-    }, [loadingAuth, inputtedEmail, inputtedPassword, user, validating]);
-
+    
     useEffect(() => {
         if (secretCounter.current > 4) {
             setIconName('eye');
         }
     }, [secretCounter]);
-
-    useEffect(() => {
-        if (showEye) setIconName('eye');
-    }, [showEye]);
-
-    useEffect(() => {
-        if (iconName === 'eye') {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-
-            setStatusBarBackgroundColor('red', true);
-            setTimeout(() => setStatusBarBackgroundColor('#00000000', true), 1000);
-        }
-    }, [iconName]);
 
     return (
         <ContainerView style={styles.containerView}>

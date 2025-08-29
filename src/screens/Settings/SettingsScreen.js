@@ -22,6 +22,7 @@ const SettingsScreen = () => {
                 ...screenOptions }} />
             <Stack.Screen name='SntzAccountManagement' component={SntzAccountManagement} options={{
                 title: t('st_sntz_acc_f'),
+                hideTabBar: true,
                 ...headerOptions
             }} />
             <Stack.Screen name='SettingsAttribution' component={SettingsAttributions} options={{

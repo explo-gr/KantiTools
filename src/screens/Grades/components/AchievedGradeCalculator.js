@@ -66,14 +66,13 @@ const AchievedGradeCalculator = () => {
         maxInputRef.current?.focus();
     };
 
-    useEffect(() => {
+    useEffect(() =>
         setOutput(_ => {
             const grade = calculateOutput();
             gradeColor.current = getGradeTint(grade);
             return grade;
-        });
-
-    }, [achievedScore, maxScore])
+        })
+    , [achievedScore, maxScore]);
 
     return (
         <View style={styles.wrapper}>
