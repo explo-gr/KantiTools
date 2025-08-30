@@ -4,17 +4,18 @@ import Animated, { useSharedValue, Easing, withTiming, useAnimatedStyle, ReduceM
 import { useTranslations } from '../../context/LanguageContext';
 import Feather from '@expo/vector-icons/Feather';
 import Divider from '../../components/common/Divider';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 
 const Accordion = ({
     isOpen,
     changeIsOpen,
+    accordionKey,
     title,
     rightItem=<></>,
     children,
     tint,
     disabled = false,
-    immutable = false
+    immutable = false,
 }) => {
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
@@ -38,7 +39,7 @@ const Accordion = ({
         height: height.value
     }));
 
-    const handleOpenClose = () => !disabled && changeIsOpen(!isOpen);
+    const handleOpenClose = () => !disabled && changeIsOpen(accordionKey);
 
     useEffect(() => {
         if (!hasMounted.current) {
@@ -151,4 +152,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Accordion;
+export default memo(Accordion, (prevProps, nextProps) =>
+    prevProps.isOpen === nextProps.isOpen &&
+    prevProps.title === nextProps.title &&
+    prevProps.tint === nextProps.tint &&
+    prevProps.disabled === nextProps.disabled &&
+    prevProps.immutable === nextProps.immutable &&
+    prevProps.children === nextProps.children &&
+    prevProps.rightItem === nextProps.rightItem
+);

@@ -106,8 +106,6 @@ const findFallbackURL = async () => {
         const links = $('a[href]').map((_, el) => $(el).attr('href')).get();
         const pdfLink = links.findLast(href => href.includes('Woche') && href.includes('Münzmühle') && href.endsWith('.pdf'));
 
-        console.log('fdjksalö')
-
         return pdfLink ? `${pdfLink}` : null;
     } catch (err) {
         console.error('[MENUPLAN] Error finding fallback PDF URL:', err);

@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { useData } from '../../../context/DataContext';
 import GradesList from './GradesList';
 import ContainerView from '../../../components/common/ContainerView';
@@ -7,25 +7,9 @@ import ActionBox from '../../../components/common/ActionBox';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
 import Divider from '../../../components/common/Divider';
 import calcPlusMinusPunkte from './calcPlusMinuspunkte';
-import Button from '../../../components/common/Button';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useCallback } from 'react';
 import LoginReqView from '../../../components/common/LoginReqView';
-
-const RefreshButton = () => {
-    const { refreshAll } = useData();
-    const { t } = useTranslations();
-
-    return (
-        <View style={styles.refreshBtnContainer}>
-            <Button
-                title={t('refresh')}
-                onPress={refreshAll}
-                icon={'refresh-cw'}
-            />
-        </View>
-    );
-};
 
 const GradesMain = ({ navigation }) => {
     const { grades, isReady } = useData();
@@ -83,7 +67,6 @@ const GradesMain = ({ navigation }) => {
             <LoginReqView infoStyle={styles.infoStyle} style={styles.loginReqView}>
                 <GradesList
                     forwardGradeData={forwardGradeData}
-                    ListFooterComponent={<RefreshButton/>}
                 />
             </LoginReqView>
         </ContainerView>
@@ -91,11 +74,6 @@ const GradesMain = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    refreshBtnContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 4
-    },
     infoStyle: {
         justifyContent: 'flex-start',
         marginTop: 20

@@ -3,5 +3,5 @@
 */
 export default {
     theme: 'system',        // Theming
-    accent: '#7A2835'          // Accent Color
+    accent: '#7a2835'          // Accent Color
 }

@@ -1,28 +1,18 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useData } from '../../../context/DataContext';
-import {
-    View,
-    Text,
-    StyleSheet,
-    Alert,
-    TouchableOpacity,
-    FlatList
-} from 'react-native';
+import { View, Text, StyleSheet, Alert, FlatList } from 'react-native';
 import Accordion from '../../../components/common/Accordion';
 import Button from '../../../components/common/Button';
-import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
 
+import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import ExamRow from './ExamRow';
 import CacheIndicator from './CacheIndicator';
 import NoDataIndicator from './NoDataIndicator';
+import RefreshButton from './RefreshButton';
 
-const GradesList = ({
-    forwardGradeData = () => null,
-    ListHeaderComponent = null,
-    ListFooterComponent = null,
-}) => {
+const GradesList = ({ forwardGradeData = () => null }) => {
     const { grades, isReady } = useData();
     const { colors } = useThemes();
     const { t } = useTranslations();
@@ -36,12 +26,12 @@ const GradesList = ({
         );
     };
 
-    const handleOpen = (i) => {
-        setIsOpen((prev) => ({
+    const handleOpen = useCallback((id) =>
+        setIsOpen(prev => ({
             ...prev,
-            [i]: !prev[i],
-        }));
-    };
+            [id]: !prev[id]
+        }))
+    , []);
 
     const handleForwardGradeData = useCallback(
         (subject) => {
@@ -55,6 +45,8 @@ const GradesList = ({
         },
         [forwardGradeData]
     );
+
+    const renderCacheIndicator = useMemo(() => (grades.cached && <CacheIndicator/>), [grades.cached]);
 
     if (!isReady) {
         return (
@@ -72,20 +64,19 @@ const GradesList = ({
         <FlatList
             keyExtractor={(subject) => `subj-${subject.subjId}`}
             data={grades.data}
-            ListHeaderComponent={
-                <>
-                    {grades.cached && <CacheIndicator />}
-                    {ListHeaderComponent}
-                </>
-            }
-            ListFooterComponent={ListFooterComponent}
+            ListFooterComponent={RefreshButton}
+            ListHeaderComponent={renderCacheIndicator}
             contentContainerStyle={styles.contentContainer}
+            updateCellsBatchingPeriod={50}
+            maxToRenderPerBatch={3}
+            removeClippedSubviews
             renderItem={({ item: subject }) => (
                 <View style={styles.accordionContainer}>
                     <Accordion
                         title={`${subject.subjName}:`}
                         isOpen={!!isOpen[subject.subjId]}
-                        changeIsOpen={() => handleOpen(subject.subjId)}
+                        changeIsOpen={handleOpen}
+                        accordionKey={subject.subjId}
                         disabled={!subject.exams.length}
                         immutable
                         rightItem={

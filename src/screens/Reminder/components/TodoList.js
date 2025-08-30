@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import {
     View,
     Text,
@@ -32,6 +32,39 @@ const EmptyListMsg = () => {
     );
 }
 
+const TodoActions = memo(({ onEdit, onDelete }) => {
+    const { colors } = useThemes();
+
+    return (
+        <View style={styles.todoContentContainer}>
+            <TouchableOpacity hitSlop={3} onPress={onEdit}>
+                <Feather name='edit-2' size={22} color={colors.blue} />
+            </TouchableOpacity>
+            <TouchableOpacity hitSlop={3} onPress={onDelete}>
+                <Feather name='trash-2' size={22} color={colors.red} />
+            </TouchableOpacity>
+        </View>
+    );
+});
+
+const TodoDescription = memo(({ description }) => {
+    const { colors } = useThemes();
+
+    if (description) {
+        return (
+            <Text style={[{ color: colors.hardContrast }, styles.descrText]}>
+                {description}
+            </Text>
+        );
+    }
+
+    return (
+        <TranslatedText style={[{ color: colors.gray }, styles.noDescrText]}>
+            re_no_descr
+        </TranslatedText>
+    );
+});
+
 const TodoList = () => {
     const { colors, theme, defaultThemedStyles } = useThemes();
     const { t } = useTranslations();
@@ -45,12 +78,12 @@ const TodoList = () => {
 
     const [ isOpen, setIsOpen ] = useState({});
 
-    const handleOpen = (i) => {
+    const handleOpen = useCallback((id) =>
         setIsOpen(prev => ({
             ...prev,
-            [i]: !prev[i]
-        }));
-    };
+            [id]: !prev[id]
+        }))
+    , []);
 
     const getColorCode = useCallback((color) => colors[color] || colors.generic, [theme]);
 
@@ -124,26 +157,16 @@ const TodoList = () => {
             <Accordion
                 title={item.title}
                 isOpen={!!isOpen[index]}
-                changeIsOpen={() => handleOpen(index)}
                 tint={getColorCode(item.tint)}
+                changeIsOpen={handleOpen}
+                accordionKey={index}
             >
-                {
-                    item.description
-                        ?   <Text style={[{ color: colors.hardContrast }, styles.descrText]}>{item.description}</Text>
-                        :   <TranslatedText style={[{
-                                color: colors.gray
-                            }, styles.noDescrText]}>re_no_descr</TranslatedText>
-                }
-                <View style={styles.todoContentContainer}>
-                    <TouchableOpacity onPress={() => handleEdit(item, index)}>
-                        <Feather name='edit-2' size={22} color={colors.blue} />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => handleDeletePrompt(index)}
-                    >
-                    <Feather name='trash-2' size={22} color={colors.red} />
-                    </TouchableOpacity>
-                </View>
+                <TodoDescription description={item.description} />
+                <TodoActions
+                    onEdit={() => handleEdit(item, index)}
+                    onDelete={() => handleDeletePrompt(index)}
+                    colors={colors}
+                />
             </Accordion>
         </View>
     );
@@ -167,6 +190,9 @@ const TodoList = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={renderTodoItem}
                 contentContainerStyle={{ paddingBottom: 200 }}
+                updateCellsBatchingPeriod={80}
+                maxToRenderPerBatch={6}
+                removeClippedSubviews
             />
 
             <TouchableOpacity
@@ -216,7 +242,7 @@ const styles = StyleSheet.create({
         fontStyle: 'italic'
     },
     todoContentContainer: {
-        gap: 12,
+        gap: 16,
         margin: 4,
         flexDirection: 'row',
         justifyContent: 'flex-end',
