@@ -1,5 +1,5 @@
-import dark from '../../config/colors/accent_dark';
-import light from '../../config/colors/accent_light';
+import dark from '../../config/colors/accent/dark';
+import light from '../../config/colors/accent/light';
 
 const colors = { dark, light };
 const getAccentColor = (theme=false, color) => {

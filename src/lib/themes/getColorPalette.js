@@ -1,5 +1,5 @@
-import dark from '../../config/colors/dark';
-import light from '../../config/colors/light';
+import dark from '../../config/colors/palette/dark';
+import light from '../../config/colors/palette/light';
 
 const colors = { dark, light };
 const getColorPalette = (theme=false) => {

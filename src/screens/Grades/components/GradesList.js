@@ -5,11 +5,10 @@ import Accordion from '../../../components/common/Accordion';
 import Button from '../../../components/common/Button';
 import { useThemes } from '../../../context/ThemeContext';
 import { useTranslations } from '../../../context/LanguageContext';
-
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import ExamRow from './ExamRow';
-import CacheIndicator from './CacheIndicator';
-import NoDataIndicator from './NoDataIndicator';
+import CacheIndicator from './indicators/CacheIndicator';
+import NoDataIndicator from './indicators/NoDataIndicator';
 import RefreshButton from './RefreshButton';
 
 const GradesList = ({ forwardGradeData = () => null }) => {

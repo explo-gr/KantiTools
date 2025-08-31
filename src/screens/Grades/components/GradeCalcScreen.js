@@ -1,12 +1,11 @@
 // Imports
-import AchievedGradeCalculator from './AchievedGradeCalculator';
+import AchievedGradeCalculator from './calculators/AchievedGradeCalculator';
 import Divider from '../../../components/common/Divider';
 import ContainerView from '../../../components/common/ContainerView';
 import { Pressable, Keyboard, StyleSheet } from 'react-native';
 
 // Grade Calculation
 const GradesGradeCalc = () => {
-
     return (
         <ContainerView style={{
             gap: 20

@@ -106,7 +106,6 @@ const TodoList = () => {
         setTodos(prev => {
             const updated = prev.filter((_, i) => i !== index);
             setIsOpen({});
-
             return updated;
         });
     }, []);

@@ -6,7 +6,7 @@ import Header from '../../../components/common/Header';
 import ActionBox from '../../../components/common/ActionBox';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
 import Divider from '../../../components/common/Divider';
-import calcPlusMinusPunkte from './calcPlusMinuspunkte';
+import calcPlusMinusPunkte from '../../../lib/calcPlusMinuspunkte';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useCallback } from 'react';
 import LoginReqView from '../../../components/common/LoginReqView';

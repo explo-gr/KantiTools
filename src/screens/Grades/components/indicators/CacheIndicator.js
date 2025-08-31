@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
-import TranslatedText from '../../../components/translations/TranslatedText';
-import { useThemes } from '../../../context/ThemeContext';
+import TranslatedText from '../../../../components/translations/TranslatedText';
+import { useThemes } from '../../../../context/ThemeContext';
 
 const CacheIndicator = () => {
     const { colors, defaultThemedStyles } = useThemes();

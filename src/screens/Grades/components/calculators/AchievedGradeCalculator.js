@@ -1,8 +1,8 @@
 // Imports
 import { Text, View, StyleSheet, TextInput, Pressable } from 'react-native';
 import { useEffect, useState, useRef } from 'react';
-import { useThemes } from '../../../context/ThemeContext';
-import TranslatedText from '../../../components/translations/TranslatedText';
+import { useThemes } from '../../../../context/ThemeContext';
+import TranslatedText from '../../../../components/translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
 
 // Color Transition

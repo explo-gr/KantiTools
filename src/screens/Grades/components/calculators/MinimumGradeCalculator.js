@@ -1,10 +1,10 @@
 // Imports
 import { Text, View, StyleSheet, TextInput, FlatList, Keyboard, Pressable } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
-import { useThemes } from '../../../context/ThemeContext';
+import { useThemes } from '../../../../context/ThemeContext';
 import GradeItem from './GradeItem';
-import Button from '../../../components/common/Button';
-import { useTranslations } from '../../../context/LanguageContext';
+import Button from '../../../../components/common/Button';
+import { useTranslations } from '../../../../context/LanguageContext';
 
 const createNewEntry = (id) => ({
     id,
