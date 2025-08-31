@@ -5,6 +5,7 @@ import { useThemes } from '../../../context/ThemeContext';
 import { openBrowserAsync } from 'expo-web-browser';
 import Divider from '../../../components/common/Divider';
 import { useMemo } from 'react';
+import useHideTabBarOnFocus from '../../../hooks/useHideTabBarOnFocus';
 
 const AttributionText = ({ children, pronounced }) => {
     const { defaultThemedStyles } = useThemes();
@@ -36,6 +37,8 @@ const AttributionItem = ({ packageName, repository, publisher, licenses }) => {
 };
 
 const SettingsAttributions = () => {
+    useHideTabBarOnFocus();
+
     const data = useMemo(() => Object.entries(licenses).map(([packageName, value]) => ({
         packageName,
         ...value,
@@ -55,7 +58,7 @@ const SettingsAttributions = () => {
                     />
                 )}
                 ItemSeparatorComponent={Divider}
-                initialNumToRender={20}
+                initialNumToRender={12}
                 maxToRenderPerBatch={25}
                 windowSize={10}
             />

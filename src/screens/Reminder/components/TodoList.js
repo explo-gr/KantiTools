@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, memo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
     View,
     Text,
@@ -32,7 +32,7 @@ const EmptyListMsg = () => {
     );
 }
 
-const TodoActions = memo(({ onEdit, onDelete }) => {
+const TodoActions = ({ onEdit, onDelete }) => {
     const { colors } = useThemes();
 
     return (
@@ -45,9 +45,9 @@ const TodoActions = memo(({ onEdit, onDelete }) => {
             </TouchableOpacity>
         </View>
     );
-});
+};
 
-const TodoDescription = memo(({ description }) => {
+const TodoDescription = ({ description }) => {
     const { colors } = useThemes();
 
     if (description) {
@@ -63,11 +63,11 @@ const TodoDescription = memo(({ description }) => {
             re_no_descr
         </TranslatedText>
     );
-});
+};
 
 const TodoList = () => {
     const { colors, theme, defaultThemedStyles } = useThemes();
-    const { t } = useTranslations();
+    const { t, language } = useTranslations();
 
     const [ todos, setTodos ] = useState([]);
     const [ isLoading, setIsLoading ] = useState(true);
@@ -102,16 +102,16 @@ const TodoList = () => {
         setModalVisible(false);
     };
 
-    const handleDelete = (index) => {
+    const handleDelete = useCallback((index) => {
         setTodos(prev => {
             const updated = prev.filter((_, i) => i !== index);
             setIsOpen({});
 
             return updated;
         });
-    };
+    }, []);
 
-    const handleDeletePrompt = (index) => {
+    const handleDeletePrompt = useCallback((index) => {
         Alert.alert(
             t('re_del'),
             t('re_del_msg'),
@@ -122,22 +122,25 @@ const TodoList = () => {
                 },
                 {
                     text: t('delete'),
-                    onPress: () => {
-                        handleDelete(index);
-                    },
+                    onPress: () => handleDelete(index),
                     style: 'destructive'
                 },
             ],
             { cancelable: true }
         );
-    };
+    }, [language]);
 
-    const handleEdit = (item, index) => {
+    const handleEdit = useCallback((item, index) => {
         setEditIndex(index);
         setTodoToEdit(item);
-
         setModalVisible(true);
-    }
+    }, []);
+
+    const handleModalCancel = useCallback(() => {
+        setModalVisible(false);
+        setEditIndex(null);
+        setTodoToEdit(null);
+    }, []);
 
     useEffect(() => {
         AsyncStorage.getItem(TODO_STORAGE_KEY).then(data => {
@@ -152,7 +155,7 @@ const TodoList = () => {
         AsyncStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
     }, [todos]);
 
-    const renderTodoItem = ({ item, index }) => (
+    const renderTodoItem = useCallback(({ item, index }) => (
         <View style={styles.rootContainer}>
             <Accordion
                 title={item.title}
@@ -165,11 +168,10 @@ const TodoList = () => {
                 <TodoActions
                     onEdit={() => handleEdit(item, index)}
                     onDelete={() => handleDeletePrompt(index)}
-                    colors={colors}
                 />
             </Accordion>
         </View>
-    );
+    ), [isOpen, getColorCode, handleOpen, handleEdit, handleDeletePrompt]);
 
     if (isLoading) {
         return (
@@ -189,7 +191,7 @@ const TodoList = () => {
                 data={todos}
                 keyExtractor={(item) => item.id}
                 renderItem={renderTodoItem}
-                contentContainerStyle={{ paddingBottom: 200 }}
+                contentContainerStyle={styles.flatListContent}
                 updateCellsBatchingPeriod={80}
                 maxToRenderPerBatch={6}
                 removeClippedSubviews
@@ -212,11 +214,7 @@ const TodoList = () => {
                 <TodoModal
                     visible={modalVisible}
                     onOk={handleAddTodo}
-                    onCancel={() => {
-                        setModalVisible(false);
-                        setEditIndex(null);
-                        setTodoToEdit(null);
-                    }}
+                    onCancel={handleModalCancel}
                     editIndex={editIndex}
                     todoToEdit={todoToEdit}
                 />
@@ -270,6 +268,9 @@ const styles = StyleSheet.create({
     },
     descrText: {
         fontSize: 14.5
+    },
+    flatListContent: {
+        paddingBottom: 200
     }
 });
 

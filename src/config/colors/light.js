@@ -2,7 +2,7 @@ export default {
     generic: '#FFFFFF',
     hardContrast: '#000000',
     white: '#FFFFFF',
-    gray: '#7f7f7fff',
+    gray: '#757575',
     red: '#B22222',
     orange: '#CC5500',
     yellow: '#DAA520',

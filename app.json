@@ -17,6 +17,7 @@
       "supportsTablet": true
     },
     "android": {
+      "edgeToEdgeEnabled": false,
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.gianmarcoc_07.KantiTools",
       "adaptiveIcon": {

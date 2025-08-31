@@ -9,8 +9,17 @@ export const ThemeProvider = ({ children }) => {
     const { settings } = useSettings();
     const systemTheme = useColorScheme();
 
+    const accentColor = settings.accent;
     const theme = settings.theme === 'system' ? systemTheme : settings.theme;
-    const colors = useMemo(() => getColorPalette(theme), [theme]);
+    const colors = useMemo(() => {
+        const defaultPalette = getColorPalette(theme);
+        return {
+            ...defaultPalette,
+            blue: accentColor
+        }
+    }, [theme]);
+
+    console.log(accentColor)
 
     const defaultThemedStyles = useMemo(() => {
         const defaultThemedStyle = StyleSheet.create({

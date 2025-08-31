@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 // Screens
 import GradesScreen from '../../screens/Grades/GradesScreen';
@@ -18,7 +18,6 @@ const Tab = createBottomTabNavigator();
 
 const AppTabNavigator = () => {
     const { colors, theme } = useThemes();
-    const [ tabBarHidden, setTabBarHidden ] = useState(false);
 
     const navigationTheme = useMemo(() => ({
         ...DefaultTheme,
@@ -31,7 +30,7 @@ const AppTabNavigator = () => {
     return (
         <NavigationContainer theme={navigationTheme}>
             <Tab.Navigator
-                tabBar={(props) => <TabNavigator hidden={tabBarHidden} {...props} />}
+                tabBar={(props) => <TabNavigator {...props} />}
                 screenOptions={{
                     headerShown: false,
                     animation: 'fade'

@@ -5,10 +5,13 @@ import Feather from '@expo/vector-icons/Feather';
 import ScaleOnFocus from '../../components/utils/ScaleOnFocus';
 import TranslatedText from '../../components/translations/TranslatedText';
 import icons from '../../config/navicons/icons';
-import { useEffect, useState, useCallback, memo } from 'react';
+import { useEffect, useState, useCallback, memo, useMemo } from 'react';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { useTabBarVisibility } from '../../context/TabBarVisibilityContext';
 
-const TabItem = memo(({ route, index, isFocused, navigation, buildHref, isCompact, colors }) => {
+const TabItem = memo(({ route, index, isFocused, navigation, buildHref, isCompact }) => {
+    const { colors } = useThemes();
+
     const onPress = useCallback(() => {
         const event = navigation.emit({
             type: 'tabPress',
@@ -52,8 +55,9 @@ const TabItem = memo(({ route, index, isFocused, navigation, buildHref, isCompac
     );
 });
 
-const TabNavigator = ({ state, navigation, hidden }) => {
+const TabNavigator = ({ state, navigation }) => {
     const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+    const { hidden } = useTabBarVisibility();
 
     useEffect(() => {
         const showSub = Keyboard.addListener('keyboardDidShow', () => setIsKeyboardVisible(true));
@@ -69,21 +73,23 @@ const TabNavigator = ({ state, navigation, hidden }) => {
     const animatedStyles = useAnimatedStyle(() => ({
         transform: [{ translateY: withSpring(hiddenOffset.value * 0.75) }]
     }));
+    
+    const { width } = useWindowDimensions();
+    const isCompact = width < 500;
+    
+    const { colors, defaultThemedStyles } = useThemes();
+    const { buildHref } = useLinkBuilder();
 
-    const shouldHide = hidden || isKeyboardVisible;
+    const shouldHide = useMemo(() => hidden || isKeyboardVisible, [hidden, isKeyboardVisible]);
 
     useEffect(() => {
         hiddenOffset.value = shouldHide ? 200 : 0;
     }, [shouldHide]);
-
-    const { width } = useWindowDimensions();
-    const isCompact = width < 500;
-
-    const { colors, defaultThemedStyles } = useThemes();
-    const { buildHref } = useLinkBuilder();
-
+    
     return (
         <Animated.View
+            renderToHardwareTextureAndroid
+            removeClippedSubviews={false}
             style={[
                 { backgroundColor: colors.blue },
                 animatedStyles,
@@ -105,7 +111,6 @@ const TabNavigator = ({ state, navigation, hidden }) => {
                         navigation={navigation}
                         buildHref={buildHref}
                         isCompact={isCompact}
-                        colors={colors}
                     />
                 );
             })}
@@ -126,6 +131,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         position: 'absolute',
+        overflow: 'visible'
     },
     rootContainer: {
         flex: 1,

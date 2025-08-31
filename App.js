@@ -18,6 +18,7 @@ import { DataProvider } from './src/context/DataContext';
 import AppTabNavigator from './src/navigation/navigators/AppTabNavigator';
 import Feather from '@expo/vector-icons/Feather';
 import Placeholder from './src/components/utils/Placeholder';
+import { TabBarVisibilityProvider } from './src/context/TabBarVisibilityContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -29,7 +30,7 @@ export default function App() {
             try {
                 await Promise.race([
                     Feather.loadFont(),
-                    new Promise(resolve => setTimeout(resolve, 2000))
+                    new Promise(resolve => setTimeout(resolve, 2000)) // cap the max loading time
                 ]);
             } catch {
                 console.log('[SPLASH] Promise rejection');
@@ -49,7 +50,9 @@ export default function App() {
                 <ThemeProvider>
                     <LanguageProvider>
                         <DataProvider>
-                            {appIsReady ? (<AppTabNavigator />) : (<Placeholder/>)}
+                            <TabBarVisibilityProvider>
+                                {appIsReady ? (<AppTabNavigator />) : (<Placeholder/>) /* Allow components to start while loading the app */}
+                            </TabBarVisibilityProvider>
                         </DataProvider>
                     </LanguageProvider>
                 </ThemeProvider>

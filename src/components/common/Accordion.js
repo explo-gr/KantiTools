@@ -63,9 +63,11 @@ const Accordion = ({
     }, [isOpen, contentHeight]);
 
     return (
-        <View style={[styles.accordionContainer, defaultThemedStyles.card, {
-            backgroundColor: `${tint}29`
-        }]}>
+        <View
+            style={[styles.accordionContainer, defaultThemedStyles.card, {
+                backgroundColor: `${tint}29`
+            }]}
+        >
             <TouchableOpacity onPress={handleOpenClose}>
                 <View style={styles.headerContainer}>
                     <Text style={[{ fontSize: titleTextSize }, styles.titleText, defaultThemedStyles.text]}>
@@ -81,7 +83,10 @@ const Accordion = ({
             </TouchableOpacity>
 
             {/* Animated collapsible content */}
-            <Animated.View style={[styles.contentContainer, openingAnimationStyle]}>
+            <Animated.View
+                style={[styles.contentContainer, openingAnimationStyle]}
+                removeClippedSubviews
+            >
                 <Divider/>
                 <View style={styles.childrenContainer}>
                     {children}
@@ -152,7 +157,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export default memo(Accordion, (prevProps, nextProps) =>
+/* export default memo(Accordion, (prevProps, nextProps) =>
     prevProps.isOpen === nextProps.isOpen &&
     prevProps.title === nextProps.title &&
     prevProps.tint === nextProps.tint &&
@@ -160,4 +165,6 @@ export default memo(Accordion, (prevProps, nextProps) =>
     prevProps.immutable === nextProps.immutable &&
     prevProps.children === nextProps.children &&
     prevProps.rightItem === nextProps.rightItem
-);
+); */
+
+export default memo(Accordion);
