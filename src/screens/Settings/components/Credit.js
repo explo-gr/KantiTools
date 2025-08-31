@@ -3,6 +3,7 @@ import { useThemes } from '../../../context/ThemeContext';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Pressable } from 'react-native-gesture-handler';
 import { openBrowserAsync } from 'expo-web-browser';
+import { nativeApplicationVersion } from 'expo-application';
 import * as Haptics from 'expo-haptics';
 
 const REPO_URL = 'https://github.com/explo-gr/KantiTools';
@@ -55,7 +56,7 @@ const Credit = () => {
                     <CreditText>MA25 Gian-Marco Coray</CreditText>
                     <CreditText>github.com/explo-gr/KantiTools</CreditText>
                     <CreditText>KantiTools</CreditText>
-                    <CreditText>Release 1.0.1</CreditText>
+                    <CreditText>Release {nativeApplicationVersion}</CreditText>
                 </View>
             </View>
         </Pressable>

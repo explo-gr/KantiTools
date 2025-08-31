@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Alert, View, ScrollView, StyleSheet } from 'react-native';
-import Button from '../../../components/common/Button'
+import Button from '../../../components/common/Button';
 import DropdownSelect from '../../../components/common/DropdownSelect';
 import { SupportedLanguages, useTranslations } from '../../../context/LanguageContext';
 import { useThemes } from '../../../context/ThemeContext';
@@ -46,13 +46,14 @@ const SettingsMain = ({ navigation }) => {
     const { language, setLanguage, t, resetLanguage } = useTranslations();
 
     // Theme Settings
-    const themeStates = ['dark', 'white', 'system'];
+    const themeStates = useMemo(() => (['dark', 'white', 'system']), []);
+    const accentColors = useMemo(() => (['red', 'green', 'blue', 'purple']), []);
 
     // Data
     const { clearDataCache } = useData();
     const { logout } = useAuth();
 
-    const handleReset = () => {
+    const handleReset = useCallback(() => {
         Alert.alert(
             t('reset'),
             t('st_rst_msg'),
@@ -82,7 +83,7 @@ const SettingsMain = ({ navigation }) => {
             ],
             { cancelable: true }
         );
-    }
+    }, []);
 
     return (
         <ContainerView>
@@ -109,6 +110,13 @@ const SettingsMain = ({ navigation }) => {
                         entries={[ ...themeStates ]}
                         selectedItem={settings.theme}
                         onSelect={(theme) => changeSetting('theme', theme)}
+                    />
+                </SettingsItem>
+                <SettingsItem title={t('st_prf_acc_clrs')}>
+                    <DropdownSelect
+                        entries={[ ...accentColors ]}
+                        selectedItem={settings.accent_color}
+                        onSelect={(color) => changeSetting('accent_color', color)}
                     />
                 </SettingsItem>
                 <SettingsCategoryHeader icon='user'>

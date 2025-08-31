@@ -6,7 +6,7 @@ const SettingsContext = createContext();
 
 export const SettingsProvider = ({ children }) => {
     const [settings, setSettings] = useState({ ...defaultSettings });
-    const [ settingsReady, setSettingsReady ] = useState(false);
+    const [ settingsLoaded, setSettingsLoaded ] = useState(false);
 
     const changeSetting = useCallback((key, value) => {
         setSettings(prev => ({
@@ -24,16 +24,20 @@ export const SettingsProvider = ({ children }) => {
         const loadSettings = async () => {
             try {
                 const savedSettings = await AsyncStorage.getItem('settings');
+
                 if (savedSettings === null) {
                     await AsyncStorage.setItem('settings', JSON.stringify(defaultSettings));
                     setSettings(defaultSettings);
                 } else {
-                    setSettings(JSON.parse(savedSettings));
+                    setSettings({
+                        ...defaultSettings, // account for possibly new/missing keys 
+                        ...JSON.parse(savedSettings)
+                    });
                 }
             } catch (e) {
-                console.error(e);
+                console.error(`[SETTINGS] Failed to save settings: ${e}`);
             } finally {
-                setSettingsReady(true);
+                setSettingsLoaded(true);
             }
         }
 
@@ -43,9 +47,10 @@ export const SettingsProvider = ({ children }) => {
     useEffect(() => {
         const saveSettings = async () => {
             try {
+                console.log(`[SETTINGS] Detected setting change — saving`);
                 await AsyncStorage.setItem('settings', JSON.stringify(settings));
             } catch (e) {
-                console.error(e);
+                console.error(`[SETTINGS] Failed to save settings: ${e}`);
             }
         }
 
@@ -53,7 +58,7 @@ export const SettingsProvider = ({ children }) => {
     }, [settings]);
 
     return (
-        <SettingsContext.Provider value={{ settings, changeSetting, resetSettings }}>
+        <SettingsContext.Provider value={{ settings, changeSetting, resetSettings, settingsLoaded }}>
             { children }
         </SettingsContext.Provider>
     );

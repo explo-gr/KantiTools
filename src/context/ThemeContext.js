@@ -1,7 +1,8 @@
 import React, { createContext, useMemo } from 'react';
-import getColorPalette from '../lib/getColorPalette';
+import getColorPalette from '../lib/themes/getColorPalette';
 import { StyleSheet, useColorScheme } from 'react-native';
 import { useSettings } from './SettingsContext';
+import getAccentColor from '../lib/themes/getAccentColor';
 
 export const ThemeContext = createContext();
 
@@ -9,17 +10,23 @@ export const ThemeProvider = ({ children }) => {
     const { settings } = useSettings();
     const systemTheme = useColorScheme();
 
-    const accentColor = settings.accent;
-    const theme = settings.theme === 'system' ? systemTheme : settings.theme;
+    const theme = useMemo(() =>
+        settings.theme === 'system' ? systemTheme : settings.theme
+    , [systemTheme, settings.theme]);
+
+    const accentColor = useMemo(() => {
+        console.log('jfldköjfldkö')
+        return getAccentColor(theme, settings.accent_color);
+    }, [theme, settings.accent_color]);
+
     const colors = useMemo(() => {
         const defaultPalette = getColorPalette(theme);
+
         return {
             ...defaultPalette,
             accent: accentColor
         }
-    }, [theme]);
-
-    console.log(accentColor)
+    }, [theme, accentColor]);
 
     const defaultThemedStyles = useMemo(() => {
         const defaultThemedStyle = StyleSheet.create({
@@ -51,7 +58,7 @@ export const ThemeProvider = ({ children }) => {
         });
 
         return defaultThemedStyle;
-    }, [theme]);
+    }, [theme, colors]);
 
     const contextValue = useMemo(() => ({
         colors,

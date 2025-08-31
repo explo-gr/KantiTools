@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 
-import getSystemLanguages from '../lib/localeHelper';
+import getSystemLanguages from '../lib/translations/localeHelper';
 
 import de from '../config/translations/de';
 import en from '../config/translations/en';

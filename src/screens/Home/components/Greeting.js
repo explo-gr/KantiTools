@@ -28,7 +28,7 @@ const Greeting = () => {
             { condition: (h) => h <= 11, icon: 'sun', key: 'hm_gr_forenoon', color: colors.orange },
             { condition: (h) => h <= 12, icon: 'sun', key: 'hm_gr_midday', color: colors.yellow },
             { condition: (h) => h <= 17, icon: 'sun', key: 'hm_gr_afternoon', color: colors.yellow },
-            { condition: (h) => h <= 20, icon: 'moon', key: 'hm_gr_evening', color: colors.lightblue },
+            { condition: (h) => h <= 20, icon: 'moon', key: 'hm_gr_evening', color: colors.blue },
         ];
 
         for (const { condition, icon, key, color } of greetingRanges) {

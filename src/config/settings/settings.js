@@ -2,6 +2,6 @@
     Default Settings
 */
 export default {
-    theme: 'system',        // Theming
-    accent: '#7a2835'          // Accent Color
+    theme: 'system',                // Theming
+    accent_color: 'red'            // Accent Color
 }
