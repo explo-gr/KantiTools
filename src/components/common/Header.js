@@ -14,10 +14,10 @@ const Header = ({ title, showIcon = true }) => {
             <View>
                 <View style={styles.container}>
                     {showIcon && (
-                        <Feather name={icons[title] || 'alert-circle'} size={30} color={colors.blue} style={styles.icon}/>
+                        <Feather name={icons[title] || 'alert-circle'} size={30} color={colors.accent} style={styles.icon}/>
                     )}
                     <TranslatedText style={[{
-                        color: colors.blue,
+                        color: colors.accent,
                     }, styles.text]}>
                         {t(title)}
                     </TranslatedText>

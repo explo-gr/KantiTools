@@ -10,11 +10,11 @@ const Box = ({ title, highlighted, current, onPress = () => null }) => {
 
     const containerStyle = highlighted
         ?   {
-                backgroundColor: colors.blue
+                backgroundColor: colors.accent
             }
         :   {
                 borderWidth: 2,
-                borderColor: colors.blue 
+                borderColor: colors.accent 
             }
 
 
@@ -29,7 +29,7 @@ const Box = ({ title, highlighted, current, onPress = () => null }) => {
             transform: [{ scale: current ? 1.2 : 1.0 }]
         }, containerStyle, boxDimensions, styles.box]} onPress={onPress}>
             <Text style={[{
-                color: highlighted ? colors.generic : colors.blue
+                color: highlighted ? colors.generic : colors.accent
             }, styles.boxText]}>{title}</Text>
         </TouchableOpacity>
     );

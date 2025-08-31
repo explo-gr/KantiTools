@@ -7,7 +7,7 @@ const LoadingIndicator = ({ status }) => {
 
     return (
         <View style={styles.container}>
-            <ActivityIndicator size='large' color={theme === 'dark' ? colors.blue : colors.lightblue}/>
+            <ActivityIndicator size='large' color={theme === 'dark' ? colors.accent : colors.lightblue}/>
             {status && (
                 <Text style={defaultThemedStyles.text}>{status}</Text>
             )}

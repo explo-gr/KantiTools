@@ -108,7 +108,7 @@ const SntzAccountManagement = () => {
         <ContainerView style={styles.containerView}>
             <Divider />
             <Pressable onPress={handleSecretPress} style={[{
-                backgroundColor: colors.blue
+                backgroundColor: colors.accent
             }, styles.circle, defaultThemedStyles.boxshadow]}>
                 <Feather name={iconName} size={70} color={colors.white} />
             </Pressable>

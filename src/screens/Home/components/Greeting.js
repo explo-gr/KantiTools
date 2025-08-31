@@ -12,7 +12,7 @@ const Greeting = () => {
             <View style={styles.container}>
                 <Feather name={icon} size={32} color={color} />
                 <Text style={[{
-                    color: colors.blue
+                    color: colors.accent
                 }, styles.text]}>{greeting}</Text>
             </View>
         );

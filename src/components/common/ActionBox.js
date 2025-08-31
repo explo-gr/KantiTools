@@ -18,13 +18,13 @@ const ActionBox = ({
             onPress={onPress}
             onLongPress={onLongPress}
             style={[{
-                backgroundColor: inverted ? colors.generic : colors.blue,
+                backgroundColor: inverted ? colors.generic : colors.accent,
                 opacity: disabled ? 0.2 : 1.0
             }, styles.container]}
             disabled={disabled}
         >
             <View style={styles.iconContainer}>
-                <Feather name={icon} size={32} color={inverted ? colors.blue : colors.generic}/>
+                <Feather name={icon} size={32} color={inverted ? colors.accent : colors.generic}/>
             </View>
             <TranslatedText 
                 style={[{

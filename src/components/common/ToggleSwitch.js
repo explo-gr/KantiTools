@@ -24,12 +24,12 @@ const ToggleSwitch = ({ state, changeState }) => {
             onPress={handlePress}
         >
             <View style={[{
-                borderColor: colors.blue,
+                borderColor: colors.accent,
                 backgroundColor: colors.generic,
             }, styles.buttonShell, defaultThemedStyles.boxshadow]}>
                 <Animated.View style={[{
                     width: width,
-                    backgroundColor: colors.blue,
+                    backgroundColor: colors.accent,
                 }, styles.innerCircle]} />
             </View>
         </Pressable>

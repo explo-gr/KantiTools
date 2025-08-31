@@ -67,9 +67,9 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
             >
                 <View style={[{
                         backgroundColor: colors.generic,
-                        borderColor: colors.blue
+                        borderColor: colors.accent
                     }, styles.buttonShell ]}>
-                    <Feather name='chevron-down' size={24} color={colors.blue} />
+                    <Feather name='chevron-down' size={24} color={colors.accent} />
                     <TranslatedText numberOfLines={1} adjustsFontSizeToFit style={[{
                             color: colors.hardContrast,
                         }, styles.itemText]}>

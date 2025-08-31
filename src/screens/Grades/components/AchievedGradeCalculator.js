@@ -79,7 +79,7 @@ const AchievedGradeCalculator = () => {
             <View style={styles.row}>
                 <Pressable 
                     onPress={handleAchievFocus} 
-                    style={[{ backgroundColor: colors.blue }, styles.inputContainer]}
+                    style={[{ backgroundColor: colors.accent }, styles.inputContainer]}
                 >
                     <View style={styles.textContainer}>
                         <TranslatedText android_hyphenationFrequency={'normal'} numberOfLines={2} style={[{ color: colors.generic }, styles.label]}>
@@ -101,7 +101,7 @@ const AchievedGradeCalculator = () => {
                 </Pressable>
                 <Pressable
                     onPress={handleMaxFocus}  
-                    style={[{ backgroundColor: colors.blue }, styles.inputContainer]}
+                    style={[{ backgroundColor: colors.accent }, styles.inputContainer]}
                 >
                     <View style={styles.textContainer}>
                         <TranslatedText android_hyphenationFrequency={'normal'} numberOfLines={2} style={[{ color: colors.generic }, styles.label]}>
@@ -124,12 +124,12 @@ const AchievedGradeCalculator = () => {
             </View>
             <View style={styles.resultWrapper}>
                 <View style={styles.resultHeader}>
-                    <Feather name='bar-chart' size={30} color={colors.blue} />
-                    <TranslatedText style={[{ color: colors.blue }, styles.resultLabel]}>
+                    <Feather name='bar-chart' size={30} color={colors.accent} />
+                    <TranslatedText style={[{ color: colors.accent }, styles.resultLabel]}>
                         gr_grcalc_end
                     </TranslatedText>
                 </View>
-                <View style={[{ borderColor: colors.blue }, styles.resultBox]}>
+                <View style={[{ borderColor: colors.accent }, styles.resultBox]}>
                     <Text style={[{ color: gradeColor.current }, styles.outputText]}>
                         { Number(output).toFixed(2) }
                     </Text>

@@ -137,7 +137,7 @@ const HomeMain = ({ navigation }) => {
             <View style={styles.spacer}/>
             <Greeting/>
             <View style={[{
-                borderColor: colors.blue,
+                borderColor: colors.accent,
             }, styles.abxRootContainer]}>
                 <ActionBoxContainer>
                     <ActionBox

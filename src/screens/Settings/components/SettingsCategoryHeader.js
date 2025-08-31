@@ -15,9 +15,9 @@ const SettingsCategoryHeader = ({ children, icon }) => {
     return (
         <View style={styles.container}>
             <View style={styles.textContainer}>
-                <Feather name={icon || 'edit-2'} size={24} color={colors.blue} />
+                <Feather name={icon || 'edit-2'} size={24} color={colors.accent} />
                 <Text style={[{
-                        color: colors.blue
+                        color: colors.accent
                     }, styles.text]}
                 >
                     { t(children) }

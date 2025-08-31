@@ -87,7 +87,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                         onChangeText={setTitle}
                         placeholder={t('re_phd_title')}
                         style={[{
-                            borderColor: colors.blue,
+                            borderColor: colors.accent,
                             height: 50
                         }, styles.input, defaultThemedStyles.text]}
                         placeholderTextColor={colors.gray}
@@ -98,7 +98,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                         onChangeText={setDescription}
                         placeholder={t('re_phd_description')}
                         style={[{
-                            borderColor: colors.blue,
+                            borderColor: colors.accent,
                             minHeight: 50
                         }, styles.input, defaultThemedStyles.text]}
                         multiline
@@ -119,7 +119,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                                 <TouchableOpacity
                                     key={`to-${color}`}
                                     style={[{
-                                        borderColor: colors.blue,
+                                        borderColor: colors.accent,
                                         backgroundColor: getColorCode(color),
                                         borderWidth: tint === color ? 2 : 1
                                     }, styles.tintCircle]}
@@ -135,7 +135,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                             <TranslatedText style={defaultThemedStyles.textContrast}>cancel</TranslatedText>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={handleOk} style={[styles.buttonShell, { backgroundColor: colors.blue }]}>
+                        <TouchableOpacity onPress={handleOk} style={[styles.buttonShell, { backgroundColor: colors.accent }]}>
                             <Feather name='save' size={22} color={colors.generic} />
                             <TranslatedText style={defaultThemedStyles.textContrast}>save</TranslatedText>
                         </TouchableOpacity>

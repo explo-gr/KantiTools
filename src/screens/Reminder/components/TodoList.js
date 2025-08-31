@@ -38,7 +38,7 @@ const TodoActions = ({ onEdit, onDelete }) => {
     return (
         <View style={styles.todoContentContainer}>
             <TouchableOpacity hitSlop={3} onPress={onEdit}>
-                <Feather name='edit-2' size={22} color={colors.blue} />
+                <Feather name='edit-2' size={22} color={colors.accent} />
             </TouchableOpacity>
             <TouchableOpacity hitSlop={3} onPress={onDelete}>
                 <Feather name='trash-2' size={22} color={colors.red} />
@@ -202,7 +202,7 @@ const TodoList = () => {
                 style={styles.fab}
             >
                 <View style={[{ 
-                    borderColor: colors.blue,
+                    borderColor: colors.accent,
                     backgroundColor: colors.generic
                 }, styles.fabContentContainer, defaultThemedStyles.boxshadow]}>
                     <Feather name='plus' size={24} color={colors.hardContrast} />

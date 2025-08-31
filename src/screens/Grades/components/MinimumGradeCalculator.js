@@ -84,7 +84,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
         <View style={styles.rootContainer}>
             <View style={styles.outputContainer}>
                 <Text style={[{
-                    color: colors.blue
+                    color: colors.accent
                 },styles.outputText]}>{ output }</Text>
             </View>
 
@@ -98,7 +98,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         placeholderTextColor={colors.gray}
                         maxLength={5}
                         style={[{
-                            borderColor: colors.blue,
+                            borderColor: colors.accent,
                             color: colors.hardContrast
                         }, styles.input]}
                     />
@@ -110,7 +110,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         placeholderTextColor={colors.gray}
                         maxLength={5}
                         style={[{
-                            borderColor: colors.blue,
+                            borderColor: colors.accent,
                             color: colors.hardContrast
                         }, styles.input]}
                     />

@@ -13,7 +13,7 @@ const Button = ({
     style = {},
 }) => {
     const { colors, theme } = useThemes();
-    if (!color) color = colors.blue;
+    if (!color) color = colors.accent;
 
     const themedStyles = useMemo(() => {
         const styles = StyleSheet.create({
@@ -26,7 +26,7 @@ const Button = ({
                 flexDirection: 'row',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
-                backgroundColor: color ?? colors.blue,
+                backgroundColor: color ?? colors.accent,
             },
             text: {
                 color: colors.generic,

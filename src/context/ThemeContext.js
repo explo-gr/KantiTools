@@ -15,7 +15,7 @@ export const ThemeProvider = ({ children }) => {
         const defaultPalette = getColorPalette(theme);
         return {
             ...defaultPalette,
-            blue: accentColor
+            accent: accentColor
         }
     }, [theme]);
 
@@ -25,7 +25,7 @@ export const ThemeProvider = ({ children }) => {
         const defaultThemedStyle = StyleSheet.create({
             card: {
                 backgroundColor: colors.generic,
-                borderColor: colors.blue,
+                borderColor: colors.accent,
                 borderRadius: 20,
                 borderWidth: 2.5
             },
@@ -38,7 +38,7 @@ export const ThemeProvider = ({ children }) => {
                 textAlignVertical: 'center'
             },
             cardHighlight: {
-                backgroundColor: colors.blue,
+                backgroundColor: colors.accent,
                 borderRadius: 16,
             },
             boxshadow: {

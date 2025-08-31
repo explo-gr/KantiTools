@@ -91,7 +91,7 @@ const TabNavigator = ({ state, navigation }) => {
             renderToHardwareTextureAndroid
             removeClippedSubviews={false}
             style={[
-                { backgroundColor: colors.blue },
+                { backgroundColor: colors.accent },
                 animatedStyles,
                 styles.navigationContainer,
                 defaultThemedStyles.boxshadow,

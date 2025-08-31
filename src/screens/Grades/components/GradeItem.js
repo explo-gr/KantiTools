@@ -8,7 +8,7 @@ const GradePair = memo(({ value, onChange, placeholder, action, actionTitle, ico
     const inputStyle = useMemo(
         () => [
             {
-                borderColor: colors.blue,
+                borderColor: colors.accent,
                 color: colors.hardContrast,
             },
             styles.input,
@@ -63,7 +63,7 @@ const GradeItem = ({ grade, onGradeChange, weight, onWeightChange, onDelete, onD
                     action={onDuplicate}
                     actionTitle={t('duplicate')}
                     icon='copy'
-                    btnColor={colors.blue}
+                    btnColor={colors.accent}
                     colors={colors}
                 />
             </View>
