@@ -1,5 +1,5 @@
 export default {
-    generic: '#161b21',
+    // generic: '#161b21', --> given by accent color
     hardContrast: '#FFFFFF',
     white: '#FFFFFF',
     gray: '#9f9f9fff',

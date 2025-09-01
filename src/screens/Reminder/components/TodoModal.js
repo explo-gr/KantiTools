@@ -1,20 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import {
-    View,
-    TextInput,
-    StyleSheet,
-    TouchableOpacity,
-    Modal,
-    Pressable,
-    Keyboard
-} from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Modal, Pressable, Keyboard } from 'react-native';
 import TranslatedText from '../../../components/translations/TranslatedText';
 import { useThemes } from '../../../context/ThemeContext';
 import Feather from '@expo/vector-icons/Feather';
 import ScaleOnFocus from '../../../components/utils/ScaleOnFocus';
 import { useTranslations } from '../../../context/LanguageContext';
-
-const TINT_COLORS = ['red', 'yellow', 'green', 'lightblue', 'purple'];
+import TINT_COLORS from './TINT_COLORS';
 
 const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
@@ -42,14 +33,6 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
             : handleCancel()
     }, []);
 
-    useEffect(() => {
-        if (todoToEdit) {
-            setTitle(todoToEdit.title);
-            setDescription(todoToEdit.description);
-            setTint(todoToEdit.tint);
-        }
-    }, [todoToEdit]);
-
     const handleOk = () => {
         // only create a fresh key if needed
         const id = editIndex
@@ -71,6 +54,16 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
         setTint(TINT_COLORS[0]);
     };
 
+    const handleModalPress = useCallback((e) => e.stopPropagation());
+
+    useEffect(() => {
+        if (todoToEdit) {
+            setTitle(todoToEdit.title);
+            setDescription(todoToEdit.description);
+            setTint(todoToEdit.tint);
+        }
+    }, [todoToEdit]);
+
     return (
         <Modal
             animationType='fade'
@@ -80,7 +73,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
             onRequestClose={handleCancel}
         >
             <Pressable style={styles.centeredView} onPress={handleBackgroundClick}>
-                <View style={[styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
+                <Pressable style={[styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]} onPress={handleModalPress}>
                     <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_title</TranslatedText>
                     <TextInput
                         value={title}
@@ -140,7 +133,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                             <TranslatedText style={defaultThemedStyles.textContrast}>save</TranslatedText>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </Pressable>
             </Pressable>
         </Modal>
     );

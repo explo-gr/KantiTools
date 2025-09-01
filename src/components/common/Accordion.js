@@ -29,7 +29,7 @@ const Accordion = ({
     const [contentHeight, setContentHeight] = useState(0);
     const hasMounted = useRef(false);
 
-    const titleTextSize = title.length >= 25 ? 15 : 17.5;
+    const titleTextSize = title.length >= 25 ? 14.5 : 17.5;
 
     const chevronAnimationStyle = useAnimatedStyle(() => ({
         transform: [{ rotate: `${rotation.value}deg` }],
@@ -99,6 +99,7 @@ const Accordion = ({
             */}
             <View
                 style={styles.hiddenMeasureContainer}
+                removeClippedSubviews
                 onLayout={(e) => {
                     const measuredHeight = e.nativeEvent.layout.height;
                     if (
