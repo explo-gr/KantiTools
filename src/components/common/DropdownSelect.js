@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { FlatList, Modal, Pressable, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { Modal, Pressable, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import TranslatedText from '../translations/TranslatedText';
 import { useThemes } from '../../context/ThemeContext';
 import ScaleOnFocus from '../utils/ScaleOnFocus';

@@ -1,21 +1,22 @@
+import Feather from '@expo/vector-icons/Feather';
 import { useCallback, useMemo } from 'react';
-import { Alert, View, ScrollView, StyleSheet } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import Button from '../../../components/common/Button';
-import DropdownSelect from '../../../components/common/DropdownSelect';
-import { SupportedLanguages, useTranslations } from '../../../context/LanguageContext';
-import { useThemes } from '../../../context/ThemeContext';
-import SettingsItem from './SettingsItem';
-import SettingsCategoryHeader from './SettingsCategoryHeader';
-import { useSettings } from '../../../context/SettingsContext';
 import ContainerView from '../../../components/common/ContainerView';
-import Credit from './Credit';
+import DropdownSelect from '../../../components/common/DropdownSelect';
 import Header from '../../../components/common/Header';
-import { useAuth } from '../../../context/AuthenticationContext';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import TranslatedText from '../../../components/translations/TranslatedText';
-import Feather from '@expo/vector-icons/Feather';
+import { useAuth } from '../../../context/AuthenticationContext';
 import { useData } from '../../../context/DataContext';
+import { SupportedLanguages, useTranslations } from '../../../context/LanguageContext';
+import { useSettings } from '../../../context/SettingsContext';
+import { useThemes } from '../../../context/ThemeContext';
 import { clearMenuplanData } from '../../../lib/menuplanHelper';
+import Credit from './Credit';
+import SettingsCategoryHeader from './SettingsCategoryHeader';
+import SettingsItem from './SettingsItem';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const AccountStatusIndicator = () => {
     const { user, loadingAuth } = useAuth();

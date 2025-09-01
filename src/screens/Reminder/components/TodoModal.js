@@ -7,25 +7,25 @@ import ScaleOnFocus from '../../../components/utils/ScaleOnFocus';
 import { useTranslations } from '../../../context/LanguageContext';
 import TINT_COLORS from './TINT_COLORS';
 
-const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
+const TodoModal = ({ visible, onOk, onCancel, todoToEdit }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
     const { t } = useTranslations();
 
-    const [ title, setTitle ] = useState('');
-    const [ description, setDescription ] = useState('');
-    const [ tint, setTint ] = useState(TINT_COLORS[0]);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [tint, setTint] = useState(TINT_COLORS[0]);
 
-    const getColorCode = useCallback((color) => colors[color] || colors.generic, [theme]);
+    const getColorCode = useCallback(
+        (color) => colors[color] || colors.generic,
+        [theme]
+    );
 
     const handleCancel = () => {
-        if (editIndex + 1) {
-            // only discard data after cancelling an edit
-            setTitle('');
-            setDescription('');
-            setTint(TINT_COLORS[0]);
-        }
+        setTitle('');
+        setDescription('');
+        setTint(TINT_COLORS[0]);
         onCancel();
-    }
+    };
 
     const handleBackgroundClick = useCallback(() => {
         Keyboard.isVisible()
@@ -34,21 +34,17 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
     }, []);
 
     const handleOk = () => {
-        // only create a fresh key if needed
-        const id = editIndex
-            ? todoToEdit.id
-            : `${title.trim()}-${Date.now()}`
-
         if (!title.trim()) return;
+
+        const id = todoToEdit?.id || `${title.trim()}-${Date.now()}`;
 
         onOk({
             title: title.trim(),
             description: description.trim(),
             id,
-            tint
-        }, editIndex);
+            tint,
+        });
 
-        // clear modal
         setTitle('');
         setDescription('');
         setTint(TINT_COLORS[0]);

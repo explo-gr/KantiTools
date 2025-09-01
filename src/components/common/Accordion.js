@@ -158,14 +158,4 @@ const styles = StyleSheet.create({
     }
 });
 
-/* export default memo(Accordion, (prevProps, nextProps) =>
-    prevProps.isOpen === nextProps.isOpen &&
-    prevProps.title === nextProps.title &&
-    prevProps.tint === nextProps.tint &&
-    prevProps.disabled === nextProps.disabled &&
-    prevProps.immutable === nextProps.immutable &&
-    prevProps.children === nextProps.children &&
-    prevProps.rightItem === nextProps.rightItem
-); */
-
-export default memo(Accordion);
+export default Accordion;

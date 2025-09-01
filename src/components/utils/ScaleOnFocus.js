@@ -13,7 +13,8 @@ const ScaleOnFocus = ({
     children,
     from=1,
     to=2,
-    duration=400
+    duration=380,
+    style
 }) => {
     
     const scale = useSharedValue(1);
@@ -35,7 +36,7 @@ const ScaleOnFocus = ({
     return (
         <Animated.View
             renderToHardwareTextureAndroid
-            style={[styles.container, animatedStyle]}>
+            style={[styles.container, style, animatedStyle]}>
             {children}
         </Animated.View>
     );
@@ -44,7 +45,7 @@ const ScaleOnFocus = ({
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     }
 });
 

@@ -4,21 +4,32 @@ import Header from '../../../components/common/Header';
 
 import SortingWheel from './SortingWheel';
 import TINT_COLORS from './TINT_COLORS';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const ReminderMain = () => {
-    const [ tintList, setTintList ] = useState(TINT_COLORS);
-    const [ sortedTint, setSortedTint ] = useState(TINT_COLORS[0]); // "no sorting" option missing
+    const [ sortedTint, setSortedTint ] = useState(null); // "no sorting" option missing
+
+    const todosFilterFn = useCallback((todos = []) => 
+        todos.filter((e) =>
+            sortedTint
+                ? e.tint === sortedTint
+                : e
+        )
+    , [sortedTint]);
 
     return (
         <ContainerView>
-            <Header title={'Reminder'}/>
+            <Header
+                title={'Reminder'}
+            />
             <SortingWheel
-                tintColors={tintList}
+                tintColors={TINT_COLORS}
                 selectedTint={sortedTint}
                 setSortedColor={setSortedTint}
             />
-            <TodoList/>
+            <TodoList
+                filterFn={todosFilterFn}
+            />
         </ContainerView>
     );
 }

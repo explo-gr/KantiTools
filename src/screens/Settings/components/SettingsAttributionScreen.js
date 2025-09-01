@@ -1,6 +1,7 @@
 import licenses from '../../../config/attributions/attribution.json';
 import ContainerView from '../../../components/common/ContainerView';
-import { Pressable, FlatList, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { useThemes } from '../../../context/ThemeContext';
 import { openBrowserAsync } from 'expo-web-browser';
 import Divider from '../../../components/common/Divider';

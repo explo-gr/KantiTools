@@ -1,5 +1,6 @@
 // Imports
-import { Text, View, StyleSheet, TextInput, FlatList, Keyboard, Pressable } from 'react-native';
+import { Text, View, StyleSheet, TextInput } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { useEffect, useRef, useState } from 'react';
 import { useThemes } from '../../../../context/ThemeContext';
 import GradeItem from './GradeItem';

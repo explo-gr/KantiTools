@@ -217,7 +217,8 @@ const styles = StyleSheet.create({
     text: {
         textAlign: 'left',
         textAlignVertical: 'center',
-        fontSize: 14.5
+        fontSize: 14.5,
+        marginLeft: 5
     }
 });
 

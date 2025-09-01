@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState } from 'react';
-import { Alert, FlatList, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import Accordion from '../../../components/common/Accordion';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import { useTranslations } from '../../../context/LanguageContext';
@@ -14,15 +15,19 @@ import TodoDescription from './list/TodoDescription';
 
 const TODO_STORAGE_KEY = 'todos';
 
-const TodoList = () => {
+const TodoList = ({
+    filterFn = (args) => args,
+}) => {
     const { colors, theme } = useThemes();
     const { t, language } = useTranslations();
 
     const [todos, setTodos] = useState([]);
+    const [todosToRender, setTodosToRender] = useState([]);
+
     const [isLoading, setIsLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
 
-    const [editIndex, setEditIndex] = useState(null);
+    const [editId, setEditId] = useState(null);
     const [todoToEdit, setTodoToEdit] = useState(null);
 
     const [isOpen, setIsOpen] = useState({});
@@ -41,36 +46,35 @@ const TodoList = () => {
         [theme]
     );
 
-    const handleAddTodo = (todo, index) => {
-        if (typeof index === 'number') {
-            const updated = [...todos];
-            updated[index] = todo;
-            setTodos(updated);
+    const handleAddTodo = (todo) => {
+        if (todo.id && todos.find((t) => t.id === todo.id)) {
+            // editing existing todo
+            setTodos((prev) => prev.map((t) => (t.id === todo.id ? todo : t)));
         } else {
+            // creating new
             setTodos((prev) => [...prev, todo]);
         }
 
         setTodoToEdit(null);
-        setEditIndex(null);
+        setEditId(null);
         setModalVisible(false);
     };
 
-    const handleDelete = useCallback((index) => {
+    const handleDelete = useCallback((id) => {
         setTodos((prev) => {
-            const updated = prev.filter((_, i) => i !== index);
-            setIsOpen({});
+            const updated = prev.filter((t) => t.id !== id);
             return updated;
         });
     }, []);
 
     const handleDeletePrompt = useCallback(
-        (index) => {
+        (id) => {
             Alert.alert(
                 t('re_del'),
                 t('re_del_msg'),
                 [
                     { text: t('cancel'), style: 'cancel' },
-                    { text: t('delete'), onPress: () => handleDelete(index), style: 'destructive' },
+                    { text: t('delete'), onPress: () => handleDelete(id), style: 'destructive' },
                 ],
                 { cancelable: true }
             );
@@ -78,15 +82,15 @@ const TodoList = () => {
         [language]
     );
 
-    const handleEdit = useCallback((item, index) => {
-        setEditIndex(index);
+    const handleEdit = useCallback((item) => {
+        setEditId(item.id);
         setTodoToEdit(item);
         setModalVisible(true);
     }, []);
 
     const handleModalCancel = useCallback(() => {
         setModalVisible(false);
-        setEditIndex(null);
+        setEditId(null);
         setTodoToEdit(null);
     }, []);
 
@@ -101,20 +105,24 @@ const TodoList = () => {
         AsyncStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
     }, [todos]);
 
+    useEffect(() => {
+        setTodosToRender(filterFn(todos));
+    }, [todos, filterFn]);
+
     const renderTodoItem = useCallback(
-        ({ item, index }) => (
+        ({ item }) => (
             <View style={styles.rootContainer}>
                 <Accordion
                     title={item.title}
-                    isOpen={!!isOpen[index]}
+                    isOpen={!!isOpen[item.id]}
                     tint={getColorCode(item.tint)}
                     changeIsOpen={handleOpen}
-                    accordionKey={index}
+                    accordionKey={item.id}
                 >
                     <TodoDescription description={item.description} />
                     <TodoActions
-                        onEdit={() => handleEdit(item, index)}
-                        onDelete={() => handleDeletePrompt(index)}
+                        onEdit={() => handleEdit(item)}
+                        onDelete={() => handleDeletePrompt(item.id)}
                     />
                 </Accordion>
             </View>
@@ -130,21 +138,21 @@ const TodoList = () => {
         );
     }
 
-    if (!todos.length) {
-        return <EmptyListMsg />;
-    }
-
     return (
         <>
-            <FlatList
-                data={todos}
-                keyExtractor={(item) => item.id}
-                renderItem={renderTodoItem}
-                contentContainerStyle={styles.flatListContent}
-                updateCellsBatchingPeriod={80}
-                maxToRenderPerBatch={6}
-                removeClippedSubviews
-            />
+            {todos.length > 0 ? (
+                <FlatList
+                    data={todosToRender}
+                    keyExtractor={(item) => item.id}
+                    renderItem={renderTodoItem}
+                    contentContainerStyle={styles.flatListContent}
+                    updateCellsBatchingPeriod={80}
+                    maxToRenderPerBatch={6}
+                    removeClippedSubviews
+                />
+            ): (
+                <EmptyListMsg/>
+            )}
 
             <CreateTodoButton onPress={() => setModalVisible(true)} />
 
@@ -153,13 +161,13 @@ const TodoList = () => {
                     visible={modalVisible}
                     onOk={handleAddTodo}
                     onCancel={handleModalCancel}
-                    editIndex={editIndex}
                     todoToEdit={todoToEdit}
                 />
             </View>
         </>
     );
 };
+
 
 const styles = StyleSheet.create({
     rootContainer: {
@@ -170,7 +178,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     flatListContent: {
-        paddingBottom: 200,
+        paddingBottom: 200
     },
 });
 

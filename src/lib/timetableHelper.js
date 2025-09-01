@@ -17,8 +17,6 @@ const checkTimeTableExists = async () => {
     }
 };
 
-Alert.alert(t('hm_ttbl'), t('hm_ttbl_file_req'));
-
 const pickAndSaveTimetable = async (
     onDocCanceled = () => null,
 ) => {
