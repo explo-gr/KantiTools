@@ -36,6 +36,7 @@ const SortingWheel = ({ tintColors, selectedTint, setSortedColor }) => {
                                     : color
                             )
                         }
+                        hitSlop={8}
                     />
                 </ScaleOnFocus>
             ))}

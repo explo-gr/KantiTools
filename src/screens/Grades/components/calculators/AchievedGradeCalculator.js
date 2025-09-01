@@ -1,9 +1,10 @@
 // Imports
-import { Text, View, StyleSheet, TextInput, Pressable } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { useEffect, useState, useRef } from 'react';
 import { useThemes } from '../../../../context/ThemeContext';
 import TranslatedText from '../../../../components/translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
+import ScoreInput from '../ScoreInput';
 
 // Color Transition
 const getGradeTint = (grade) => {
@@ -11,8 +12,8 @@ const getGradeTint = (grade) => {
         return '#000000'
     }
 
-    const red = [255, 0, 0];
-    const green = [0, 200, 0];
+    const red = [255, 0, 10];
+    const green = [0, 200, 25];
 
     const t = (grade - 1) / 5;
 
@@ -77,50 +78,20 @@ const AchievedGradeCalculator = () => {
     return (
         <View style={styles.wrapper}>
             <View style={styles.row}>
-                <Pressable 
-                    onPress={handleAchievFocus} 
-                    style={[{ backgroundColor: colors.accent }, styles.inputContainer]}
-                >
-                    <View style={styles.textContainer}>
-                        <TranslatedText android_hyphenationFrequency={'normal'} numberOfLines={2} style={[{ color: colors.generic }, styles.label]}>
-                            gr_grcalc_ach
-                        </TranslatedText>
-                    </View>
-                    <TextInput
-                        onChangeText={(input) => setAchievedScore(input.replace(/[^0-9.,]/g, ''))}
-                        value={achievedScore}
-                        keyboardType='number-pad'
-                        placeholder='---'
-                        textAlign='center'
-                        placeholderTextColor={`${colors.generic}b3`}
-                        cursorColor={colors.generic}
-                        maxLength={5}
-                        ref={achievedInputRef}
-                        style={[{ color: colors.generic }, styles.input]}
-                    />
-                </Pressable>
-                <Pressable
-                    onPress={handleMaxFocus}  
-                    style={[{ backgroundColor: colors.accent }, styles.inputContainer]}
-                >
-                    <View style={styles.textContainer}>
-                        <TranslatedText android_hyphenationFrequency={'normal'} numberOfLines={2} style={[{ color: colors.generic }, styles.label]}>
-                            gr_grcalc_max
-                        </TranslatedText>
-                    </View>
-                    <TextInput
-                        onChangeText={(input) => setMaxScore(input.replace(/[^0-9.,]/g, ''))}
-                        value={maxScore}
-                        keyboardType='number-pad'
-                        placeholder='---'
-                        textAlign='center'
-                        placeholderTextColor={`${colors.generic}b3`}
-                        cursorColor={colors.generic}
-                        maxLength={5}
-                        ref={maxInputRef}
-                        style={[{ color: colors.generic }, styles.input]}
-                    />
-                </Pressable>
+                <ScoreInput 
+                    labelKey="gr_grcalc_ach"
+                    value={achievedScore}
+                    onChangeText={setAchievedScore}
+                    inputRef={achievedInputRef}
+                    onPress={handleAchievFocus}
+                />
+                <ScoreInput 
+                    labelKey="gr_grcalc_max"
+                    value={maxScore}
+                    onChangeText={setMaxScore}
+                    inputRef={maxInputRef}
+                    onPress={handleMaxFocus}
+                />
             </View>
             <View style={styles.resultWrapper}>
                 <View style={styles.resultHeader}>

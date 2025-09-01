@@ -50,7 +50,7 @@ export const ThemeProvider = ({ children }) => {
             },
             boxshadow: {
                 shadowColor: 'black',
-                elevation: 10
+                elevation: 15
             },
             view: {
                 backgroundColor: colors.generic
