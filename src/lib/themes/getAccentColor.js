@@ -6,8 +6,8 @@ const getAccentColor = (theme=false, color) => {
     console.log(`[ACCENT COLOR] Attempting to use: ${color}`);
 
     return theme === 'dark'
-        ? colors.dark[color] || colors.dark.yellow
-        : colors.light[color] || colors.light.yellow;
+        ? colors.dark[color] || colors.dark.blue
+        : colors.light[color] || colors.light.blue;
 };
 
 export default getAccentColor;

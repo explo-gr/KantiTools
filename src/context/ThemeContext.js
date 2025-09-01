@@ -14,8 +14,7 @@ export const ThemeProvider = ({ children }) => {
         settings.theme === 'system' ? systemTheme : settings.theme
     , [systemTheme, settings.theme]);
 
-    const accentColor = useMemo(() => {
-        console.log('jfldköjfldkö')
+    const { accent, generic } = useMemo(() => {
         return getAccentColor(theme, settings.accent_color);
     }, [theme, settings.accent_color]);
 
@@ -24,9 +23,10 @@ export const ThemeProvider = ({ children }) => {
 
         return {
             ...defaultPalette,
-            accent: accentColor
+            accent,
+            generic
         }
-    }, [theme, accentColor]);
+    }, [theme, accent, generic]);
 
     const defaultThemedStyles = useMemo(() => {
         const defaultThemedStyle = StyleSheet.create({

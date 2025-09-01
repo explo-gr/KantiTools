@@ -1,6 +1,18 @@
 export default {
-    red: '#4f2222',
-    green: '#224f22',
-    blue: '#2B303B',
-    purple: '#40224f',
+    red: {
+        accent: '#4f2222',     // given
+        generic: '#f9f2f2'     // very light rose-tinted neutral
+    },
+    green: {
+        accent: '#224f22',     // given
+        generic: '#f2f9f2'     // very light green-tinted neutral
+    },
+    blue: {
+        accent: '#2B303B',     // given
+        generic: '#f2f5f5'     // given
+    },
+    purple: {
+        accent: '#40224f',     // given
+        generic: '#f9f2f9'     // very light purple-tinted neutral
+    }
 }
