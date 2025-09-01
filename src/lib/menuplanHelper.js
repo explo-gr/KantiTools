@@ -1,9 +1,9 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as cheerio from 'cheerio';
 import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
-import { Platform, Linking, Alert } from 'react-native';
-import * as cheerio from 'cheerio';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { openBrowserAsync } from 'expo-web-browser';
+import { Platform } from 'react-native';
 
 const MENUPLAN_DIR = `${FileSystem.documentDirectory}menuplan`;
 const FILE_NAME = 'current-menuplan.pdf';
