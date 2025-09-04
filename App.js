@@ -4,7 +4,7 @@
  * Licensed under the MIT License. See LICENSE file for details.
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 
 // Contexts
@@ -25,16 +25,19 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
     const [appIsReady, setAppIsReady] = useState(false);
-    const [ fontLoaded, fontError ] = useFonts({
+
+    const [fontsLoaded] = useFonts({
         'InterDisplay-Bold': require('./src/assets/fonts/InterDisplay-Bold.ttf'),
         'Inter-Medium': require('./src/assets/fonts/Inter-Medium.ttf'),
         'Inter-Bold': require('./src/assets/fonts/Inter-Bold.ttf'),
         'JetBrainsMono-Medium': require('./src/assets/fonts/JetBrainsMono-Medium.ttf'),
         'JetBrainsMono-Bold': require('./src/assets/fonts/JetBrainsMono-Bold.ttf')
-    })
+    });
 
     useEffect(() => {
         const prepare = async () => {
+            if (!fontsLoaded) return; // wait font
+
             try {
                 await Promise.race([
                     Feather.loadFont(),
@@ -50,7 +53,7 @@ export default function App() {
         };
 
         prepare();
-    }, []);
+    }, [fontsLoaded]);
 
     return (
         <AuthProvider>
