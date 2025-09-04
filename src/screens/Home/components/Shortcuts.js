@@ -20,6 +20,8 @@ const Shortcuts = ({ navigation }) => {
     const [ menDisabled, setMenDisabled ] = useState(false);
     const [ ttblAvailable, setTtblAvailable ] = useState(false);
 
+    const ttblIcon = ttblAvailable ? 'calendar' : 'file-plus';
+
     const handleMenuplan = async () => {
         setMenDisabled(true);
         const opened = await openMenuplanPDF();
@@ -100,7 +102,7 @@ const Shortcuts = ({ navigation }) => {
         <>
             <ActionBoxContainer>
                 <ActionBox
-                    icon='calendar'
+                    icon={ttblIcon}
                     label={t('hm_ttbl')}
                     onPress={handleTimetable}
                     onLongPress={handleResetTimetable}

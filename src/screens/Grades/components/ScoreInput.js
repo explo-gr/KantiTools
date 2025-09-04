@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: 32,
-        fontFamily: 'Inter-Bold',
+        fontFamily: 'Inter-Medium',
         padding: 8,
         height: 64,
         textAlignVertical: 'center',

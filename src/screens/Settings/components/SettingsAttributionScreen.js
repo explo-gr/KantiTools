@@ -78,6 +78,4 @@ const styles = StyleSheet.create({
     },
 });
 
-// https://reactnative.dev/docs/optimizing-flatlist-configuration#maxtorenderperbatch
-
 export default SettingsAttributions;

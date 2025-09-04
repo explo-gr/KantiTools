@@ -138,12 +138,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    examContainer: {
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        width: '100%',
-    },
     loadingIndContainer: {
         margin: 15,
         flex: 1
@@ -154,16 +148,6 @@ const styles = StyleSheet.create({
     avgGradeText: {
         fontFamily: 'JetBrainsMono-Bold',
         fontSize: 20,
-    },
-    examTopicText: {
-        fontSize: 16,
-        maxWidth: '90%',
-        overflow: 'hidden',
-    },
-    examGradeText: {
-        fontSize: 17,
-        fontFamily: 'monospace',
-        fontWeight: 'bold',
     },
     contentContainer: {
         paddingBottom: 120,

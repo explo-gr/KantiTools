@@ -70,7 +70,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit }) => {
         >
             <Pressable style={styles.centeredView} onPress={handleBackgroundClick}>
                 <Pressable style={[styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]} onPress={handleModalPress}>
-                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_title</TranslatedText>
+                    <TranslatedText style={[defaultThemedStyles.text, styles.label]}>re_title</TranslatedText>
                     <TextInput
                         value={title}
                         onChangeText={setTitle}
@@ -81,7 +81,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit }) => {
                         }, styles.input, defaultThemedStyles.text]}
                         placeholderTextColor={colors.gray}
                     />
-                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_description</TranslatedText>
+                    <TranslatedText style={[defaultThemedStyles.text, styles.label]}>re_description</TranslatedText>
                     <TextInput
                         value={description}
                         onChangeText={setDescription}
@@ -95,7 +95,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit }) => {
                         placeholderTextColor={colors.gray}
                     />
 
-                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_tint</TranslatedText>
+                    <TranslatedText style={[defaultThemedStyles.text, styles.label]}>re_tint</TranslatedText>
                     <View style={styles.tintRow}>
                         {TINT_COLORS.map((color) => (
                             <ScaleOnFocus
@@ -110,7 +110,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit }) => {
                                     style={[{
                                         borderColor: colors.accent,
                                         backgroundColor: getColorCode(color),
-                                        borderWidth: tint === color ? 2 : 1
+                                        borderWidth: tint === color ? 2 : 1.5
                                     }, styles.tintCircle]}
                                     onPress={() => setTint(color)}
                                 />
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        fontWeight: 'bold'
+        fontFamily: 'Inter-Bold'
     },
     input: {
         borderWidth: 1.2,

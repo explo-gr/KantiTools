@@ -43,7 +43,8 @@ export const ThemeProvider = ({ children }) => {
             },
             textContrast: {
                 color: colors.generic,
-                textAlignVertical: 'center'
+                textAlignVertical: 'center',
+                fontFamily: 'Inter-Medium'
             },
             cardHighlight: {
                 backgroundColor: colors.accent,
