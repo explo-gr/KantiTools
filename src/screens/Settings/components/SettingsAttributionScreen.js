@@ -69,7 +69,7 @@ const SettingsAttributions = () => {
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: 'monospace',
+        fontFamily: 'JetBrainsMono-Medium'
     },
     itemContainer: {
         flexDirection: 'column',

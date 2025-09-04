@@ -1,59 +1,10 @@
-import { View, StyleSheet, useWindowDimensions, Keyboard, TouchableOpacity } from 'react-native';
+import { StyleSheet, useWindowDimensions, Keyboard } from 'react-native';
 import { useLinkBuilder } from '@react-navigation/native';
 import { useThemes } from '../../context/ThemeContext';
-import Feather from '@expo/vector-icons/Feather';
-import ScaleOnFocus from '../../components/utils/ScaleOnFocus';
-import TranslatedText from '../../components/translations/TranslatedText';
-import icons from '../../config/navicons/icons';
-import { useEffect, useState, useCallback, memo, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useTabBarVisibility } from '../../context/TabBarVisibilityContext';
-
-const TabItem = memo(({ route, index, isFocused, navigation, buildHref, isCompact }) => {
-    const { colors } = useThemes();
-
-    const onPress = useCallback(() => {
-        const event = navigation.emit({
-            type: 'tabPress',
-            target: route.key,
-            canPreventDefault: true,
-        });
-
-        if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
-        }
-    }, [navigation, route, isFocused]);
-
-    const onLongPress = useCallback(() => {
-        navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-        });
-    }, [navigation, route]);
-
-    return (
-        <TouchableOpacity
-            href={buildHref(route.name, route.params)}
-            key={index.toString()}
-            onPress={onPress}
-            onLongPress={onLongPress}
-            style={styles.rootContainer}
-        >
-            <View style={[{ flexDirection: isCompact ? 'column' : 'row' }, styles.container]}>
-                <ScaleOnFocus isFocused={isFocused} from={0.85} to={1.1}>
-                    <Feather name={icons[route.name]} size={30} color={colors.generic} style={styles.icon}/>
-                </ScaleOnFocus>
-                <TranslatedText
-                    adjustsFontSizeToFit
-                    numberOfLines={1}
-                    style={[{ color: colors.generic }, styles.text]}
-                >
-                    {route.name}
-                </TranslatedText>
-            </View>
-        </TouchableOpacity>
-    );
-});
+import TabItem from '../components/TabItem';
 
 const TabNavigator = ({ state, navigation }) => {
     const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
@@ -132,24 +83,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         overflow: 'visible'
-    },
-    rootContainer: {
-        flex: 1,
-        margin: 3,
-    },
-    container: {
-        alignItems: 'center',
-        height: '100%',
-        justifyContent: 'center',
-    },
-    icon: {
-        margin: 5,
-    },
-    text: {
-        textAlignVertical: 'center',
-        textAlign: 'center',
-        fontSize: 11,
-    },
+    }
 });
 
 export default TabNavigator;

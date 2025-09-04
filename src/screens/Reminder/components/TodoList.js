@@ -115,7 +115,7 @@ const TodoList = ({
                 <Accordion
                     title={item.title}
                     isOpen={!!isOpen[item.id]}
-                    tint={getColorCode(item.tint)}
+                    tint={`${getColorCode(item.tint)}29`}
                     changeIsOpen={handleOpen}
                     accordionKey={item.id}
                 >
@@ -153,9 +153,7 @@ const TodoList = ({
             ): (
                 <EmptyListMsg/>
             )}
-
             <CreateTodoButton onPress={() => setModalVisible(true)} />
-
             <View>
                 <TodoModal
                     visible={modalVisible}

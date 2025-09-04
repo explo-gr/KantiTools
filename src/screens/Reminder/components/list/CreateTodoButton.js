@@ -19,7 +19,7 @@ const CreateTodoButton = ({ onPress }) => {
                 ]}
             >
                 <Feather name='plus' size={24} color={colors.hardContrast} />
-                <TranslatedText style={{ color: colors.hardContrast }}>
+                <TranslatedText style={[{ color: colors.hardContrast }, defaultThemedStyles.text]}>
                     re_create
                 </TranslatedText>
             </View>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         gap: 3,
-    },
+    }
 });
 
 export default CreateTodoButton;

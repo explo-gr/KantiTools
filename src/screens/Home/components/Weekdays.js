@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     boxText: {
         textAlignVertical: 'center',
         fontSize: 14,
+        fontFamily: 'Inter-Medium'
     }
 });
 

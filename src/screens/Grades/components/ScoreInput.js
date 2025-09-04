@@ -48,10 +48,11 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 14,
         textAlign: 'center',
+        fontFamily: 'Inter-Medium'
     },
     input: {
         fontSize: 32,
-        fontFamily: 'monospace',
+        fontFamily: 'Inter-Bold',
         padding: 8,
         height: 64,
         textAlignVertical: 'center',

@@ -16,7 +16,7 @@ const SortingWheel = ({ tintColors, selectedTint, setSortedColor }) => {
             {tintColors.map((color) => (
                 <ScaleOnFocus
                     from={1}
-                    to={1.2}
+                    to={1.15}
                     isFocused={selectedTint === color}
                     key={`img-${color}`}
                     duration={350}
@@ -26,7 +26,7 @@ const SortingWheel = ({ tintColors, selectedTint, setSortedColor }) => {
                         style={[{
                             borderColor: colors.accent,
                             backgroundColor: getColorCode(color),
-                            borderWidth: selectedTint === color ? 2.5 : 2,
+                            borderWidth: selectedTint === color ? 3 : 2,
                             width: capsuleWidth
                         }, styles.tintCircle]}
                         onPress={() => 

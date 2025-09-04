@@ -19,7 +19,10 @@ const Item = ({
     const itemStlye =
         isSelected
             ? {
-                text: defaultThemedStyles.textContrast,
+                text: {
+                    fontFamily: 'Inter-Bold',
+                    ...defaultThemedStyles.textContrast
+                },
                 view: defaultThemedStyles.cardHighlight
             }
             : {
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.4)'
     },
     entryText: {
-        fontWeight: 'bolder',
+        fontFamily: 'Inter-Medium',
         fontSize: 30,
     },
     entryView: {
@@ -152,7 +155,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     itemText: {
-        marginRight: 3
+        marginRight: 3,
+        fontFamily: 'Inter-Medium',
+        fontSize: 14
     }
 });
 

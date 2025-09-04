@@ -79,14 +79,14 @@ const AchievedGradeCalculator = () => {
         <View style={styles.wrapper}>
             <View style={styles.row}>
                 <ScoreInput 
-                    labelKey="gr_grcalc_ach"
+                    labelKey='gr_grcalc_ach'
                     value={achievedScore}
                     onChangeText={setAchievedScore}
                     inputRef={achievedInputRef}
                     onPress={handleAchievFocus}
                 />
                 <ScoreInput 
-                    labelKey="gr_grcalc_max"
+                    labelKey='gr_grcalc_max'
                     value={maxScore}
                     onChangeText={setMaxScore}
                     inputRef={maxInputRef}
@@ -119,28 +119,6 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
     },
-    inputContainer: {
-        borderRadius: 26,
-        margin: 10,
-        height: 120,
-        width: '42%',
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    label: {
-        fontSize: 14,
-        textAlign: 'center',
-    },
-    input: {
-        fontSize: 32,
-        fontFamily: 'monospace',
-        padding: 8,
-        height: 64,
-        textAlignVertical: 'center',
-        width: '100%',
-        //borderWidth: 1,
-    },
     resultWrapper: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -153,6 +131,7 @@ const styles = StyleSheet.create({
     },
     resultLabel: {
         fontSize: 25,
+        fontFamily: 'Inter-Medium'
     },
     resultBox: {
         borderWidth: 3.5,
@@ -163,26 +142,8 @@ const styles = StyleSheet.create({
     },
     outputText: {
         fontSize: 78,
-        fontFamily: 'monospace',
-        fontWeight: 'bold',
+        fontFamily: 'JetBrainsMono-Bold'
     },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    outputContainer: {
-        borderWidth: 3,
-        borderRadius: 16,
-        padding: 10,
-    },
-    textContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '35%',
-        width: '100%',
-        //borderWidth: 1
-    }
 });
 
 export default AchievedGradeCalculator;

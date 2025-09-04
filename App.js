@@ -19,11 +19,19 @@ import AppTabNavigator from './src/navigation/navigators/AppTabNavigator';
 import Feather from '@expo/vector-icons/Feather';
 import Placeholder from './src/components/utils/Placeholder';
 import { TabBarVisibilityProvider } from './src/context/TabBarVisibilityContext';
+import { useFonts } from 'expo-font';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
     const [appIsReady, setAppIsReady] = useState(false);
+    const [ fontLoaded, fontError ] = useFonts({
+        'InterDisplay-Bold': require('./src/assets/fonts/InterDisplay-Bold.ttf'),
+        'Inter-Medium': require('./src/assets/fonts/Inter-Medium.ttf'),
+        'Inter-Bold': require('./src/assets/fonts/Inter-Bold.ttf'),
+        'JetBrainsMono-Medium': require('./src/assets/fonts/JetBrainsMono-Medium.ttf'),
+        'JetBrainsMono-Bold': require('./src/assets/fonts/JetBrainsMono-Bold.ttf')
+    })
 
     useEffect(() => {
         const prepare = async () => {

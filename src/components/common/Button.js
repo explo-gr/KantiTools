@@ -32,6 +32,7 @@ const Button = ({
                 color: colors.generic,
                 marginLeft: 2,
                 fontSize: 15,
+                fontFamily: 'Inter-Medium',
                 textAlignVertical: 'center',
                 textAlign: 'center'
             },

@@ -190,18 +190,19 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 12,
         width: '80%',
-        minHeight: 45
+        minHeight: 45,
+        fontFamily: 'Inter-Medium'
     },
     textContainer: {
-        width: '90%',
-        paddingLeft: 10,
+        paddingLeft: 5,
         paddingVertical: 5,
         marginVertical: 12,
         borderLeftWidth: 1.6,
         borderRadius: 1.25,
+        width: '85%',
 
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         textAlignVertical: 'center',
         fontSize: 14.5,
-        marginLeft: 5
+        marginLeft: 5,
     }
 });
 

@@ -30,7 +30,6 @@ const ActionBox = ({
                 style={[{
                     color: colors.generic
                 }, styles.text]}
-                android_hyphenationFrequency={'normal'}
                 adjustsFontSizeToFit
                 numberOfLines={1}
             >
@@ -52,7 +51,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 12,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Inter-Medium'
     },
     iconContainer: {
         justifyContent: 'center',

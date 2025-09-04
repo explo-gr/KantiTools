@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 14,
         padding: 12,
-        flexGrow: 8,
+        flexGrow: 7,
+        fontFamily: 'Inter-Medium'
     },
     button: {
         flex: 1,

@@ -48,6 +48,13 @@ const GradesList = ({ forwardGradeData = () => null }) => {
 
     const renderCacheIndicator = useMemo(() => (grades.cached && <CacheIndicator/>), [grades.cached]);
 
+    const getMeanText = useCallback((mean) => {
+        const num = Number(mean);
+        return !mean || isNaN(num) 
+            ? '---'
+            : num.toFixed(2); 
+    }, []);
+
     if (!isReady) {
         return (
             <View style={styles.loadingIndContainer}>
@@ -86,7 +93,7 @@ const GradesList = ({ forwardGradeData = () => null }) => {
                                     color: colors.hardContrast
                                 }, styles.avgGradeText]}
                             >
-                                {subject.onlineMean || '---'}
+                                {getMeanText(subject.onlineMean)}
                             </Text>
                         }
                     >
@@ -145,9 +152,8 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     avgGradeText: {
-        fontFamily: 'monospace',
-        fontSize: 19,
-        fontWeight: 'bold',
+        fontFamily: 'JetBrainsMono-Bold',
+        fontSize: 20,
     },
     examTopicText: {
         fontSize: 16,

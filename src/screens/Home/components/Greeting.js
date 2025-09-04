@@ -5,7 +5,7 @@ import Feather from '@expo/vector-icons/Feather';
 
 const Greeting = () => {
     const { t } = useTranslations();
-    const { colors, } = useThemes();
+    const { colors } = useThemes();
 
     const getJSX = (icon, greeting, color='#426d9e') => {
         return (
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     text: {
-        fontWeight: 'bold',
+        fontFamily: 'Inter-Bold',
         fontSize: 26,
         textAlignVertical: 'center',
     }

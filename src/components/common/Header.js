@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         margin: 5
     },
     text: {
-        fontWeight: 'bold',
+        fontFamily: 'InterDisplay-Bold',
         fontSize: 28,
         textAlignVertical: 'center'
     }

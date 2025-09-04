@@ -4,7 +4,7 @@ import Animated, { useSharedValue, Easing, withTiming, useAnimatedStyle, ReduceM
 import { useTranslations } from '../../context/LanguageContext';
 import Feather from '@expo/vector-icons/Feather';
 import Divider from '../../components/common/Divider';
-import { useEffect, useRef, useState, memo } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 const Accordion = ({
     isOpen,
@@ -27,9 +27,10 @@ const Accordion = ({
     const rotation = useSharedValue(0);
 
     const [contentHeight, setContentHeight] = useState(0);
+    const [hasMeasured, setHasMeasured] = useState(false);
     const hasMounted = useRef(false);
 
-    const titleTextSize = title.length >= 25 ? 14.5 : 17.5;
+    const titleTextSize = title.length >= 25 ? 13.5 : 17;
 
     const chevronAnimationStyle = useAnimatedStyle(() => ({
         transform: [{ rotate: `${rotation.value}deg` }],
@@ -40,6 +41,18 @@ const Accordion = ({
     }));
 
     const handleOpenClose = () => !disabled && changeIsOpen(accordionKey);
+
+    const handleOnLayout = useCallback((e) => {
+        if (!immutable || (immutable && !hasMeasured)) {
+            const measuredHeight = e.nativeEvent.layout.height;
+            if (measuredHeight && Math.abs(measuredHeight - contentHeight) > deltaTolerance) {
+                setContentHeight(measuredHeight);
+                if (immutable) {
+                    setHasMeasured(true); // lock after first measure
+                }
+            }
+        }
+    }, [immutable, hasMeasured, contentHeight]);
 
     useEffect(() => {
         if (!hasMounted.current) {
@@ -65,12 +78,12 @@ const Accordion = ({
     return (
         <View
             style={[styles.accordionContainer, defaultThemedStyles.card, {
-                backgroundColor: `${tint}29`
+                backgroundColor: tint
             }]}
         >
             <TouchableOpacity onPress={handleOpenClose}>
                 <View style={styles.headerContainer}>
-                    <Text style={[{ fontSize: titleTextSize }, styles.titleText, defaultThemedStyles.text]}>
+                    <Text style={[{ fontSize: titleTextSize }, defaultThemedStyles.text, styles.titleText]}>
                         {t(title)}
                     </Text>
                     <View style={styles.headerSubcontainer}>
@@ -97,24 +110,18 @@ const Accordion = ({
                 Hidden measurement view (renders content but off-screen)
                 Very weird and hacky approach but this allows dynamic heights
             */}
-            <View
-                style={styles.hiddenMeasureContainer}
-                removeClippedSubviews
-                onLayout={(e) => {
-                    const measuredHeight = e.nativeEvent.layout.height;
-                    if (
-                        (immutable && !contentHeight) ||
-                        (!immutable && measuredHeight && Math.abs(measuredHeight - contentHeight) > deltaTolerance)
-                    ) {
-                        setContentHeight(measuredHeight);
-                    }
-                }}
-            >
-                <Divider/>
-                <View style={styles.childrenContainer}>
-                    {children}
+            {(!immutable || !hasMeasured) && (
+                <View
+                    style={styles.hiddenMeasureContainer}
+                    removeClippedSubviews
+                    onLayout={handleOnLayout}
+                >
+                    <Divider />
+                    <View style={styles.childrenContainer}>
+                        {children}
+                    </View>
                 </View>
-            </View>
+            )}
         </View>
     );
 };
@@ -140,9 +147,9 @@ const styles = StyleSheet.create({
     },
     titleText: {
         overflow: 'hidden',
-        fontWeight: 'bold',
         maxWidth: '80%',
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
+        fontFamily: 'Inter-Bold'
     },
     contentContainer: {
         overflow: 'hidden',

@@ -1,8 +1,16 @@
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useThemes } from '../../../context/ThemeContext';
+import { useCallback } from 'react';
 
 const ExamRow = ({ exam, onPress }) => {
     const { defaultThemedStyles } = useThemes();
+
+    const getGradeText = useCallback((grade) => {
+        const num = Number(grade);
+        return !grade || isNaN(num) 
+            ? '--'
+            : num.toFixed(2); 
+    }, []);
 
     return (
         <TouchableOpacity
@@ -10,15 +18,15 @@ const ExamRow = ({ exam, onPress }) => {
             onPress={() => onPress(exam)}
         >
             <Text
-                style={[styles.topicText, defaultThemedStyles.text]}
-                numberOfLines={1}
+                style={[defaultThemedStyles.text, styles.topicText]}
+                //numberOfLines={1}
             >
                 {exam.topic}
             </Text>
             <Text
-                style={[styles.gradeText, defaultThemedStyles.text]}
+                style={[defaultThemedStyles.text, styles.gradeText]}
             >
-                {exam.grade || '-'}
+                {getGradeText(exam.grade)}
             </Text>
         </TouchableOpacity>
     );
@@ -32,14 +40,13 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     topicText: {
-        fontSize: 16,
-        maxWidth: '90%',
+        fontSize: 15,
+        maxWidth: '80%',
         overflow: 'hidden'
     },
     gradeText: {
         fontSize: 17,
-        fontFamily: 'monospace',
-        fontWeight: 'bold'
+        fontFamily: 'JetBrainsMono-Bold'
     }
 });
 

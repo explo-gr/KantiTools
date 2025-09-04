@@ -33,7 +33,7 @@ const CreditText = ({ children }) => {
     const { defaultThemedStyles } = useThemes();
 
     return (
-        <Text style={[styles.creditText, defaultThemedStyles.text]}>
+        <Text style={[defaultThemedStyles.text, styles.creditText]}>
             {children}
         </Text>
     );
@@ -81,9 +81,7 @@ const styles = StyleSheet.create({
         borderRadius: 25
     },
     creditText: {
-        fontStyle: 'normal',
-        fontWeight: '320',
-        fontFamily: 'monospace',
+        fontFamily: 'JetBrainsMono-Medium',
         fontSize: 12
     }
 });

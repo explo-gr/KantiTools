@@ -11,7 +11,7 @@ const ReminderScreen = () => {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name="ReminderMain" component={ReminderMain} options={{
+            <Stack.Screen name='ReminderMain' component={ReminderMain} options={{
                 title: t('Reminder'),
                 ...screenOptions
                 }} />

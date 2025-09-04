@@ -38,7 +38,8 @@ export const ThemeProvider = ({ children }) => {
             },
             text: {
                 color: colors.hardContrast,
-                textAlignVertical: 'center'
+                textAlignVertical: 'center',
+                fontFamily: 'Inter-Medium'
             },
             textContrast: {
                 color: colors.generic,

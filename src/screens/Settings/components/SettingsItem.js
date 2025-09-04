@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         marginVertical: 5
     },
     text: {
-        fontSize: 16,
+        fontSize: 15,
         maxWidth: '85%'
     },
     leftview: {

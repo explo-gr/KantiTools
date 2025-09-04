@@ -167,8 +167,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
 
 const styles = StyleSheet.create({
     outputText: {
-        fontFamily: 'monospace',
-        fontWeight: 'bold',
+        fontFamily: 'JetBrainsMono-Bold',
         fontSize: 80,
         marginBottom: 12,
         marginTop: 4
@@ -199,6 +198,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 8,
         height: 45,
+        fontFamily: 'Inter-Medium'
     },
     contentContainer: {
         paddingBottom: 120

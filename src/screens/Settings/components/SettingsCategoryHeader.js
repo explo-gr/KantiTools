@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     text: {
-        fontWeight: 'bold',
+        fontFamily: 'InterDisplay-Bold',
         fontSize: 28,
         marginLeft: 10,
         transform: [{translateY: -1.5}]
