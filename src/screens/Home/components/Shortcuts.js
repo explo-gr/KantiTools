@@ -6,15 +6,12 @@ import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
 import Divider from '../../../components/common/Divider';
 import { useTranslations } from '../../../context/LanguageContext';
 import { openMenuplanPDF } from '../../../lib/menuplanHelper';
+import { HOME_SHORTCUTS } from '../../../config/links/links';
+import timetableHelper from '../../../lib/timetableHelper';
 
 // expo modules
 import * as Haptics from 'expo-haptics';
 import { openBrowserAsync } from 'expo-web-browser';
-import timetableHelper from '../../../lib/timetableHelper';
-
-const MAIL_URL = 'https://outlook.office.com';
-const BKS_HOMEPAGE_URL = 'https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/bks/uberuns/Seiten/default.aspx';
-const SHAREPOINT_URL = 'https://bkscampusch.sharepoint.com/sites/Schulhandbuch2/Freigegebene%20Dokumente/Forms/AllItems.aspx';
 
 // Main Home Screen
 const Shortcuts = ({ navigation }) => {
@@ -121,17 +118,17 @@ const Shortcuts = ({ navigation }) => {
                 <ActionBox
                     icon='mail'
                     label={t('hm_mail')}
-                    onPress={async () => await openBrowserAsync(MAIL_URL)}
+                    onPress={async () => await openBrowserAsync(HOME_SHORTCUTS.MAIL)}
                 />
                 <ActionBox
                     icon='folder'
                     label={t('hm_files')}
-                    onPress={async () => await openBrowserAsync(SHAREPOINT_URL)}
+                    onPress={async () => await openBrowserAsync(HOME_SHORTCUTS.SHAREPOINT)}
                 />
                 <ActionBox
                     icon='globe'
                     label={t('hm_hpg')}
-                    onPress={async () => await openBrowserAsync(BKS_HOMEPAGE_URL)}
+                    onPress={async () => await openBrowserAsync(HOME_SHORTCUTS.BKS_HOME)}
                 />
             </ActionBoxContainer>
         </>

@@ -4,9 +4,8 @@ import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import { Pressable } from 'react-native-gesture-handler';
 import { openBrowserAsync } from 'expo-web-browser';
 import { nativeApplicationVersion } from 'expo-application';
+import { CREDITS } from '../../../config/links/links';
 import * as Haptics from 'expo-haptics';
-
-const REPO_URL = 'https://github.com/explo-gr/KantiTools';
 
 const statusBarWheel = () => {
     const colors = ['tomato', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'blue', 'purple', 'pink'];
@@ -45,7 +44,7 @@ const Credit = () => {
     return (
         <Pressable
             onLongPress={statusBarWheel}
-            onPress={async () => await openBrowserAsync(REPO_URL)}
+            onPress={async () => await openBrowserAsync(CREDITS.REPO)}
         >
             <View style={styles.creditContainer}>
                 <Image
