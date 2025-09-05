@@ -7,7 +7,7 @@ import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useThemes } from '../../../context/ThemeContext';
 import TodoModal from './TodoModal';
-import { useShowAlert } from '../../../hooks/useShowAlert';
+import { useShowAlert, ENTRY } from '../../../hooks/useShowAlert';
 
 import CreateTodoButton from './list/CreateTodoButton';
 import EmptyListMsg from './list/EmptyListMsg';

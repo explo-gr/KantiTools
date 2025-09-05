@@ -12,7 +12,7 @@ import Button from '../../../components/common/Button';
 import Divider from '../../../components/common/Divider';
 import * as Haptics from 'expo-haptics';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
-import { useShowAlert } from '../../../hooks/useShowAlert';
+import { useShowAlert, ENTRY } from '../../../hooks/useShowAlert';
 
 
 const SntzAccountManagement = () => {

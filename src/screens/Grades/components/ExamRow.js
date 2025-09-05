@@ -8,7 +8,7 @@ const ExamRow = ({ exam, onPress }) => {
     const getGradeText = useCallback((grade) => {
         const num = Number(grade);
         return !grade || isNaN(num) 
-            ? '--'
+            ? '---'
             : num.toFixed(2); 
     }, []);
 

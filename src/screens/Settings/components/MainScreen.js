@@ -17,7 +17,7 @@ import Credit from './Credit';
 import SettingsCategoryHeader from './SettingsCategoryHeader';
 import SettingsItem from './SettingsItem';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useShowAlert } from '../../../hooks/useShowAlert';
+import { useShowAlert, ENTRY } from '../../../hooks/useShowAlert';
 
 const AccountStatusIndicator = () => {
     const { user, loadingAuth } = useAuth();

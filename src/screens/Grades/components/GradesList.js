@@ -21,10 +21,12 @@ const GradesList = ({ forwardGradeData = () => null }) => {
     const [isOpen, setIsOpen] = useState({});
     const showAlert = useShowAlert();
 
-    showAlert({
-        title: exam.topic,
-        message: `${t('gr_dt_date')}: ${exam.date}\n${t('gr_dt_weight')}: ${exam.weight}\n${t('gr_dt_score')}: ${exam.score || '-'}\n`
-    });
+    const handleExamDetails = (exam) => {
+        showAlert({
+            title: exam.topic,
+            message: `${t('gr_dt_date')}: ${exam.date}\n${t('gr_dt_weight')}: ${exam.weight}\n${t('gr_dt_score')}: ${exam.score || '-'}\n`
+        });
+    }
 
     const handleOpen = useCallback((id) =>
         setIsOpen(prev => ({

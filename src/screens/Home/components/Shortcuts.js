@@ -1,6 +1,6 @@
 // Imports
 import { useEffect, useState } from 'react';
-import { Alert, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import ActionBox from '../../../components/common/ActionBox';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
 import Divider from '../../../components/common/Divider';
