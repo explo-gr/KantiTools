@@ -1,8 +1,9 @@
-import { StyleSheet, View, useWindowDimensions } from 'react-native';
-import { useThemes } from '../../context/ThemeContext';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { StatusBar } from 'expo-status-bar';
 import { useMemo } from 'react';
+import { StyleSheet, View, useWindowDimensions } from 'react-native';
+
+import { useThemes } from '../../context/ThemeContext';
 
 const ContainerView = ({ children, style, ignoreHeight = false }) => {
     const { defaultThemedStyles, theme } = useThemes();

@@ -1,9 +1,9 @@
-import { useData } from '../../../context/DataContext';
 import ActionBox from '../../../components/common/ActionBox';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
-import calcPlusMinusPunkte from '../../../lib/calcPlusMinuspunkte';
+import { useData } from '../../../context/DataContext';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useShowAlert } from '../../../hooks/useShowAlert';
+import calcPlusMinusPunkte from '../../../lib/calcPlusMinuspunkte';
 
 const HeaderBar = ({ navigation }) => {
     const { grades, isReady } = useData();

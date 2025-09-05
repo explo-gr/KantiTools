@@ -4,7 +4,8 @@ import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
 import { openBrowserAsync } from 'expo-web-browser';
 import { Platform } from 'react-native';
-import { MENUPLAN } from '../config/links/links'
+
+import { MENUPLAN } from '../config/links/links';
 
 const MENUPLAN_DIR = `${FileSystem.documentDirectory}menuplan`;
 const FILE_NAME = 'current-menuplan.pdf';

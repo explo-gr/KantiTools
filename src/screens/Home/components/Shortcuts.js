@@ -1,14 +1,15 @@
 // Imports
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
+
 import ActionBox from '../../../components/common/ActionBox';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
 import Divider from '../../../components/common/Divider';
-import { useTranslations } from '../../../context/LanguageContext';
-import { openMenuplanPDF } from '../../../lib/menuplanHelper';
 import { HOME_SHORTCUTS } from '../../../config/links/links';
-import timetableHelper from '../../../lib/timetableHelper';
+import { useTranslations } from '../../../context/LanguageContext';
 import { useShowAlert } from '../../../hooks/useShowAlert';
+import { openMenuplanPDF } from '../../../lib/menuplanHelper';
+import timetableHelper from '../../../lib/timetableHelper';
 
 // expo modules
 import * as Haptics from 'expo-haptics';

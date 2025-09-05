@@ -2,7 +2,7 @@ import { Alert } from 'react-native';
 import { useTranslations } from '../context/LanguageContext';
 import { useThemes } from '../context/ThemeContext';
 
-// default entrys
+// default entries
 export const ENTRY = {
     OK: (t, onPress) => [
         { text: t('ok'), onPress, style: 'default' }

@@ -1,7 +1,8 @@
+import Feather from '@expo/vector-icons/Feather';
+import { StyleSheet, Text, View } from 'react-native';
+
 import { useTranslations } from '../../../context/LanguageContext';
 import { useThemes } from '../../../context/ThemeContext';
-import { View, Text, StyleSheet } from 'react-native';
-import Feather from '@expo/vector-icons/Feather';
 
 const Greeting = () => {
     const { t } = useTranslations();

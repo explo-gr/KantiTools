@@ -1,7 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import ReminderMain from './components/MainScreen';
-import useScreenOptions from '../../hooks/useScreenOptions';
+
 import { useTranslations } from '../../context/LanguageContext';
+import useScreenOptions from '../../hooks/useScreenOptions';
+import ReminderMain from './components/MainScreen';
 
 const Stack = createStackNavigator();
 

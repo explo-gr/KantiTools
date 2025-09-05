@@ -1,19 +1,27 @@
-import licenses from '../../../config/attributions/attribution.json';
-import ContainerView from '../../../components/common/ContainerView';
+import { openBrowserAsync } from 'expo-web-browser';
+import { useMemo } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { useThemes } from '../../../context/ThemeContext';
-import { openBrowserAsync } from 'expo-web-browser';
+
+import ContainerView from '../../../components/common/ContainerView';
 import Divider from '../../../components/common/Divider';
-import { useMemo } from 'react';
+import licenses from '../../../config/attributions/attribution.json';
+import { useThemes } from '../../../context/ThemeContext';
 import useHideTabBarOnFocus from '../../../hooks/useHideTabBarOnFocus';
 
 const AttributionText = ({ children, pronounced }) => {
     const { defaultThemedStyles } = useThemes();
-    const fontSize = pronounced ? 14 : 11;
+
+    const [ fontSize, numOfLines, fontFamily ] = pronounced
+        ? [16, 1, 'JetBrainsMono-Bold']
+        : [12.5, 3, 'JetBrainsMono-Medium']
 
     return (
-        <Text style={[{ fontSize }, defaultThemedStyles.text, styles.text]}>
+        <Text
+            adjustsFontSizeToFit
+            numberOfLines={numOfLines}
+            style={[defaultThemedStyles.text, styles.text, { fontSize, fontFamily }]}
+        >
             {children}
         </Text>
     );

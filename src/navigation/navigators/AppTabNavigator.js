@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { useEffect, useMemo, useState } from 'react';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { useMemo } from 'react';
 
 // Screens
 import GradesScreen from '../../screens/Grades/GradesScreen';

@@ -1,3 +1,7 @@
+/*
+    Currently doesn't respect if a subject is not relevant for passing 
+*/
+
 const calcPlusMinuspunkte = (grades) => {
     if (!grades) return null;
 

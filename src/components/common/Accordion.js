@@ -1,10 +1,11 @@
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
-import { useThemes } from '../../context/ThemeContext';
-import Animated, { useSharedValue, Easing, withTiming, useAnimatedStyle, ReduceMotion } from 'react-native-reanimated';
-import { useTranslations } from '../../context/LanguageContext';
 import Feather from '@expo/vector-icons/Feather';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Animated, { Easing, ReduceMotion, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+
 import Divider from '../../components/common/Divider';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useTranslations } from '../../context/LanguageContext';
+import { useThemes } from '../../context/ThemeContext';
 
 const Accordion = ({
     isOpen,

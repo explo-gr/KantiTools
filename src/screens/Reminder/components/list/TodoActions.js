@@ -1,5 +1,6 @@
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
 import { useThemes } from '../../../../context/ThemeContext';
 
 const TodoActions = ({ onEdit, onDelete }) => {

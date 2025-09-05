@@ -1,11 +1,12 @@
-import { View, Image, Text, StyleSheet } from 'react-native';
-import { useThemes } from '../../../context/ThemeContext';
-import { setStatusBarBackgroundColor } from 'expo-status-bar';
-import { Pressable } from 'react-native-gesture-handler';
-import { openBrowserAsync } from 'expo-web-browser';
 import { nativeApplicationVersion } from 'expo-application';
-import { CREDITS } from '../../../config/links/links';
 import * as Haptics from 'expo-haptics';
+import { setStatusBarBackgroundColor } from 'expo-status-bar';
+import { openBrowserAsync } from 'expo-web-browser';
+import { Image, StyleSheet, Text, View } from 'react-native';
+
+import { Pressable } from 'react-native-gesture-handler';
+import { CREDITS } from '../../../config/links/links';
+import { useThemes } from '../../../context/ThemeContext';
 
 const statusBarWheel = () => {
     const colors = ['tomato', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'blue', 'purple', 'pink'];

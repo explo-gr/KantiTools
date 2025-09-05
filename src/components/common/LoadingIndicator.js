@@ -1,5 +1,5 @@
-import { ActivityIndicator, StyleSheet } from 'react-native';
-import { View, Text } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+
 import { useThemes } from '../../context/ThemeContext';
 
 const LoadingIndicator = ({ status }) => {

@@ -1,10 +1,10 @@
-import TodoList from './TodoList';
+import { useCallback, useState } from 'react';
 import ContainerView from '../../../components/common/ContainerView';
-import Header from '../../../components/common/Header';
 
+import Header from '../../../components/common/Header';
 import SortingWheel from './SortingWheel';
 import TINT_COLORS from './TINT_COLORS';
-import { useCallback, useState } from 'react';
+import TodoList from './TodoList';
 
 const ReminderMain = () => {
     const [ sortedTint, setSortedTint ] = useState(null); // "no sorting" option missing

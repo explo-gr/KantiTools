@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Modal, Pressable, Keyboard } from 'react-native';
-import TranslatedText from '../../../components/translations/TranslatedText';
-import { useThemes } from '../../../context/ThemeContext';
 import Feather from '@expo/vector-icons/Feather';
+import { useCallback, useEffect, useState } from 'react';
+import { Keyboard, Modal, Pressable, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+
+import TranslatedText from '../../../components/translations/TranslatedText';
 import ScaleOnFocus from '../../../components/utils/ScaleOnFocus';
 import { useTranslations } from '../../../context/LanguageContext';
+import { useThemes } from '../../../context/ThemeContext';
 import TINT_COLORS from './TINT_COLORS';
 
 const TodoModal = ({ visible, onOk, onCancel, todoToEdit }) => {

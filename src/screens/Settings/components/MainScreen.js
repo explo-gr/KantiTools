@@ -1,23 +1,25 @@
 import Feather from '@expo/vector-icons/Feather';
-import { useCallback, useMemo } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+
 import Button from '../../../components/common/Button';
 import ContainerView from '../../../components/common/ContainerView';
 import DropdownSelect from '../../../components/common/DropdownSelect';
 import Header from '../../../components/common/Header';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import TranslatedText from '../../../components/translations/TranslatedText';
+import Credit from './Credit';
+import SettingsCategoryHeader from './SettingsCategoryHeader';
+import SettingsItem from './SettingsItem';
+
 import { useAuth } from '../../../context/AuthenticationContext';
 import { useData } from '../../../context/DataContext';
 import { SupportedLanguages, useTranslations } from '../../../context/LanguageContext';
 import { useSettings } from '../../../context/SettingsContext';
 import { useThemes } from '../../../context/ThemeContext';
+import { ENTRY, useShowAlert } from '../../../hooks/useShowAlert';
 import { clearMenuplanData } from '../../../lib/menuplanHelper';
-import Credit from './Credit';
-import SettingsCategoryHeader from './SettingsCategoryHeader';
-import SettingsItem from './SettingsItem';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useShowAlert, ENTRY } from '../../../hooks/useShowAlert';
 
 const AccountStatusIndicator = () => {
     const { user, loadingAuth } = useAuth();

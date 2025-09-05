@@ -1,9 +1,10 @@
-import { StyleSheet, useWindowDimensions, Keyboard } from 'react-native';
 import { useLinkBuilder } from '@react-navigation/native';
-import { useThemes } from '../../context/ThemeContext';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Keyboard, StyleSheet, useWindowDimensions } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+
 import { useTabBarVisibility } from '../../context/TabBarVisibilityContext';
+import { useThemes } from '../../context/ThemeContext';
 import TabItem from '../components/TabItem';
 
 const TabNavigator = ({ state, navigation }) => {

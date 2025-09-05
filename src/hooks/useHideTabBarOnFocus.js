@@ -1,6 +1,7 @@
-import { useCallback, useRef } from "react";
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from "react";
+
 import { useTabBarVisibility } from "../context/TabBarVisibilityContext";
-import { useFocusEffect } from '@react-navigation/native'
 
 const useHideTabBarOnFocus = () => {
     const { showBar, hideBar } = useTabBarVisibility();

@@ -1,6 +1,7 @@
-import { Text, StyleSheet } from 'react-native';
-import { useThemes } from '../../../../context/ThemeContext';
+import { StyleSheet, Text } from 'react-native';
+
 import TranslatedText from '../../../../components/translations/TranslatedText';
+import { useThemes } from '../../../../context/ThemeContext';
 
 const TodoDescription = ({ description }) => {
     const { colors } = useThemes();

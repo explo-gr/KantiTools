@@ -1,7 +1,8 @@
-import { useThemes } from '../../../context/ThemeContext';
-import { useTranslations } from '../../../context/LanguageContext';
-import { StyleSheet, View, Text } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
+import { StyleSheet, Text, View } from 'react-native';
+
+import { useTranslations } from '../../../context/LanguageContext';
+import { useThemes } from '../../../context/ThemeContext';
 
 const SettingsCategoryHeader = ({ children, icon }) => {
     const { colors } = useThemes();

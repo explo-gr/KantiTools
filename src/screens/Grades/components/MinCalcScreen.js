@@ -1,8 +1,8 @@
 // Imports
-import MinimumGradeCalculator from './calculators/MinimumGradeCalculator';
 import ContainerView from '../../../components/common/ContainerView';
 import Divider from '../../../components/common/Divider';
 import useHideTabBarOnFocus from '../../../hooks/useHideTabBarOnFocus';
+import MinimumGradeCalculator from './calculators/MinimumGradeCalculator';
 
 // Grade Calculation
 const GradesMinCalc = ({ route }) => {

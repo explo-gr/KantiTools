@@ -1,13 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+
 import Accordion from '../../../components/common/Accordion';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useThemes } from '../../../context/ThemeContext';
+import { ENTRY, useShowAlert } from '../../../hooks/useShowAlert';
 import TodoModal from './TodoModal';
-import { useShowAlert, ENTRY } from '../../../hooks/useShowAlert';
 
 import CreateTodoButton from './list/CreateTodoButton';
 import EmptyListMsg from './list/EmptyListMsg';

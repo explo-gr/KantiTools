@@ -1,8 +1,9 @@
+import Feather from '@expo/vector-icons/Feather';
 import { useMemo } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
 import { useThemes } from '../../context/ThemeContext';
 import TranslatedText from '../translations/TranslatedText';
-import Feather from '@expo/vector-icons/Feather';
 
 const Button = ({
     onPress,

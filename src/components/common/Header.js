@@ -1,10 +1,11 @@
+import Feather from '@expo/vector-icons/Feather';
 import { StyleSheet, View } from 'react-native';
+
 import Divider from '../../components/common/Divider';
 import TranslatedText from '../../components/translations/TranslatedText';
-import { useThemes } from '../../context/ThemeContext';
-import { useTranslations } from '../../context/LanguageContext';
 import icons from '../../config/navicons/icons';
-import Feather from '@expo/vector-icons/Feather';
+import { useTranslations } from '../../context/LanguageContext';
+import { useThemes } from '../../context/ThemeContext';
 
 const Header = ({ title, showIcon = true }) => {
     const { colors } = useThemes();

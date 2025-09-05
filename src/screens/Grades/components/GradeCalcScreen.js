@@ -1,8 +1,9 @@
 // Imports
-import AchievedGradeCalculator from './calculators/AchievedGradeCalculator';
-import Divider from '../../../components/common/Divider';
+import { Keyboard, Pressable, StyleSheet } from 'react-native';
+
 import ContainerView from '../../../components/common/ContainerView';
-import { Pressable, Keyboard, StyleSheet } from 'react-native';
+import Divider from '../../../components/common/Divider';
+import AchievedGradeCalculator from './calculators/AchievedGradeCalculator';
 
 // Grade Calculation
 const GradesGradeCalc = () => {

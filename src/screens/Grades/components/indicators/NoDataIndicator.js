@@ -1,6 +1,7 @@
-import { View, StyleSheet } from 'react-native';
-import { useThemes } from '../../../../context/ThemeContext';
+import { StyleSheet, View } from 'react-native';
+
 import TranslatedText from '../../../../components/translations/TranslatedText';
+import { useThemes } from '../../../../context/ThemeContext';
 
 const NoDataIndicator = () => {
     const { colors, defaultThemedStyles } = useThemes();

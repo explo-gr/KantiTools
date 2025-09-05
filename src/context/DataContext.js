@@ -1,9 +1,10 @@
-import React, { createContext, useEffect, useState, useCallback, useMemo } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAuth } from './AuthenticationContext';
+import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+
+import isEmpty from '../lib/isEmpty';
 import api from '../lib/sntz/api';
 import parseGradeTable from '../lib/sntz/parsers/gradeTableParser';
-import isEmpty from '../lib/isEmpty';
+import { useAuth } from './AuthenticationContext';
 
 const DataContext = createContext(null);
 

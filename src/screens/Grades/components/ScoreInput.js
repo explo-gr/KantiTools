@@ -1,4 +1,5 @@
-import { View, TextInput, Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+
 import TranslatedText from '../../../components/translations/TranslatedText';
 import { useThemes } from '../../../context/ThemeContext';
 

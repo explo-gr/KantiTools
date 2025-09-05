@@ -1,10 +1,11 @@
-import { View, StyleSheet } from 'react-native';
-import GradesList from './GradesList';
-import ContainerView from '../../../components/common/ContainerView';
-import Header from '../../../components/common/Header';
-import Divider from '../../../components/common/Divider';
 import { useCallback } from 'react';
+import { StyleSheet, View } from 'react-native';
+
+import ContainerView from '../../../components/common/ContainerView';
+import Divider from '../../../components/common/Divider';
+import Header from '../../../components/common/Header';
 import LoginReqView from '../../../components/common/LoginReqView';
+import GradesList from './GradesList';
 import HeaderBar from './HeaderBar';
 
 const GradesMain = ({ navigation }) => {

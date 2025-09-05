@@ -1,8 +1,9 @@
-import { StyleSheet, View, Text, TouchableOpacity, Alert, useWindowDimensions } from 'react-native';
-import { useThemes } from '../../../context/ThemeContext'
-import { useTranslations } from '../../../context/LanguageContext';
-import { useMemo, useState } from 'react';
 import * as Haptics from 'expo-haptics';
+import { useMemo, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+
+import { useTranslations } from '../../../context/LanguageContext';
+import { useThemes } from '../../../context/ThemeContext';
 import { useShowAlert } from '../../../hooks/useShowAlert';
 
 const Box = ({ title, highlighted, current, onPress = () => null }) => {

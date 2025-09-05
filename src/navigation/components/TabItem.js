@@ -1,10 +1,11 @@
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { useThemes } from '../../context/ThemeContext';
 import Feather from '@expo/vector-icons/Feather';
-import ScaleOnFocus from '../../components/utils/ScaleOnFocus';
+import { memo, useCallback } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
 import TranslatedText from '../../components/translations/TranslatedText';
+import ScaleOnFocus from '../../components/utils/ScaleOnFocus';
 import icons from '../../config/navicons/icons';
-import { useCallback, memo } from 'react';
+import { useThemes } from '../../context/ThemeContext';
 
 const TabItem = memo(({ route, index, isFocused, navigation, buildHref, isCompact }) => {
     const { colors } = useThemes();

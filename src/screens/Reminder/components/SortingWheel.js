@@ -1,7 +1,8 @@
-import { View, TouchableOpacity, StyleSheet, useWindowDimensions } from 'react-native';
+import { useCallback, useMemo } from 'react';
+import { StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+
 import ScaleOnFocus from '../../../components/utils/ScaleOnFocus';
 import { useThemes } from '../../../context/ThemeContext';
-import { useCallback, useMemo } from 'react';
 import TINT_COLORS from './TINT_COLORS';
 
 const SortingWheel = ({ tintColors, selectedTint, setSortedColor }) => {

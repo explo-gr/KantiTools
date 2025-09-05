@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { Modal, Pressable, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import TranslatedText from '../translations/TranslatedText';
-import { useThemes } from '../../context/ThemeContext';
-import ScaleOnFocus from '../utils/ScaleOnFocus';
 import Feather from '@expo/vector-icons/Feather';
 import { impactAsync, ImpactFeedbackStyle } from 'expo-haptics';
+import { useState } from 'react';
+import { Modal, Pressable, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+
+import { FlatList } from 'react-native-gesture-handler';
+import { useThemes } from '../../context/ThemeContext';
+import TranslatedText from '../translations/TranslatedText';
+import ScaleOnFocus from '../utils/ScaleOnFocus';
 
 const Item = ({
     item,

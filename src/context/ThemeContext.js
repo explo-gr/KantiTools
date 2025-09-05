@@ -1,8 +1,9 @@
 import React, { createContext, useMemo } from 'react';
-import getColorPalette from '../lib/themes/getColorPalette';
 import { StyleSheet, useColorScheme } from 'react-native';
-import { useSettings } from './SettingsContext';
+
 import getAccentColor from '../lib/themes/getAccentColor';
+import getColorPalette from '../lib/themes/getColorPalette';
+import { useSettings } from './SettingsContext';
 
 export const ThemeContext = createContext();
 

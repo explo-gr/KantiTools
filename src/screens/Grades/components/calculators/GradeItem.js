@@ -1,8 +1,9 @@
-import { useThemes } from '../../../../context/ThemeContext';
-import { View, StyleSheet, TextInput } from 'react-native';
+import { memo, useMemo } from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
+
 import Button from '../../../../components/common/Button';
 import { useTranslations } from '../../../../context/LanguageContext';
-import { memo, useMemo } from 'react';
+import { useThemes } from '../../../../context/ThemeContext';
 
 const GradePair = memo(({ value, onChange, placeholder, action, actionTitle, icon, btnColor, colors }) => {
     const inputStyle = useMemo(

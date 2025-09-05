@@ -5,8 +5,8 @@ import ContainerView from '../../../components/common/ContainerView';
 import Header from '../../../components/common/Header';
 import { useThemes } from '../../../context/ThemeContext';
 import Greeting from './Greeting';
-import Weekdays from './Weekdays';
 import Shortcuts from './Shortcuts';
+import Weekdays from './Weekdays';
 
 // Main Home Screen
 const HomeMain = ({ navigation }) => {

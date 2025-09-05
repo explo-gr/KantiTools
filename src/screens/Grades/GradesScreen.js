@@ -1,11 +1,12 @@
 // imports regarding general objects
 import { createStackNavigator } from '@react-navigation/stack';
-import GradesMain from './components/MainScreen';
-import GradesGradeCalc from './components/GradeCalcScreen';
-import GradesMinCalc from './components/MinCalcScreen';
+
+import { useTranslations } from '../../context/LanguageContext';
 import useHeaderOptions from '../../hooks/useHeaderOptions';
 import useScreenOptions from '../../hooks/useScreenOptions';
-import { useTranslations } from '../../context/LanguageContext';
+import GradesGradeCalc from './components/GradeCalcScreen';
+import GradesMain from './components/MainScreen';
+import GradesMinCalc from './components/MinCalcScreen';
 
 const Stack = createStackNavigator();
 

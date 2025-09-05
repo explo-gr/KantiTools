@@ -1,18 +1,19 @@
-import { View, Alert, StyleSheet, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import ContainerView from '../../../components/common/ContainerView';
 import Feather from '@expo/vector-icons/Feather';
-import { useThemes } from '../../../context/ThemeContext';
-import { useTranslations } from '../../../context/LanguageContext';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import TranslatedText from '../../../components/translations/TranslatedText';
-import api from '../../../lib/sntz/api';
-import { useAuth } from '../../../context/AuthenticationContext';
-import Button from '../../../components/common/Button';
-import Divider from '../../../components/common/Divider';
 import * as Haptics from 'expo-haptics';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
-import { useShowAlert, ENTRY } from '../../../hooks/useShowAlert';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+
+import Button from '../../../components/common/Button';
+import ContainerView from '../../../components/common/ContainerView';
+import Divider from '../../../components/common/Divider';
+import TranslatedText from '../../../components/translations/TranslatedText';
+import { useAuth } from '../../../context/AuthenticationContext';
+import { useTranslations } from '../../../context/LanguageContext';
+import { useThemes } from '../../../context/ThemeContext';
+import { ENTRY, useShowAlert } from '../../../hooks/useShowAlert';
+import api from '../../../lib/sntz/api';
 
 
 const SntzAccountManagement = () => {

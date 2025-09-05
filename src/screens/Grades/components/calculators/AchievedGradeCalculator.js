@@ -1,9 +1,10 @@
 // Imports
-import { Text, View, StyleSheet } from 'react-native';
-import { useEffect, useState, useRef } from 'react';
-import { useThemes } from '../../../../context/ThemeContext';
-import TranslatedText from '../../../../components/translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
+import { useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
+import TranslatedText from '../../../../components/translations/TranslatedText';
+import { useThemes } from '../../../../context/ThemeContext';
 import ScoreInput from '../ScoreInput';
 
 // Color Transition
