@@ -21,7 +21,7 @@ const Button = ({
             buttonShell: {
                 height: 47.5,
                 borderRadius: 18,
-                paddingHorizontal: 9,
+                paddingHorizontal: 8,
                 gap: 2,
 
                 flexDirection: 'row',
@@ -64,7 +64,11 @@ const Button = ({
                     </View>
                 )}
                 {title && (
-                    <TranslatedText ellipsizeMode={'tail'} numberOfLines={1} style={themedStyles.text}>
+                    <TranslatedText
+                        ellipsizeMode={'tail'}
+                        numberOfLines={1}
+                        style={themedStyles.text}
+                    >
                         {title}
                     </TranslatedText>
                 )}

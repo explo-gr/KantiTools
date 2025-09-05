@@ -4,18 +4,18 @@ import TranslatedText from '../../../../components/translations/TranslatedText';
 import { useThemes } from '../../../../context/ThemeContext';
 
 const TodoDescription = ({ description }) => {
-    const { colors } = useThemes();
+    const { colors, defaultThemedStyles } = useThemes();
 
     if (description) {
         return (
-            <Text style={[{ color: colors.hardContrast }, styles.descr]}>
+            <Text style={[defaultThemedStyles.text, styles.descr]}>
                 {description}
             </Text>
         );
     }
 
     return (
-        <TranslatedText style={[{ color: colors.gray }, styles.noDescr]}>
+        <TranslatedText style={[defaultThemedStyles.text, { color: colors.gray }, styles.noDescr]}>
             re_no_descr
         </TranslatedText>
     );
@@ -24,9 +24,12 @@ const TodoDescription = ({ description }) => {
 const styles = StyleSheet.create({
     descr: {
         fontSize: 14.5,
+        lineHeight: 18.5,
+        margin: 2
     },
     noDescr: {
-        fontStyle: 'italic',
+        margin: 2,
+        fontFamily: 'Inter-Italic'
     },
 });
 

@@ -128,6 +128,8 @@ export default {
         system: "System",
 
         // accent colors
+        st_prf_acc_clrs: "Preferred accent colors",
+
         red: "Red",
         green: "Green",
         blue: "Blue",

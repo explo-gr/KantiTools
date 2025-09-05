@@ -57,7 +57,6 @@ const TodoList = ({
         }
 
         setTodoToEdit(null);
-        setEditId(null);
         setModalVisible(false);
     };
 

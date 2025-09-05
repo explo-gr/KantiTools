@@ -1,4 +1,5 @@
 import Feather from '@expo/vector-icons/Feather';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { useThemes } from '../../context/ThemeContext';
@@ -7,6 +8,7 @@ import TranslatedText from '../translations/TranslatedText';
 const ActionBox = ({
     onPress = () => null,
     onLongPress = () => null,
+    useFO = false,
     icon = 'alert-circle',
     label = 'no title',
     inverted, disabled
@@ -24,7 +26,7 @@ const ActionBox = ({
             disabled={disabled}
         >
             <View style={styles.iconContainer}>
-                <Feather name={icon} size={32} color={inverted ? colors.accent : colors.generic}/>
+                {useFO ? (<FontAwesome6 name={icon} size={32} color={inverted ? colors.accent : colors.generic}/>) : (<Feather name={icon} size={32} color={inverted ? colors.accent : colors.generic}/>)}
             </View>
             <TranslatedText 
                 style={[{

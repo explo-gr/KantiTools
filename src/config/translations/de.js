@@ -128,6 +128,8 @@ export default {
         system: "System",
 
         // accent colors
+        st_prf_acc_clrs: "Ausgewählte Farbpalette",
+
         red: "Rot",
         green: "Grün",
         blue: "Blau",

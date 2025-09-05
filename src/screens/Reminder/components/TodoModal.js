@@ -22,9 +22,11 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit }) => {
     );
 
     const handleCancel = () => {
-        setTitle('');
-        setDescription('');
-        setTint(TINT_COLORS[0]);
+        if (todoToEdit) {
+            setTitle('');
+            setDescription('');
+            setTint(TINT_COLORS[0]);
+        }
         onCancel();
     };
 

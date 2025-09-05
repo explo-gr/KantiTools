@@ -30,6 +30,7 @@ export default function App() {
         'InterDisplay-Bold': require('./src/assets/fonts/InterDisplay-Bold.ttf'),
         'Inter-Medium': require('./src/assets/fonts/Inter-Medium.ttf'),
         'Inter-Bold': require('./src/assets/fonts/Inter-Bold.ttf'),
+        'Inter-Italic': require('./src/assets/fonts/Inter-Italic.ttf'),
         'JetBrainsMono-Medium': require('./src/assets/fonts/JetBrainsMono-Medium.ttf'),
         'JetBrainsMono-Bold': require('./src/assets/fonts/JetBrainsMono-Bold.ttf')
     });

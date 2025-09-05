@@ -11,7 +11,7 @@ const Greeting = () => {
     const getJSX = (icon, greeting, color='#426d9e') => {
         return (
             <View style={styles.container}>
-                <Feather name={icon} size={32} color={color} />
+                <Feather name={icon} size={32} color={color}/>
                 <Text style={[{
                     color: colors.accent
                 }, styles.text]}>{greeting}</Text>

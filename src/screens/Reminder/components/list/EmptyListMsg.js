@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        fontStyle: 'italic',
+        fontFamily: 'Inter-Italic'
     },
 });
 
