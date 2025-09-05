@@ -127,6 +127,12 @@ export default {
         white: "Hell",
         system: "System",
 
+        // accent colors
+        red: "Rot",
+        green: "Grün",
+        blue: "Blau",
+        purple: "Violett",
+
     // Tabbar
     Home: "Start",
     Grades: "Noten",

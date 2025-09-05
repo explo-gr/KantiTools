@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     },
     gradeText: {
         fontSize: 17,
-        fontFamily: 'JetBrainsMono-Bold'
+        fontFamily: 'JetBrainsMono-Medium'
     }
 });
 

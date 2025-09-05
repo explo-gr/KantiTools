@@ -7,6 +7,7 @@ import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import { useTranslations } from '../../../context/LanguageContext';
 import { useThemes } from '../../../context/ThemeContext';
 import TodoModal from './TodoModal';
+import { useShowAlert } from '../../../hooks/useShowAlert';
 
 import CreateTodoButton from './list/CreateTodoButton';
 import EmptyListMsg from './list/EmptyListMsg';
@@ -20,6 +21,7 @@ const TodoList = ({
 }) => {
     const { colors, theme } = useThemes();
     const { t, language } = useTranslations();
+    const showAlert = useShowAlert();
 
     const [todos, setTodos] = useState([]);
     const [todosToRender, setTodosToRender] = useState([]);
@@ -27,9 +29,7 @@ const TodoList = ({
     const [isLoading, setIsLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
 
-    const [editId, setEditId] = useState(null);
     const [todoToEdit, setTodoToEdit] = useState(null);
-
     const [isOpen, setIsOpen] = useState({});
 
     const handleOpen = useCallback(
@@ -69,28 +69,22 @@ const TodoList = ({
 
     const handleDeletePrompt = useCallback(
         (id) => {
-            Alert.alert(
-                t('re_del'),
-                t('re_del_msg'),
-                [
-                    { text: t('cancel'), style: 'cancel' },
-                    { text: t('delete'), onPress: () => handleDelete(id), style: 'destructive' },
-                ],
-                { cancelable: true }
-            );
+            showAlert({
+                title: t('re_del'),
+                message: t('re_del_msg'),
+                buttons: ENTRY.CANCEL_DELETE(t, () => handleDelete(id))
+            });
         },
         [language]
     );
 
     const handleEdit = useCallback((item) => {
-        setEditId(item.id);
         setTodoToEdit(item);
         setModalVisible(true);
     }, []);
 
     const handleModalCancel = useCallback(() => {
         setModalVisible(false);
-        setEditId(null);
         setTodoToEdit(null);
     }, []);
 

@@ -1,13 +1,14 @@
-import { Alert } from 'react-native';
 import { useData } from '../../../context/DataContext';
 import ActionBox from '../../../components/common/ActionBox';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
 import calcPlusMinusPunkte from '../../../lib/calcPlusMinuspunkte';
 import { useTranslations } from '../../../context/LanguageContext';
+import { useShowAlert } from '../../../hooks/useShowAlert';
 
 const HeaderBar = ({ navigation }) => {
     const { grades, isReady } = useData();
     const { t } = useTranslations();
+    const showAlert = useShowAlert();
 
     const handlePluspunkte = () => {
         if (isReady) {
@@ -16,12 +17,10 @@ const HeaderBar = ({ navigation }) => {
                 minus
             } = calcPlusMinusPunkte(grades.data.map(({ onlineMean }) => onlineMean));
 
-            Alert.alert(
-                t('gr_pluspoints'),
-                `${t('gr_curr_pluspoints')}${plus}\n${t('gr_curr_minuspoints')}${minus}`,
-                null,
-                { cancelable: true }
-            );
+            showAlert({
+                title: t('gr_pluspoints'),
+                message: `${t('gr_curr_pluspoints')}${plus}\n${t('gr_curr_minuspoints')}${minus}`
+            });
         };
     };
 

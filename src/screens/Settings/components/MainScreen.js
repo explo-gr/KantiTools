@@ -17,6 +17,7 @@ import Credit from './Credit';
 import SettingsCategoryHeader from './SettingsCategoryHeader';
 import SettingsItem from './SettingsItem';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useShowAlert } from '../../../hooks/useShowAlert';
 
 const AccountStatusIndicator = () => {
     const { user, loadingAuth } = useAuth();
@@ -54,37 +55,42 @@ const SettingsMain = ({ navigation }) => {
     const { clearDataCache } = useData();
     const { logout } = useAuth();
 
-    const handleReset = useCallback(() => {
-        Alert.alert(
-            t('reset'),
-            t('st_rst_msg'),
-            [
-                { text: t('cancel'), style: 'cancel' },
-                {
-                    text: t('yes'),
-                    onPress: async () => {
-                        /*
-                            reverts all settings to default settings
-                            and resets the data of other components
-                            !! doesn't clear todo and timetable !!
-                        */
-                        try {
-                            resetSettings();
-                            await resetLanguage();
-                            await clearDataCache();
-                            await clearMenuplanData();
-                            await logout();
-                            Alert.alert(t('reset'), t('st_rst_succ_msg'));
-                        } catch {
-                            Alert.alert(t('reset'), t('error'));
-                        }
-                    },
-                    style: 'destructive'
-                },
-            ],
-            { cancelable: true }
-        );
-    }, []);
+    const showAlert = useShowAlert();
+
+    const handleReset = async () => {
+        /*
+            reverts all settings to default settings
+            and resets the data of other components
+            !! doesn't clear todo and timetable !!
+        */
+
+        try {
+            resetSettings();
+
+            await resetLanguage();
+            await clearDataCache();
+            await clearMenuplanData();
+            await logout();
+
+            showAlert({
+                title: t('reset'),
+                message: t('st_rst_succ_msg')
+            });
+        } catch {
+            showAlert({
+                title: t('reset'),
+                message: t('error')
+            });
+        }
+    };
+
+    const handleResetDialogue = () => {
+        showAlert({
+            title: t('reset'),
+            message: t('st_rst_msg'),
+            buttons: ENTRY.YES_CANCEL(t, handleReset)
+        });
+    };
 
     return (
         <ContainerView>
@@ -140,7 +146,7 @@ const SettingsMain = ({ navigation }) => {
                     <Button
                         title={t('reset')}
                         icon={'x-circle'}
-                        onPress={handleReset}
+                        onPress={handleResetDialogue}
                     />
                 </SettingsItem>
                 <SettingsItem title={t('st_oss_l')}>

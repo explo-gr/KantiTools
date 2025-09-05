@@ -11,6 +11,7 @@ import ExamRow from './ExamRow';
 import CacheIndicator from './indicators/CacheIndicator';
 import NoDataIndicator from './indicators/NoDataIndicator';
 import RefreshButton from './RefreshButton';
+import { useShowAlert } from '../../../hooks/useShowAlert';
 
 const GradesList = ({ forwardGradeData = () => null }) => {
     const { grades, isReady } = useData();
@@ -18,13 +19,12 @@ const GradesList = ({ forwardGradeData = () => null }) => {
     const { t } = useTranslations();
 
     const [isOpen, setIsOpen] = useState({});
+    const showAlert = useShowAlert();
 
-    const handleExamDetails = (exam) => {
-        Alert.alert(
-            exam.topic,
-            `${t('gr_dt_date')}: ${exam.date}\n${t('gr_dt_weight')}: ${exam.weight}\n${t('gr_dt_score')}: ${exam.score || '-'}\n`
-        );
-    };
+    showAlert({
+        title: exam.topic,
+        message: `${t('gr_dt_date')}: ${exam.date}\n${t('gr_dt_weight')}: ${exam.weight}\n${t('gr_dt_score')}: ${exam.score || '-'}\n`
+    });
 
     const handleOpen = useCallback((id) =>
         setIsOpen(prev => ({

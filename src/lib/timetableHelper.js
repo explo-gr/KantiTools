@@ -24,6 +24,13 @@ const pickAndSaveTimetable = async (
         type: 'application/pdf',
     });
 
+    /*
+        DO NOT TOUCH THE BROKEN ALERT
+        EVEN THOUGH IT DOES NOTHING AND PROBABLY
+        SHOULD THROW AN ERROR IT PREVENTS
+        A VERY WEIRD BUG SO PLEASE DON'T
+        TOUCH IT
+    */
     if (document.canceled || document.assets.length !== 1) {
         Alert.alert(t('hm_ttbl'), t('hm_ttbl_file_req'));
         onDocCanceled();

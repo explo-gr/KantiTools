@@ -3,6 +3,7 @@ import { useThemes } from '../../../context/ThemeContext'
 import { useTranslations } from '../../../context/LanguageContext';
 import { useMemo, useState } from 'react';
 import * as Haptics from 'expo-haptics';
+import { useShowAlert } from '../../../hooks/useShowAlert';
 
 const Box = ({ title, highlighted, current, onPress = () => null }) => {
     const { colors } = useThemes();
@@ -36,6 +37,7 @@ const Box = ({ title, highlighted, current, onPress = () => null }) => {
 }
 
 const Weekdays = () => {
+    const showAlert = useShowAlert();
     const { t, language } = useTranslations();
 
     const weekday_raw = new Date().getDay();
@@ -53,11 +55,11 @@ const Weekdays = () => {
         if (updated.length === code.length) {
             if (updated.every((e, i) => e === code[i])) {
                 Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-                Alert.alert(
-                    'Klopf Klopf',
-                    '',
-                    [{ text: 'Wer ist da?', style: 'cancel' }]
-                );
+                showAlert({
+                    title: 'Klopf Klopf',
+                    message: '',
+                    buttons: [{ text: 'Wer ist da?', style: 'cancel' }]
+                });
             } else {
                 Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             }

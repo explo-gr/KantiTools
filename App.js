@@ -62,7 +62,7 @@ export default function App() {
                     <LanguageProvider>
                         <DataProvider>
                             <TabBarVisibilityProvider>
-                                {appIsReady ? (<AppTabNavigator />) : (<Placeholder/>) /* Allow components to start while loading the app */}
+                                {appIsReady ? (<AppTabNavigator />) : (<Placeholder/>) /* Allow providers to start while loading the app */}
                             </TabBarVisibilityProvider>
                         </DataProvider>
                     </LanguageProvider>

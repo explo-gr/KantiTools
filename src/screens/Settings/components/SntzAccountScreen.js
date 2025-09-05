@@ -12,6 +12,7 @@ import Button from '../../../components/common/Button';
 import Divider from '../../../components/common/Divider';
 import * as Haptics from 'expo-haptics';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
+import { useShowAlert } from '../../../hooks/useShowAlert';
 
 
 const SntzAccountManagement = () => {
@@ -27,6 +28,8 @@ const SntzAccountManagement = () => {
     const [iconName, setIconName] = useState('link');
     const secretCounter = useRef(0);
 
+    const showAlert = useShowAlert();
+
     const handleSecretPress = useCallback(() => {
         secretCounter.current += 1;
         if (secretCounter.current > 4) {
@@ -38,27 +41,21 @@ const SntzAccountManagement = () => {
         }
     }, []);
 
-    const handleLogout = () => {
-        Alert.alert(
-            t('st_sntz_logout'),
-            t('st_sntz_logout_msg'),
-            [
-                { text: t('cancel'), style: 'cancel' },
-                {
-                    text: t('yes'),
-                    onPress: async () => {
-                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    const handleLogout = async () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
-                        await logout();
-                        setInputtedEmail('');
-                        setInputtedPassword('');
-                    },
-                    style: 'destructive'
-                },
-            ],
-            { cancelable: true }
-        );
-    }
+        await logout();
+        setInputtedEmail('');
+        setInputtedPassword('');
+    };
+
+    const handleLogoutDialogue = () => {
+        showAlert({
+            title: t('st_sntz_logout'),
+            message: t('st_sntz_logout_msg'),
+            buttons: ENTRY.YES_CANCEL(t, handleLogout)
+        });
+    };
 
     const validateLogin = useCallback(async () => {
         setIsValidating(true);
@@ -79,7 +76,11 @@ const SntzAccountManagement = () => {
             alertMsg = t('st_sntz_login_n');
         }
 
-        Alert.alert(t('st_ac_mgt'), alertMsg);
+        showAlert({
+            title: t('st_ac_mgt'),
+            message: alertMsg
+        });
+
         setIsValidating(false);
     }, [inputtedEmail, inputtedPassword]);
 
@@ -167,7 +168,7 @@ const SntzAccountManagement = () => {
                 />
                 <Button
                     title={t('st_sntz_remove_ac')}
-                    onPress={handleLogout}
+                    onPress={handleLogoutDialogue}
                     color={colors.red}
                     disabled={!logoutBtnEnabled}
                     icon={'log-out'}

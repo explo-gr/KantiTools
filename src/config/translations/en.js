@@ -127,6 +127,12 @@ export default {
         white: "White",
         system: "System",
 
+        // accent colors
+        red: "Red",
+        green: "Green",
+        blue: "Blue",
+        purple: "Purple",
+
     // Tabbar
     Home: "Home",
     Grades: "Grades",
