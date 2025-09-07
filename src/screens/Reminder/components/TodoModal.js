@@ -1,39 +1,59 @@
-import { useState, useEffect, useCallback } from 'react';
-import {
-    View,
-    TextInput,
-    StyleSheet,
-    TouchableOpacity,
-    Modal,
-    Pressable,
-    Keyboard
-} from 'react-native';
-import TranslatedText from '../../../components/translations/TranslatedText';
-import { useThemes } from '../../../context/ThemeContext';
 import Feather from '@expo/vector-icons/Feather';
+import { useCallback, useEffect, useState } from 'react';
+import { Keyboard, Modal, Pressable, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+
+import TranslatedText from '../../../components/translations/TranslatedText';
 import ScaleOnFocus from '../../../components/utils/ScaleOnFocus';
 import { useTranslations } from '../../../context/LanguageContext';
+import { useThemes } from '../../../context/ThemeContext';
+import TINT_COLORS from './TINT_COLORS';
 
-const TINT_COLORS = ['red', 'yellow', 'green', 'lightblue', 'purple'];
-
-const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
+const TodoModal = ({ visible, onOk, onCancel, todoToEdit }) => {
     const { defaultThemedStyles, colors, theme } = useThemes();
     const { t } = useTranslations();
 
-    const [ title, setTitle ] = useState('');
-    const [ description, setDescription ] = useState('');
-    const [ tint, setTint ] = useState(TINT_COLORS[0]);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [tint, setTint] = useState(TINT_COLORS[0]);
 
-    const getColorCode = useCallback((color) => colors[color] || colors.generic, [theme]);
+    const getColorCode = useCallback(
+        (color) => colors[color] || colors.generic,
+        [theme]
+    );
+
     const handleCancel = () => {
-        if (editIndex) {
-            // only discard data after cancelling an edit
+        if (todoToEdit) {
             setTitle('');
             setDescription('');
-            setTint('');
+            setTint(TINT_COLORS[0]);
         }
         onCancel();
-    }
+    };
+
+    const handleBackgroundClick = useCallback(() => {
+        Keyboard.isVisible()
+            ? Keyboard.dismiss()
+            : handleCancel()
+    }, []);
+
+    const handleOk = () => {
+        if (!title.trim()) return;
+
+        const id = todoToEdit?.id || `${title.trim()}-${Date.now()}`;
+
+        onOk({
+            title: title.trim(),
+            description: description.trim(),
+            id,
+            tint,
+        });
+
+        setTitle('');
+        setDescription('');
+        setTint(TINT_COLORS[0]);
+    };
+
+    const handleModalPress = useCallback((e) => e.stopPropagation());
 
     useEffect(() => {
         if (todoToEdit) {
@@ -43,24 +63,6 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
         }
     }, [todoToEdit]);
 
-    const handleOk = () => {
-        // only create a fresh key if needed
-        const id = editIndex
-            ? todoToEdit.id
-            : `${title.trim()}-${Date.now()}`
-
-        if (!title.trim()) return;
-        onOk({
-            title: title.trim(),
-            description: description.trim(),
-            id,
-            tint
-        }, editIndex);
-        setTitle('');
-        setDescription('');
-        setTint(TINT_COLORS[0]);
-    };
-
     return (
         <Modal
             animationType='fade'
@@ -69,26 +71,26 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
             visible={visible}
             onRequestClose={handleCancel}
         >
-            <Pressable style={styles.centeredView} onPress={Keyboard.dismiss}>
-                <View style={[styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]}>
-                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_title</TranslatedText>
+            <Pressable style={styles.centeredView} onPress={handleBackgroundClick}>
+                <Pressable style={[styles.modalContainer, defaultThemedStyles.card, defaultThemedStyles.boxshadow]} onPress={handleModalPress}>
+                    <TranslatedText style={[defaultThemedStyles.text, styles.label]}>re_title</TranslatedText>
                     <TextInput
                         value={title}
                         onChangeText={setTitle}
                         placeholder={t('re_phd_title')}
                         style={[{
-                            borderColor: colors.blue,
+                            borderColor: colors.accent,
                             height: 50
                         }, styles.input, defaultThemedStyles.text]}
                         placeholderTextColor={colors.gray}
                     />
-                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_description</TranslatedText>
+                    <TranslatedText style={[defaultThemedStyles.text, styles.label]}>re_description</TranslatedText>
                     <TextInput
                         value={description}
                         onChangeText={setDescription}
                         placeholder={t('re_phd_description')}
                         style={[{
-                            borderColor: colors.blue,
+                            borderColor: colors.accent,
                             minHeight: 50
                         }, styles.input, defaultThemedStyles.text]}
                         multiline
@@ -96,7 +98,7 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                         placeholderTextColor={colors.gray}
                     />
 
-                    <TranslatedText style={[styles.label, defaultThemedStyles.text]}>re_tint</TranslatedText>
+                    <TranslatedText style={[defaultThemedStyles.text, styles.label]}>re_tint</TranslatedText>
                     <View style={styles.tintRow}>
                         {TINT_COLORS.map((color) => (
                             <ScaleOnFocus
@@ -109,9 +111,9 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                                 <TouchableOpacity
                                     key={`to-${color}`}
                                     style={[{
-                                        borderColor: colors.blue,
+                                        borderColor: colors.accent,
                                         backgroundColor: getColorCode(color),
-                                        borderWidth: tint === color ? 2 : 1
+                                        borderWidth: tint === color ? 2 : 1.5
                                     }, styles.tintCircle]}
                                     onPress={() => setTint(color)}
                                 />
@@ -125,12 +127,12 @@ const TodoModal = ({ visible, onOk, onCancel, todoToEdit, editIndex }) => {
                             <TranslatedText style={defaultThemedStyles.textContrast}>cancel</TranslatedText>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={handleOk} style={[styles.buttonShell, { backgroundColor: colors.blue }]}>
+                        <TouchableOpacity onPress={handleOk} style={[styles.buttonShell, { backgroundColor: colors.accent }]}>
                             <Feather name='save' size={22} color={colors.generic} />
                             <TranslatedText style={defaultThemedStyles.textContrast}>save</TranslatedText>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </Pressable>
             </Pressable>
         </Modal>
     );
@@ -151,7 +153,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        fontWeight: 'bold'
+        fontFamily: 'Inter-Bold'
     },
     input: {
         borderWidth: 1.2,

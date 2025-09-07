@@ -10,7 +10,7 @@ const useScreenOptions = () => {
         cardStyle: {
             backgroundColor: colors.generic
         },
-    }), [theme]);
+    }), [theme, colors]);
 
     return screenOptions;
 };

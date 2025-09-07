@@ -1,17 +1,19 @@
-import { View, Alert, StyleSheet, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import ContainerView from '../../../components/common/ContainerView';
 import Feather from '@expo/vector-icons/Feather';
-import { useThemes } from '../../../context/ThemeContext';
-import { useTranslations } from '../../../context/LanguageContext';
-import { useEffect, useRef, useState } from 'react';
-import TranslatedText from '../../../components/translations/TranslatedText';
-import api from '../../../lib/sntz/api';
-import { useAuth } from '../../../context/AuthenticationContext';
-import Button from '../../../components/common/Button';
-import Divider from '../../../components/common/Divider';
 import * as Haptics from 'expo-haptics';
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+
+import Button from '../../../components/common/Button';
+import ContainerView from '../../../components/common/ContainerView';
+import Divider from '../../../components/common/Divider';
+import TranslatedText from '../../../components/translations/TranslatedText';
+import { useAuth } from '../../../context/AuthenticationContext';
+import { useTranslations } from '../../../context/LanguageContext';
+import { useThemes } from '../../../context/ThemeContext';
+import { ENTRY, useShowAlert } from '../../../hooks/useShowAlert';
+import api from '../../../lib/sntz/api';
 
 
 const SntzAccountManagement = () => {
@@ -22,50 +24,47 @@ const SntzAccountManagement = () => {
     const [inputtedPassword, setInputtedPassword] = useState('');
     const [inputtedEmail, setInputtedEmail] = useState('');
 
-    const [inputEnabled, setInputEnabled] = useState(false);
-    const [loginBtnEnabled, setLoginBtnEnabled] = useState(false);
-    const [logoutBtnEnabled, setLogoutBtnEnabled] = useState(false);
-
     const [validating, setIsValidating] = useState(false);
 
     const [iconName, setIconName] = useState('link');
-    const [showEye, setShowEye] = useState(false);
-
     const secretCounter = useRef(0);
 
-    const handleSecretPress = () => {
+    const showAlert = useShowAlert();
+
+    const handleSecretPress = useCallback(() => {
         secretCounter.current += 1;
         if (secretCounter.current > 4) {
-            setShowEye(true);
+            setIconName('eye');
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
+            setStatusBarBackgroundColor('red', true);
+            setTimeout(() => setStatusBarBackgroundColor('#00000000', true), 1000);
         }
-    }
+    }, []);
 
-    const handleLogout = () => {
-        Alert.alert(
-            t('st_sntz_logout'),
-            t('st_sntz_logout_msg'),
-            [
-                { text: t('cancel'), style: 'cancel' },
-                {
-                    text: t('yes'),
-                    onPress: async () => {
-                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    const handleLogout = async () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
-                        await logout();
-                        setInputtedEmail('');
-                        setInputtedPassword('');
-                    },
-                    style: 'destructive'
-                },
-            ],
-            { cancelable: true }
-        );
-    }
+        await logout();
+        setInputtedEmail('');
+        setInputtedPassword('');
+    };
 
-    const validateLogin = async () => {
+    const handleLogoutDialogue = () => {
+        showAlert({
+            title: t('st_sntz_logout'),
+            message: t('st_sntz_logout_msg'),
+            buttons: ENTRY.YES_CANCEL(t, handleLogout)
+        });
+    };
+
+    const validateLogin = useCallback(async () => {
         setIsValidating(true);
 
-        const { loginSuccessful } = await api.authenticate(inputtedEmail.trim(), inputtedPassword.trim()); // -> bool
+        const { loginSuccessful } = await api.authenticate(
+            inputtedEmail,
+            inputtedPassword
+        ); // -> bool
 
         let alertMsg;
 
@@ -78,9 +77,21 @@ const SntzAccountManagement = () => {
             alertMsg = t('st_sntz_login_n');
         }
 
-        Alert.alert(t('st_ac_mgt'), alertMsg);
+        showAlert({
+            title: t('st_ac_mgt'),
+            message: alertMsg
+        });
+
         setIsValidating(false);
-    };
+    }, [inputtedEmail, inputtedPassword]);
+
+    const isLoggedIn = !!user;
+    const finishedLoading = !loadingAuth;
+    const formsFilled = inputtedEmail.trim().length && inputtedPassword.trim().length;
+    
+    const inputEnabled = finishedLoading && !isLoggedIn && !validating;
+    const loginBtnEnabled = finishedLoading && !isLoggedIn && formsFilled && !validating;
+    const logoutBtnEnabled = finishedLoading && isLoggedIn && !validating;
 
     useEffect(() => {
         if (user) {
@@ -88,41 +99,18 @@ const SntzAccountManagement = () => {
             setInputtedPassword(user.password);
         }
     }, [loadingAuth]);
-
-    useEffect(() => {
-        const finishedLoading = !loadingAuth;
-        const formsFilled = inputtedEmail.trim().length && inputtedPassword.trim().length;
-        const isLoggedIn = user ? true : false;
-
-        setInputEnabled(finishedLoading && !isLoggedIn && !validating);
-        setLoginBtnEnabled(finishedLoading && !isLoggedIn && formsFilled && !validating);
-        setLogoutBtnEnabled(finishedLoading && isLoggedIn && !validating);
-    }, [loadingAuth, inputtedEmail, inputtedPassword, user, validating]);
-
+    
     useEffect(() => {
         if (secretCounter.current > 4) {
             setIconName('eye');
         }
     }, [secretCounter]);
 
-    useEffect(() => {
-        if (showEye) setIconName('eye');
-    }, [showEye]);
-
-    useEffect(() => {
-        if (iconName === 'eye') {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-
-            setStatusBarBackgroundColor('red', true);
-            setTimeout(() => setStatusBarBackgroundColor('#00000000', true), 1000);
-        }
-    }, [iconName]);
-
     return (
         <ContainerView style={styles.containerView}>
             <Divider />
             <Pressable onPress={handleSecretPress} style={[{
-                backgroundColor: colors.blue
+                backgroundColor: colors.accent
             }, styles.circle, defaultThemedStyles.boxshadow]}>
                 <Feather name={iconName} size={70} color={colors.white} />
             </Pressable>
@@ -181,7 +169,7 @@ const SntzAccountManagement = () => {
                 />
                 <Button
                     title={t('st_sntz_remove_ac')}
-                    onPress={handleLogout}
+                    onPress={handleLogoutDialogue}
                     color={colors.red}
                     disabled={!logoutBtnEnabled}
                     icon={'log-out'}
@@ -204,18 +192,19 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 12,
         width: '80%',
-        minHeight: 45
+        minHeight: 45,
+        fontFamily: 'Inter-Medium'
     },
     textContainer: {
-        width: '90%',
-        paddingLeft: 10,
+        paddingLeft: 5,
         paddingVertical: 5,
         marginVertical: 12,
         borderLeftWidth: 1.6,
         borderRadius: 1.25,
+        width: '85%',
 
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -231,7 +220,8 @@ const styles = StyleSheet.create({
     text: {
         textAlign: 'left',
         textAlignVertical: 'center',
-        fontSize: 14.5
+        fontSize: 14.5,
+        marginLeft: 5,
     }
 });
 

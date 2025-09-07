@@ -1,17 +1,27 @@
-import licenses from '../../../config/attributions/attribution.json';
-import ContainerView from '../../../components/common/ContainerView';
-import { Pressable, FlatList, StyleSheet, Text } from 'react-native';
-import { useThemes } from '../../../context/ThemeContext';
 import { openBrowserAsync } from 'expo-web-browser';
-import Divider from '../../../components/common/Divider';
 import { useMemo } from 'react';
+import { Pressable, StyleSheet, Text } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+
+import ContainerView from '../../../components/common/ContainerView';
+import Divider from '../../../components/common/Divider';
+import licenses from '../../../config/attributions/attribution.json';
+import { useThemes } from '../../../context/ThemeContext';
+import useHideTabBarOnFocus from '../../../hooks/useHideTabBarOnFocus';
 
 const AttributionText = ({ children, pronounced }) => {
     const { defaultThemedStyles } = useThemes();
-    const fontSize = pronounced ? 14 : 11;
+
+    const [ fontSize, numOfLines, fontFamily ] = pronounced
+        ? [16, 1, 'JetBrainsMono-Bold']
+        : [12.5, 3, 'JetBrainsMono-Medium']
 
     return (
-        <Text style={[{ fontSize }, defaultThemedStyles.text, styles.text]}>
+        <Text
+            adjustsFontSizeToFit
+            numberOfLines={numOfLines}
+            style={[defaultThemedStyles.text, styles.text, { fontSize, fontFamily }]}
+        >
             {children}
         </Text>
     );
@@ -36,6 +46,8 @@ const AttributionItem = ({ packageName, repository, publisher, licenses }) => {
 };
 
 const SettingsAttributions = () => {
+    useHideTabBarOnFocus();
+
     const data = useMemo(() => Object.entries(licenses).map(([packageName, value]) => ({
         packageName,
         ...value,
@@ -55,7 +67,7 @@ const SettingsAttributions = () => {
                     />
                 )}
                 ItemSeparatorComponent={Divider}
-                initialNumToRender={20}
+                initialNumToRender={12}
                 maxToRenderPerBatch={25}
                 windowSize={10}
             />
@@ -65,7 +77,7 @@ const SettingsAttributions = () => {
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: 'monospace',
+        fontFamily: 'JetBrainsMono-Medium'
     },
     itemContainer: {
         flexDirection: 'column',
@@ -73,7 +85,5 @@ const styles = StyleSheet.create({
         marginVertical: 4,
     },
 });
-
-// https://reactnative.dev/docs/optimizing-flatlist-configuration#maxtorenderperbatch
 
 export default SettingsAttributions;

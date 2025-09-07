@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { FlatList, Modal, Pressable, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
-import TranslatedText from '../translations/TranslatedText';
-import { useThemes } from '../../context/ThemeContext';
-import ScaleOnFocus from '../utils/ScaleOnFocus';
 import Feather from '@expo/vector-icons/Feather';
 import { impactAsync, ImpactFeedbackStyle } from 'expo-haptics';
+import { useState } from 'react';
+import { Modal, Pressable, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+
+import { FlatList } from 'react-native-gesture-handler';
+import { useThemes } from '../../context/ThemeContext';
+import TranslatedText from '../translations/TranslatedText';
+import ScaleOnFocus from '../utils/ScaleOnFocus';
 
 const Item = ({
     item,
@@ -18,7 +20,10 @@ const Item = ({
     const itemStlye =
         isSelected
             ? {
-                text: defaultThemedStyles.textContrast,
+                text: {
+                    fontFamily: 'Inter-Bold',
+                    ...defaultThemedStyles.textContrast
+                },
                 view: defaultThemedStyles.cardHighlight
             }
             : {
@@ -67,9 +72,9 @@ const DropdownSelect = ({ entries, onSelect, selectedItem }) => {
             >
                 <View style={[{
                         backgroundColor: colors.generic,
-                        borderColor: colors.blue
+                        borderColor: colors.accent
                     }, styles.buttonShell ]}>
-                    <Feather name='chevron-down' size={24} color={colors.blue} />
+                    <Feather name='chevron-down' size={24} color={colors.accent} />
                     <TranslatedText numberOfLines={1} adjustsFontSizeToFit style={[{
                             color: colors.hardContrast,
                         }, styles.itemText]}>
@@ -125,7 +130,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.4)'
     },
     entryText: {
-        fontWeight: 'bolder',
+        fontFamily: 'Inter-Medium',
         fontSize: 30,
     },
     entryView: {
@@ -151,7 +156,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     itemText: {
-        marginRight: 3
+        marginRight: 3,
+        fontFamily: 'Inter-Medium',
+        fontSize: 14
     }
 });
 

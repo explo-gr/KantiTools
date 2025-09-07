@@ -30,6 +30,7 @@ export default {
     hm_men_err: "Buc enflau PDF",
     hm_men_err_msg: "Controllai vossa colligiaziun d'internet.",
     hm_men: "Plan da magliar",
+    hm_men_download: "Plan da mangiar vegn cargau...",
     hm_ttbl: "Urari",
     hm_ttbl_rst: "Stizzar igl urari?",
     hm_ttbl_rst_msg: "Quella acziun stezza igl urari arcunau. Vus vegnis supplicai da selecziunar in auter.",
@@ -83,7 +84,7 @@ export default {
     gr_grcalc_max: "Puncts maximal",
     gr_grcalc_end: "Nota finala",
 
-    gr_cache_indic: "Datas carcau dil Cache",
+    gr_cache_indic: "Datas cargau dil Cache",
     gr_data_err: "Neginas datas",
 
     // Settings
@@ -127,6 +128,14 @@ export default {
         dark: "Stgir",
         white: "Clar",
         system: "Sistem",
+
+        // accent colors
+        st_prf_acc_clrs: "Paletta da colurs tscharnau",
+
+        red: "Tgietschen",
+        green: "Verd",
+        blue: "Blau",
+        purple: "Violet",
 
     // Tabbar
     Home: "Start",

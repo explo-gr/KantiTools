@@ -30,6 +30,7 @@ export default {
     hm_men_err_msg: "Vérifie ta connexion réseau!",
     hm_men: "Menu",
     hm_ttbl: "Horaire",
+    hm_men_download: "Téléchargement du plan de repas...",
     hm_ttbl_rst: "Réinitialiser l’horaire?",
     hm_ttbl_rst_msg: "Cela supprimera l’horaire enregistré. Tu devras en choisir un nouveau.",
     hm_ttbl_rst_f_msg: "Impossible de réinitialiser l’horaire",
@@ -126,6 +127,14 @@ export default {
         dark: "Sombre",
         white: "Clair",
         system: "Système",
+
+        // accent colors
+        st_prf_acc_clrs: "Palette de couleurs sélectionnée",
+
+        red: "Rouge",
+        green: "Vert",
+        blue: "Bleu",
+        purple: "Violet",
 
     // Tabbar
     Home: "Accueil",

@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from 'react';
+
 import CredentialsStorage from '../lib/sntz/credentialStorageManager';
 
 const AuthContext = createContext(null);

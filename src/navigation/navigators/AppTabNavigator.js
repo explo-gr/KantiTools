@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { useMemo } from 'react';
 
 // Screens
@@ -33,7 +33,6 @@ const AppTabNavigator = () => {
                 tabBar={(props) => <TabNavigator {...props} />}
                 screenOptions={{
                     headerShown: false,
-                    tabBarHideOnKeyboard: true,
                     animation: 'fade'
                 }}
             >

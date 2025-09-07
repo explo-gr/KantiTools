@@ -1,20 +1,24 @@
-import { useEffect, useState } from 'react';
-import { Alert, View, ScrollView, StyleSheet } from 'react-native';
-import Button from '../../../components/common/Button'
-import DropdownSelect from '../../../components/common/DropdownSelect';
-import { SupportedLanguages, useTranslations } from '../../../context/LanguageContext';
-import { useThemes } from '../../../context/ThemeContext';
-import SettingsItem from './SettingsItem';
-import SettingsCategoryHeader from './SettingsCategoryHeader';
-import { useSettings } from '../../../context/SettingsContext';
+import Feather from '@expo/vector-icons/Feather';
+import { useMemo } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+
+import Button from '../../../components/common/Button';
 import ContainerView from '../../../components/common/ContainerView';
-import Credit from './Credit';
+import DropdownSelect from '../../../components/common/DropdownSelect';
 import Header from '../../../components/common/Header';
-import { useAuth } from '../../../context/AuthenticationContext';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
 import TranslatedText from '../../../components/translations/TranslatedText';
-import Feather from '@expo/vector-icons/Feather';
+import Credit from './Credit';
+import SettingsCategoryHeader from './SettingsCategoryHeader';
+import SettingsItem from './SettingsItem';
+
+import { useAuth } from '../../../context/AuthenticationContext';
 import { useData } from '../../../context/DataContext';
+import { SupportedLanguages, useTranslations } from '../../../context/LanguageContext';
+import { useSettings } from '../../../context/SettingsContext';
+import { useThemes } from '../../../context/ThemeContext';
+import { ENTRY, useShowAlert } from '../../../hooks/useShowAlert';
 import { clearMenuplanData } from '../../../lib/menuplanHelper';
 
 const AccountStatusIndicator = () => {
@@ -46,43 +50,49 @@ const SettingsMain = ({ navigation }) => {
     const { language, setLanguage, t, resetLanguage } = useTranslations();
 
     // Theme Settings
-    const themeStates = ['dark', 'white', 'system'];
+    const themeStates = useMemo(() => (['dark', 'white', 'system']), []);
+    const accentColors = useMemo(() => (['red', 'green', 'blue', 'purple']), []);
 
     // Data
     const { clearDataCache } = useData();
     const { logout } = useAuth();
 
-    const handleReset = () => {
-        Alert.alert(
-            t('reset'),
-            t('st_rst_msg'),
-            [
-                { text: t('cancel'), style: 'cancel' },
-                {
-                    text: t('yes'),
-                    onPress: async () => {
-                        /*
-                            reverts all settings to default settings
-                            and resets the data of other components
-                            !! doesn't clear todo and timetable !!
-                        */
-                        try {
-                            resetSettings();
-                            await resetLanguage();
-                            await clearDataCache();
-                            await clearMenuplanData();
-                            await logout();
-                            Alert.alert(t('reset'), t('st_rst_succ_msg'));
-                        } catch {
-                            Alert.alert(t('reset'), t('error'));
-                        }
-                    },
-                    style: 'destructive'
-                },
-            ],
-            { cancelable: true }
-        );
-    }
+    const showAlert = useShowAlert();
+
+    const handleReset = async () => {
+        /*
+            reverts all settings to default settings
+            and resets the data of other components
+            !! doesn't clear todo and timetable !!
+        */
+
+        try {
+            resetSettings();
+
+            await resetLanguage();
+            await clearDataCache();
+            await clearMenuplanData();
+            await logout();
+
+            showAlert({
+                title: t('reset'),
+                message: t('st_rst_succ_msg')
+            });
+        } catch {
+            showAlert({
+                title: t('reset'),
+                message: t('error')
+            });
+        }
+    };
+
+    const handleResetDialogue = () => {
+        showAlert({
+            title: t('reset'),
+            message: t('st_rst_msg'),
+            buttons: ENTRY.YES_CANCEL(t, handleReset)
+        });
+    };
 
     return (
         <ContainerView>
@@ -111,6 +121,13 @@ const SettingsMain = ({ navigation }) => {
                         onSelect={(theme) => changeSetting('theme', theme)}
                     />
                 </SettingsItem>
+                <SettingsItem title={t('st_prf_acc_clrs')}>
+                    <DropdownSelect
+                        entries={[ ...accentColors ]}
+                        selectedItem={settings.accent_color}
+                        onSelect={(color) => changeSetting('accent_color', color)}
+                    />
+                </SettingsItem>
                 <SettingsCategoryHeader icon='user'>
                     st_ac_mgt
                 </SettingsCategoryHeader>
@@ -131,7 +148,7 @@ const SettingsMain = ({ navigation }) => {
                     <Button
                         title={t('reset')}
                         icon={'x-circle'}
-                        onPress={handleReset}
+                        onPress={handleResetDialogue}
                     />
                 </SettingsItem>
                 <SettingsItem title={t('st_oss_l')}>

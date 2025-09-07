@@ -2,11 +2,12 @@
   "expo": {
     "name": "KantiTools",
     "slug": "KantiTools",
-    "version": "1.0.0",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./src/assets/icons/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "githubUrl": "https://github.com/explo-gr/KantiTools",
     "splash": {
       "image": "./src/assets/splash/splash-icon.png",
       "resizeMode": "contain",
@@ -16,12 +17,19 @@
       "supportsTablet": true
     },
     "android": {
+      "edgeToEdgeEnabled": false,
       "softwareKeyboardLayoutMode": "pan",
-      "package": "com.gianmarcoc_07.KantiTools"
+      "package": "com.gianmarcoc_07.KantiTools",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/adaptive/adaptive-icon-foreground.png",
+        "backgroundImage": "./src/assets/adaptive/adaptive-icon-background.png"
+      }
     },
     "plugins": [
       "expo-localization",
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-web-browser",
+      "expo-font"
     ],
     "extra": {
       "eas": {

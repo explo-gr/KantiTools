@@ -1,6 +1,8 @@
 import React, { createContext, useMemo } from 'react';
-import getColorPalette from '../lib/getColorPalette';
 import { StyleSheet, useColorScheme } from 'react-native';
+
+import getAccentColor from '../lib/themes/getAccentColor';
+import getColorPalette from '../lib/themes/getColorPalette';
 import { useSettings } from './SettingsContext';
 
 export const ThemeContext = createContext();
@@ -9,32 +11,49 @@ export const ThemeProvider = ({ children }) => {
     const { settings } = useSettings();
     const systemTheme = useColorScheme();
 
-    const theme = settings.theme === 'system' ? systemTheme : settings.theme;
-    const colors = useMemo(() => getColorPalette(theme), [theme]);
+    const theme = useMemo(() =>
+        settings.theme === 'system' ? systemTheme : settings.theme
+    , [systemTheme, settings.theme]);
+
+    const { accent, generic } = useMemo(() => {
+        return getAccentColor(theme, settings.accent_color);
+    }, [theme, settings.accent_color]);
+
+    const colors = useMemo(() => {
+        const defaultPalette = getColorPalette(theme);
+
+        return {
+            ...defaultPalette,
+            accent,
+            generic
+        }
+    }, [theme, accent, generic]);
 
     const defaultThemedStyles = useMemo(() => {
         const defaultThemedStyle = StyleSheet.create({
             card: {
                 backgroundColor: colors.generic,
-                borderColor: colors.blue,
+                borderColor: colors.accent,
                 borderRadius: 20,
                 borderWidth: 2.5
             },
             text: {
                 color: colors.hardContrast,
-                textAlignVertical: 'center'
+                textAlignVertical: 'center',
+                fontFamily: 'Inter-Medium'
             },
             textContrast: {
                 color: colors.generic,
-                textAlignVertical: 'center'
+                textAlignVertical: 'center',
+                fontFamily: 'Inter-Medium'
             },
             cardHighlight: {
-                backgroundColor: colors.blue,
+                backgroundColor: colors.accent,
                 borderRadius: 16,
             },
             boxshadow: {
                 shadowColor: 'black',
-                elevation: 10
+                elevation: 15
             },
             view: {
                 backgroundColor: colors.generic
@@ -42,7 +61,7 @@ export const ThemeProvider = ({ children }) => {
         });
 
         return defaultThemedStyle;
-    }, [theme]);
+    }, [theme, colors]);
 
     const contextValue = useMemo(() => ({
         colors,

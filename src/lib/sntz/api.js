@@ -1,12 +1,14 @@
 import isEmpty from '../../lib/isEmpty';
+import { SNTZ } from '../../config/links/links'
 
+// remap this object to the config links to avoid introducing regression
 const HOST = Object.freeze({
-    LOGIN: 'https://schulnetz.bks-campus.ch/loginto.php',
-    GRADES: 'https://schulnetz.bks-campus.ch/index.php?pageid=21311',
-    ATTENDANCE: 'https://schulnetz.bks-campus.ch/index.php?pageid=21111',
-    TIMETABLE: 'https://schulnetz.bks-campus.ch/index.php?pageid=22202',
-    START: 'https://schulnetz.bks-campus.ch/index.php?pageid=1',
-    HOST: 'https://schulnetz.bks-campus.ch/',
+    LOGIN: SNTZ.LOGIN,
+    GRADES: SNTZ.GRADES,
+    ATTENDANCE: SNTZ.ATTENDANCE,
+    TIMETABLE: SNTZ.TIMETABLE,
+    START: SNTZ.START,
+    HOST: SNTZ.HOST,
 });
 
 const fetchLoginHash = async (loginUrl) => {

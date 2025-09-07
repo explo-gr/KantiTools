@@ -1,10 +1,12 @@
 // Imports
-import { Text, View, StyleSheet, TextInput, FlatList, Keyboard, Pressable } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
-import { useThemes } from '../../../context/ThemeContext';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+
+import Button from '../../../../components/common/Button';
+import { useTranslations } from '../../../../context/LanguageContext';
+import { useThemes } from '../../../../context/ThemeContext';
 import GradeItem from './GradeItem';
-import Button from '../../../components/common/Button';
-import { useTranslations } from '../../../context/LanguageContext';
 
 const createNewEntry = (id) => ({
     id,
@@ -84,7 +86,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
         <View style={styles.rootContainer}>
             <View style={styles.outputContainer}>
                 <Text style={[{
-                    color: colors.blue
+                    color: colors.accent
                 },styles.outputText]}>{ output }</Text>
             </View>
 
@@ -98,7 +100,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         placeholderTextColor={colors.gray}
                         maxLength={5}
                         style={[{
-                            borderColor: colors.blue,
+                            borderColor: colors.accent,
                             color: colors.hardContrast
                         }, styles.input]}
                     />
@@ -110,7 +112,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
                         placeholderTextColor={colors.gray}
                         maxLength={5}
                         style={[{
-                            borderColor: colors.blue,
+                            borderColor: colors.accent,
                             color: colors.hardContrast
                         }, styles.input]}
                     />
@@ -166,8 +168,7 @@ const MinimumGradeCalculator = ({ gradeData = [] }) => {
 
 const styles = StyleSheet.create({
     outputText: {
-        fontFamily: 'monospace',
-        fontWeight: 'bold',
+        fontFamily: 'JetBrainsMono-Bold',
         fontSize: 80,
         marginBottom: 12,
         marginTop: 4
@@ -198,6 +199,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 8,
         height: 45,
+        fontFamily: 'Inter-Medium'
     },
     contentContainer: {
         paddingBottom: 120

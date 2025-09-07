@@ -1,16 +1,15 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as cheerio from 'cheerio';
 import * as FileSystem from 'expo-file-system';
 import * as IntentLauncher from 'expo-intent-launcher';
-import { Platform, Linking, Alert } from 'react-native';
-import * as cheerio from 'cheerio';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { openBrowserAsync } from 'expo-web-browser';
+import { Platform } from 'react-native';
+
+import { MENUPLAN } from '../config/links/links';
 
 const MENUPLAN_DIR = `${FileSystem.documentDirectory}menuplan`;
 const FILE_NAME = 'current-menuplan.pdf';
 const ID_STORAGE_KEY = 'menuplan-id';
-
-const INDEX_URL = 'https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/wvb/Menueplaene/Seiten/default.aspx';
-const BASE_URL = 'https://www.gr.ch/DE/institutionen/verwaltung/ekud/ahb/wvb/Menueplaene/Documents/'
 
 const getMondayDate = () => {
     const date = new Date();
@@ -57,7 +56,7 @@ const reconstructURL = () => {
     const { from, to, year } = reconstructDates();
 
     return {
-        url: `${BASE_URL}Menüplan Mensa Münzmühle Woche vom ${from} bis ${to}.pdf`,
+        url: `${MENUPLAN.BASE}Menüplan Mensa Münzmühle Woche vom ${from} bis ${to}.pdf`,
         id: `${year}-${from}-${to}`
     };
 };
@@ -99,14 +98,12 @@ const downloadPDF = async (url) => {
 
 const findFallbackURL = async () => {
     try {
-        const response = await fetch(INDEX_URL);
+        const response = await fetch(MENUPLAN.INDEX);
         const html = await response.text();
 
         const $ = cheerio.load(html);
         const links = $('a[href]').map((_, el) => $(el).attr('href')).get();
         const pdfLink = links.findLast(href => href.includes('Woche') && href.includes('Münzmühle') && href.endsWith('.pdf'));
-
-        console.log('fdjksalö')
 
         return pdfLink ? `${pdfLink}` : null;
     } catch (err) {
@@ -115,7 +112,9 @@ const findFallbackURL = async () => {
     }
 };
 
-export const openMenuplanPDF = async () => {
+export const openMenuplanPDF = async (
+    onDownload = () => null
+) => {
     /*
         Since it's impossible to open a downloaded
         PDF on iOS without embedding a PDF engine,
@@ -153,6 +152,7 @@ export const openMenuplanPDF = async () => {
 
     if (!fileUri) {
         console.log('[MENUPLAN] No cached Menuplan was found.\nAttempting to download the PDF');
+        onDownload();
 
         fileUri = await downloadPDF(url);
 

@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native';
+import Animated, { ReduceMotion, useSharedValue, withSpring } from 'react-native-reanimated';
+
 import { useThemes } from '../../context/ThemeContext';
-import Animated, { useSharedValue, withSpring, ReduceMotion } from 'react-native-reanimated';
 
 const ToggleSwitch = ({ state, changeState }) => {
     const { defaultThemedStyles, colors } = useThemes();
@@ -24,12 +25,12 @@ const ToggleSwitch = ({ state, changeState }) => {
             onPress={handlePress}
         >
             <View style={[{
-                borderColor: colors.blue,
+                borderColor: colors.accent,
                 backgroundColor: colors.generic,
             }, styles.buttonShell, defaultThemedStyles.boxshadow]}>
                 <Animated.View style={[{
                     width: width,
-                    backgroundColor: colors.blue,
+                    backgroundColor: colors.accent,
                 }, styles.innerCircle]} />
             </View>
         </Pressable>

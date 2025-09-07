@@ -1,18 +1,19 @@
+import Feather from '@expo/vector-icons/Feather';
+import { StyleSheet, Text, View } from 'react-native';
+
 import { useTranslations } from '../../../context/LanguageContext';
 import { useThemes } from '../../../context/ThemeContext';
-import { View, Text, StyleSheet } from 'react-native';
-import Feather from '@expo/vector-icons/Feather';
 
 const Greeting = () => {
     const { t } = useTranslations();
-    const { colors, } = useThemes();
+    const { colors } = useThemes();
 
     const getJSX = (icon, greeting, color='#426d9e') => {
         return (
             <View style={styles.container}>
-                <Feather name={icon} size={32} color={color} />
+                <Feather name={icon} size={32} color={color}/>
                 <Text style={[{
-                    color: colors.blue
+                    color: colors.accent
                 }, styles.text]}>{greeting}</Text>
             </View>
         );
@@ -28,7 +29,7 @@ const Greeting = () => {
             { condition: (h) => h <= 11, icon: 'sun', key: 'hm_gr_forenoon', color: colors.orange },
             { condition: (h) => h <= 12, icon: 'sun', key: 'hm_gr_midday', color: colors.yellow },
             { condition: (h) => h <= 17, icon: 'sun', key: 'hm_gr_afternoon', color: colors.yellow },
-            { condition: (h) => h <= 20, icon: 'moon', key: 'hm_gr_evening', color: colors.lightblue },
+            { condition: (h) => h <= 20, icon: 'moon', key: 'hm_gr_evening', color: colors.blue },
         ];
 
         for (const { condition, icon, key, color } of greetingRanges) {
@@ -49,10 +50,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 8,
-        margin: 5
+        margin: 10
     },
     text: {
-        fontWeight: 'bold',
+        fontFamily: 'Inter-Bold',
         fontSize: 26,
         textAlignVertical: 'center',
     }

@@ -1,10 +1,11 @@
 // imports regarding general objects
-import { StyleSheet, View } from 'react-native';
-import { useThemes } from '../../context/ThemeContext';
-import { useAuth } from '../../context/AuthenticationContext';
-import LoadingIndicator from './LoadingIndicator';
-import TranslatedText from '../translations/TranslatedText';
 import Feather from '@expo/vector-icons/Feather';
+import { StyleSheet, View } from 'react-native';
+
+import { useAuth } from '../../context/AuthenticationContext';
+import { useThemes } from '../../context/ThemeContext';
+import TranslatedText from '../translations/TranslatedText';
+import LoadingIndicator from './LoadingIndicator';
 
 const LoginReqView = ({ children, infoStyle, ...props }) => {
     const { user, loadingAuth } = useAuth();

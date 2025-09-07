@@ -30,6 +30,7 @@ export default {
     hm_men_err: "Betg chattà PDF",
     hm_men_err_msg: "Controllai vossa colliaziun d'internet.",
     hm_men: "Plan da mangiar",
+    hm_men_download: "Plan da mangiar vegn chargià...",
     hm_ttbl: "Urari",
     hm_ttbl_rst: "Stizzar il urari?",
     hm_ttbl_rst_msg: "Questa acziun stizza il urari arcunà. Vus vegnis supplitgads da selecziunar in auter.",
@@ -127,6 +128,14 @@ export default {
         dark: "Stgir",
         white: "Cler",
         system: "Sistem",
+
+        // accent colors
+        st_prf_acc_clrs: "Paletta da colurs selecziunada",
+
+        red: "Cotschen",
+        green: "Verd",
+        blue: "Blau",
+        purple: "Violet",
 
     // Tabbar
     Home: "Start",

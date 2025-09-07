@@ -9,7 +9,7 @@ const useHeaderOptions = () => {
             backgroundColor: colors.generic,
         },
         headerTintColor: colors.hardContrast,
-    }), [theme]);
+    }), [theme, colors]);
 
     return headerOptions;
 };

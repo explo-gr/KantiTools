@@ -1,11 +1,12 @@
-import { View, Image, Text, StyleSheet } from 'react-native';
-import { useThemes } from '../../../context/ThemeContext';
-import { setStatusBarBackgroundColor } from 'expo-status-bar';
-import { Pressable } from 'react-native-gesture-handler';
-import { openBrowserAsync } from 'expo-web-browser';
+import { nativeApplicationVersion } from 'expo-application';
 import * as Haptics from 'expo-haptics';
+import { setStatusBarBackgroundColor } from 'expo-status-bar';
+import { openBrowserAsync } from 'expo-web-browser';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-const REPO_URL = 'https://github.com/explo-gr/KantiTools';
+import { Pressable } from 'react-native-gesture-handler';
+import { CREDITS } from '../../../config/links/links';
+import { useThemes } from '../../../context/ThemeContext';
 
 const statusBarWheel = () => {
     const colors = ['tomato', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'blue', 'purple', 'pink'];
@@ -32,7 +33,7 @@ const CreditText = ({ children }) => {
     const { defaultThemedStyles } = useThemes();
 
     return (
-        <Text style={[styles.creditText, defaultThemedStyles.text]}>
+        <Text style={[defaultThemedStyles.text, styles.creditText]}>
             {children}
         </Text>
     );
@@ -44,7 +45,7 @@ const Credit = () => {
     return (
         <Pressable
             onLongPress={statusBarWheel}
-            onPress={async () => await openBrowserAsync(REPO_URL)}
+            onPress={async () => await openBrowserAsync(CREDITS.REPO)}
         >
             <View style={styles.creditContainer}>
                 <Image
@@ -55,7 +56,7 @@ const Credit = () => {
                     <CreditText>MA25 Gian-Marco Coray</CreditText>
                     <CreditText>github.com/explo-gr/KantiTools</CreditText>
                     <CreditText>KantiTools</CreditText>
-                    <CreditText>Release 1.0.1</CreditText>
+                    <CreditText>Release {nativeApplicationVersion}</CreditText>
                 </View>
             </View>
         </Pressable>
@@ -80,9 +81,7 @@ const styles = StyleSheet.create({
         borderRadius: 25
     },
     creditText: {
-        fontStyle: 'normal',
-        fontWeight: '320',
-        fontFamily: 'monospace',
+        fontFamily: 'JetBrainsMono-Medium',
         fontSize: 12
     }
 });

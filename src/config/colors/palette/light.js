@@ -1,13 +1,13 @@
 export default {
-    generic: '#FFFFFF',
+    // generic: '#f2f5f5', --> given by accent color
     hardContrast: '#000000',
     white: '#FFFFFF',
-    gray: '#989898',
+    gray: '#757575',
     red: '#B22222',
     orange: '#CC5500',
     yellow: '#DAA520',
     green: '#228B22',
-    blue: '#2B303B', // used as accent color throughout the app
-    lightblue: '#0071C5',
+    blue: '#2B303B',
+    lightblue: '#085691',
     purple: '#74228b'
 }

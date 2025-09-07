@@ -1,24 +1,28 @@
-import Animated, {
-    useSharedValue,
-    useAnimatedStyle,
-    withTiming,
-    Easing,
-} from 'react-native-reanimated';
 import { useFocusEffect } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
+import { useMemo } from 'react';
+import Animated, {
+    Easing,
+    useAnimatedStyle,
+    useSharedValue,
+    withDelay,
+    withTiming,
+} from 'react-native-reanimated';
 
 const ScaleOnFocus = ({
     isFocused,
     children,
     from=1,
     to=2,
-    duration=350
+    duration=380,
+    style
 }) => {
+    
     const scale = useSharedValue(1);
-    const animationConfig = {
-        duration: duration,
-        easing: Easing.inOut(Easing.back(4)),
-    };
+    const animationConfig = useMemo(() => ({
+        duration,
+        easing: Easing.inOut(Easing.back(3.5)),
+    }), [duration]);
 
     useFocusEffect(() => {
         scale.value = isFocused ? to : from;
@@ -32,7 +36,8 @@ const ScaleOnFocus = ({
 
     return (
         <Animated.View
-            style={[styles.container, animatedStyle]}>
+            renderToHardwareTextureAndroid
+            style={[styles.container, style, animatedStyle]}>
             {children}
         </Animated.View>
     );
@@ -41,7 +46,7 @@ const ScaleOnFocus = ({
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     }
 });
 

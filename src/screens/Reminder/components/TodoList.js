@@ -1,116 +1,96 @@
-import { useState, useEffect, useCallback } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    FlatList,
-    Alert
-} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import TranslatedText from '../../../components/translations/TranslatedText';
-import { useThemes } from '../../../context/ThemeContext';
-import Feather from '@expo/vector-icons/Feather';
+import { useCallback, useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+
 import Accordion from '../../../components/common/Accordion';
-import { useTranslations } from '../../../context/LanguageContext';
-import TodoModal from './TodoModal';
 import LoadingIndicator from '../../../components/common/LoadingIndicator';
+import { useTranslations } from '../../../context/LanguageContext';
+import { useThemes } from '../../../context/ThemeContext';
+import { ENTRY, useShowAlert } from '../../../hooks/useShowAlert';
+import TodoModal from './TodoModal';
+
+import CreateTodoButton from './list/CreateTodoButton';
+import EmptyListMsg from './list/EmptyListMsg';
+import TodoActions from './list/TodoActions';
+import TodoDescription from './list/TodoDescription';
 
 const TODO_STORAGE_KEY = 'todos';
 
-const EmptyListMsg = () => {
-    const { colors } = useThemes();
+const TodoList = ({
+    filterFn = (args) => args,
+}) => {
+    const { colors, theme } = useThemes();
+    const { t, language } = useTranslations();
+    const showAlert = useShowAlert();
 
-    return (
-        <View style={styles.emptyListContainer}>
-            <TranslatedText style={[{
-                color: colors.gray
-            }, styles.emptyListText]}>
-                re_empty
-            </TranslatedText>
-        </View>
+    const [todos, setTodos] = useState([]);
+    const [todosToRender, setTodosToRender] = useState([]);
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const [todoToEdit, setTodoToEdit] = useState(null);
+    const [isOpen, setIsOpen] = useState({});
+
+    const handleOpen = useCallback(
+        (id) =>
+            setIsOpen((prev) => ({
+                ...prev,
+                [id]: !prev[id],
+            })),
+        []
     );
-}
 
-const TodoList = () => {
-    const { colors, theme, defaultThemedStyles } = useThemes();
-    const { t } = useTranslations();
+    const getColorCode = useCallback(
+        (color) => colors[color] || colors.generic,
+        [theme]
+    );
 
-    const [ todos, setTodos ] = useState([]);
-    const [ isLoading, setIsLoading ] = useState(true);
-    const [ modalVisible, setModalVisible ] = useState(false);
-
-    const [ editIndex, setEditIndex ] = useState(null);
-    const [ todoToEdit, setTodoToEdit ] = useState(null);
-
-    const [ isOpen, setIsOpen ] = useState({});
-
-    const handleOpen = (i) => {
-        setIsOpen(prev => ({
-            ...prev,
-            [i]: !prev[i]
-        }));
-    };
-
-    const getColorCode = useCallback((color) => colors[color] || colors.generic, [theme]);
-
-    const handleAddTodo = (todo, index) => {
-        if (typeof index === 'number') {
-            const updated = [...todos];
-            updated[index] = todo;
-
-            setTodos(updated);
+    const handleAddTodo = (todo) => {
+        if (todo.id && todos.find((t) => t.id === todo.id)) {
+            // editing existing todo
+            setTodos((prev) => prev.map((t) => (t.id === todo.id ? todo : t)));
         } else {
-            setTodos(prev => [...prev, todo]);
+            // creating new
+            setTodos((prev) => [...prev, todo]);
         }
 
         setTodoToEdit(null);
-        setEditIndex(null);
         setModalVisible(false);
     };
 
-    const handleDelete = (index) => {
-        setTodos(prev => {
-            const updated = prev.filter((_, i) => i !== index);
-            setIsOpen({});
-
+    const handleDelete = useCallback((id) => {
+        setTodos((prev) => {
+            const updated = prev.filter((t) => t.id !== id);
             return updated;
         });
-    };
+    }, []);
 
-    const handleDeletePrompt = (index) => {
-        Alert.alert(
-            t('re_del'),
-            t('re_del_msg'),
-            [
-                {
-                    text: t('cancel'),
-                    style: 'cancel'
-                },
-                {
-                    text: t('delete'),
-                    onPress: () => {
-                        handleDelete(index);
-                    },
-                    style: 'destructive'
-                },
-            ],
-            { cancelable: true }
-        );
-    };
+    const handleDeletePrompt = useCallback(
+        (id) => {
+            showAlert({
+                title: t('re_del'),
+                message: t('re_del_msg'),
+                buttons: ENTRY.CANCEL_DELETE(t, () => handleDelete(id))
+            });
+        },
+        [language]
+    );
 
-    const handleEdit = (item, index) => {
-        setEditIndex(index);
+    const handleEdit = useCallback((item) => {
         setTodoToEdit(item);
-
         setModalVisible(true);
-    }
+    }, []);
+
+    const handleModalCancel = useCallback(() => {
+        setModalVisible(false);
+        setTodoToEdit(null);
+    }, []);
 
     useEffect(() => {
-        AsyncStorage.getItem(TODO_STORAGE_KEY).then(data => {
-            if (data) {
-                setTodos(JSON.parse(data));
-            };
+        AsyncStorage.getItem(TODO_STORAGE_KEY).then((data) => {
+            if (data) setTodos(JSON.parse(data));
             setIsLoading(false);
         });
     }, []);
@@ -119,79 +99,60 @@ const TodoList = () => {
         AsyncStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
     }, [todos]);
 
-    const renderTodoItem = ({ item, index }) => (
-        <View style={styles.rootContainer}>
-            <Accordion
-                title={item.title}
-                isOpen={!!isOpen[index]}
-                changeIsOpen={() => handleOpen(index)}
-                tint={getColorCode(item.tint)}
-            >
-                {
-                    item.description
-                        ?   <Text style={[{ color: colors.hardContrast }, styles.descrText]}>{item.description}</Text>
-                        :   <TranslatedText style={[{
-                                color: colors.gray
-                            }, styles.noDescrText]}>re_no_descr</TranslatedText>
-                }
-                <View style={styles.todoContentContainer}>
-                    <TouchableOpacity onPress={() => handleEdit(item, index)}>
-                        <Feather name='edit-2' size={22} color={colors.blue} />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => handleDeletePrompt(index)}
-                    >
-                    <Feather name='trash-2' size={22} color={colors.red} />
-                    </TouchableOpacity>
-                </View>
-            </Accordion>
-        </View>
+    useEffect(() => {
+        setTodosToRender(filterFn(todos));
+    }, [todos, filterFn]);
+
+    const renderTodoItem = useCallback(
+        ({ item }) => (
+            <View style={styles.rootContainer}>
+                <Accordion
+                    title={item.title}
+                    isOpen={!!isOpen[item.id]}
+                    tint={`${getColorCode(item.tint)}29`}
+                    changeIsOpen={handleOpen}
+                    accordionKey={item.id}
+                >
+                    <TodoDescription description={item.description} />
+                    <TodoActions
+                        onEdit={() => handleEdit(item)}
+                        onDelete={() => handleDeletePrompt(item.id)}
+                    />
+                </Accordion>
+            </View>
+        ),
+        [isOpen, getColorCode, handleOpen, handleEdit, handleDeletePrompt]
     );
 
     if (isLoading) {
         return (
             <View style={styles.loadingIndContainer}>
-                <LoadingIndicator status={t('loading')}/>
+                <LoadingIndicator status={t('loading')} />
             </View>
         );
     }
 
     return (
         <>
-            {todos.length > 0
-                ?   <FlatList
-                        data={todos}
-                        keyExtractor={(item) => item.id}
-                        renderItem={renderTodoItem}
-                        contentContainerStyle={{ paddingBottom: 200 }}
-                    />
-
-                :   <EmptyListMsg/>
-            }
-
-            <TouchableOpacity
-                onPress={() => setModalVisible(true)}
-                style={styles.fab}
-            >
-                <View style={[{ 
-                    borderColor: colors.blue,
-                    backgroundColor: colors.generic
-                }, styles.fabContentContainer, defaultThemedStyles.boxshadow]}>
-                    <Feather name='plus' size={24} color={colors.hardContrast} />
-                    <TranslatedText style={{ color: colors.hardContrast }}>re_create</TranslatedText>
-                </View>
-            </TouchableOpacity>
-
+            {todos.length > 0 ? (
+                <FlatList
+                    data={todosToRender}
+                    keyExtractor={(item) => item.id}
+                    renderItem={renderTodoItem}
+                    contentContainerStyle={styles.flatListContent}
+                    updateCellsBatchingPeriod={80}
+                    maxToRenderPerBatch={6}
+                    removeClippedSubviews
+                />
+            ): (
+                <EmptyListMsg/>
+            )}
+            <CreateTodoButton onPress={() => setModalVisible(true)} />
             <View>
                 <TodoModal
                     visible={modalVisible}
                     onOk={handleAddTodo}
-                    onCancel={() => {
-                        setModalVisible(false);
-                        setEditIndex(null);
-                        setTodoToEdit(null);
-                    }}
-                    editIndex={editIndex}
+                    onCancel={handleModalCancel}
                     todoToEdit={todoToEdit}
                 />
             </View>
@@ -199,52 +160,18 @@ const TodoList = () => {
     );
 };
 
+
 const styles = StyleSheet.create({
-    emptyListContainer: {
-        flex: 1,
-        alignItems: 'center',
-        marginTop: 20,
-    },
-    emptyListText: {
-        fontSize: 16,
-        fontStyle: 'italic',
-    },
     rootContainer: {
-        marginBottom: 8
-    },
-    noDescrText: {
-        fontStyle: 'italic'
-    },
-    todoContentContainer: {
-        gap: 12,
-        margin: 4,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    fab: {
-        position: 'absolute',
-        padding: 5,
-        bottom: 100,
-        right: '1%'
-    },
-    fabContentContainer: {
-        borderWidth: 2.5,
-        borderRadius: 25,
-        padding: 10,
-        margin: 4,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 3
+        marginBottom: 8,
     },
     loadingIndContainer: {
         margin: 15,
-        flex: 1
+        flex: 1,
     },
-    descrText: {
-        fontSize: 14.5
-    }
+    flatListContent: {
+        paddingBottom: 200
+    },
 });
 
 export default TodoList;

@@ -30,6 +30,7 @@ export default {
     hm_men_err_msg: "Controlla la connessione di rete!",
     hm_men: "Menù",
     hm_ttbl: "Orario",
+    hm_men_download: "Download del menù...",
     hm_ttbl_rst: "Ripristinare l’orario?",
     hm_ttbl_rst_msg: "Questo eliminerà l’orario salvato. Ti verrà chiesto di selezionarne uno nuovo.",
     hm_ttbl_rst_f_msg: "Impossibile ripristinare l’orario",
@@ -126,6 +127,14 @@ export default {
         dark: "Scuro",
         white: "Chiaro",
         system: "Sistema",
+
+        // accent colors
+        st_prf_acc_clrs: "Tavolozza di colori selezionata",
+
+        red: "Rosso",
+        green: "Verde",
+        blue: "Blu",
+        purple: "Viola",
 
     // Tabbar
     Home: "Home",

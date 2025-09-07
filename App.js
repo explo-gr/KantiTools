@@ -4,7 +4,7 @@
  * Licensed under the MIT License. See LICENSE file for details.
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 
 // Contexts
@@ -18,18 +18,31 @@ import { DataProvider } from './src/context/DataContext';
 import AppTabNavigator from './src/navigation/navigators/AppTabNavigator';
 import Feather from '@expo/vector-icons/Feather';
 import Placeholder from './src/components/utils/Placeholder';
+import { TabBarVisibilityProvider } from './src/context/TabBarVisibilityContext';
+import { useFonts } from 'expo-font';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
     const [appIsReady, setAppIsReady] = useState(false);
 
+    const [fontsLoaded] = useFonts({
+        'InterDisplay-Bold': require('./src/assets/fonts/InterDisplay-Bold.ttf'),
+        'Inter-Medium': require('./src/assets/fonts/Inter-Medium.ttf'),
+        'Inter-Bold': require('./src/assets/fonts/Inter-Bold.ttf'),
+        'Inter-Italic': require('./src/assets/fonts/Inter-Italic.ttf'),
+        'JetBrainsMono-Medium': require('./src/assets/fonts/JetBrainsMono-Medium.ttf'),
+        'JetBrainsMono-Bold': require('./src/assets/fonts/JetBrainsMono-Bold.ttf')
+    });
+
     useEffect(() => {
         const prepare = async () => {
+            if (!fontsLoaded) return; // wait font
+
             try {
                 await Promise.race([
                     Feather.loadFont(),
-                    new Promise(resolve => setTimeout(resolve, 2000))
+                    new Promise(resolve => setTimeout(resolve, 2000)) // cap the max loading time
                 ]);
             } catch {
                 console.log('[SPLASH] Promise rejection');
@@ -41,7 +54,7 @@ export default function App() {
         };
 
         prepare();
-    }, []);
+    }, [fontsLoaded]);
 
     return (
         <AuthProvider>
@@ -49,7 +62,9 @@ export default function App() {
                 <ThemeProvider>
                     <LanguageProvider>
                         <DataProvider>
-                            {appIsReady ? (<AppTabNavigator />) : (<Placeholder/>)}
+                            <TabBarVisibilityProvider>
+                                {appIsReady ? (<AppTabNavigator />) : (<Placeholder/>) /* Allow providers to start while loading the app */}
+                            </TabBarVisibilityProvider>
                         </DataProvider>
                     </LanguageProvider>
                 </ThemeProvider>

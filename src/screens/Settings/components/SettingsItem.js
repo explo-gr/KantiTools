@@ -1,6 +1,7 @@
-import { useThemes } from '../../../context/ThemeContext';
+import { StyleSheet, Text, View } from 'react-native';
+
 import { useTranslations } from '../../../context/LanguageContext';
-import { View, Text, StyleSheet } from 'react-native'
+import { useThemes } from '../../../context/ThemeContext';
 
 const SettingsItem = ({ children, title, ...props }) => {
     const { defaultThemedStyles } = useThemes();
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
         marginVertical: 5
     },
     text: {
-        fontSize: 16,
+        fontSize: 15,
         maxWidth: '85%'
     },
     leftview: {

@@ -1,8 +1,9 @@
+import Feather from '@expo/vector-icons/Feather';
 import { useMemo } from 'react';
-import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
 import { useThemes } from '../../context/ThemeContext';
 import TranslatedText from '../translations/TranslatedText';
-import Feather from '@expo/vector-icons/Feather';
 
 const Button = ({
     onPress,
@@ -13,25 +14,26 @@ const Button = ({
     style = {},
 }) => {
     const { colors, theme } = useThemes();
-    if (!color) color = colors.blue;
+    if (!color) color = colors.accent;
 
     const themedStyles = useMemo(() => {
         const styles = StyleSheet.create({
             buttonShell: {
                 height: 47.5,
                 borderRadius: 18,
-                paddingHorizontal: 9,
+                paddingHorizontal: 8,
                 gap: 2,
 
                 flexDirection: 'row',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
-                backgroundColor: color ?? colors.blue,
+                backgroundColor: color ?? colors.accent,
             },
             text: {
                 color: colors.generic,
                 marginLeft: 2,
                 fontSize: 15,
+                fontFamily: 'Inter-Medium',
                 textAlignVertical: 'center',
                 textAlign: 'center'
             },
@@ -62,7 +64,11 @@ const Button = ({
                     </View>
                 )}
                 {title && (
-                    <TranslatedText ellipsizeMode={'tail'} numberOfLines={1} style={themedStyles.text}>
+                    <TranslatedText
+                        ellipsizeMode={'tail'}
+                        numberOfLines={1}
+                        style={themedStyles.text}
+                    >
                         {title}
                     </TranslatedText>
                 )}

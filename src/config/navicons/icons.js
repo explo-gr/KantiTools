@@ -1,3 +1,7 @@
+/*
+    maps to feather icons
+*/
+
 export default {
     Home: 'home',
     Grades: 'file-text',

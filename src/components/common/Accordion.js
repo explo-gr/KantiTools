@@ -1,20 +1,22 @@
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
-import { useThemes } from '../../context/ThemeContext';
-import Animated, { useSharedValue, Easing, withTiming, useAnimatedStyle, ReduceMotion } from 'react-native-reanimated';
-import { useTranslations } from '../../context/LanguageContext';
 import Feather from '@expo/vector-icons/Feather';
+import { useCallback, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Animated, { Easing, ReduceMotion, useAnimatedStyle, useDerivedValue, withDelay, withTiming } from 'react-native-reanimated';
+
 import Divider from '../../components/common/Divider';
-import { useEffect, useRef, useState } from 'react';
+import { useTranslations } from '../../context/LanguageContext';
+import { useThemes } from '../../context/ThemeContext';
 
 const Accordion = ({
     isOpen,
     changeIsOpen,
+    accordionKey,
     title,
     rightItem=<></>,
     children,
     tint,
     disabled = false,
-    immutable = false
+    immutable = false,
 }) => {
     const { defaultThemedStyles, colors } = useThemes();
     const { t } = useTranslations();
@@ -22,57 +24,66 @@ const Accordion = ({
     const deltaTolerance = 0.1;
     const animationDuration = 300;
 
-    const height = useSharedValue(0);
-    const rotation = useSharedValue(isOpen ? 180 : 0);
-
     const [contentHeight, setContentHeight] = useState(0);
-    const hasMounted = useRef(false);
+    const [hasMeasured, setHasMeasured] = useState(false);
 
-    const titleTextSize = title.length >= 25 ? 15 : 17.5;
+    const titleTextSize = title.length >= 25 ? 13.5 : 17;
+
+    const timingConfig = {
+        duration: animationDuration,
+        easing: Easing.inOut(Easing.ease),
+        reduceMotion: ReduceMotion.System,
+    };
+
+    // Drive animations directly from isOpen
+    const animatedHeight = useDerivedValue(() => {
+        return withTiming(isOpen ? contentHeight : 0, timingConfig);
+    }, [isOpen, contentHeight]);
+
+    const animatedRotation = useDerivedValue(() => {
+        return withDelay(25, withTiming(isOpen ? 180 : 0, {
+            duration: animationDuration,
+            easing: Easing.linear,
+            reduceMotion: ReduceMotion.System,
+        }));
+    }, [isOpen]);
 
     const chevronAnimationStyle = useAnimatedStyle(() => ({
-        transform: [{ rotate: `${rotation.value}deg` }],
+        transform: [{ rotate: `${animatedRotation.value}deg` }],
     }));
 
     const openingAnimationStyle = useAnimatedStyle(() => ({
-        height: height.value
+        height: animatedHeight.value
     }));
 
-    const handleOpenClose = () => !disabled && changeIsOpen(!isOpen);
+    const handleOpenClose = () => !disabled && changeIsOpen(accordionKey);
 
-    useEffect(() => {
-        if (!hasMounted.current) {
-            height.value = isOpen ? contentHeight : 0;
-            rotation.value = isOpen ? 180 : 0;
-            hasMounted.current = true;
-            return;
+    const handleOnLayout = useCallback((e) => {
+        if (!immutable || (immutable && !hasMeasured)) {
+            const measuredHeight = e.nativeEvent.layout.height;
+            if (measuredHeight && Math.abs(measuredHeight - contentHeight) > deltaTolerance) {
+                setContentHeight(measuredHeight);
+                if (immutable) {
+                    setHasMeasured(true); // lock after first measure
+                }
+            }
         }
-
-        height.value = withTiming(isOpen ? contentHeight : 0, {
-            duration: animationDuration,
-            easing: Easing.inOut(Easing.ease),
-            reduceMotion: ReduceMotion.System,
-        });
-
-        rotation.value = withTiming(isOpen ? 180 : 0, {
-            duration: animationDuration,
-            easing: Easing.inOut(Easing.linear),
-            reduceMotion: ReduceMotion.System,
-        });
-    }, [isOpen, contentHeight]);
+    }, [immutable, hasMeasured, contentHeight]);
 
     return (
-        <View style={[styles.accordionContainer, defaultThemedStyles.card, {
-            backgroundColor: `${tint}29`
-        }]}>
+        <View
+            style={[styles.accordionContainer, defaultThemedStyles.card, {
+                backgroundColor: tint
+            }]}
+        >
             <TouchableOpacity onPress={handleOpenClose}>
                 <View style={styles.headerContainer}>
-                    <Text style={[{ fontSize: titleTextSize }, styles.titleText, defaultThemedStyles.text]}>
+                    <Text style={[{ fontSize: titleTextSize }, defaultThemedStyles.text, styles.titleText]}>
                         {t(title)}
                     </Text>
                     <View style={styles.headerSubcontainer}>
                         {rightItem}
-                        <Animated.View style={[styles.chevronContainer, chevronAnimationStyle]}>
+                        <Animated.View style={chevronAnimationStyle}>
                             <Feather name='chevron-down' size={30} color={colors.hardContrast} />
                         </Animated.View>
                     </View>
@@ -80,7 +91,10 @@ const Accordion = ({
             </TouchableOpacity>
 
             {/* Animated collapsible content */}
-            <Animated.View style={[styles.contentContainer, openingAnimationStyle]}>
+            <Animated.View
+                style={[styles.contentContainer, openingAnimationStyle]}
+                removeClippedSubviews
+            >
                 <Divider/>
                 <View style={styles.childrenContainer}>
                     {children}
@@ -91,23 +105,18 @@ const Accordion = ({
                 Hidden measurement view (renders content but off-screen)
                 Very weird and hacky approach but this allows dynamic heights
             */}
-            <View
-                style={styles.hiddenMeasureContainer}
-                onLayout={(e) => {
-                    const measuredHeight = e.nativeEvent.layout.height;
-                    if (
-                        (immutable && !contentHeight) ||
-                        (!immutable && measuredHeight && Math.abs(measuredHeight - contentHeight) > deltaTolerance)
-                    ) {
-                        setContentHeight(measuredHeight);
-                    }
-                }}
-            >
-                <Divider/>
-                <View style={styles.childrenContainer}>
-                    {children}
+            {(!immutable || !hasMeasured) && (
+                <View
+                    style={styles.hiddenMeasureContainer}
+                    removeClippedSubviews
+                    onLayout={handleOnLayout}
+                >
+                    <Divider />
+                    <View style={styles.childrenContainer}>
+                        {children}
+                    </View>
                 </View>
-            </View>
+            )}
         </View>
     );
 };
@@ -131,15 +140,11 @@ const styles = StyleSheet.create({
         gap: 12,
         alignItems: 'center'
     },
-    chevronContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     titleText: {
         overflow: 'hidden',
-        fontWeight: 'bold',
         maxWidth: '80%',
-        textAlignVertical: 'center'
+        textAlignVertical: 'center',
+        fontFamily: 'Inter-Bold'
     },
     contentContainer: {
         overflow: 'hidden',
