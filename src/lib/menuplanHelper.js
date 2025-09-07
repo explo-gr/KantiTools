@@ -112,7 +112,9 @@ const findFallbackURL = async () => {
     }
 };
 
-export const openMenuplanPDF = async () => {
+export const openMenuplanPDF = async (
+    onDownload = () => null
+) => {
     /*
         Since it's impossible to open a downloaded
         PDF on iOS without embedding a PDF engine,
@@ -150,6 +152,7 @@ export const openMenuplanPDF = async () => {
 
     if (!fileUri) {
         console.log('[MENUPLAN] No cached Menuplan was found.\nAttempting to download the PDF');
+        onDownload();
 
         fileUri = await downloadPDF(url);
 

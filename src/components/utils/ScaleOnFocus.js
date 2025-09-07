@@ -1,9 +1,11 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
+import { useMemo } from 'react';
 import Animated, {
     Easing,
     useAnimatedStyle,
     useSharedValue,
+    withDelay,
     withTiming,
 } from 'react-native-reanimated';
 
@@ -17,10 +19,10 @@ const ScaleOnFocus = ({
 }) => {
     
     const scale = useSharedValue(1);
-    const animationConfig = {
-        duration: duration,
+    const animationConfig = useMemo(() => ({
+        duration,
         easing: Easing.inOut(Easing.back(3.5)),
-    };
+    }), [duration]);
 
     useFocusEffect(() => {
         scale.value = isFocused ? to : from;
@@ -28,7 +30,7 @@ const ScaleOnFocus = ({
 
     const animatedStyle = useAnimatedStyle(() => {
         return {
-            transform: [{ scale: withTiming(scale.value, animationConfig) }],
+            transform: [{ scale: withDelay(50, withTiming(scale.value, animationConfig)) }],
         };
     });
 

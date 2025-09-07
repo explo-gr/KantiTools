@@ -30,6 +30,7 @@ export default {
     hm_men_err_msg: "¡Verifica tu conexión de red!",
     hm_men: "Menú",
     hm_ttbl: "Horario",
+    hm_men_download: "Descargando plan de comidas...",
     hm_ttbl_rst: "¿Restablecer horario?",
     hm_ttbl_rst_msg: "Esto eliminará el horario guardado. Se te pedirá seleccionar uno nuevo.",
     hm_ttbl_rst_f_msg: "No se pudo restablecer el horario.",
@@ -126,6 +127,14 @@ export default {
         dark: "Oscuro",
         white: "Claro",
         system: "Sistema",
+
+        // accent colors
+        st_prf_acc_clrs: "Paleta de colores seleccionada",
+
+        red: "Rojo",
+        green: "Verde",
+        blue: "Azul",
+        purple: "Violeta",
 
     // Tabbar
     Home: "Inicio",

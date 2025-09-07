@@ -1,7 +1,7 @@
 import { useLinkBuilder } from '@react-navigation/native';
 import { useEffect, useMemo, useState } from 'react';
 import { Keyboard, StyleSheet, useWindowDimensions } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useDerivedValue, withDelay, withSpring } from 'react-native-reanimated';
 
 import { useTabBarVisibility } from '../../context/TabBarVisibilityContext';
 import { useThemes } from '../../context/ThemeContext';
@@ -21,33 +21,35 @@ const TabNavigator = ({ state, navigation }) => {
         };
     }, []);
 
-    const hiddenOffset = useSharedValue(0);
-    const animatedStyles = useAnimatedStyle(() => ({
-        transform: [{ translateY: withSpring(hiddenOffset.value * 0.75) }]
-    }));
-    
     const { width } = useWindowDimensions();
     const isCompact = width < 500;
     
-    const { colors, defaultThemedStyles } = useThemes();
+    const { colors, theme, defaultThemedStyles } = useThemes();
     const { buildHref } = useLinkBuilder();
 
     const shouldHide = useMemo(() => hidden || isKeyboardVisible, [hidden, isKeyboardVisible]);
 
-    useEffect(() => {
-        hiddenOffset.value = shouldHide ? 200 : 0;
+    const hiddenOffset = useDerivedValue(() => {
+        return shouldHide ? 200 : 0;
     }, [shouldHide]);
+
+    const animatedStyles = useAnimatedStyle(() => ({
+        transform: [{
+            translateY: withDelay(25, withSpring(hiddenOffset.value * 0.75)),
+        }]
+    }));
+
+    const themedContainerStyle = useMemo(() => [
+        { backgroundColor: colors.accent },
+        styles.navigationContainer,
+        defaultThemedStyles.boxshadow,
+    ], [colors, theme]);
     
     return (
         <Animated.View
             renderToHardwareTextureAndroid
             removeClippedSubviews={false}
-            style={[
-                { backgroundColor: colors.accent },
-                animatedStyles,
-                styles.navigationContainer,
-                defaultThemedStyles.boxshadow,
-            ]}
+            style={[animatedStyles, themedContainerStyle]}
         >
             {state.routes.map((route, index) => {
                 const isFocused = state.index === index;

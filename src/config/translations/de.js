@@ -29,6 +29,7 @@ export default {
     hm_men_err: "PDF nicht gefunden",
     hm_men_err_msg: "Überprüfen Sie Ihre Netzwerkverbindung!",
     hm_men: "Menüplan",
+    hm_men_download: "Menüplan wird heruntergeladen...",
     hm_ttbl: "Stundenplan",
     hm_ttbl_rst: "Stundenplan zurücksetzen?",
     hm_ttbl_rst_msg: "Diese Aktion löscht den gespeicherten Stundenplan. Sie werden aufgefordert, einen neuen auszuwählen.",

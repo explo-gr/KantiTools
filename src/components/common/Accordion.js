@@ -1,7 +1,7 @@
 import Feather from '@expo/vector-icons/Feather';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Animated, { Easing, ReduceMotion, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { Easing, ReduceMotion, useAnimatedStyle, useDerivedValue, withDelay, withTiming } from 'react-native-reanimated';
 
 import Divider from '../../components/common/Divider';
 import { useTranslations } from '../../context/LanguageContext';
@@ -24,21 +24,36 @@ const Accordion = ({
     const deltaTolerance = 0.1;
     const animationDuration = 300;
 
-    const height = useSharedValue(0);
-    const rotation = useSharedValue(0);
-
     const [contentHeight, setContentHeight] = useState(0);
     const [hasMeasured, setHasMeasured] = useState(false);
-    const hasMounted = useRef(false);
 
     const titleTextSize = title.length >= 25 ? 13.5 : 17;
 
+    const timingConfig = {
+        duration: animationDuration,
+        easing: Easing.inOut(Easing.ease),
+        reduceMotion: ReduceMotion.System,
+    };
+
+    // Drive animations directly from isOpen
+    const animatedHeight = useDerivedValue(() => {
+        return withTiming(isOpen ? contentHeight : 0, timingConfig);
+    }, [isOpen, contentHeight]);
+
+    const animatedRotation = useDerivedValue(() => {
+        return withDelay(25, withTiming(isOpen ? 180 : 0, {
+            duration: animationDuration,
+            easing: Easing.linear,
+            reduceMotion: ReduceMotion.System,
+        }));
+    }, [isOpen]);
+
     const chevronAnimationStyle = useAnimatedStyle(() => ({
-        transform: [{ rotate: `${rotation.value}deg` }],
+        transform: [{ rotate: `${animatedRotation.value}deg` }],
     }));
 
     const openingAnimationStyle = useAnimatedStyle(() => ({
-        height: height.value
+        height: animatedHeight.value
     }));
 
     const handleOpenClose = () => !disabled && changeIsOpen(accordionKey);
@@ -54,27 +69,6 @@ const Accordion = ({
             }
         }
     }, [immutable, hasMeasured, contentHeight]);
-
-    useEffect(() => {
-        if (!hasMounted.current) {
-            height.value = isOpen ? contentHeight : 0;
-            rotation.value = isOpen ? 180 : 0;
-            hasMounted.current = true;
-            return;
-        }
-
-        height.value = withTiming(isOpen ? contentHeight : 0, {
-            duration: animationDuration,
-            easing: Easing.inOut(Easing.ease),
-            reduceMotion: ReduceMotion.System,
-        });
-
-        rotation.value = withTiming(isOpen ? 180 : 0, {
-            duration: animationDuration,
-            easing: Easing.linear,
-            reduceMotion: ReduceMotion.System,
-        });
-    }, [isOpen, contentHeight]);
 
     return (
         <View

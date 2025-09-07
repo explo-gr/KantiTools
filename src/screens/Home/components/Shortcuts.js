@@ -1,6 +1,6 @@
 // Imports
-import { useEffect, useState } from 'react';
-import { Platform } from 'react-native';
+import { useEffect, useState, useCallback } from 'react';
+import { Platform, ToastAndroid } from 'react-native';
 
 import ActionBox from '../../../components/common/ActionBox';
 import ActionBoxContainer from '../../../components/common/ActionBoxContainer';
@@ -25,9 +25,15 @@ const Shortcuts = ({ navigation }) => {
 
     const ttblIcon = ttblAvailable ? 'calendar' : 'file-plus';
 
-    const handleMenuplan = async () => {
+    const showDownloadToast = () => {
+        ToastAndroid.show(t('hm_men_download'), ToastAndroid.SHORT);
+    };
+
+    const handleMenuplan = useCallback(async () => {
         setMenDisabled(true);
-        const opened = await openMenuplanPDF();
+        const opened = await openMenuplanPDF(
+            showDownloadToast //onDownload
+        );
         if (!opened) {
             showAlert({
                 title: t('hm_men_err'),
@@ -39,7 +45,7 @@ const Shortcuts = ({ navigation }) => {
             });
         }
         setMenDisabled(false);
-    };
+    }, []);
     
     // Timetable logic
     useEffect(() => {
@@ -67,7 +73,8 @@ const Shortcuts = ({ navigation }) => {
                 // error
                 showAlert({
                     title: t('hm_ttbl'),
-                    message: t('hm_ttbl_file_f')
+                    // Workaround  message: t('hm_ttbl_file_f')
+                    message: t('hm_ttbl_file_req')
                 });
                 return;
             }

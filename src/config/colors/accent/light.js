@@ -1,6 +1,6 @@
 export default {
     red: {
-        accent: '#4f2222',     // given
+        accent: '#511c1cff',     // given
         generic: '#f9f2f2'     // very light rose-tinted neutral
     },
     green: {

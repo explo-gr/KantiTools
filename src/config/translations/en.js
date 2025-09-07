@@ -29,6 +29,7 @@ export default {
     hm_men_err: "Failed to retrieve PDF",
     hm_men_err_msg: "Check your network connection!",
     hm_men: "Meal plan",
+    hm_men_download: "Downloading meal plan...",
     hm_ttbl: "Timetable",
     hm_ttbl_rst: "Reset Timetable?",
     hm_ttbl_rst_msg: "This will remove the saved timetable. You will be prompted to select a new one.",
