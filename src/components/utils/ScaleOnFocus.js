@@ -30,7 +30,7 @@ const ScaleOnFocus = ({
 
     const animatedStyle = useAnimatedStyle(() => {
         return {
-            transform: [{ scale: withDelay(50, withTiming(scale.value, animationConfig)) }],
+            transform: [{ scale: withTiming(scale.value, animationConfig) }],
         };
     });
 
