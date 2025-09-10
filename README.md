@@ -44,8 +44,8 @@ Hier können To-dos notiert werden. Die To-dos werden durch ihre Farbe sortiert.
 ### Einstellungen
 
 <p float="left">
-  <img src="https://github.com/explo-gr/explo-gr.github.io/blob/main/images/Screenshot%209.jpg?raw=true" height="300">
-  <img src="https://github.com/explo-gr/explo-gr.github.io/blob/main/images/Screenshot%2010.jpg?raw=true" height="300">
+  <img src="https://github.com/explo-gr/explo-gr.github.io/blob/main/images/Screenshot%201.jpg?raw=true" height="300">
+  <img src="https://github.com/explo-gr/explo-gr.github.io/blob/main/images/Screenshot%203.jpg?raw=true" height="300">
 </p>
 In den Einstellungen kann man sich mit seinem Schulnetz-Konto anmelden und die Sprache ändern etc.
 
