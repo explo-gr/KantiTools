@@ -1,1 +1,2 @@
 * text=auto eol=lf
+update-licenses.sh linguist-documentation=false linguist-generated=true
